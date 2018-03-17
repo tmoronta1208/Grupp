@@ -13,6 +13,7 @@ import com.example.c4q.capstone.R;
  * A simple {@link Fragment} subclass.
  */
 public class PreferencesFragment extends Fragment {
+    private View view;
 
 
     public PreferencesFragment() {
@@ -23,8 +24,9 @@ public class PreferencesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_preferences, container, false);
+
+        view = inflater.inflate(R.layout.fragment_preferences, container, false);
+        return view;
     }
 
 }
