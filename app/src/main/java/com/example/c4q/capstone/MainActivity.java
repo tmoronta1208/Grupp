@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.c4q.capstone.userinterface.events.EventActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -57,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
 
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
+                Intent eventIntent = new Intent(MainActivity.this, EventActivity.class);
+                startActivity(eventIntent);
+
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 // ...
             } else {
