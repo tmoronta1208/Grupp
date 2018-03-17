@@ -3,4 +3,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="settings">Settings</string>
+    <string name="my_groups">My Groups</string>
+    <string name="upcoming_event">Upcoming Events</string>
+    <string name="notification_menu_item">Notifications</string>
 </resources>

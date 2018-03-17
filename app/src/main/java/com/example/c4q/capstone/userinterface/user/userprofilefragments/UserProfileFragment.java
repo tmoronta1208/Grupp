@@ -1,4 +1,4 @@
-package com.example.c4q.capstone.userinterface.user.loginfragments;
+package com.example.c4q.capstone.userinterface.user.userprofilefragments;
 
 
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import com.example.c4q.capstone.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CreateAccountFragment extends Fragment {
+public class UserProfileFragment extends Fragment {
 
 
-    public CreateAccountFragment() {
+    public UserProfileFragment() {
         // Required empty public constructor
     }
 
@@ -24,7 +24,7 @@ public class CreateAccountFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create_account, container, false);
+        return inflater.inflate(R.layout.fragment_user_profile, container, false);
     }
 
 }
