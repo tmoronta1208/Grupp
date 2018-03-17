@@ -1,13 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Base application theme. -->
     <style name="GruppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/teal</item>
         <item name="colorPrimaryDark">@color/dark_teal</item>
         <item name="colorAccent">@color/salmon</item>
         <item name="android:colorBackground">@color/dark_gray</item>
+        <item name="android:navigationBarColor">@color/teal</item>
         <item name="android:colorForeground">@color/mustard</item>
     </style>
-
 </resources>

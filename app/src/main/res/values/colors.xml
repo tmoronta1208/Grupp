@@ -3,4 +3,14 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="teal">#2ac0b0</color>
+    <color name="dark_teal">#158e96</color>
+    <color name="dark_gray">#595858</color>
+    <color name="salmon">#f87160</color>
+    <color name="light_salmon">#fabc8d</color>
+    <color name="cream">#eedfa2</color>
+    <color name="light_cream">#fff9e1</color>
+    <color name="mustard">#e8af28</color>
+    <color name="light_green">#b1deb4</color>
+
 </resources>
