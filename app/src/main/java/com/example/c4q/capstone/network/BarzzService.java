@@ -1,9 +1,6 @@
 package com.example.c4q.capstone.network;
 
-import com.example.c4q.capstone.model.BarzzModel;
-import com.example.c4q.capstone.model.Results;
-
-import java.util.List;
+import com.example.c4q.capstone.network.model.BarzzModel;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -16,7 +13,7 @@ import retrofit2.http.Query;
 
 public interface BarzzService {
 
-    @GET("search?zip={zip}&user_key=" + NetworkInfo.barzzKey)
+    @GET("search?&user_key=" + NetworkInfo.barzzKey)
     Call<BarzzModel> getBarzz(@Query("zip") String zipCode);
 
 }

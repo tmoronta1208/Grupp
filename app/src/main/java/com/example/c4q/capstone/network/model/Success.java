@@ -1,4 +1,4 @@
-package com.example.c4q.capstone.model;
+package com.example.c4q.capstone.network.model;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.c4q.capstone.model;
+package com.example.c4q.capstone.network.model;
 
 /**
  * Created by c4q on 3/17/18.
