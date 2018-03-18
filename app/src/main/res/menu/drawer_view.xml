@@ -3,19 +3,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/notifications_menu_item"
-            android:icon="@android:drawable/stat_notify_more"
+            android:icon="@drawable/ic_notifications_black_24dp"
             android:title="@string/notification_menu_item" />
         <item
             android:id="@+id/upcoming_events_menu_item"
-            android:icon="@android:drawable/ic_menu_myplaces"
+            android:icon="@drawable/ic_event_available_black_24dp"
             android:title="@string/upcoming_event" />
         <item
             android:id="@+id/my_groups_menu_item"
-            android:icon="@android:drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_group_black_24dp"
             android:title="@string/my_groups" />
         <item
             android:id="@+id/settings_menu_item"
-            android:icon="@android:drawable/ic_menu_manage"
+            android:icon="@drawable/ic_settings_dp"
             android:title="@string/settings" />
     </group>
 </menu>
