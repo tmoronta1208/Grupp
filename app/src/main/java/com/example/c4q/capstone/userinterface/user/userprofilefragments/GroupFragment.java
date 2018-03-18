@@ -13,7 +13,7 @@ import com.example.c4q.capstone.R;
  * A simple {@link Fragment} subclass.
  */
 public class GroupFragment extends Fragment {
-
+    private View view;
 
     public GroupFragment() {
         // Required empty public constructor
@@ -24,7 +24,8 @@ public class GroupFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_group, container, false);
+        view = inflater.inflate(R.layout.fragment_preferences, container, false);
+        return view;
     }
 
 }
