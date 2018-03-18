@@ -23,6 +23,7 @@ public class EventActivity extends AppCompatActivity {
         setToolbar();
     }
 
+     /*method to load and display navigation drawer - AJ*/
     public void setNavDrawerLayout(){
         navDrawerLayout = findViewById(R.id.drawer_layout);
 
@@ -67,6 +68,7 @@ public class EventActivity extends AppCompatActivity {
         );
     }
 
+     /*method to load toolbar as action bar and display nav drawer icon - AJ*/
     public void setToolbar(){
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -76,6 +78,7 @@ public class EventActivity extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
     }
 
+     /*method that closes navigation drawer whenever item is selected - AJ*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

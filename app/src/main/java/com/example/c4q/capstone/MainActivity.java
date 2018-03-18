@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.c4q.capstone.network.NetworkCall;
+import com.example.c4q.capstone.userinterface.events.EventActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,12 +33,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        NetworkCall.start("10001");
-        setNavDrawerLayout();
-        setToolbar();
-
 
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
@@ -60,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
                         // ...
                     }
                 });
+
+        NetworkCall.start("10001");
+        setNavDrawerLayout();
+        setToolbar();
     }
             /* takes user's credentials and controls what to do with it.
              i.e database stuff (MG)*/
@@ -72,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
 
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
+                Intent eventIntent = new Intent(MainActivity.this, EventActivity.class);
+                startActivity(eventIntent);
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 // ...
             } else {
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /*method to load and display navigation drawer - AJ*/
     public void setNavDrawerLayout(){
         navDrawerLayout = findViewById(R.id.drawer_layout);
 
@@ -124,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
     }
-
+    /*method to load toolbar as action bar and display nav drawer icon - AJ*/
     public void setToolbar(){
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -133,6 +135,8 @@ public class MainActivity extends AppCompatActivity {
         actionbar.setTitle("LoginScreen");
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
     }
+
+    /*method that closes navigation drawer whenever item is selected - AJ*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
