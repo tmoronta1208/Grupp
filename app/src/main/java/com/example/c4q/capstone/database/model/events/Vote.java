@@ -13,15 +13,31 @@ public class Vote {
         return yes;
     }
 
+    public void setYes(List<String> yes) {
+        this.yes = yes;
+    }
+
     public List<String> getNo() {
         return no;
+    }
+
+    public void setNo(List<String> no) {
+        this.no = no;
     }
 
     public List<String> getMaybe() {
         return maybe;
     }
 
+    public void setMaybe(List<String> maybe) {
+        this.maybe = maybe;
+    }
+
     public boolean isComplete() {
         return complete;
+    }
+
+    public void setComplete(boolean complete) {
+        this.complete = complete;
     }
 }
