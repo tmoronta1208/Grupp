@@ -13,8 +13,8 @@ import retrofit2.http.Query;
 
 public interface FourSquareService {
 
-    @GET("v2/venues/search?&client_id="+ FourSquareNetworkCall.CLIENT_ID +"&client_secret=" +FourSquareNetworkCall.CLIENT_SECRET+"&" +
-            "v=20180318")
-    Call<FourSquareModel> getVenues(@Query("near") String cityAndState,
-                                    @Query("sushi") String foodType);
+    @GET("venues/explore?&client_id="+ FourSquareNetworkCall.CLIENT_ID +"&client_secret="
+            +FourSquareNetworkCall.CLIENT_SECRET+
+            "&v=20180318")
+    Call<FourSquareModel> getVenues(@Query("near") String cityAndState);
 }

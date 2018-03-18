@@ -19,10 +19,10 @@ public class FourSquareNetworkCall {
 
     public static final String CLIENT_ID = "1VAPAUMKNRRWESSSF5QGTCE4OTJ43TMOYM1S0X1LHBFFGWGB";
     public static final String CLIENT_SECRET = "YL54NLBRUR41WMSNQGX1P33PICLW0V1VQUGKKJOH5NNLDKHM";
-    private static final String URL = " https://api.foursquare.com/";
+    private static final String URL = " https://api.foursquare.com/v2/";
 
 
-    public static void start() {
+    public static void start(String cityAndState) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -31,14 +31,14 @@ public class FourSquareNetworkCall {
 
         FourSquareService fourSquareService = retrofit.create(FourSquareService.class);
 
-        Call<FourSquareModel> call1 = fourSquareService.getVenues("chicago,il", "sushi");
+        Call<FourSquareModel> call1 = fourSquareService.getVenues(cityAndState);
 
         call1.enqueue(new Callback<FourSquareModel>() {
             @Override
             public void onResponse(Call<FourSquareModel> call, Response<FourSquareModel> response) {
 
-                Log.d("SUCESSSSSSSSSSSSSSSSSS", response.body().getResponse().getVenues().get(0).getName());
-                Log.d("First Item: ", response.body().getResponse().getVenues().get(0).getName() );
+                Log.d("SUCESSSSSSSSSSSSSSSSSS", response.body().toString());
+          //      Log.d("First Item: ", response.body().getResponse().getVenues().get(1).getName() );
 
 
             }

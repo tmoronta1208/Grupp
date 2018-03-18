@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //FourSquareNetworkCall.start("nyc");
         NetworkCall.start("10001");
-        FourSquareNetworkCall.start();
 
 
         List<AuthUI.IdpConfig> providers = Arrays.asList(

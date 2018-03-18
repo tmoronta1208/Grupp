@@ -10,19 +10,4 @@ import java.util.List;
 public class FourSquareModel {
 
 
-    private Response response;
-    private List<Notifications> notifications;
-    private Meta meta;
-
-    public Response getResponse() {
-        return response;
-    }
-
-    public List<Notifications> getNotifications() {
-        return notifications;
-    }
-
-    public Meta getMeta() {
-        return meta;
-    }
 }
