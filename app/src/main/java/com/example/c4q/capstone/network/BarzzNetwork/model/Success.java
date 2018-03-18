@@ -1,4 +1,4 @@
-package com.example.c4q.capstone.network.model;
+package com.example.c4q.capstone.network.BarzzNetwork.model;
 
 import java.util.List;
 
@@ -15,7 +15,4 @@ private List<Results> results;
         return results;
     }
 
-    public void setResults(List<Results> results) {
-        this.results = results;
-    }
 }
