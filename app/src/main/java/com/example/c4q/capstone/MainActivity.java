@@ -62,16 +62,6 @@ public class MainActivity extends AppCompatActivity {
                       //  .setTheme(R.style.MySuperAppTheme) <-- Set theme
                         .build(),
                 RC_SIGN_IN);
-        /*Deletes Firebase Authentication as well as all social identity providers (MG)*/
-        AuthUI.getInstance()
-                .signOut(this)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    public void onComplete(@NonNull Task<Void> task) {
-                        // ...
-                    }
-                });
-
-        NetworkCall.start("10001");
         setNavDrawerLayout();
         setToolbar();
     }

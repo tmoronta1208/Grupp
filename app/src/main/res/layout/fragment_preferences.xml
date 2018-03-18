@@ -5,9 +5,20 @@
     tools:context="com.example.c4q.capstone.userinterface.user.userprofilefragments.PreferencesFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/events_rec"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/groups_rec"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"/>
+    </LinearLayout>
+
 
 </FrameLayout>

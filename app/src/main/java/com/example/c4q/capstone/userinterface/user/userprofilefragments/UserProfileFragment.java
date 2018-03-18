@@ -14,6 +14,7 @@ import com.example.c4q.capstone.R;
  */
 public class UserProfileFragment extends Fragment {
 
+    // need 2 recycler views
 
     public UserProfileFragment() {
         // Required empty public constructor
