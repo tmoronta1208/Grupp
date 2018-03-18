@@ -25,9 +25,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         setNavDrawerLayout();
         setToolbar();
-        Transition explode = new Explode();
-        getWindow().setEnterTransition(explode);
-        getWindow().setExitTransition(explode);
+
     }
 
     /*method to load and display navigation drawer - AJ*/

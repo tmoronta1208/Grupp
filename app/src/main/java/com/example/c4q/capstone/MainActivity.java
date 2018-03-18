@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         TransitionManager tm = getContentTransitionManager();
         setContentTransitionManager(tm);
        // tm.setTransition(MainActivity.this, SettingsActivity.class, explode);
-
         getWindow().setEnterTransition(explode);
         getWindow().setExitTransition(explode);
 
@@ -187,5 +186,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

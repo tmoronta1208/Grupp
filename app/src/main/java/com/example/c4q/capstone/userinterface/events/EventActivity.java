@@ -27,9 +27,6 @@ public class EventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event);
         setNavDrawerLayout();
         setToolbar();
-        Transition explode = new Explode();
-        getWindow().setEnterTransition(explode);
-        getWindow().setExitTransition(explode);
     }
 
      /*method to load and display navigation drawer - AJ*/
