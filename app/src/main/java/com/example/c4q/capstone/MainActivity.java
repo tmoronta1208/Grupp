@@ -14,6 +14,8 @@ import android.view.View;
 
 import com.example.c4q.capstone.network.NetworkCall;
 import com.example.c4q.capstone.userinterface.events.EventActivity;
+import com.example.c4q.capstone.userinterface.user.SettingsActivity;
+import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -94,7 +96,30 @@ public class MainActivity extends AppCompatActivity {
                         // set item as selected to persist highlight
                         menuItem.setChecked(true);
                         // close drawer when item is tapped
+                        switch(menuItem.getItemId()){
+                            case R.id.notifications_menu_item:
+                                Intent notifications = new Intent (MainActivity.this, UserProfileActivity.class);
+                                startActivity(notifications);
+                                //TODO start userProfile with notifications fragment loaded.
+                                break;
+                            case R.id.upcoming_events_menu_item:
+                                Intent upcomingEvents = new Intent (MainActivity.this, UserProfileActivity.class);
+                                startActivity(upcomingEvents);
+                                //TODO start userProfile with upcomining events fragment loaded.
+                                break;
+                            case R.id.my_groups_menu_item:
+                                Intent userProfile = new Intent (MainActivity.this, UserProfileActivity.class);
+                                startActivity(userProfile);
+                                //TODO start userProfile with groups fragment loaded.
+                                break;
+                            case R.id.settings_menu_item:
+                                Intent settings= new Intent (MainActivity.this, SettingsActivity.class);
+                                startActivity(settings);
+                                //TODO start settings activity.
+                                break;
+                        }
                         navDrawerLayout.closeDrawers();
+
 
                         // Add code here to update the UI based on the item selected
                         // For example, swap UI fragments here
@@ -132,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
+        //TODO set title for testing only, change when done.
         actionbar.setTitle("LoginScreen");
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
     }
