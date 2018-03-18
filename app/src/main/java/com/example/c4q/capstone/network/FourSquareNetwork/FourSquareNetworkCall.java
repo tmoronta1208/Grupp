@@ -1,5 +1,7 @@
 package com.example.c4q.capstone.network.FourSquareNetwork;
 
+import android.util.Log;
+
 import com.example.c4q.capstone.network.FourSquareNetwork.model.FourSquareModel;
 
 import retrofit2.Call;
@@ -29,11 +31,13 @@ public class FourSquareNetworkCall {
 
         FourSquareService fourSquareService = retrofit.create(FourSquareService.class);
 
-        Call<FourSquareModel> call1 = fourSquareService.getVenues();
+        Call<FourSquareModel> call1 = fourSquareService.getVenues("Chicago, IL");
 
         call1.enqueue(new Callback<FourSquareModel>() {
             @Override
             public void onResponse(Call<FourSquareModel> call, Response<FourSquareModel> response) {
+
+                Log.d("SUCESSSS", response.body().toString());
 
       }
 

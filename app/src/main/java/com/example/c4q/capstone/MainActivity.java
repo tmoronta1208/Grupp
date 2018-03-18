@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.c4q.capstone.network.BarzzNetwork.NetworkCall;
+import com.example.c4q.capstone.network.FourSquareNetwork.FourSquareNetworkCall;
 import com.example.c4q.capstone.userinterface.events.EventActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         NetworkCall.start("10001");
+        FourSquareNetworkCall.start();
 
 
         List<AuthUI.IdpConfig> providers = Arrays.asList(
