@@ -72,6 +72,7 @@ public class EventActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setTitle("Events");
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
     }
 
