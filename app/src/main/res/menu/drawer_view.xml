@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/notifications_menu_item"
+            android:icon="@android:drawable/stat_notify_more"
+            android:title="@string/notification_menu_item" />
+        <item
+            android:id="@+id/upcoming_events_menu_item"
+            android:icon="@android:drawable/ic_menu_myplaces"
+            android:title="@string/upcoming_event" />
+        <item
+            android:id="@+id/my_groups_menu_item"
+            android:icon="@android:drawable/ic_menu_slideshow"
+            android:title="@string/my_groups" />
+        <item
+            android:id="@+id/settings_menu_item"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="@string/settings" />
+    </group>
+</menu>
