@@ -22,7 +22,7 @@ public class NetworkCall {
 
 
 
-    public static void start(String zipCode) {
+    public static void start(String zipCode, String type) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BARZZ_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -31,7 +31,7 @@ public class NetworkCall {
 
         BarzzService barzzService = retrofit.create(BarzzService.class);
 
-        Call<BarzzModel> call = barzzService.getBarzz(zipCode);
+        Call<BarzzModel> call = barzzService.getBarzz(zipCode, type );
 
         call.enqueue(new Callback<BarzzModel>() {
             @Override

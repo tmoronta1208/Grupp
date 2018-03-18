@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 
+import com.example.c4q.capstone.network.BarzzNetwork.NetworkCall;
 import com.example.c4q.capstone.userinterface.events.EventActivity;
 import com.example.c4q.capstone.userinterface.user.SettingsActivity;
 import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
@@ -40,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        NetworkCall.start("10001", "wine");
+
         Transition explode = new Explode();
         TransitionManager tm = getContentTransitionManager();
         setContentTransitionManager(tm);
