@@ -11,13 +11,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/events_rec"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"/>
-        <android.support.v7.widget.RecyclerView
             android:id="@+id/groups_rec"
             android:layout_width="match_parent"
-            android:layout_height="250dp"/>
+            android:layout_height="0dp"
+            android:layout_weight=".20"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/events_rec"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".80"/>
+
     </LinearLayout>
 
 

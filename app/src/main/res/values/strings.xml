@@ -7,4 +7,5 @@
     <string name="my_groups">My Groups</string>
     <string name="upcoming_event">Upcoming Events</string>
     <string name="notification_menu_item">Notifications</string>
+    <string name="signout">Sign Out</string>
 </resources>
