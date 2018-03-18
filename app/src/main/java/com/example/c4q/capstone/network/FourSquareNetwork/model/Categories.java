@@ -1,7 +1,5 @@
 package com.example.c4q.capstone.network.FourSquareNetwork.model;
 
-import com.google.gson.annotations.SerializedName;
-
 public class Categories {
     private boolean primary;
     private Icon icon;

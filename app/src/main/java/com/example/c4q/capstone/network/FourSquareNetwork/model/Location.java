@@ -1,7 +1,5 @@
 package com.example.c4q.capstone.network.FourSquareNetwork.model;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 public class Location {
@@ -11,6 +9,8 @@ public class Location {
     private String city;
     private String cc;
     private String postalCode;
+    private int distance;
+    private List<LabeledLatLngs> labeledLatLngs;
     private double lng;
     private double lat;
     private String crossStreet;
@@ -38,6 +38,14 @@ public class Location {
 
     public String getPostalCode() {
         return postalCode;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public List<LabeledLatLngs> getLabeledLatLngs() {
+        return labeledLatLngs;
     }
 
     public double getLng() {

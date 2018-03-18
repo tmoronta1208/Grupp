@@ -39,13 +39,7 @@ public class NetworkCall {
 
                 Log.d("SUCCESSSS!!!!!!!", response.body().toString());
                 Log.d("First Item: ", response.body().getSuccess().getResults().get(0).getName() );
-                Log.d("Second Item: ", response.body().getSuccess().getResults().get(1).getName() );
-                Log.d("Third Item: ", response.body().getSuccess().getResults().get(2).getName() );
-                Log.d("Fourth Item: ", response.body().getSuccess().getResults().get(3).getName() );
-                Log.d("Fifth Item: ", response.body().getSuccess().getResults().get(4).getName() );
-                Log.d("Sixth Item: ", response.body().getSuccess().getResults().get(5).getName() );
-                Log.d("Seventh Item: ", response.body().getSuccess().getResults().get(6).getName() );
-                Log.d("Eight Item: ", response.body().getSuccess().getResults().get(7).getName() );
+
             }
 
             @Override

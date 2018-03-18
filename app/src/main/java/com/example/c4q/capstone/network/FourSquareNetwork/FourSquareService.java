@@ -4,6 +4,7 @@ import com.example.c4q.capstone.network.FourSquareNetwork.model.FourSquareModel;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -12,6 +13,8 @@ import retrofit2.http.Query;
 
 public interface FourSquareService {
 
-    @GET("v2/venues/search")
-    Call<FourSquareModel> getVenues(@Query("near") String search );
+    @GET("v2/venues/search?&client_id="+ FourSquareNetworkCall.CLIENT_ID +"&client_secret=" +FourSquareNetworkCall.CLIENT_SECRET+"&" +
+            "v=20180318")
+    Call<FourSquareModel> getVenues(@Query("near") String cityAndState,
+                                    @Query("sushi") String foodType);
 }

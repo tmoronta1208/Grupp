@@ -31,15 +31,17 @@ public class FourSquareNetworkCall {
 
         FourSquareService fourSquareService = retrofit.create(FourSquareService.class);
 
-        Call<FourSquareModel> call1 = fourSquareService.getVenues("Chicago, IL");
+        Call<FourSquareModel> call1 = fourSquareService.getVenues("chicago,il", "sushi");
 
         call1.enqueue(new Callback<FourSquareModel>() {
             @Override
             public void onResponse(Call<FourSquareModel> call, Response<FourSquareModel> response) {
 
-                Log.d("SUCESSSS", response.body().toString());
+                Log.d("SUCESSSSSSSSSSSSSSSSSS", response.body().getResponse().getVenues().get(0).getName());
+                Log.d("First Item: ", response.body().getResponse().getVenues().get(0).getName() );
 
-      }
+
+            }
 
             @Override
             public void onFailure(Call<FourSquareModel> call, Throwable t) {

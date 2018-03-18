@@ -1,13 +1,13 @@
 package com.example.c4q.capstone.network.FourSquareNetwork.model;
 
-import com.google.gson.annotations.SerializedName;
+import java.util.List;
 
-public class Likes {
-    private String summary;
+public class Specials {
+    private List<String> items;
     private int count;
 
-    public String getSummary() {
-        return summary;
+    public List<String> getItems() {
+        return items;
     }
 
     public int getCount() {
