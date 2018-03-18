@@ -2,6 +2,9 @@ package com.example.c4q.capstone.userinterface.user;
 
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -10,20 +13,55 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.c4q.capstone.MainActivity;
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.database.model.events.Events;
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.EventsFragment;
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.GroupFragment;
+
+import java.io.FileDescriptor;
+import java.io.PrintWriter;
+import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserProfileActivity extends AppCompatActivity {
 
     private DrawerLayout navDrawerLayout;
+    private TextView userName;
+    private CircleImageView userImage;
+    private Button editButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
         setNavDrawerLayout();
-        setToolbar();
+//        setToolbar();
+        setViews();
+
+        GroupFragment groupFragment = new GroupFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.group_frag_cont, groupFragment,"GROUP FRAG");
+
+
+
+        EventsFragment eventsFragment = new EventsFragment();
+        FragmentManager eFragmentManager = getSupportFragmentManager();
+        FragmentTransaction eFragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.events_frag_container, eventsFragment,"Events FRAG");
+        fragmentTransaction.commit();
+
+        }
+
+    public void setViews(){
+        userImage = findViewById(R.id.circle_imageview);
+        userName = findViewById(R.id.user_name);
+        editButton = findViewById(R.id.edit_button);
     }
     /*method to load and display navigation drawer - AJ*/
     public void setNavDrawerLayout(){

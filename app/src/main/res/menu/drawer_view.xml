@@ -17,5 +17,9 @@
             android:id="@+id/settings_menu_item"
             android:icon="@drawable/ic_settings_dp"
             android:title="@string/settings" />
+        <item
+            android:id="@+id/signout_menu_item"
+            android:icon="@drawable/ic_settings_dp"
+            android:title="@string/signout" />
     </group>
 </menu>
