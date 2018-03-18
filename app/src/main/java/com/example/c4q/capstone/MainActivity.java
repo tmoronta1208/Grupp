@@ -1,5 +1,6 @@
 package com.example.c4q.capstone;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -9,12 +10,18 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.transition.Explode;
+import android.transition.Transition;
+import android.transition.TransitionManager;
+import android.transition.TransitionValues;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 
-import com.example.c4q.capstone.network.BarzzNetwork.NetworkCall;
-import com.example.c4q.capstone.network.FourSquareNetwork.FourSquareNetworkCall;
+import com.example.c4q.capstone.network.NetworkCall;
 import com.example.c4q.capstone.userinterface.events.EventActivity;
+import com.example.c4q.capstone.userinterface.user.SettingsActivity;
+import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,8 +41,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //FourSquareNetworkCall.start("nyc");
-        NetworkCall.start("10001");
+        Transition explode = new Explode();
+        TransitionManager tm = getContentTransitionManager();
+        setContentTransitionManager(tm);
+       // tm.setTransition(MainActivity.this, SettingsActivity.class, explode);
+        getWindow().setEnterTransition(explode);
+        getWindow().setExitTransition(explode);
 
 
         List<AuthUI.IdpConfig> providers = Arrays.asList(
@@ -51,15 +62,6 @@ public class MainActivity extends AppCompatActivity {
                       //  .setTheme(R.style.MySuperAppTheme) <-- Set theme
                         .build(),
                 RC_SIGN_IN);
-        /*Deletes Firebase Authentication as well as all social identity providers (MG)*/
-        AuthUI.getInstance()
-                .signOut(this)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    public void onComplete(@NonNull Task<Void> task) {
-                        // ...
-                    }
-                });
-
         setNavDrawerLayout();
         setToolbar();
     }
@@ -97,7 +99,30 @@ public class MainActivity extends AppCompatActivity {
                         // set item as selected to persist highlight
                         menuItem.setChecked(true);
                         // close drawer when item is tapped
+                        switch(menuItem.getItemId()){
+                            case R.id.notifications_menu_item:
+                                Intent notifications = new Intent (MainActivity.this, UserProfileActivity.class);
+                                startActivity(notifications);
+                                //TODO start userProfile with notifications fragment loaded.
+                                break;
+                            case R.id.upcoming_events_menu_item:
+                                Intent upcomingEvents = new Intent (MainActivity.this, UserProfileActivity.class);
+                                startActivity(upcomingEvents);
+                                //TODO start userProfile with upcomining events fragment loaded.
+                                break;
+                            case R.id.my_groups_menu_item:
+                                Intent userProfile = new Intent (MainActivity.this, UserProfileActivity.class);
+                                startActivity(userProfile);
+                                //TODO start userProfile with groups fragment loaded.
+                                break;
+                            case R.id.settings_menu_item:
+                                Intent settings= new Intent (MainActivity.this, SettingsActivity.class);
+                                startActivity(settings);
+                                //TODO start settings activity.
+                                break;
+                        }
                         navDrawerLayout.closeDrawers();
+
 
                         // Add code here to update the UI based on the item selected
                         // For example, swap UI fragments here
@@ -135,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
+        //TODO set title for testing only, change when done.
         actionbar.setTitle("LoginScreen");
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
     }
@@ -150,5 +176,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }
