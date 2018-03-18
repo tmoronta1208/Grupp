@@ -8,6 +8,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.transition.Explode;
+import android.transition.Transition;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -25,6 +27,9 @@ public class EventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event);
         setNavDrawerLayout();
         setToolbar();
+        Transition explode = new Explode();
+        getWindow().setEnterTransition(explode);
+        getWindow().setExitTransition(explode);
     }
 
      /*method to load and display navigation drawer - AJ*/
