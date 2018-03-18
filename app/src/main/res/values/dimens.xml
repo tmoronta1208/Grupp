@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="nav_avatar_dime">100dp</dimen>
+    <dimen name="layout_item_margin">8dp</dimen>
+    <dimen name="layout_padding">16dp</dimen>
+</resources>

@@ -3,15 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="192dp"
     android:background="?attr/colorPrimaryDark"
-    android:padding="16dp"
+    android:padding="@dimen/layout_padding"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:orientation="vertical"
     android:gravity="bottom">
 
     <TextView
+        android:layout_width="@dimen/nav_avatar_dime"
+        android:layout_height="@dimen/nav_avatar_dime"
+        android:text="FL"
+        android:textSize="32sp"
+        android:gravity="center"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+        android:background="@drawable/avatar_circle"
+        android:layout_marginBottom="@dimen/layout_item_margin"/>
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="My header title"
+        android:text="Firstname Lastname"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
 </LinearLayout>
