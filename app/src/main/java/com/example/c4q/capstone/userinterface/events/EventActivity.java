@@ -1,5 +1,6 @@
 package com.example.c4q.capstone.userinterface.events;
 
+import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -10,7 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.c4q.capstone.MainActivity;
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.userinterface.user.SettingsActivity;
+import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
 
 public class EventActivity extends AppCompatActivity {
     private DrawerLayout navDrawerLayout;
@@ -34,6 +38,28 @@ public class EventActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         // set item as selected to persist highlight
                         menuItem.setChecked(true);
+                        switch(menuItem.getItemId()){
+                            case R.id.notifications_menu_item:
+                                Intent notifications = new Intent (EventActivity.this, UserProfileActivity.class);
+                                startActivity(notifications);
+                                //TODO start userProfile with notifications fragment loaded.
+                                break;
+                            case R.id.upcoming_events_menu_item:
+                                Intent upcomingEvents = new Intent (EventActivity.this,UserProfileActivity.class);
+                                startActivity(upcomingEvents);
+                                //TODO start userProfile with upcomining events fragment loaded.
+                                break;
+                            case R.id.my_groups_menu_item:
+                                Intent userProfile = new Intent (EventActivity.this, UserProfileActivity.class);
+                                startActivity(userProfile);
+                                //TODO start userProfile with groups fragment loaded.
+                                break;
+                            case R.id.settings_menu_item:
+                                Intent settings= new Intent (EventActivity.this, SettingsActivity.class);
+                                startActivity(settings);
+                                //TODO start settings activity.
+                                break;
+                        }
                         // close drawer when item is tapped
                         navDrawerLayout.closeDrawers();
 
