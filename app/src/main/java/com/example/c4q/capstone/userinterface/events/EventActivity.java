@@ -40,7 +40,7 @@ public class EventActivity extends AppCompatActivity {
     public void setEventFragment(){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.event_fragment_container, eventFragment);
+        fragmentTransaction.replace(R.id.event_fragment_container, createEventFragment);
         fragmentTransaction.commit();
     }
 
