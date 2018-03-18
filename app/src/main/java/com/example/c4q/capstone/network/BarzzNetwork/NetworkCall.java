@@ -16,13 +16,30 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetworkCall {
 
+    private static String type;
+    private static String amenities;
+    private static String zipCode;
+
 
     public static final  String BARZZ_KEY = "96b42918912ec3f1d85660e18356617c";
     public static final String BARZZ_URL = "https://api.barzz.net/api/";
 
+    public NetworkCall(String zipCode) {
+        this.zipCode =zipCode;
+    }
 
+    public NetworkCall(String zipCode, String type) {
+        this.zipCode = zipCode;
+        this.type = type;
+    }
 
-    public static void start(String zipCode, String type) {
+    public NetworkCall(String type, String amenities, String zipCode) {
+        this.type = type;
+        this.amenities = amenities;
+        this.zipCode = zipCode;
+    }
+
+    public static void start() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BARZZ_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -31,7 +48,7 @@ public class NetworkCall {
 
         BarzzService barzzService = retrofit.create(BarzzService.class);
 
-        Call<BarzzModel> call = barzzService.getBarzz(zipCode, type );
+        Call<BarzzModel> call = barzzService.getBarzz(zipCode, type);
 
         call.enqueue(new Callback<BarzzModel>() {
             @Override

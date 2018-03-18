@@ -42,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        NetworkCall.start("10001", "wine");
+
+        NetworkCall networkCall = new NetworkCall("10001", "wine");
+        NetworkCall.start();
 
         Transition explode = new Explode();
         TransitionManager tm = getContentTransitionManager();
