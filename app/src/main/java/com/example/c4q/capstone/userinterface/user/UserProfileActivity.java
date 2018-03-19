@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.example.c4q.capstone.MainActivity;
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.model.events.Events;
+import com.example.c4q.capstone.userinterface.events.VenueVoteSwipeActivity;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.EventsFragment;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.GroupFragment;
 
@@ -91,6 +92,11 @@ public class UserProfileActivity extends AppCompatActivity {
                             case R.id.settings_menu_item:
                                 Intent settings= new Intent (UserProfileActivity.this, SettingsActivity.class);
                                 startActivity(settings);
+                                //TODO start settings activity.
+                                break;
+                            case R.id.venue_swipe_test:
+                                Intent venueSwipeIntent = new Intent (UserProfileActivity.this, VenueVoteSwipeActivity.class);
+                                startActivity(venueSwipeIntent);
                                 //TODO start settings activity.
                                 break;
                         }
