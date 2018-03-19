@@ -1,8 +1,8 @@
-package com.example.c4q.capstone.network;
+package com.example.c4q.capstone.network.BarzzNetwork;
 
 import android.util.Log;
 
-import com.example.c4q.capstone.network.model.BarzzModel;
+import com.example.c4q.capstone.network.BarzzNetwork.model.BarzzModel;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,17 +16,39 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetworkCall {
 
+    private static String type;
+    private static String amenities;
+    private static String zipCode;
 
-    public static void start(String zipCode) {
+
+    public static final  String BARZZ_KEY = "96b42918912ec3f1d85660e18356617c";
+    public static final String BARZZ_URL = "https://api.barzz.net/api/";
+
+    public NetworkCall(String zipCode) {
+        this.zipCode =zipCode;
+    }
+
+    public NetworkCall(String zipCode, String type) {
+        this.zipCode = zipCode;
+        this.type = type;
+    }
+
+    public NetworkCall(String type, String amenities, String zipCode) {
+        this.type = type;
+        this.amenities = amenities;
+        this.zipCode = zipCode;
+    }
+
+    public static void start() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(NetworkInfo.barzzURL)
+                .baseUrl(BARZZ_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
 
         BarzzService barzzService = retrofit.create(BarzzService.class);
 
-        Call<BarzzModel> call = barzzService.getBarzz(zipCode);
+        Call<BarzzModel> call = barzzService.getBarzz(zipCode, type);
 
         call.enqueue(new Callback<BarzzModel>() {
             @Override
@@ -34,13 +56,7 @@ public class NetworkCall {
 
                 Log.d("SUCCESSSS!!!!!!!", response.body().toString());
                 Log.d("First Item: ", response.body().getSuccess().getResults().get(0).getName() );
-                Log.d("Second Item: ", response.body().getSuccess().getResults().get(1).getName() );
-                Log.d("Third Item: ", response.body().getSuccess().getResults().get(2).getName() );
-                Log.d("Fourth Item: ", response.body().getSuccess().getResults().get(3).getName() );
-                Log.d("Fifth Item: ", response.body().getSuccess().getResults().get(4).getName() );
-                Log.d("Sixth Item: ", response.body().getSuccess().getResults().get(5).getName() );
-                Log.d("Seventh Item: ", response.body().getSuccess().getResults().get(6).getName() );
-                Log.d("Eight Item: ", response.body().getSuccess().getResults().get(7).getName() );
+
             }
 
             @Override
