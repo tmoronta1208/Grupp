@@ -2,6 +2,8 @@ package com.example.c4q.capstone.userinterface.events;
 
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -15,11 +17,15 @@ import android.view.View;
 
 import com.example.c4q.capstone.MainActivity;
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.userinterface.events.eventfragments.CreateEventFragment;
+import com.example.c4q.capstone.userinterface.events.eventfragments.EventFragment;
 import com.example.c4q.capstone.userinterface.user.SettingsActivity;
 import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
 
 public class EventActivity extends AppCompatActivity {
     private DrawerLayout navDrawerLayout;
+    EventFragment eventFragment = new EventFragment();
+    CreateEventFragment createEventFragment = new CreateEventFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +33,15 @@ public class EventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event);
         setNavDrawerLayout();
         setToolbar();
+        setEventFragment();
+    }
+
+    /*method to setup events fragment - AJ*/
+    public void setEventFragment(){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.event_fragment_container, createEventFragment);
+        fragmentTransaction.commit();
     }
 
      /*method to load and display navigation drawer - AJ*/
