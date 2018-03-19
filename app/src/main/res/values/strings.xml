@@ -8,4 +8,7 @@
     <string name="upcoming_event">Upcoming Events</string>
     <string name="notification_menu_item">Notifications</string>
     <string name="signout">Sign Out</string>
+    <string name="enter_name">Enter a name for your event</string>
+    <string name="enter_date">Enter a date</string>
+    <string name="enter_time">Enter a time</string>
 </resources>
