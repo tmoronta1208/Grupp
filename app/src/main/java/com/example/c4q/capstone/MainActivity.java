@@ -86,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
 
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
-                Intent eventIntent = new Intent(MainActivity.this, EventActivity.class);
-                startActivity(eventIntent);
+                Intent userProfileIntent = new Intent(MainActivity.this, UserProfileActivity.class);
+                startActivity(userProfileIntent);
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 // ...
             } else {
