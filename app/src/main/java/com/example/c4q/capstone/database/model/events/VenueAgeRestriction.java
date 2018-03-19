@@ -6,6 +6,15 @@ class VenueAgeRestriction {
     private boolean over_18;
     private boolean over_21;
 
+    public VenueAgeRestriction() {
+    }
+
+    public VenueAgeRestriction(boolean no_restriction, boolean over_18, boolean over_21) {
+        this.no_restriction = no_restriction;
+        this.over_18 = over_18;
+        this.over_21 = over_21;
+    }
+
     public boolean isNo_restriction() {
         return no_restriction;
     }

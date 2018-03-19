@@ -7,6 +7,16 @@ class PublicUserLocation {
     private int primary_zip;
     private boolean share_current_location;
 
+    public PublicUserLocation() {
+    }
+
+    public PublicUserLocation(double lat, double lng, int primary_zip, boolean share_current_location) {
+        this.lat = lat;
+        this.lng = lng;
+        this.primary_zip = primary_zip;
+        this.share_current_location = share_current_location;
+    }
+
     public double getLat() {
         return lat;
     }

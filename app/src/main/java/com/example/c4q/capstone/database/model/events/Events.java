@@ -15,9 +15,22 @@ public class Events {
     private List<String> invited_guests;
     private List<String> potential_venues;
     private List<String> top_three_venues;
-    private Venue venues;
 
     public Events(){}
+
+    public Events(boolean cancelled, String event_date, String event_name, String event_note, String event_organizer, String event_time, String final_venue, List<String> confirmed_guests, List<String> invited_guests, List<String> potential_venues, List<String> top_three_venues) {
+        this.cancelled = cancelled;
+        this.event_date = event_date;
+        this.event_name = event_name;
+        this.event_note = event_note;
+        this.event_organizer = event_organizer;
+        this.event_time = event_time;
+        this.final_venue = final_venue;
+        this.confirmed_guests = confirmed_guests;
+        this.invited_guests = invited_guests;
+        this.potential_venues = potential_venues;
+        this.top_three_venues = top_three_venues;
+    }
 
     public boolean isCancelled() {
         return cancelled;
@@ -105,13 +118,5 @@ public class Events {
 
     public void setTop_three_venues(List<String> top_three_venues) {
         this.top_three_venues = top_three_venues;
-    }
-
-    public Venue getVenues() {
-        return venues;
-    }
-
-    public void setVenues(Venue venues) {
-        this.venues = venues;
     }
 }

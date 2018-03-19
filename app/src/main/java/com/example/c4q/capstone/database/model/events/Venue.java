@@ -12,9 +12,22 @@ class Venue {
     private float rating_avg;
     private int  rating_count;
     private boolean reservations;
-    private VenueAddress venue_address;
-    private VenueAgeRestriction age_restrictions;
-    private VenueVote vote;
+
+    public Venue() {
+    }
+
+    public Venue(String venue_name, String venue_phone, String venue_type, String hours, String payment_options, String price_range, boolean cover_charge, float rating_avg, int rating_count, boolean reservations) {
+        this.venue_name = venue_name;
+        this.venue_phone = venue_phone;
+        this.venue_type = venue_type;
+        this.hours = hours;
+        this.payment_options = payment_options;
+        this.price_range = price_range;
+        this.cover_charge = cover_charge;
+        this.rating_avg = rating_avg;
+        this.rating_count = rating_count;
+        this.reservations = reservations;
+    }
 
     public String getVenue_name() {
         return venue_name;
@@ -96,27 +109,4 @@ class Venue {
         this.reservations = reservations;
     }
 
-    public VenueAddress getVenue_address() {
-        return venue_address;
-    }
-
-    public void setVenue_address(VenueAddress venue_address) {
-        this.venue_address = venue_address;
-    }
-
-    public VenueAgeRestriction getAge_restrictions() {
-        return age_restrictions;
-    }
-
-    public void setAge_restrictions(VenueAgeRestriction age_restrictions) {
-        this.age_restrictions = age_restrictions;
-    }
-
-    public VenueVote getVote() {
-        return vote;
-    }
-
-    public void setVote(VenueVote vote) {
-        this.vote = vote;
-    }
 }

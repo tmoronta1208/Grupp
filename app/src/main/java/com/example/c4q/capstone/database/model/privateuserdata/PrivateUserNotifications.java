@@ -8,6 +8,15 @@ class PrivateUserNotifications {
     private List<Boolean> group_invites;
     private List<String> vote;
 
+    public PrivateUserNotifications() {
+    }
+
+    public PrivateUserNotifications(List<Boolean> event_invites, List<Boolean> group_invites, List<String> vote) {
+        this.event_invites = event_invites;
+        this.group_invites = group_invites;
+        this.vote = vote;
+    }
+
     public List<Boolean> getEvent_invites() {
         return event_invites;
     }

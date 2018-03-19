@@ -10,6 +10,19 @@ class VenueAddress {
     private double lat;
     private double lng;
 
+    public VenueAddress() {
+    }
+
+    public VenueAddress(String address, String city, String cross_street, String state, int zip, double lat, double lng) {
+        this.address = address;
+        this.city = city;
+        this.cross_street = cross_street;
+        this.state = state;
+        this.zip = zip;
+        this.lat = lat;
+        this.lng = lng;
+    }
+
     public String getAddress() {
         return address;
     }

@@ -9,6 +9,10 @@ public class PublicUserFriends {
     public PublicUserFriends() {
     }
 
+    public PublicUserFriends(List<String> user_id) {
+        this.user_id = user_id;
+    }
+
     public List<String> getUser_id() {
         return user_id;
     }

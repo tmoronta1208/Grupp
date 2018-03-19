@@ -9,6 +9,16 @@ class VenueVote {
     private List<String> no;
     private List<String> maybe;
 
+    public VenueVote() {
+    }
+
+    public VenueVote(boolean vote_complete, List<String> yes, List<String> no, List<String> maybe) {
+        this.vote_complete = vote_complete;
+        this.yes = yes;
+        this.no = no;
+        this.maybe = maybe;
+    }
+
     public boolean isVote_complete() {
         return vote_complete;
     }

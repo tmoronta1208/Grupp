@@ -8,11 +8,6 @@ public class PrivateUser {
     private String email;
     private String password;
     private int age;
-    private Address address;
-    private PrivateUserAgeRange age_range;
-    private PrivateUserLocation current_location;
-    private PrivateUserNotifications notifications;
-    private PrivateUserPreferences preferences;
 
     public PrivateUser() {
     }
@@ -74,43 +69,5 @@ public class PrivateUser {
         this.age = age;
     }
 
-    public Address getAddress() {
-        return address;
-    }
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public PrivateUserAgeRange getAge_range() {
-        return age_range;
-    }
-
-    public void setAge_range(PrivateUserAgeRange age_range) {
-        this.age_range = age_range;
-    }
-
-    public PrivateUserLocation getCurrent_location() {
-        return current_location;
-    }
-
-    public void setCurrent_location(PrivateUserLocation current_location) {
-        this.current_location = current_location;
-    }
-
-    public PrivateUserNotifications getNotifications() {
-        return notifications;
-    }
-
-    public void setNotifications(PrivateUserNotifications notifications) {
-        this.notifications = notifications;
-    }
-
-    public PrivateUserPreferences getPreferences() {
-        return preferences;
-    }
-
-    public void setPreferences(PrivateUserPreferences preferences) {
-        this.preferences = preferences;
-    }
 }
