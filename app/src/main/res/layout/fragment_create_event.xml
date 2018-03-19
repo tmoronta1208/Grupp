@@ -32,6 +32,11 @@
         android:focusedByDefault="true"
         android:cursorVisible="true"
         />
+    <TextView
+        android:id="@+id/date_time_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -108,22 +113,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/layout_item_margin"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/add_group_button"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/layout_item_margin"
             android:layout_weight="1"
             android:background="@drawable/button_shapes"
             android:text="@string/add_group"
-            android:textColor="@color/dark_gray" />
+            android:textColor="@color/dark_gray"
+            android:tag="add group button"/>
         <FrameLayout
             android:id="@+id/add_group_fragment_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"/>
+            android:visibility="gone">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Group Fragment goes here"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+        </FrameLayout>
 
     </LinearLayout>
 
@@ -131,22 +144,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/layout_item_margin"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/add_friends_button"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/layout_item_margin"
             android:layout_weight="1"
             android:background="@drawable/button_shapes"
             android:text="@string/add_friends"
-            android:textColor="@color/dark_gray" />
+            android:textColor="@color/dark_gray"
+            android:tag="add friends button"/>
         <FrameLayout
             android:id="@+id/add_friends_fragment_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"/>
+            android:visibility="gone">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Friends Fragment goes here"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+            </FrameLayout>
     </LinearLayout>
 
     <EditText
