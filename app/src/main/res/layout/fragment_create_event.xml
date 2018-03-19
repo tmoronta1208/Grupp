@@ -111,6 +111,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/add_group_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/layout_item_margin"
@@ -118,6 +119,11 @@
             android:background="@drawable/button_shapes"
             android:text="@string/add_group"
             android:textColor="@color/dark_gray" />
+        <FrameLayout
+            android:id="@+id/add_group_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
 
     </LinearLayout>
 
@@ -128,6 +134,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/add_friends_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/layout_item_margin"
@@ -135,6 +142,11 @@
             android:background="@drawable/button_shapes"
             android:text="@string/add_friends"
             android:textColor="@color/dark_gray" />
+        <FrameLayout
+            android:id="@+id/add_friends_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
     </LinearLayout>
 
     <EditText
@@ -149,6 +161,7 @@
         android:visibility="gone"/>
 
     <Button
+        android:id="@+id/create_event_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/layout_item_margin"
