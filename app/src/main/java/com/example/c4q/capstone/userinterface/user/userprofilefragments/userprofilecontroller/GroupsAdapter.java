@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.database.model.groups.Groups;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews.GroupViewHolder;
 
 import java.util.ArrayList;

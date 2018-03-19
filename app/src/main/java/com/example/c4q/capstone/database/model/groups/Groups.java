@@ -3,12 +3,12 @@ package com.example.c4q.capstone.database.model.groups;
 
 import java.util.List;
 
-public class Group {
+public class Groups {
     private List<String> group_events;
     private List<String> group_members;
     private String group_name;
 
-    public Group() {
+    public Groups() {
     }
 
     public List<String> getGroup_events() {
