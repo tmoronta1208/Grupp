@@ -28,7 +28,9 @@
         android:inputType="text"
         android:maxLines="1"
         android:imeOptions="actionGo"
-
+        android:focusable="true"
+        android:focusedByDefault="true"
+        android:cursorVisible="true"
         />
 
     <LinearLayout
@@ -143,9 +145,8 @@
         android:hint="@string/add_note"
         android:padding="@dimen/layout_padding"
         android:layout_marginVertical="@dimen/layout_item_margin"
-        android:inputType="text"
-        android:maxLines="4"
-        android:imeOptions="actionGo"/>
+        android:imeOptions="actionGo"
+        android:visibility="gone"/>
 
     <Button
         android:layout_width="wrap_content"

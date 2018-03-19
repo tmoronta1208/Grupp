@@ -20,5 +20,6 @@
     <string name="add_friends">+ add friends</string>
     <string name="done_creating">Done</string>
     <string name="add_note">+ add note</string>
+    <string name="my_prefs">My Preferences</string>
 
 </resources>
