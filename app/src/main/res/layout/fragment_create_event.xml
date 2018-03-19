@@ -1,13 +1,25 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.c4q.capstone.userinterface.events.eventfragments.CreateEventFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <EditText
+        android:id="@+id/event_name_edit_text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_name" />
+    <EditText
+        android:id="@+id/event_date_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_date" />
+    <EditText
+        android:id="@+id/event_time_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_time" />
 
-</FrameLayout>
+</LinearLayout>
