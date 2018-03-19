@@ -21,5 +21,9 @@
             android:id="@+id/signout_menu_item"
             android:icon="@drawable/ic_settings_dp"
             android:title="@string/signout" />
+        <item
+            android:id="@+id/venue_swipe_test"
+            android:icon="@drawable/ic_menu_black_24dp"
+            android:title="venue swipe" />
     </group>
 </menu>
