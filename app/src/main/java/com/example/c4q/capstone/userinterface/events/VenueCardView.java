@@ -42,6 +42,7 @@ public class VenueCardView {
     public VenueCardView(Context context, Results results, SwipePlaceHolderView swipeView) {
         this.context = context;
      this.results = results;
+     Log.d("results testing:", " " + results.getBar_Image());
         this.swipeView = swipeView;
     }
 

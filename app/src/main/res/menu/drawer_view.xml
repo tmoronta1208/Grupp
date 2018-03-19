@@ -18,6 +18,10 @@
             android:icon="@drawable/ic_group_black_24dp"
             android:title="@string/my_groups" />
         <item
+            android:id="@+id/preferences_menu_item"
+            android:icon="@drawable/ic_filter_list_black_24dp"
+            android:title="@string/my_prefs" />
+        <item
             android:id="@+id/settings_menu_item"
             android:icon="@drawable/ic_settings_dp"
             android:title="@string/settings" />
