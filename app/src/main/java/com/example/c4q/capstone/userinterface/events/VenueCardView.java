@@ -5,8 +5,9 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.database.model.events.Venues;
+import com.example.c4q.capstone.network.model.Results;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.Resolve;
@@ -34,27 +35,28 @@ public class VenueCardView {
     @View(R.id.locationNameTxt)
     private TextView locationNameTxt;
 
-    private Venues venue;
+    private Results results;
     private Context context;
-    private SwipePlaceHolderView mSwipeView;
+    private SwipePlaceHolderView swipeView;
 
-    public VenueCardView(Context context, Venues venue, SwipePlaceHolderView swipeView) {
+    public VenueCardView(Context context, Results results, SwipePlaceHolderView swipeView) {
         this.context = context;
-       this.venue = venue;
-        mSwipeView = swipeView;
+     this.results = results;
+        this.swipeView = swipeView;
     }
 
     @Resolve
     private void onResolved(){
-        /*Glide.with(context).load(mProfile.getImageUrl()).into(profileImageView);
-        nameAgeTxt.setText(mProfile.getName() + ", " + mProfile.getAge());
-        locationNameTxt.setText(mProfile.getLocation());*/
+        Glide.with(context).load(results.getBar_Image()).into(profileImageView);
+        nameAgeTxt.setText(results.getName());
+        locationNameTxt.setText(results.getAddress());
+
     }
 
     @SwipeOut
     private void onSwipedOut(){
         Log.d("EVENT", "onSwipedOut");
-        mSwipeView.addView(this);
+        swipeView.addView(this);
     }
 
     @SwipeCancelState
