@@ -8,8 +8,15 @@
     <string name="upcoming_event">Upcoming Events</string>
     <string name="notification_menu_item">Notifications</string>
     <string name="signout">Sign Out</string>
-    <string name="enter_name">Enter a name for your event</string>
-    <string name="enter_date">Enter a date</string>
-    <string name="enter_time">Enter a time</string>
+    <string name="enter_name">Event Name</string>
     <string name="create_new_event">New Event</string>
+    <string name="pick_a_date">+ add date</string>
+    <string name="pick_a_time">+add time</string>
+    <string name="venue_type_choice">Type of Venue</string>
+    <string name="restaurant">Restaurant</string>
+    <string name="bar">Bar</string>
+    <string name="add_group">+ add group</string>
+    <string name="add_friends">+ add friends</string>
+    <string name="done_creating">Done</string>
+    <string name="add_note">+ add note</string>
 </resources>
