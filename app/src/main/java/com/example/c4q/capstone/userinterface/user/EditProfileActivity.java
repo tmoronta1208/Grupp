@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
+import com.example.c4q.capstone.database.model.publicuserdata.PublicUserAgeRange;
+import com.example.c4q.capstone.database.model.publicuserdata.PublicUserBudget;
+import com.example.c4q.capstone.database.model.publicuserdata.PublicUserRadius;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,11 +28,18 @@ import com.google.firebase.database.ValueEventListener;
 public class EditProfileActivity extends AppCompatActivity {
     private static final String PUBLIC_USER = "public_user";
     private static final String TAG = "EditProfileActivity";
+    private static final String AGE_RANGE = "age_range";
+    private static final String BUDGET = "budget";
+    private static final String RADIUS = "radius";
 
     private String userID;
     private Button saveBtn;
     private EditText firstName, lastName, zipCode;
     private Spinner ageSpinner, budgetSpinner, radiusSpinner;
+
+    private PublicUserAgeRange publicUserAgeRange;
+    private PublicUserBudget publicUserBudget;
+    private PublicUserRadius publicUserRadius;
 
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth mAuth;
@@ -48,7 +58,6 @@ public class EditProfileActivity extends AppCompatActivity {
         ageSpinner = findViewById(R.id.edit_profile_age_spinner);
         budgetSpinner = findViewById(R.id.edit_profile_budget_spinner);
         radiusSpinner = findViewById(R.id.edit_profile_radius_spinner);
-        spinnerLogic();
 
         firstName = findViewById(R.id.edit_profile_firstname);
         lastName = findViewById(R.id.edit_profile_lastname);
@@ -107,6 +116,7 @@ public class EditProfileActivity extends AppCompatActivity {
         if (!firstNameString.equals("") && !lastNameString.equals("") && !zipCodeString.equals("")) {
             PublicUser publicUser = new PublicUser(firstNameString, lastNameString, zipCodeString);
             myRef.child(PUBLIC_USER).child(userID).setValue(publicUser);
+            spinnerLogic();
             startActivity(new Intent(EditProfileActivity.this, UserProfileActivity.class));
         } else {
             firstName.setError("Required");
@@ -135,12 +145,16 @@ public class EditProfileActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
+                        publicUserAgeRange = new PublicUserAgeRange(true, true);
                         break;
                     case 1:
+                        publicUserAgeRange = new PublicUserAgeRange(true, false);
                         break;
                     case 2:
+                        publicUserAgeRange = new PublicUserAgeRange(false, false);
                         break;
                 }
+                myRef.child(PUBLIC_USER).child(userID).child(AGE_RANGE).setValue(publicUserAgeRange);
             }
 
             @Override
@@ -154,14 +168,19 @@ public class EditProfileActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
+                        publicUserBudget = new PublicUserBudget("$");
                         break;
                     case 1:
+                        publicUserBudget = new PublicUserBudget("$$");
                         break;
                     case 2:
+                        publicUserBudget = new PublicUserBudget("$$$");
                         break;
                     case 3:
+                        publicUserBudget = new PublicUserBudget("$$$$");
                         break;
                 }
+                myRef.child(PUBLIC_USER).child(userID).child(BUDGET).setValue(publicUserAgeRange);
             }
 
             @Override
@@ -173,18 +192,25 @@ public class EditProfileActivity extends AppCompatActivity {
         radiusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
                 switch (position) {
                     case 0:
+                        publicUserRadius = new PublicUserRadius(5);
                         break;
                     case 1:
+                        publicUserRadius = new PublicUserRadius(10);
                         break;
                     case 2:
+                        publicUserRadius = new PublicUserRadius(15);
                         break;
                     case 3:
+                        publicUserRadius = new PublicUserRadius(20);
                         break;
                     case 4:
+                        publicUserRadius = new PublicUserRadius(25);
                         break;
                 }
+                myRef.child(PUBLIC_USER).child(userID).child(RADIUS).setValue(publicUserAgeRange);
             }
 
             @Override
