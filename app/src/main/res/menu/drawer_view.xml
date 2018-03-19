@@ -10,6 +10,10 @@
             android:icon="@drawable/ic_event_available_black_24dp"
             android:title="@string/upcoming_event" />
         <item
+            android:id="@+id/create_new_event"
+            android:icon="@drawable/ic_event_available_black_24dp"
+            android:title="@string/create_new_event" />
+        <item
             android:id="@+id/my_groups_menu_item"
             android:icon="@drawable/ic_group_black_24dp"
             android:title="@string/my_groups" />

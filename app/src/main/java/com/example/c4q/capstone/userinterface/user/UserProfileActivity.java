@@ -21,7 +21,9 @@ import com.bumptech.glide.Glide;
 import com.example.c4q.capstone.MainActivity;
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.model.events.Events;
+import com.example.c4q.capstone.userinterface.events.EventActivity;
 import com.example.c4q.capstone.userinterface.events.VenueVoteSwipeActivity;
+import com.example.c4q.capstone.userinterface.events.eventfragments.EventFragment;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.EventsFragment;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.GroupFragment;
 import com.firebase.ui.auth.AuthUI;
@@ -92,6 +94,11 @@ public class UserProfileActivity extends AppCompatActivity {
                             case R.id.upcoming_events_menu_item:
 
                                 //TODO start userProfile with upcomining events fragment loaded.
+                                break;
+                            case R.id.create_new_event:
+                                Intent createEventIntent = new Intent (UserProfileActivity.this, EventActivity.class);
+                                startActivity(createEventIntent);
+                                //TODO start settings activity.
                                 break;
                             case R.id.my_groups_menu_item:
 
