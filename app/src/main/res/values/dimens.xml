@@ -3,4 +3,6 @@
     <dimen name="nav_avatar_dime">100dp</dimen>
     <dimen name="layout_item_margin">8dp</dimen>
     <dimen name="layout_padding">16dp</dimen>
+    <dimen name="small_button_text_size">12sp</dimen>
+    <dimen name="small_button_height">30dp</dimen>
 </resources>
