@@ -1,25 +1,27 @@
-package com.example.c4q.capstone.database.model.sharedUserData;
+package com.example.c4q.capstone.database.model.publicuserdata;
 
 
-class SharedUserPreferences {
-    private String[] bar_prefs;
-    private String[] restaurant_prefs;
+import java.util.List;
+
+class PublicUserPreferences {
+    private List<String> bar_prefs;
+    private List<String> restaurant_prefs;
     private String budget;
     private int radius;
 
-    public String[] getBar_prefs() {
+    public List<String> getBar_prefs() {
         return bar_prefs;
     }
 
-    public void setBar_prefs(String[] bar_prefs) {
+    public void setBar_prefs(List<String> bar_prefs) {
         this.bar_prefs = bar_prefs;
     }
 
-    public String[] getRestaurant_prefs() {
+    public List<String> getRestaurant_prefs() {
         return restaurant_prefs;
     }
 
-    public void setRestaurant_prefs(String[] restaurant_prefs) {
+    public void setRestaurant_prefs(List<String> restaurant_prefs) {
         this.restaurant_prefs = restaurant_prefs;
     }
 

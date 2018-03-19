@@ -1,7 +1,7 @@
-package com.example.c4q.capstone.database.model.privateUserData;
+package com.example.c4q.capstone.database.model.privateuserdata;
 
 
-class UserAgeRange {
+class PrivateUserAgeRange {
     private boolean over_18;
     private boolean over_21;
 

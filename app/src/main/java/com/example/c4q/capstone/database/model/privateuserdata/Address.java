@@ -1,19 +1,11 @@
-package com.example.c4q.capstone.database.model.privateUserData;
+package com.example.c4q.capstone.database.model.privateuserdata;
 
 
-class UserLocation {
-    private String street;
+public class Address {
     private String city;
     private String state;
-    private String zip;
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
+    private String street;
+    private int zip;
 
     public String getCity() {
         return city;
@@ -31,11 +23,19 @@ class UserLocation {
         this.state = state;
     }
 
-    public String getZip() {
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public int getZip() {
         return zip;
     }
 
-    public void setZip(String zip) {
+    public void setZip(int zip) {
         this.zip = zip;
     }
 }
