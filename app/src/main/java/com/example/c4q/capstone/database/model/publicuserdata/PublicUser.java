@@ -6,11 +6,18 @@ public class PublicUser {
     private String last_name;
     private String email;
     private String username;
-    private PublicUserLocation location;
-    private PublicUserAgeRange age_range;
-    private PublicUserPreferences preferences;
+//    private PublicUserLocation location;
+//    private PublicUserAgeRange age_range;
+//    private PublicUserPreferences preferences;
 
     public PublicUser() {
+    }
+
+    public PublicUser(String first_name, String last_name, String email, String username) {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.email = email;
+        this.username = username;
     }
 
     public String getFirst_name() {
@@ -45,27 +52,27 @@ public class PublicUser {
         this.username = username;
     }
 
-    public PublicUserLocation getLocation() {
-        return location;
-    }
-
-    public void setLocation(PublicUserLocation location) {
-        this.location = location;
-    }
-
-    public PublicUserAgeRange getAge_range() {
-        return age_range;
-    }
-
-    public void setAge_range(PublicUserAgeRange age_range) {
-        this.age_range = age_range;
-    }
-
-    public PublicUserPreferences getPreferences() {
-        return preferences;
-    }
-
-    public void setPreferences(PublicUserPreferences preferences) {
-        this.preferences = preferences;
-    }
+//    public PublicUserLocation getLocation() {
+//        return location;
+//    }
+//
+//    public void setLocation(PublicUserLocation location) {
+//        this.location = location;
+//    }
+//
+//    public PublicUserAgeRange getAge_range() {
+//        return age_range;
+//    }
+//
+//    public void setAge_range(PublicUserAgeRange age_range) {
+//        this.age_range = age_range;
+//    }
+//
+//    public PublicUserPreferences getPreferences() {
+//        return preferences;
+//    }
+//
+//    public void setPreferences(PublicUserPreferences preferences) {
+//        this.preferences = preferences;
+//    }
 }

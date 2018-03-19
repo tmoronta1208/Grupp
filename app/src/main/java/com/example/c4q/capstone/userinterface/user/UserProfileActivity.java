@@ -3,7 +3,6 @@ package com.example.c4q.capstone.userinterface.user;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -12,31 +11,47 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.c4q.capstone.MainActivity;
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.database.model.events.Events;
+import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.events.EventActivity;
 import com.example.c4q.capstone.userinterface.events.VenueVoteSwipeActivity;
-import com.example.c4q.capstone.userinterface.events.eventfragments.EventFragment;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.EventsFragment;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.GroupFragment;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import java.io.FileDescriptor;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserProfileActivity extends AppCompatActivity {
+    private static final String TAG = "UserProfileActivity";
+    private static final String PUBLIC_USER = "public_user";
+
+    private FirebaseDatabase firebaseDatabase;
+    private FirebaseAuth authentication;
+    private FirebaseUser currentUser;
+    private FirebaseAuth.AuthStateListener authStateListener;
+    private DatabaseReference publicUserDatabaseReference;
+    private String currentUserID;
 
     private DrawerLayout navDrawerLayout;
     private TextView userName;
@@ -47,35 +62,85 @@ public class UserProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
-        setNavDrawerLayout();
-//        setToolbar();
-        setViews();
 
-        GroupFragment groupFragment = new GroupFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.group_frag_cont, groupFragment,"GROUP FRAG");
-
-
-
-        EventsFragment eventsFragment = new EventsFragment();
-        FragmentManager eFragmentManager = getSupportFragmentManager();
-        FragmentTransaction eFragmentTransaction = eFragmentManager.beginTransaction();
-        eFragmentTransaction.add(R.id.events_frag_container, eventsFragment,"Events FRAG");
-        fragmentTransaction.commit();
-
-        }
-
-    public void setViews(){
         userImage = findViewById(R.id.circle_imageview);
         userName = findViewById(R.id.user_name);
         editButton = findViewById(R.id.edit_button);
 
-        userName.setText("Joanne Yun");
+        authentication = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        publicUserDatabaseReference = firebaseDatabase.getReference().child(PUBLIC_USER);
+        currentUser = authentication.getCurrentUser();
+        currentUserID = currentUser.getUid();
+
+        setNavDrawerLayout();
+//        setToolbar();
+//        setViews();
+
+        GroupFragment groupFragment = new GroupFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.group_frag_cont, groupFragment, "GROUP FRAG");
+
+        EventsFragment eventsFragment = new EventsFragment();
+        FragmentManager eFragmentManager = getSupportFragmentManager();
+        FragmentTransaction eFragmentTransaction = eFragmentManager.beginTransaction();
+        eFragmentTransaction.add(R.id.events_frag_container, eventsFragment, "Events FRAG");
+        fragmentTransaction.commit();
+
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (currentUser != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + currentUser.getUid());
+                    Toast.makeText(UserProfileActivity.this, "Successfully signed in with: " + currentUser.getEmail(), Toast.LENGTH_SHORT).show();
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                    Toast.makeText(UserProfileActivity.this, "Successfully signed out.", Toast.LENGTH_SHORT).show();
+                }
+                // ...
+            }
+        };
+
+        publicUserDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                showData(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void showData(DataSnapshot dataSnapshot) {
+        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+            PublicUser publicUser = ds.child(currentUserID).getValue(PublicUser.class);
+            userName.setText("USER ID KEY" + ds.child(PUBLIC_USER).child(currentUserID).getKey());
+//            lastNameTextView.setText(publicUser.getLast_name());
+//            usernameTextView.setText(publicUser.getUsername());
+//            userIdTextView.setText(ds.child(PUBLIC_USER).child(currentUserID).getKey());
+//            emailTextView.setText(publicUser.getEmail());
+        }
+
+    }
+
+    public void setViews() {
+        userImage = findViewById(R.id.circle_imageview);
+        userName = findViewById(R.id.user_name);
+        editButton = findViewById(R.id.edit_button);
+
+//        userName.setText("Joanne Yun");
         Glide.with(getApplicationContext()).load(R.drawable.joanneyun).into(userImage);
     }
+
     /*method to load and display navigation drawer - AJ*/
-    public void setNavDrawerLayout(){
+    public void setNavDrawerLayout() {
         navDrawerLayout = findViewById(R.id.drawer_layout);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -86,7 +151,7 @@ public class UserProfileActivity extends AppCompatActivity {
                         // set item as selected to persist highlight
                         menuItem.setChecked(true);
                         // close drawer when item is tapped
-                        switch(menuItem.getItemId()){
+                        switch (menuItem.getItemId()) {
                             case R.id.notifications_menu_item:
 
                                 //TODO start userProfile with notifications fragment loaded.
@@ -96,7 +161,7 @@ public class UserProfileActivity extends AppCompatActivity {
                                 //TODO start userProfile with upcomining events fragment loaded.
                                 break;
                             case R.id.create_new_event:
-                                Intent createEventIntent = new Intent (UserProfileActivity.this, EventActivity.class);
+                                Intent createEventIntent = new Intent(UserProfileActivity.this, EventActivity.class);
                                 startActivity(createEventIntent);
                                 //TODO start settings activity.
                                 break;
@@ -105,12 +170,12 @@ public class UserProfileActivity extends AppCompatActivity {
                                 //TODO start userProfile with groups fragment loaded.
                                 break;
                             case R.id.settings_menu_item:
-                                Intent settings= new Intent (UserProfileActivity.this, SettingsActivity.class);
+                                Intent settings = new Intent(UserProfileActivity.this, SettingsActivity.class);
                                 startActivity(settings);
                                 //TODO start settings activity.
                                 break;
                             case R.id.venue_swipe_test:
-                                Intent venueSwipeIntent = new Intent (UserProfileActivity.this, VenueVoteSwipeActivity.class);
+                                Intent venueSwipeIntent = new Intent(UserProfileActivity.this, VenueVoteSwipeActivity.class);
                                 startActivity(venueSwipeIntent);
                                 //TODO start settings activity.
                                 break;
@@ -120,7 +185,7 @@ public class UserProfileActivity extends AppCompatActivity {
                                         .signOut(getApplicationContext())
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             public void onComplete(@NonNull Task<Void> task) {
-                                                Intent landingIntent = new Intent (UserProfileActivity.this, MainActivity.class);
+                                                Intent landingIntent = new Intent(UserProfileActivity.this, MainActivity.class);
                                                 startActivity(landingIntent);
                                             }
                                         });
@@ -161,8 +226,9 @@ public class UserProfileActivity extends AppCompatActivity {
                 }
         );
     }
+
     /*method to load toolbar as action bar and display nav drawer icon - AJ*/
-    public void setToolbar(){
+    public void setToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
@@ -182,5 +248,20 @@ public class UserProfileActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        authentication.addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (authStateListener != null) {
+            authentication.removeAuthStateListener(authStateListener);
+        }
     }
 }

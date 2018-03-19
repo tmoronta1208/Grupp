@@ -17,6 +17,15 @@ public class PrivateUser {
     public PrivateUser() {
     }
 
+    public PrivateUser(String first_name, String last_name, String username, String email, String password, int age) {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.age = age;
+    }
+
     public String getFirst_name() {
         return first_name;
     }
