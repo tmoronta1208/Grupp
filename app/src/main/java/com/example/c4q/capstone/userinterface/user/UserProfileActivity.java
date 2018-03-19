@@ -52,8 +52,8 @@ public class UserProfileActivity extends AppCompatActivity {
 
         EventsFragment eventsFragment = new EventsFragment();
         FragmentManager eFragmentManager = getSupportFragmentManager();
-        FragmentTransaction eFragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.events_frag_container, eventsFragment,"Events FRAG");
+        FragmentTransaction eFragmentTransaction = eFragmentManager.beginTransaction();
+        eFragmentTransaction.add(R.id.events_frag_container, eventsFragment,"Events FRAG");
         fragmentTransaction.commit();
 
         }
