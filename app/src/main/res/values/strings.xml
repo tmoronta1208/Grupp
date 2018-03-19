@@ -11,4 +11,8 @@
     <string name="enter_name">Enter a name for your event</string>
     <string name="enter_date">Enter a date</string>
     <string name="enter_time">Enter a time</string>
+
+
+    <string name="create_new_event">New Event</string>
+
 </resources>
