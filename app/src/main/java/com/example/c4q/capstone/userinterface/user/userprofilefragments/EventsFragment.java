@@ -29,7 +29,7 @@ public class EventsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_preferences, container, false);
+        view = inflater.inflate(R.layout.fragment_events, container, false);
 
         recyclerView = view.findViewById(R.id.events_rec);
 

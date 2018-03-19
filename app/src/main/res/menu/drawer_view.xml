@@ -11,19 +11,23 @@
             android:title="@string/upcoming_event" />
         <item
             android:id="@+id/create_new_event"
-            android:icon="@drawable/ic_event_available_black_24dp"
+            android:icon="@drawable/ic_note_add_black_24dp"
             android:title="@string/create_new_event" />
         <item
             android:id="@+id/my_groups_menu_item"
             android:icon="@drawable/ic_group_black_24dp"
             android:title="@string/my_groups" />
         <item
+            android:id="@+id/preferences_menu_item"
+            android:icon="@drawable/ic_filter_list_black_24dp"
+            android:title="@string/my_prefs" />
+        <item
             android:id="@+id/settings_menu_item"
             android:icon="@drawable/ic_settings_dp"
             android:title="@string/settings" />
         <item
             android:id="@+id/signout_menu_item"
-            android:icon="@drawable/ic_settings_dp"
+            android:icon="@drawable/ic_power_settings_new_black_24dp"
             android:title="@string/signout" />
         <item
             android:id="@+id/venue_swipe_test"

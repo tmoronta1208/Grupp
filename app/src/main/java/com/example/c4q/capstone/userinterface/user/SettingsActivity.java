@@ -1,6 +1,7 @@
 package com.example.c4q.capstone.userinterface.user;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,6 +16,10 @@ import android.view.View;
 
 import com.example.c4q.capstone.MainActivity;
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.userinterface.events.EventActivity;
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -51,12 +56,28 @@ public class SettingsActivity extends AppCompatActivity {
                                 startActivity(upcomingEvents);
                                 //TODO start userProfile with upcomining events fragment loaded.
                                 break;
+                            case R.id.create_new_event:
+                                Intent createEventIntent = new Intent (SettingsActivity.this, EventActivity.class);
+                                startActivity(createEventIntent);
+                                //TODO start settings activity.
+                                break;
                             case R.id.my_groups_menu_item:
                                 Intent userProfile = new Intent (SettingsActivity.this, UserProfileActivity.class);
                                 startActivity(userProfile);
                                 //TODO start userProfile with groups fragment loaded.
                                 break;
                             case R.id.settings_menu_item:
+                                //TODO start settings activity.
+                                break;
+                            case R.id.signout_menu_item:
+                                AuthUI.getInstance()
+                                        .signOut(getApplicationContext())
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                Intent landingIntent = new Intent (SettingsActivity.this, MainActivity.class);
+                                                startActivity(landingIntent);
+                                            }
+                                        });
                                 //TODO start settings activity.
                                 break;
                         }

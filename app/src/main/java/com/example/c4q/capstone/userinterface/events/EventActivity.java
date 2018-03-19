@@ -1,6 +1,7 @@
 package com.example.c4q.capstone.userinterface.events;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -21,6 +22,9 @@ import com.example.c4q.capstone.userinterface.events.eventfragments.CreateEventF
 import com.example.c4q.capstone.userinterface.events.eventfragments.EventFragment;
 import com.example.c4q.capstone.userinterface.user.SettingsActivity;
 import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 public class EventActivity extends AppCompatActivity {
     private DrawerLayout navDrawerLayout;
@@ -66,6 +70,12 @@ public class EventActivity extends AppCompatActivity {
                                 startActivity(upcomingEvents);
                                 //TODO start userProfile with upcomining events fragment loaded.
                                 break;
+
+                            case R.id.create_new_event:
+                                Intent createEventIntent = new Intent (EventActivity.this, EventActivity.class);
+                                startActivity(createEventIntent);
+                                //TODO start settings activity.
+                                break;
                             case R.id.my_groups_menu_item:
                                 Intent userProfile = new Intent (EventActivity.this, UserProfileActivity.class);
                                 startActivity(userProfile);
@@ -74,6 +84,22 @@ public class EventActivity extends AppCompatActivity {
                             case R.id.settings_menu_item:
                                 Intent settings= new Intent (EventActivity.this, SettingsActivity.class);
                                 startActivity(settings);
+                                //TODO start settings activity.
+                                break;
+                            case R.id.signout_menu_item:
+                                AuthUI.getInstance()
+                                        .signOut(getApplicationContext())
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                Intent landingIntent = new Intent (EventActivity.this, MainActivity.class);
+                                                startActivity(landingIntent);
+                                            }
+                                        });
+                                //TODO start settings activity.
+                                break;
+                            case R.id.venue_swipe_test:
+                                Intent venueSwipeIntent = new Intent (EventActivity.this, VenueVoteSwipeActivity.class);
+                                startActivity(venueSwipeIntent);
                                 //TODO start settings activity.
                                 break;
                         }
@@ -131,4 +157,6 @@ public class EventActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }
