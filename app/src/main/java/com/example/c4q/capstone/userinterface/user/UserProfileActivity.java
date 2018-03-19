@@ -1,6 +1,7 @@
 package com.example.c4q.capstone.userinterface.user;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,12 +17,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.c4q.capstone.MainActivity;
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.model.events.Events;
 import com.example.c4q.capstone.userinterface.events.VenueVoteSwipeActivity;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.EventsFragment;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.GroupFragment;
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -63,6 +68,9 @@ public class UserProfileActivity extends AppCompatActivity {
         userImage = findViewById(R.id.circle_imageview);
         userName = findViewById(R.id.user_name);
         editButton = findViewById(R.id.edit_button);
+
+        userName.setText("Joanne Yun");
+        Glide.with(getApplicationContext()).load(R.drawable.joanneyun).into(userImage);
     }
     /*method to load and display navigation drawer - AJ*/
     public void setNavDrawerLayout(){
@@ -99,6 +107,19 @@ public class UserProfileActivity extends AppCompatActivity {
                                 startActivity(venueSwipeIntent);
                                 //TODO start settings activity.
                                 break;
+
+                            case R.id.signout_menu_item:
+                                AuthUI.getInstance()
+                                        .signOut(getApplicationContext())
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                Intent landingIntent = new Intent (UserProfileActivity.this, MainActivity.class);
+                                                startActivity(landingIntent);
+                                            }
+                                        });
+                                //TODO start settings activity.
+                                break;
+
                         }
                         navDrawerLayout.closeDrawers();
 
