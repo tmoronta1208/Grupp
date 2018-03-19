@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.c4q.capstone.userinterface.user.EditProfileActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/edit_profile_firstname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="First Name"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/edit_profile_lastname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Last Name"
+            app:layout_constraintTop_toBottomOf="@id/edit_profile_firstname" />
+
+        <EditText
+            android:id="@+id/edit_profile_zip_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Zip Code"
+            app:layout_constraintTop_toBottomOf="@id/edit_profile_lastname" />
+
+        <TextView
+            android:id="@+id/edit_profile_age_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Age"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_profile_zip_code" />
+
+        <Spinner
+            android:id="@+id/edit_profile_age_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/spinner_age"
+            app:layout_constraintStart_toEndOf="@id/edit_profile_age_text"
+            app:layout_constraintTop_toBottomOf="@id/edit_profile_zip_code">
+
+        </Spinner>
+
+        <TextView
+            android:id="@+id/edit_profile_budget_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Budget"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_profile_age_text" />
+
+        <Spinner
+            android:id="@+id/edit_profile_budget_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/spinner_budget"
+            app:layout_constraintStart_toEndOf="@id/edit_profile_budget_text"
+            app:layout_constraintTop_toBottomOf="@id/edit_profile_age_text">
+
+        </Spinner>
+
+        <TextView
+            android:id="@+id/edit_profile_radius_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Radius"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_profile_budget_text" />
+
+        <Spinner
+            android:id="@+id/edit_profile_radius_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/spinner_radius"
+            app:layout_constraintStart_toEndOf="@id/edit_profile_radius_text"
+            app:layout_constraintTop_toBottomOf="@id/edit_profile_budget_text">
+
+        </Spinner>
+
+        <Button
+            android:id="@+id/edit_profile_save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_profile_radius_text" />
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

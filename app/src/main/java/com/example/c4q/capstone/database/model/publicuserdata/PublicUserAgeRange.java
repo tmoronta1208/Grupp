@@ -5,6 +5,13 @@ class PublicUserAgeRange {
     private boolean over_18;
     private boolean over_21;
 
+    public PublicUserAgeRange() {
+    }
+
+    public PublicUserAgeRange(boolean over_18, boolean over_21) {
+        this.over_18 = over_18;
+        this.over_21 = over_21;
+    }
 
     public boolean isOver_18() {
         return over_18;

@@ -27,7 +27,7 @@
         <activity android:name=".userinterface.events.VenueVoteSwipeActivity" />
         <activity android:name=".userinterface.events.EventActivity" />
         <activity android:name=".userinterface.user.LoginActivity" />
-        <activity android:name=".userinterface.user.CreateProfileActivity"></activity>
+        <activity android:name=".userinterface.user.EditProfileActivity"></activity>
     </application>
 
 </manifest>

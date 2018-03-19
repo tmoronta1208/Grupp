@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * Created by amirahoxendine on 3/19/18.
+ * This is a class to handle data input for CreateEventFragment
  */
 
 public class CreateEventPresenter {

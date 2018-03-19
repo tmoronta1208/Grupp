@@ -116,6 +116,12 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserProfileActivity.this, EditProfileActivity.class));
+            }
+        });
     }
 
     private void showData(DataSnapshot dataSnapshot) {
@@ -130,14 +136,13 @@ public class UserProfileActivity extends AppCompatActivity {
 
     }
 
-    public void setViews() {
-        userImage = findViewById(R.id.circle_imageview);
-        userName = findViewById(R.id.user_name);
-        editButton = findViewById(R.id.edit_button);
-
-//        userName.setText("Joanne Yun");
-        Glide.with(getApplicationContext()).load(R.drawable.joanneyun).into(userImage);
-    }
+//    public void setViews() {
+//        userImage = findViewById(R.id.circle_imageview);
+//        userName = findViewById(R.id.user_name);
+//        editButton = findViewById(R.id.edit_button);
+//
+//        Glide.with(getApplicationContext()).load(R.drawable.joanneyun).into(userImage);
+//    }
 
     /*method to load and display navigation drawer - AJ*/
     public void setNavDrawerLayout() {

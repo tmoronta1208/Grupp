@@ -22,6 +22,7 @@ import android.widget.TimePicker;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.model.events.Events;
+import com.example.c4q.capstone.userinterface.events.CreateEventInteractions;
 import com.example.c4q.capstone.userinterface.events.CreateEventPresenter;
 
 /**
@@ -35,8 +36,9 @@ public class CreateEventFragment extends Fragment {
     TimePicker timePicker;
     DatePicker datePicker;
     Button closeButton, createEventButton, addFriendsButton, addGroupButton;
-    FrameLayout addFriendsContainer, addGroupContainer;
+    FrameLayout inviteGuestsContainer;
     CreateEventPresenter eventPresenter;
+    CreateEventInteractions eventInteractions;
 
 
 
@@ -44,15 +46,16 @@ public class CreateEventFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_create_event, container, false);
         eventPresenter = new CreateEventPresenter();
+
         setViews();
-        //TODO separate concerns
+        setViewInteractions();
+
         return rootView;
     }
     /** Load views _ AJ */
@@ -63,167 +66,19 @@ public class CreateEventFragment extends Fragment {
         dateAndTime = (TextView) rootView.findViewById(R.id.date_time_text_view);
         datePicker = (DatePicker) rootView.findViewById(R.id.date_picker);
         timePicker = (TimePicker) rootView.findViewById(R.id.time_picker);
+        closeButton = (Button) rootView.findViewById(R.id.close_button);
         createEventButton = (Button) rootView.findViewById(R.id.create_event_button);
         addFriendsButton = (Button) rootView.findViewById(R.id.add_friends_button);
         addGroupButton = (Button) rootView.findViewById(R.id.add_group_button);
-        addFriendsContainer = (FrameLayout) rootView.findViewById(R.id.add_friends_fragment_container);
-        addGroupContainer = (FrameLayout)  rootView.findViewById(R.id.add_group_fragment_container);
+        inviteGuestsContainer = (FrameLayout) rootView.findViewById(R.id.invite_guests_fragment_container);
         eventName = (EditText) rootView.findViewById(R.id.event_name_edit_text);
         addNote = (EditText) rootView.findViewById(R.id.add_note);
         eventName.setSingleLine();
-        setViewLogic();
-    }
-    public void setViewLogic(){
-        dateAndTime.setText(eventPresenter.dateTime);
-        addUsersOnClickListener(addFriendsButton, addFriendsContainer);
-        addUsersOnClickListener(addGroupButton, addGroupContainer);
-        setCloseButton();
-        setDatTimeClick();
-        setEditText();
-        hideKeyBoardOffFocus(rootView);
     }
 
-    /** View Logic : Below is the logic for handling user input and interaction events
-     * -AJ*/
-
-    /** Add users -AJ*/
-    public void setCreateEventButton(){
-        createEventButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!eventPresenter.validateEvent()){
-                    //TODO alert user
-                } else{
-                    eventPresenter.sendEventToFB();
-                    //TODO close create event frag, load even frag.
-                }
-            }
-        });
-    }
-    /*click listener that toggles fragment visibility -AJ*/
-    public void addUsersOnClickListener(final Button button, final FrameLayout frameLayout){
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "add users clicked" + button.getTag().toString());
-                if (frameLayout.getVisibility() == View.VISIBLE) {
-                    frameLayout.setVisibility(View.GONE);
-                } else {
-                    frameLayout.setVisibility(View.VISIBLE);
-                    //TODO load fragments logic for adding users to guest list
-                }
-            }
-        });
+    public void setViewInteractions(){
+        eventInteractions = new CreateEventInteractions(CreateEventFragment.this.getActivity(), rootView, eventName, addNote, addDate, addTime,dateAndTime, timePicker, datePicker, closeButton, createEventButton,addFriendsButton, addGroupButton, inviteGuestsContainer, eventPresenter);
+        eventInteractions.setViewLogic();
     }
 
-    /** Date and Time -AJ */
-    /*click listener for date and time -AJ*/
-    public void setDatTimeClick(){
-        addTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timePicker.setVisibility(View.VISIBLE);
-                closeButton.setVisibility(View.VISIBLE);
-            }
-        });
-
-        addDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                datePicker.setVisibility(View.VISIBLE);
-                closeButton.setVisibility(View.VISIBLE);
-            }
-        });
-
-    }
-
-    /*click listner to hide date and time picker -AJ*/
-    public void setCloseButton(){
-        closeButton = (Button) rootView.findViewById(R.id.close_button);
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (timePicker.getVisibility() == View.VISIBLE) {
-                    eventPresenter.setEventTime(timePicker);
-                    dateAndTime.setText(eventPresenter.dateTime);
-                    timePicker.setVisibility(View.GONE);
-                } else if (datePicker.getVisibility() == View.VISIBLE) {
-                    eventPresenter.setEventDate(datePicker);
-                    dateAndTime.setText(eventPresenter.dateTime);
-                    datePicker.setVisibility(View.GONE);
-                }
-                closeButton.setVisibility(View.GONE);
-                //TODO add logic to grab choice data
-            }
-        });
-
-    }
-
-    /** Hide KeyBoards  -AJ*/
-    /*method to set action listeners for edit texts so keyboard hides when users click go/enter*/
-    public void setEditText() {
-        setETActionListener(eventName);
-        setETActionListener(addNote);
-    }
-    /*method to hide keyboard when user clicks go*/
-    public void setETActionListener(final EditText editText){
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_GO) {
-                    hideSoftKeyboard(CreateEventFragment.this.getActivity());
-
-                    if(editText.getId() == R.id.event_name_edit_text){
-                        String name = editText.getText().toString();
-                        eventPresenter.setEventName(name);
-                    } else {
-                        eventPresenter.setEventNote(editText.getText().toString());
-                    }
-                    handled = true;
-                }
-                return handled;
-            }
-        });
-    }
-
-    /*method to hide keyboard when edit text is no longer in focus -AJ*/
-    public void hideKeyBoardOffFocus(View view) {
-
-        // Set up touch listener for non-text box views to hide keyboard.
-        if (!(view instanceof EditText)) {
-            view.setOnTouchListener(new View.OnTouchListener() {
-                public boolean onTouch(View v, MotionEvent event) {
-                    hideSoftKeyboard(CreateEventFragment.this.getActivity());
-                    return false;
-                }
-            });
-        }
-
-        //If a layout container, iterate over children and seed recursion.
-        if (view instanceof ViewGroup) {
-            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
-                View innerView = ((ViewGroup) view).getChildAt(i);
-                hideKeyBoardOffFocus(innerView);
-            }
-        }
-    }
-
-    /*method to hide soft keyboard -AJ*/
-    public static void hideSoftKeyboard(Activity activity) {
-        try {
-            if (activity != null) {
-                InputMethodManager inputMethodManager =
-                        (InputMethodManager) activity.getSystemService(
-                                Activity.INPUT_METHOD_SERVICE);
-                inputMethodManager.hideSoftInputFromWindow(
-                        activity.getCurrentFocus().getWindowToken(), 0);
-            }
-
-        } catch (NullPointerException n) {
-            n.printStackTrace();
-        }
-
-
-    }
 }
