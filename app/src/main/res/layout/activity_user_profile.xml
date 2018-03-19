@@ -17,7 +17,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -38,33 +39,45 @@
                     android:layout_height="wrap_content"
                     android:padding="16sp"
                     android:text="Melina Gonzalez "
-                    android:textSize="16sp" />
+                    android:textSize="20sp"
+                    android:textColor="@android:color/black"/>
 
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/edit_button"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:background="@drawable/button_shapes"
-                android:text="Edit"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"
+                >
+                <Button
+                    android:id="@+id/edit_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_gravity="right"
+                    android:background="@drawable/button_shapes"
+                    android:text="Edit"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/black"
+                    />
 
-                android:textAllCaps="false"
-                android:textColor="@android:color/black" />
+            </LinearLayout>
+
 
             <FrameLayout
                 android:id="@+id/group_frag_cont"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight=".5" />
+                android:background="@android:color/white"
+                android:layout_weight=".25" />
 
             <FrameLayout
                 android:id="@+id/events_frag_container"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight=".5" />
+                android:layout_weight=".75"
+                android:background="@color/light_salmon"/>
         </LinearLayout>
 
 
