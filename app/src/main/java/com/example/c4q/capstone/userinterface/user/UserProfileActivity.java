@@ -107,6 +107,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private void showData(DataSnapshot dataSnapshot) {
         for (DataSnapshot ds : dataSnapshot.getChildren()) {
             PublicUser publicUser = ds.child(currentUserID).getValue(PublicUser.class);
+            //userName.setText("USER ID KEY" + ds.child(PUBLIC_USER).child(currentUserID).getKey());
             userName.setText("USER ID KEY" + ds.child(PUBLIC_USER).child(currentUserID).getKey());
 //            lastNameTextView.setText(publicUser.getLast_name());
 //            usernameTextView.setText(publicUser.getUsername());

@@ -72,10 +72,12 @@ public class CreateEventInteractions {
             @Override
             public void onClick(View v) {
                 if (!eventPresenter.validateEvent()){
+                    Log.d(TAG, "create event: event not valid");
                     //TODO alert user
                 } else{
                     eventPresenter.sendEventToFB();
-                    //TODO close create event frag, load even frag.
+                    Log.d(TAG, "create event: eventSent to firebase");
+                    //TODO close create event frag, load event frag.
                 }
             }
         });
