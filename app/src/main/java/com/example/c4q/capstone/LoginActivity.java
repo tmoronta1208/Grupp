@@ -64,7 +64,12 @@ public class LoginActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         publicUserDatabaseReference = firebaseDatabase.getReference().child(PUBLIC_USER);
         currentUser = authentication.getCurrentUser();
+        String authUser = authentication.getUid();
         currentUserID = currentUser.getUid();
+        Log.d("current user.getUID", currentUserID);
+        Log.d("authentication.getui", authUser);
+
+
 
         /**
          * gets user data to check if user is in database
