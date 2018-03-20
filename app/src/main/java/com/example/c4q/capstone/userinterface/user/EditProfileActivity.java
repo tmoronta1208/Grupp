@@ -1,7 +1,12 @@
 package com.example.c4q.capstone.userinterface.user;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -62,8 +67,7 @@ public class EditProfileActivity extends AppCompatActivity {
         lastName = findViewById(R.id.edit_profile_lastname);
         zipCode = findViewById(R.id.edit_profile_zip_code);
 
-        lat = 40.742959;
-        lng = -73.941921;
+
 
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -119,6 +123,19 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
+        LocationManager locationManager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1020);
+            return;
+        }
+
+        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        lat = location.getLatitude();
+        lng = location.getLongitude();
     }
 
     private void saveToDatabase() {
