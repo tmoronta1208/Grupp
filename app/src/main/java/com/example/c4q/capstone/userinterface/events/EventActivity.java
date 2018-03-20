@@ -11,12 +11,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.transition.Explode;
-import android.transition.Transition;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.c4q.capstone.MainActivity;
+import com.example.c4q.capstone.LoginActivity;
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.userinterface.events.eventfragments.CreateEventFragment;
 import com.example.c4q.capstone.userinterface.events.eventfragments.EventFragment;
@@ -91,7 +89,7 @@ public class EventActivity extends AppCompatActivity {
                                         .signOut(getApplicationContext())
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             public void onComplete(@NonNull Task<Void> task) {
-                                                Intent landingIntent = new Intent (EventActivity.this, MainActivity.class);
+                                                Intent landingIntent = new Intent (EventActivity.this, LoginActivity.class);
                                                 startActivity(landingIntent);
                                             }
                                         });
