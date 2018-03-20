@@ -19,6 +19,10 @@ import com.example.c4q.capstone.R;
  * create an instance of this fragment.
  */
 public class EventFragment extends Fragment {
+    Bundle bundle;
+    View rootView;
+    String eventID;
+
 
 
     public EventFragment() {
@@ -31,7 +35,15 @@ public class EventFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_event, container, false);
+        rootView = inflater.inflate(R.layout.fragment_event, container, false);
+        bundle = getArguments();
+        if (bundle != null) {
+           eventID = bundle.getString("eventID", null);
+        }
+        //TODO get event from db by key
+        //load event data
+        return rootView;
     }
+
 
 }

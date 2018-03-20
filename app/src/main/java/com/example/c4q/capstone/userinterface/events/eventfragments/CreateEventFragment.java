@@ -1,20 +1,14 @@
 package com.example.c4q.capstone.userinterface.events.eventfragments;
 
 
-import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -23,8 +17,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.database.model.events.Events;
-import com.example.c4q.capstone.userinterface.events.CreateEventInteractions;
 import com.example.c4q.capstone.userinterface.events.CreateEventPresenter;
 import com.example.c4q.capstone.userinterface.events.EventFragmentListener;
 import com.example.c4q.capstone.userinterface.events.eventfragments.createeventux.DateTimeUX;
@@ -45,12 +37,13 @@ public class CreateEventFragment extends Fragment {
     Button closeButton, createEventButton, addFriendsButton, addGroupButton;
     FrameLayout inviteGuestsContainer;
     CreateEventPresenter eventPresenter;
-    CreateEventInteractions eventInteractions;
+
     EventFragment eventFragment = new EventFragment();
     DateTimeUX dateTimeUX;
     DoneUX doneUX;
     EditTextUX editTextUX;
     ExpandUX expandUX;
+    Bundle bundle;
 
 
 
@@ -97,6 +90,12 @@ public class CreateEventFragment extends Fragment {
             public void swapFragments() {
                 loadEventFragment();
             }
+
+            @Override
+            public void getEventIdKEy(String key) {
+                bundle = new Bundle();
+                bundle.putString("eventID", key);
+            }
         });
 
     }
@@ -106,6 +105,7 @@ public class CreateEventFragment extends Fragment {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+        eventFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.event_fragment_container, eventFragment);
         fragmentTransaction.addToBackStack("next");
         fragmentTransaction.commit();
