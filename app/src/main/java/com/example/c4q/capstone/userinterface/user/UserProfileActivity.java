@@ -18,8 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.example.c4q.capstone.MainActivity;
+import com.example.c4q.capstone.LoginActivity;
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.events.EventActivity;
@@ -36,9 +35,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -67,6 +63,7 @@ public class UserProfileActivity extends AppCompatActivity {
         userName = findViewById(R.id.user_name);
         editButton = findViewById(R.id.edit_button);
 
+
         authentication = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         publicUserDatabaseReference = firebaseDatabase.getReference().child(PUBLIC_USER);
@@ -74,36 +71,26 @@ public class UserProfileActivity extends AppCompatActivity {
         currentUserID = currentUser.getUid();
 
         setNavDrawerLayout();
+        setUpGroupFrag();
+        setUpEventsFrag();
+
+        setFirebaseDatabaseListner();
 //        setToolbar();
-//        setViews();
 
-        GroupFragment groupFragment = new GroupFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.group_frag_cont, groupFragment, "GROUP FRAG");
 
-        EventsFragment eventsFragment = new EventsFragment();
-        FragmentManager eFragmentManager = getSupportFragmentManager();
-        FragmentTransaction eFragmentTransaction = eFragmentManager.beginTransaction();
-        eFragmentTransaction.add(R.id.events_frag_container, eventsFragment, "Events FRAG");
-        fragmentTransaction.commit();
 
-        authStateListener = new FirebaseAuth.AuthStateListener() {
+
+
+
+
+        editButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (currentUser != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + currentUser.getUid());
-                    Toast.makeText(UserProfileActivity.this, "Successfully signed in with: " + currentUser.getEmail(), Toast.LENGTH_SHORT).show();
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                    Toast.makeText(UserProfileActivity.this, "Successfully signed out.", Toast.LENGTH_SHORT).show();
-                }
-                // ...
+            public void onClick(View v) {
+                startActivity(new Intent(UserProfileActivity.this, EditProfileActivity.class));
             }
-        };
-
+        });
+    }
+    public void setFirebaseDatabaseListner(){
         publicUserDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -113,13 +100,6 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
-
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(UserProfileActivity.this, EditProfileActivity.class));
             }
         });
     }
@@ -135,14 +115,6 @@ public class UserProfileActivity extends AppCompatActivity {
         }
 
     }
-
-//    public void setViews() {
-//        userImage = findViewById(R.id.circle_imageview);
-//        userName = findViewById(R.id.user_name);
-//        editButton = findViewById(R.id.edit_button);
-//
-//        Glide.with(getApplicationContext()).load(R.drawable.joanneyun).into(userImage);
-//    }
 
     /*method to load and display navigation drawer - AJ*/
     public void setNavDrawerLayout() {
@@ -190,11 +162,12 @@ public class UserProfileActivity extends AppCompatActivity {
                                         .signOut(getApplicationContext())
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             public void onComplete(@NonNull Task<Void> task) {
-                                                Intent landingIntent = new Intent(UserProfileActivity.this, MainActivity.class);
-                                                startActivity(landingIntent);
+                                                // ...
+                                                Intent signOutIntent = new Intent(UserProfileActivity.this, LoginActivity.class);
+                                                signOutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                startActivity(signOutIntent);
                                             }
                                         });
-                                //TODO start settings activity.
                                 break;
 
                         }
@@ -255,18 +228,21 @@ public class UserProfileActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        authentication.addAuthStateListener(authStateListener);
+    public void setUpEventsFrag() {
+        EventsFragment eventsFragment = new EventsFragment();
+        FragmentManager eFragmentManager = getSupportFragmentManager();
+        FragmentTransaction eFragmentTransaction = eFragmentManager.beginTransaction();
+        eFragmentTransaction.add(R.id.events_frag_container, eventsFragment, "Events FRAG");
+        eFragmentTransaction.commit();
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (authStateListener != null) {
-            authentication.removeAuthStateListener(authStateListener);
-        }
+    public void setUpGroupFrag() {
+        GroupFragment groupFragment = new GroupFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.group_frag_cont, groupFragment, "GROUP FRAG");
+        fragmentTransaction.commit();
+
     }
+
 }

@@ -15,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/GruppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,8 +26,8 @@
         <activity android:name=".userinterface.user.SettingsActivity" />
         <activity android:name=".userinterface.events.VenueVoteSwipeActivity" />
         <activity android:name=".userinterface.events.EventActivity" />
-        <activity android:name=".userinterface.user.LoginActivity" />
-        <activity android:name=".userinterface.user.EditProfileActivity"></activity>
+        <activity android:name=".userinterface.user.EditProfileActivity"/>
+        <activity android:name=".userinterface.user.SplashPage"/>
     </application>
 
 </manifest>

@@ -1,8 +1,6 @@
 package com.example.c4q.capstone;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,29 +11,25 @@ import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
 import android.transition.Transition;
 import android.transition.TransitionManager;
-import android.transition.TransitionValues;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 
 import com.example.c4q.capstone.network.NetworkCall;
-import com.example.c4q.capstone.userinterface.events.EventActivity;
 import com.example.c4q.capstone.userinterface.user.SettingsActivity;
 import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 123;
     private DrawerLayout navDrawerLayout;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         Transition explode = new Explode();
         TransitionManager tm = getContentTransitionManager();
         setContentTransitionManager(tm);
-       // tm.setTransition(MainActivity.this, SettingsActivity.class, explode);
+       // tm.setTransition(LoginActivity.this, SettingsActivity.class, explode);
         getWindow().setEnterTransition(explode);
         getWindow().setExitTransition(explode);
 
@@ -63,13 +57,13 @@ public class MainActivity extends AppCompatActivity {
                         .build(),
                 RC_SIGN_IN);
         /*Deletes Firebase Authentication as well as all social identity providers (MG)*/
-        AuthUI.getInstance()
-                .signOut(this)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    public void onComplete(@NonNull Task<Void> task) {
-                        // ...
-                    }
-                });
+//        AuthUI.getInstance()
+//                .signOut(this)
+//                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        // ...
+//                    }
+//                });
 
         NetworkCall.start("10001");
         setNavDrawerLayout();
@@ -86,9 +80,9 @@ public class MainActivity extends AppCompatActivity {
 
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
-                Intent userProfileIntent = new Intent(MainActivity.this, UserProfileActivity.class);
-                startActivity(userProfileIntent);
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                Intent userProfileIntent = new Intent(LoginActivity.this, UserProfileActivity.class);
+                startActivity(userProfileIntent);
                 // ...
             } else {
                 // Sign in failed, check response for error code
@@ -111,22 +105,22 @@ public class MainActivity extends AppCompatActivity {
                         // close drawer when item is tapped
                         switch(menuItem.getItemId()){
                             case R.id.notifications_menu_item:
-                                Intent notifications = new Intent (MainActivity.this, UserProfileActivity.class);
+                                Intent notifications = new Intent (LoginActivity.this, UserProfileActivity.class);
                                 startActivity(notifications);
                                 //TODO start userProfile with notifications fragment loaded.
                                 break;
                             case R.id.upcoming_events_menu_item:
-                                Intent upcomingEvents = new Intent (MainActivity.this, UserProfileActivity.class);
+                                Intent upcomingEvents = new Intent (LoginActivity.this, UserProfileActivity.class);
                                 startActivity(upcomingEvents);
                                 //TODO start userProfile with upcomining events fragment loaded.
                                 break;
                             case R.id.my_groups_menu_item:
-                                Intent userProfile = new Intent (MainActivity.this, UserProfileActivity.class);
+                                Intent userProfile = new Intent (LoginActivity.this, UserProfileActivity.class);
                                 startActivity(userProfile);
                                 //TODO start userProfile with groups fragment loaded.
                                 break;
                             case R.id.settings_menu_item:
-                                Intent settings= new Intent (MainActivity.this, SettingsActivity.class);
+                                Intent settings= new Intent (LoginActivity.this, SettingsActivity.class);
                                 startActivity(settings);
                                 //TODO start settings activity.
                                 break;
