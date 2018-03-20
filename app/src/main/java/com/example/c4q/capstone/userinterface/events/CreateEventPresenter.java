@@ -23,6 +23,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
+
 /**
  * Created by amirahoxendine on 3/19/18.
  * This is a class to handle data input for CreateEventFragment
@@ -42,7 +44,6 @@ public class CreateEventPresenter {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference myRef;
     private FirebaseUser user;
-    private static final String PUBLIC_USER = "public_user";
     private String userID;
     String firstName;
     String lastName;

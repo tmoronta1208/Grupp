@@ -29,11 +29,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.example.c4q.capstone.utils.Constants.PRIVATE_LOCATION;
+import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
+import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
+
 public class EditProfileActivity extends AppCompatActivity {
-    private static final String PUBLIC_USER = "public_user";
     private static final String TAG = "EditProfileActivity";
-    private static final String PRIVATE_USER = "private_user";
-    private static final String PRIVATE_LOCATION = "current_location";
 
     private String userID, firstNameString, lastNameString, zipCodeSting, budgetString;
     private boolean over18, over21, share_location;
@@ -66,8 +67,6 @@ public class EditProfileActivity extends AppCompatActivity {
         firstName = findViewById(R.id.edit_profile_firstname);
         lastName = findViewById(R.id.edit_profile_lastname);
         zipCode = findViewById(R.id.edit_profile_zip_code);
-
-
 
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
