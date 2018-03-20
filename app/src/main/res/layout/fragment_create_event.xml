@@ -27,7 +27,7 @@
         android:padding="@dimen/layout_padding"
         android:inputType="text"
         android:maxLines="1"
-        android:imeOptions="actionGo"
+        android:imeOptions="actionDone"
         android:focusable="true"
         android:focusedByDefault="true"
         android:cursorVisible="true"

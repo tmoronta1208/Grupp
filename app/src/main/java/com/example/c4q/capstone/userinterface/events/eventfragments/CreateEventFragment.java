@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -24,6 +26,11 @@ import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.model.events.Events;
 import com.example.c4q.capstone.userinterface.events.CreateEventInteractions;
 import com.example.c4q.capstone.userinterface.events.CreateEventPresenter;
+import com.example.c4q.capstone.userinterface.events.EventFragmentListener;
+import com.example.c4q.capstone.userinterface.events.eventfragments.createeventux.DateTimeUX;
+import com.example.c4q.capstone.userinterface.events.eventfragments.createeventux.DoneUX;
+import com.example.c4q.capstone.userinterface.events.eventfragments.createeventux.EditTextUX;
+import com.example.c4q.capstone.userinterface.events.eventfragments.createeventux.ExpandUX;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +46,11 @@ public class CreateEventFragment extends Fragment {
     FrameLayout inviteGuestsContainer;
     CreateEventPresenter eventPresenter;
     CreateEventInteractions eventInteractions;
+    EventFragment eventFragment = new EventFragment();
+    DateTimeUX dateTimeUX;
+    DoneUX doneUX;
+    EditTextUX editTextUX;
+    ExpandUX expandUX;
 
 
 
@@ -51,13 +63,12 @@ public class CreateEventFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_create_event, container, false);
-        eventPresenter = new CreateEventPresenter();
-
         setViews();
-        setViewInteractions();
+        loadPresenters();
 
         return rootView;
     }
+
     /** Load views _ AJ */
     /*method to load views -AJ*/
     public void setViews(){
@@ -76,9 +87,28 @@ public class CreateEventFragment extends Fragment {
         eventName.setSingleLine();
     }
 
-    public void setViewInteractions(){
-        eventInteractions = new CreateEventInteractions(CreateEventFragment.this.getActivity(), rootView, eventName, addNote, addDate, addTime,dateAndTime, timePicker, datePicker, closeButton, createEventButton,addFriendsButton, addGroupButton, inviteGuestsContainer, eventPresenter);
-        eventInteractions.setViewLogic();
+    public void loadPresenters(){
+        eventPresenter = new CreateEventPresenter();
+        dateTimeUX = new DateTimeUX(timePicker, datePicker, closeButton, addDate, addTime, dateAndTime, eventPresenter);
+        expandUX = new ExpandUX(inviteGuestsContainer,addFriendsButton, addGroupButton);
+        editTextUX = new EditTextUX(eventName, addNote, eventPresenter, CreateEventFragment.this.getActivity(), rootView);
+        doneUX = new DoneUX(createEventButton, eventPresenter, new EventFragmentListener() {
+            @Override
+            public void swapFragments() {
+                loadEventFragment();
+            }
+        });
+
+    }
+
+    public void loadEventFragment(){
+        Log.d("Create Event Frag", "loadEventFragment called");
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+        fragmentTransaction.replace(R.id.event_fragment_container, eventFragment);
+        fragmentTransaction.addToBackStack("next");
+        fragmentTransaction.commit();
     }
 
 }
