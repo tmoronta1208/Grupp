@@ -38,6 +38,9 @@ public class CreateEventPresenter {
     public String timeOfEvent;
     public String dateTime = "";
     private static String TAG = "CREATE_EVENT_PRES: ";
+    public String eventName;
+    public String eventDate;
+    public String eventTime;
 
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth mAuth;
@@ -61,7 +64,7 @@ public class CreateEventPresenter {
         setEventOrganizer();
     }
 
-    public void sendEventToFB(){
+    public void sendEventToFB(EventFragmentListener listener){
         //TODO logic to send newEvent to firebase
         // Create new post at /user-posts/$userid/$postid and at
         // /posts/$postid simultaneously
@@ -70,7 +73,12 @@ public class CreateEventPresenter {
         Log.d(TAG, "create event: push key " + key);
         myRef.child("events").child(key).setValue(newEvent);
         Log.d(TAG, "create event: set value: " + newEvent.getEvent_name());
+        listener.getEventIdKEy(key);
+        eventName = newEvent.getEvent_name();
+        eventTime = newEvent.getEvent_time();
+        eventDate = newEvent.getEvent_date();
     }
+
 
     public void getUserData(){
         ValueEventListener postListener = new ValueEventListener() {
