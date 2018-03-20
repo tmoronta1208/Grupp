@@ -105,7 +105,10 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     private void showData(DataSnapshot dataSnapshot) {
-        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+        PublicUser publicUser = dataSnapshot.child(currentUserID).getValue(PublicUser.class);
+        String userFullName = publicUser.getFirst_name() + " " + publicUser.getLast_name();
+        userName.setText(userFullName);
+        /*for (DataSnapshot ds : dataSnapshot.getChildren()) {
             PublicUser publicUser = ds.child(currentUserID).getValue(PublicUser.class);
             //userName.setText("USER ID KEY" + ds.child(PUBLIC_USER).child(currentUserID).getKey());
             userName.setText("USER ID KEY" + ds.child(PUBLIC_USER).child(currentUserID).getKey());
@@ -113,7 +116,7 @@ public class UserProfileActivity extends AppCompatActivity {
 //            usernameTextView.setText(publicUser.getUsername());
 //            userIdTextView.setText(ds.child(PUBLIC_USER).child(currentUserID).getKey());
 //            emailTextView.setText(publicUser.getEmail());
-        }
+        }*/
 
     }
 
