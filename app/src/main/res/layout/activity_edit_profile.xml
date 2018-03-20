@@ -1,99 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.c4q.capstone.userinterface.user.EditProfileActivity">
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:padding="16dp">
 
         <EditText
             android:id="@+id/edit_profile_firstname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="First Name"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:hint="First Name" />
 
         <EditText
             android:id="@+id/edit_profile_lastname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Last Name"
-            app:layout_constraintTop_toBottomOf="@id/edit_profile_firstname" />
+            android:hint="Last Name" />
 
         <EditText
             android:id="@+id/edit_profile_zip_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Zip Code"
-            app:layout_constraintTop_toBottomOf="@id/edit_profile_lastname" />
+            android:hint="Zip Code" />
 
         <TextView
             android:id="@+id/edit_profile_age_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Age"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_profile_zip_code" />
+            android:text="Age" />
 
-        <Spinner
-            android:id="@+id/edit_profile_age_spinner"
+        <RadioGroup
+            android:id="@+id/radio_group_age"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:entries="@array/spinner_age"
-            app:layout_constraintStart_toEndOf="@id/edit_profile_age_text"
-            app:layout_constraintTop_toBottomOf="@id/edit_profile_zip_code">
+            android:layout_height="wrap_content">
 
-        </Spinner>
+            <RadioButton
+                android:id="@+id/age_choice_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="21 or over" />
+
+            <RadioButton
+                android:id="@+id/age_choice_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="18 to 20" />
+
+            <RadioButton
+                android:id="@+id/age_choice_three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="17 or younger" />
+        </RadioGroup>
 
         <TextView
             android:id="@+id/edit_profile_budget_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Budget"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_profile_age_text" />
+            android:text="Budget" />
 
-        <Spinner
-            android:id="@+id/edit_profile_budget_spinner"
+        <RadioGroup
+            android:id="@+id/radio_group_budget"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:entries="@array/spinner_budget"
-            app:layout_constraintStart_toEndOf="@id/edit_profile_budget_text"
-            app:layout_constraintTop_toBottomOf="@id/edit_profile_age_text">
+            android:layout_height="wrap_content">
 
-        </Spinner>
+            <RadioButton
+                android:id="@+id/budget_choice_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$" />
+
+            <RadioButton
+                android:id="@+id/budget_choice_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$$" />
+
+            <RadioButton
+                android:id="@+id/budget_choice_three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$$$" />
+
+            <RadioButton
+                android:id="@+id/budget_choice_four"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$$$$" />
+        </RadioGroup>
 
         <TextView
             android:id="@+id/edit_profile_radius_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Radius"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_profile_budget_text" />
+            android:text="Radius" />
 
-        <Spinner
-            android:id="@+id/edit_profile_radius_spinner"
+        <RadioGroup
+            android:id="@+id/radio_group_radius"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:entries="@array/spinner_radius"
-            app:layout_constraintStart_toEndOf="@id/edit_profile_radius_text"
-            app:layout_constraintTop_toBottomOf="@id/edit_profile_budget_text">
+            android:layout_height="wrap_content">
 
-        </Spinner>
+            <RadioButton
+                android:id="@+id/radius_choice_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5 mi" />
+
+            <RadioButton
+                android:id="@+id/radius_choice_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10 mi" />
+
+            <RadioButton
+                android:id="@+id/radius_choice_three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15 mi" />
+
+            <RadioButton
+                android:id="@+id/radius_choice_four"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20 mi" />
+
+            <RadioButton
+                android:id="@+id/radius_choice_five"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="25 mi" />
+        </RadioGroup>
 
         <Button
             android:id="@+id/edit_profile_save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_profile_radius_text" />
-    </android.support.constraint.ConstraintLayout>
+            android:layout_gravity="end"
+            android:text="Save" />
+    </LinearLayout>
 </ScrollView>

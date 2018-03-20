@@ -8,17 +8,19 @@ public class PrivateUser {
     private String email;
     private String password;
     private int age;
+    private int radius;
 
     public PrivateUser() {
     }
 
-    public PrivateUser(String first_name, String last_name, String username, String email, String password, int age) {
+    public PrivateUser(String first_name, String last_name, String username, String email, String password, int age, int radius) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.username = username;
         this.email = email;
         this.password = password;
         this.age = age;
+        this.radius = radius;
     }
 
     public String getFirst_name() {
@@ -69,5 +71,11 @@ public class PrivateUser {
         this.age = age;
     }
 
+    public int getRadius() {
+        return radius;
+    }
 
+    public void setRadius(int radius) {
+        this.radius = radius;
+    }
 }
