@@ -9,13 +9,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.transition.Explode;
-import android.transition.Transition;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.c4q.capstone.MainActivity;
-import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.*;
 import com.example.c4q.capstone.userinterface.events.EventActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -74,7 +71,7 @@ public class SettingsActivity extends AppCompatActivity {
                                         .signOut(getApplicationContext())
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             public void onComplete(@NonNull Task<Void> task) {
-                                                Intent landingIntent = new Intent (SettingsActivity.this, MainActivity.class);
+                                                Intent landingIntent = new Intent (SettingsActivity.this, com.example.c4q.capstone.LoginActivity.class);
                                                 startActivity(landingIntent);
                                             }
                                         });
