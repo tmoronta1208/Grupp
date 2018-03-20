@@ -1,21 +1,20 @@
 package com.example.c4q.capstone.userinterface.user;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.database.model.privateuserdata.PrivateUser;
+import com.example.c4q.capstone.database.model.privateuserdata.PrivateUserLocation;
 import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,21 +27,23 @@ import com.google.firebase.database.ValueEventListener;
 public class EditProfileActivity extends AppCompatActivity {
     private static final String PUBLIC_USER = "public_user";
     private static final String TAG = "EditProfileActivity";
+    private static final String PRIVATE_USER = "private_user";
+    private static final String PRIVATE_LOCATION = "current_location";
 
-    private String userID, firstNameString, lastNameString, zipCodeString, budgetString;
-    private boolean over18, over21;
+    private String userID, firstNameString, lastNameString, zipCodeSting, budgetString;
+    private boolean over18, over21, share_location;
     private int radius;
-
+    private double lat, lng;
 
     private Button saveBtn;
     private EditText firstName, lastName, zipCode;
-    RadioGroup ageGroup, budgetGroup, radiusGroup;
-    RadioButton ageChoice, budgetChoice, radiusChoice;
+    private RadioGroup ageGroup, budgetGroup, radiusGroup;
+    private RadioButton ageChoice, budgetChoice, radiusChoice;
 
-    private FirebaseDatabase mFirebaseDatabase;
+    private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private DatabaseReference myRef;
+    private DatabaseReference publicUserReference, privateUserReference, privateUserLocationReference;
     private FirebaseUser user;
 
 
@@ -61,14 +62,20 @@ public class EditProfileActivity extends AppCompatActivity {
         lastName = findViewById(R.id.edit_profile_lastname);
         zipCode = findViewById(R.id.edit_profile_zip_code);
 
+        lat = 40.742959;
+        lng = -73.941921;
+
         mAuth = FirebaseAuth.getInstance();
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        myRef = mFirebaseDatabase.getReference();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
+        publicUserReference = firebaseDatabase.getReference();
+        privateUserReference = firebaseDatabase.getReference();
+        privateUserLocationReference = firebaseDatabase.getReference();
+
         user = mAuth.getCurrentUser();
         userID = user.getUid();
 
         radioGroupSelection();
-
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -85,7 +92,7 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         };
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -99,7 +106,11 @@ public class EditProfileActivity extends AppCompatActivity {
                 // Failed to read value
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
-        });
+        };
+
+        publicUserReference.addValueEventListener(valueEventListener);
+        privateUserReference.addValueEventListener(valueEventListener);
+        privateUserLocationReference.addValueEventListener(valueEventListener);
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,11 +124,17 @@ public class EditProfileActivity extends AppCompatActivity {
     private void saveToDatabase() {
         firstNameString = firstName.getText().toString().trim();
         lastNameString = lastName.getText().toString().trim();
-        zipCodeString = zipCode.getText().toString().trim();
+        zipCodeSting = zipCode.getText().toString();
 
-        if (!firstNameString.equals("") && !lastNameString.equals("") && !zipCodeString.equals("")) {
-            PublicUser publicUser = new PublicUser(firstNameString, lastNameString, zipCodeString, budgetString, over18, over21, radius);
-            myRef.child(PUBLIC_USER).child(userID).setValue(publicUser);
+        if (!firstNameString.equals("") && !lastNameString.equals("") && !zipCodeSting.equals("")) {
+            PublicUser publicUser = new PublicUser(firstNameString, lastNameString, zipCodeSting, budgetString, over18, over21, radius);
+            PrivateUser privateUser = new PrivateUser(firstNameString, lastNameString, over18, over21, radius);
+            PrivateUserLocation privateUserLocation = new PrivateUserLocation(share_location, lat, lng);
+
+            publicUserReference.child(PUBLIC_USER).child(userID).setValue(publicUser);
+            privateUserReference.child(PRIVATE_USER).child(userID).setValue(privateUser);
+            privateUserLocationReference.child(PRIVATE_USER).child(userID).child(PRIVATE_LOCATION).setValue(privateUserLocation);
+
             startActivity(new Intent(EditProfileActivity.this, UserProfileActivity.class));
         } else {
             firstName.setError("Required");
