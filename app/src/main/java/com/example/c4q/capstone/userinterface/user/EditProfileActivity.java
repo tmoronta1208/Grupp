@@ -28,9 +28,6 @@ import com.google.firebase.database.ValueEventListener;
 public class EditProfileActivity extends AppCompatActivity {
     private static final String PUBLIC_USER = "public_user";
     private static final String TAG = "EditProfileActivity";
-    private static final String AGE_RANGE = "age_range";
-    private static final String BUDGET = "budget";
-    private static final String RADIUS = "radius";
 
     private String userID, firstNameString, lastNameString, zipCodeString, budgetString;
     private boolean over18, over21;
@@ -119,7 +116,7 @@ public class EditProfileActivity extends AppCompatActivity {
         zipCodeString = zipCode.getText().toString().trim();
 
         if (!firstNameString.equals("") && !lastNameString.equals("") && !zipCodeString.equals("")) {
-            PublicUser publicUser = new PublicUser(firstNameString, lastNameString, zipCodeString, budgetString, over18, over21,radius);
+            PublicUser publicUser = new PublicUser(firstNameString, lastNameString, zipCodeString, budgetString, over18, over21, radius);
             myRef.child(PUBLIC_USER).child(userID).setValue(publicUser);
             startActivity(new Intent(EditProfileActivity.this, UserProfileActivity.class));
         } else {
