@@ -149,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
-                Log.d(" LOGIN", "USER LITENER CALLED");
+                Log.d(" LOGIN", "USER LISTENER CALLED");
                 publicUser = dataSnapshot.child(currentUserID).getValue(PublicUser.class);
                 if (publicUser!= null) {
                     Log.d(" LOGIN", "user first name" + publicUser.getFirst_name());
