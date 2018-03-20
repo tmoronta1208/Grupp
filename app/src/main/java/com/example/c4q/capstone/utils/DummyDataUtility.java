@@ -3,7 +3,7 @@ package com.example.c4q.capstone.utils;
 import android.content.Context;
 
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.network.model.Results;
+import com.example.c4q.capstone.network.barzzmodel.Results;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
