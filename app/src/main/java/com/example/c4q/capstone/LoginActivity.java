@@ -14,7 +14,6 @@ import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 
 import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
 import com.example.c4q.capstone.network.NetworkCall;
@@ -38,13 +37,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 123;
     private DrawerLayout navDrawerLayout;
-    private FirebaseUser user;
     private static final String PUBLIC_USER = "public_user";
 
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth authentication;
     private FirebaseUser currentUser;
-    private FirebaseAuth.AuthStateListener authStateListener;
     private DatabaseReference publicUserDatabaseReference;
     private String currentUserID;
     PublicUser publicUser;
@@ -56,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         Transition explode = new Explode();
         TransitionManager tm = getContentTransitionManager();
         setContentTransitionManager(tm);
-       // tm.setTransition(LoginActivity.this, SettingsActivity.class, explode);
+        // tm.setTransition(LoginActivity.this, SettingsActivity.class, explode);
         getWindow().setEnterTransition(explode);
         getWindow().setExitTransition(explode);
 
@@ -64,12 +61,9 @@ public class LoginActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         publicUserDatabaseReference = firebaseDatabase.getReference().child(PUBLIC_USER);
         currentUser = authentication.getCurrentUser();
-        String authUser = authentication.getUid();
-        currentUserID = currentUser.getUid();
-        Log.d("current user.getUID", currentUserID);
-        Log.d("authentication.getui", authUser);
-
-
+        if (currentUser != null) {
+            currentUserID = currentUser.getUid();
+        }
 
         /**
          * gets user data to check if user is in database
@@ -87,8 +81,8 @@ public class LoginActivity extends AppCompatActivity {
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setAvailableProviders(providers)
-                     //   .setLogo(R.drawable.my_great_logo) <-- Set logo drawable
-                      //  .setTheme(R.style.MySuperAppTheme) <-- Set theme
+                        //   .setLogo(R.drawable.my_great_logo) <-- Set logo drawable
+                        //  .setTheme(R.style.MySuperAppTheme) <-- Set theme
                         .build(),
                 RC_SIGN_IN);
         /*Deletes Firebase Authentication as well as all social identity providers (MG)*/
@@ -104,8 +98,9 @@ public class LoginActivity extends AppCompatActivity {
         setNavDrawerLayout();
 //        setToolbar();
     }
-            /* takes user's credentials and controls what to do with it.
-             i.e database stuff (MG)*/
+
+    /* takes user's credentials and controls what to do with it.
+     i.e database stuff (MG)*/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -123,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
                  * if user is not in db, launches edit profile intent
                  * */
 
-                if(userNotInDB()){
+                if (userNotInDB()) {
                     Intent editProfileIntent = new Intent(LoginActivity.this, EditProfileActivity.class);
                     startActivity(editProfileIntent);
                     Log.d(" LOGIN", "set up profile");
@@ -147,18 +142,18 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * gets user data to check if user is in database
-     * */
+     */
 
-    public void getUserData(){
+    public void getUserData() {
         ValueEventListener userListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
                 Log.d(" LOGIN", "USER LISTENER CALLED");
                 publicUser = dataSnapshot.child(currentUserID).getValue(PublicUser.class);
-                if (publicUser!= null) {
+                if (publicUser != null) {
                     Log.d(" LOGIN", "user first name" + publicUser.getFirst_name());
-                } else{
+                } else {
                     Log.d(" LOGIN", "user is null");
 
                 }
@@ -172,11 +167,11 @@ public class LoginActivity extends AppCompatActivity {
                 // ...
             }
         };
-       publicUserDatabaseReference.addValueEventListener(userListener);
+        publicUserDatabaseReference.addValueEventListener(userListener);
     }
 
     /*method to load and display navigation drawer - AJ*/
-    public void setNavDrawerLayout(){
+    public void setNavDrawerLayout() {
         navDrawerLayout = findViewById(R.id.drawer_layout);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -187,24 +182,24 @@ public class LoginActivity extends AppCompatActivity {
                         // set item as selected to persist highlight
                         menuItem.setChecked(true);
                         // close drawer when item is tapped
-                        switch(menuItem.getItemId()){
+                        switch (menuItem.getItemId()) {
                             case R.id.notifications_menu_item:
-                                Intent notifications = new Intent (LoginActivity.this, UserProfileActivity.class);
+                                Intent notifications = new Intent(LoginActivity.this, UserProfileActivity.class);
                                 startActivity(notifications);
                                 //TODO start userProfile with notifications fragment loaded.
                                 break;
                             case R.id.upcoming_events_menu_item:
-                                Intent upcomingEvents = new Intent (LoginActivity.this, UserProfileActivity.class);
+                                Intent upcomingEvents = new Intent(LoginActivity.this, UserProfileActivity.class);
                                 startActivity(upcomingEvents);
                                 //TODO start userProfile with upcomining events fragment loaded.
                                 break;
                             case R.id.my_groups_menu_item:
-                                Intent userProfile = new Intent (LoginActivity.this, UserProfileActivity.class);
+                                Intent userProfile = new Intent(LoginActivity.this, UserProfileActivity.class);
                                 startActivity(userProfile);
                                 //TODO start userProfile with groups fragment loaded.
                                 break;
                             case R.id.settings_menu_item:
-                                Intent settings= new Intent (LoginActivity.this, SettingsActivity.class);
+                                Intent settings = new Intent(LoginActivity.this, SettingsActivity.class);
                                 startActivity(settings);
                                 //TODO start settings activity.
                                 break;
@@ -242,8 +237,9 @@ public class LoginActivity extends AppCompatActivity {
                 }
         );
     }
+
     /*method to load toolbar as action bar and display nav drawer icon - AJ*/
-    public void setToolbar(){
+    public void setToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();

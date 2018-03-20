@@ -1,6 +1,7 @@
 package com.example.c4q.capstone.userinterface.user;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -25,11 +28,19 @@ import com.google.firebase.database.ValueEventListener;
 public class EditProfileActivity extends AppCompatActivity {
     private static final String PUBLIC_USER = "public_user";
     private static final String TAG = "EditProfileActivity";
+    private static final String AGE_RANGE = "age_range";
+    private static final String BUDGET = "budget";
+    private static final String RADIUS = "radius";
 
-    private String userID;
+    private String userID, firstNameString, lastNameString, zipCodeString, budgetString;
+    private boolean over18, over21;
+    private int radius;
+
+
     private Button saveBtn;
     private EditText firstName, lastName, zipCode;
-    private Spinner ageSpinner, budgetSpinner, radiusSpinner;
+    RadioGroup ageGroup, budgetGroup, radiusGroup;
+    RadioButton ageChoice, budgetChoice, radiusChoice;
 
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth mAuth;
@@ -45,10 +56,9 @@ public class EditProfileActivity extends AppCompatActivity {
 
         saveBtn = findViewById(R.id.edit_profile_save_button);
 
-        ageSpinner = findViewById(R.id.edit_profile_age_spinner);
-        budgetSpinner = findViewById(R.id.edit_profile_budget_spinner);
-        radiusSpinner = findViewById(R.id.edit_profile_radius_spinner);
-        spinnerLogic();
+        ageGroup = findViewById(R.id.radio_group_age);
+        budgetGroup = findViewById(R.id.radio_group_budget);
+        radiusGroup = findViewById(R.id.radio_group_radius);
 
         firstName = findViewById(R.id.edit_profile_firstname);
         lastName = findViewById(R.id.edit_profile_lastname);
@@ -59,6 +69,9 @@ public class EditProfileActivity extends AppCompatActivity {
         myRef = mFirebaseDatabase.getReference();
         user = mAuth.getCurrentUser();
         userID = user.getUid();
+
+        radioGroupSelection();
+
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -97,15 +110,16 @@ public class EditProfileActivity extends AppCompatActivity {
                 saveToDatabase();
             }
         });
+
     }
 
     private void saveToDatabase() {
-        String firstNameString = firstName.getText().toString().trim();
-        String lastNameString = lastName.getText().toString().trim();
-        String zipCodeString = zipCode.getText().toString().trim();
+        firstNameString = firstName.getText().toString().trim();
+        lastNameString = lastName.getText().toString().trim();
+        zipCodeString = zipCode.getText().toString().trim();
 
         if (!firstNameString.equals("") && !lastNameString.equals("") && !zipCodeString.equals("")) {
-            PublicUser publicUser = new PublicUser(firstNameString, lastNameString, zipCodeString);
+            PublicUser publicUser = new PublicUser(firstNameString, lastNameString, zipCodeString, budgetString, over18, over21,radius);
             myRef.child(PUBLIC_USER).child(userID).setValue(publicUser);
             startActivity(new Intent(EditProfileActivity.this, UserProfileActivity.class));
         } else {
@@ -129,72 +143,74 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
-    public void spinnerLogic() {
-        ageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+    public void radioGroupSelection() {
+        ageGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                ageChoice = group.findViewById(checkedId);
+                switch (checkedId) {
+                    case R.id.age_choice_one:
+                        over18 = true;
+                        over21 = true;
                         break;
-                    case 1:
+                    case R.id.age_choice_two:
+                        over18 = true;
+                        over21 = false;
                         break;
-                    case 2:
+                    case R.id.age_choice_three:
+                        over18 = false;
+                        over21 = false;
                         break;
                 }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
-        budgetSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        budgetGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                budgetChoice = group.findViewById(checkedId);
+                switch (checkedId) {
+                    case R.id.budget_choice_one:
+                        budgetString = "$";
                         break;
-                    case 1:
+                    case R.id.budget_choice_two:
+                        budgetString = "$$";
                         break;
-                    case 2:
+                    case R.id.budget_choice_three:
+                        budgetString = "$$$";
                         break;
-                    case 3:
+                    case R.id.budget_choice_four:
+                        budgetString = "$$$$";
                         break;
+
                 }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
-        radiusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        radiusGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                radiusChoice = group.findViewById(checkedId);
+                switch (checkedId) {
+                    case R.id.radius_choice_one:
+                        radius = 5;
                         break;
-                    case 1:
+                    case R.id.radius_choice_two:
+                        radius = 10;
                         break;
-                    case 2:
+                    case R.id.radius_choice_three:
+                        radius = 15;
                         break;
-                    case 3:
+                    case R.id.radius_choice_four:
+                        radius = 20;
                         break;
-                    case 4:
+                    case R.id.radius_choice_five:
+                        radius = 25;
                         break;
                 }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
     }
-
-
 }
 
 

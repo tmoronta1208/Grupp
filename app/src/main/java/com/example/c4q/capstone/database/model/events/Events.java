@@ -18,6 +18,16 @@ public class Events {
 
     public Events(){}
 
+    public Events(boolean cancelled, String event_date, String event_name, String event_note, String event_organizer, String event_time, List<String> invited_guests) {
+        this.cancelled = cancelled;
+        this.event_date = event_date;
+        this.event_name = event_name;
+        this.event_note = event_note;
+        this.event_organizer = event_organizer;
+        this.event_time = event_time;
+        this.invited_guests = invited_guests;
+    }
+
     public Events(boolean cancelled, String event_date, String event_name, String event_note, String event_organizer, String event_time, String final_venue, List<String> confirmed_guests, List<String> invited_guests, List<String> potential_venues, List<String> top_three_venues) {
         this.cancelled = cancelled;
         this.event_date = event_date;
