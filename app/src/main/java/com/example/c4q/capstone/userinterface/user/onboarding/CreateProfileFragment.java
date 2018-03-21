@@ -1,16 +1,20 @@
-package com.example.c4q.capstone.userinterface.user;
+package com.example.c4q.capstone.userinterface.user.onboarding;
 
-import android.Manifest;
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -21,8 +25,8 @@ import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.model.privateuserdata.PrivateUser;
 import com.example.c4q.capstone.database.model.privateuserdata.PrivateUserLocation;
 import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
-import com.example.c4q.capstone.database.model.publicuserdata.UserSearch;
-import com.example.c4q.capstone.utils.Constants;
+import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.PreferencesFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,8 +39,14 @@ import static com.example.c4q.capstone.utils.Constants.PRIVATE_LOCATION;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 
-public class EditProfileActivity extends AppCompatActivity {
-    private static final String TAG = "EditProfileActivity";
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class CreateProfileFragment extends Fragment {
+    View rootView;
+
+    private static final String TAG = "CreateProfileActivity";
 
     private String userID, firstNameString, lastNameString, zipCodeSting, budgetString;
     private boolean over18, over21, share_location;
@@ -51,41 +61,44 @@ public class EditProfileActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private DatabaseReference publicUserReference, privateUserReference, privateUserLocationReference, searchUserReference;
+    private DatabaseReference publicUserReference, privateUserReference, privateUserLocationReference;
     private FirebaseUser user;
-    private UserSearch userSearch;
-    private PublicUser publicUser;
-    private PrivateUser privateUser;
-    private PrivateUserLocation privateUserLocation;
-    private String currentUserEmail;
 
+
+    public CreateProfileFragment() {
+        // Required empty public constructor
+    }
+    /** @Tati this is the CreateProfile fragment, basically a copy and paste of @Ashley's EditProfileCode.
+     * I've indicated when and where the fragment gets swapped with a todo.
+     * Theres a lot of code on this page. You can make it nicer,
+     * if youd like :)
+     */
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_profile);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-        saveBtn = findViewById(R.id.edit_profile_save_button);
+        rootView =  inflater.inflate(com.example.c4q.capstone.R.layout.fragment_create_profile, container, false);
 
-        ageGroup = findViewById(R.id.radio_group_age);
-        budgetGroup = findViewById(R.id.radio_group_budget);
-        radiusGroup = findViewById(R.id.radio_group_radius);
+        saveBtn = rootView.findViewById(R.id.edit_profile_save_button);
 
-        firstName = findViewById(R.id.edit_profile_firstname);
-        lastName = findViewById(R.id.edit_profile_lastname);
-        zipCode = findViewById(R.id.edit_profile_zip_code);
+        ageGroup = rootView.findViewById(R.id.radio_group_age);
+        budgetGroup = rootView.findViewById(R.id.radio_group_budget);
+        radiusGroup = rootView.findViewById(R.id.radio_group_radius);
+
+        firstName = rootView.findViewById(R.id.edit_profile_firstname);
+        lastName = rootView.findViewById(R.id.edit_profile_lastname);
+        zipCode = rootView.findViewById(R.id.edit_profile_zip_code);
 
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
-        publicUserReference = firebaseDatabase.getReference().child(PUBLIC_USER);
-        privateUserReference = firebaseDatabase.getReference().child(PRIVATE_USER);
-        privateUserLocationReference = firebaseDatabase.getReference().child(PRIVATE_USER);
-        searchUserReference = firebaseDatabase.getReference().child(PUBLIC_USER);
+        publicUserReference = firebaseDatabase.getReference();
+        privateUserReference = firebaseDatabase.getReference();
+        privateUserLocationReference = firebaseDatabase.getReference();
 
         user = mAuth.getCurrentUser();
         userID = user.getUid();
-        currentUserEmail = user.getEmail();
 
         radioGroupSelection();
 
@@ -95,11 +108,11 @@ public class EditProfileActivity extends AppCompatActivity {
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    Toast.makeText(EditProfileActivity.this, "Successfully signed in with: " + user.getEmail(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateProfileFragment.this.getActivity(), "Successfully signed in with: " + user.getEmail(), Toast.LENGTH_SHORT).show();
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
-                    Toast.makeText(EditProfileActivity.this, "Successfully signed out.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateProfileFragment.this.getActivity(), "Successfully signed out.", Toast.LENGTH_SHORT).show();
                 }
             }
         };
@@ -107,12 +120,10 @@ public class EditProfileActivity extends AppCompatActivity {
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                privateUser = dataSnapshot.child(userID).getValue(PrivateUser.class);
-                privateUserLocation = dataSnapshot.child(userID).getValue(PrivateUserLocation.class);
-                publicUser = dataSnapshot.child(userID).getValue(PublicUser.class);
-                userSearch = dataSnapshot.child(userID).getValue(UserSearch.class);
-
-                Log.d(TAG, "onDataChange: Added information to database: \n" + dataSnapshot.getValue());
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                Log.d(TAG, "onDataChange: Added information to database: \n" +
+                        dataSnapshot.getValue());
             }
 
             @Override
@@ -122,7 +133,6 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         };
 
-        searchUserReference.addValueEventListener(valueEventListener);
         publicUserReference.addValueEventListener(valueEventListener);
         privateUserReference.addValueEventListener(valueEventListener);
         privateUserLocationReference.addValueEventListener(valueEventListener);
@@ -134,12 +144,18 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
-        LocationManager locationManager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        locationManagerLogic();
 
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
+        return rootView;
+    }
+
+    public void locationManagerLogic(){
+        LocationManager locationManager = (LocationManager) getActivity().getSystemService(CreateProfileFragment.this.getActivity().LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(CreateProfileFragment.this.getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                (CreateProfileFragment.this.getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
                     android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1020);
             return;
         }
@@ -147,6 +163,7 @@ public class EditProfileActivity extends AppCompatActivity {
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         lat = location.getLatitude();
         lng = location.getLongitude();
+
     }
 
     private void saveToDatabase() {
@@ -155,23 +172,42 @@ public class EditProfileActivity extends AppCompatActivity {
         zipCodeSting = zipCode.getText().toString();
 
         if (!firstNameString.equals("") && !lastNameString.equals("") && !zipCodeSting.equals("")) {
+            PublicUser publicUser = new PublicUser(firstNameString, lastNameString, zipCodeSting, budgetString, over18, over21, radius);
+            PrivateUser privateUser = new PrivateUser(firstNameString, lastNameString, over18, over21, radius);
+            PrivateUserLocation privateUserLocation = new PrivateUserLocation(share_location, lat, lng);
 
-            publicUser = new PublicUser(firstNameString, lastNameString, zipCodeSting, budgetString, over18, over21, radius);
-            privateUser = new PrivateUser(firstNameString, lastNameString, over18, over21, radius);
-            privateUserLocation = new PrivateUserLocation(share_location, lat, lng);
-            userSearch = new UserSearch(currentUserEmail);
+            publicUserReference.child(PUBLIC_USER).child(userID).setValue(publicUser);
+            privateUserReference.child(PRIVATE_USER).child(userID).setValue(privateUser);
+            privateUserLocationReference.child(PRIVATE_USER).child(userID).child(PRIVATE_LOCATION).setValue(privateUserLocation);
 
-            searchUserReference.child(userID).setValue(userSearch);
-            publicUserReference.child(userID).setValue(publicUser);
-            privateUserReference.child(userID).setValue(privateUser);
-            privateUserLocationReference.child(userID).child(PRIVATE_LOCATION).setValue(privateUserLocation);
+            //startActivity(new Intent(CreateProfileFragment.this.getActivity(), UserProfileActivity.class))
 
-            startActivity(new Intent(EditProfileActivity.this, UserProfileActivity.class));
+            /*****/       // TODO  @Tati - Onboarding : swap this fragment with preferences fragment
+            /** cmd + click on the method to find it and see what ti does
+             *
+             */
+            loadPreferencesScreen();
         } else {
             firstName.setError("Required");
             lastName.setError("Required");
             zipCode.setError("Required");
         }
+    }
+    /** This methods gets the OnboardActivity's fragment manager and replaces this fragment with a PreferencesFragment
+     * You can easily expand you Preferences fragment to multiple, so your screens arent so busy.
+     * im pretty sure the view pager transformer requires fragments
+     * https://developer.android.com/training/animation/screen-slide.html <--- link to view pagers
+     * https://github.com/ToxicBakery/ViewPagerTransforms <---- link to view pager transformers (the cube spin thing like
+     * instagram stories)
+     */
+    private void loadPreferencesScreen(){
+        PreferencesFragment preferencesFragment = new PreferencesFragment();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+        fragmentTransaction.replace(R.id.onboard_main_fragment_container, preferencesFragment);
+        fragmentTransaction.addToBackStack("next");
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -256,6 +292,5 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
     }
+
 }
-
-

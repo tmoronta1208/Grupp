@@ -10,17 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller.EventsAdapter;
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller.GroupsAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EventsFragment extends Fragment {
+public class UPGroupFragment extends Fragment {
     private View view;
     private RecyclerView recyclerView;
-    private EventsAdapter eventsAdapter;
+    private GroupsAdapter groupsAdapter;
 
-    public EventsFragment() {
+
+    public UPGroupFragment() {
         // Required empty public constructor
     }
 
@@ -29,15 +30,17 @@ public class EventsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_events, container, false);
+        view = inflater.inflate(R.layout.fragment_group, container, false);
 
-        recyclerView = view.findViewById(R.id.events_rec);
 
-        eventsAdapter = new EventsAdapter();
+        recyclerView = view.findViewById(R.id.groups_rec);
+
+        groupsAdapter = new GroupsAdapter();
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayout = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(linearLayout);
         return view;
+
     }
 
 }
