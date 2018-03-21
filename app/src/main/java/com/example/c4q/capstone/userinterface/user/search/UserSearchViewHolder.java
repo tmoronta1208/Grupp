@@ -9,12 +9,13 @@ import com.example.c4q.capstone.R;
 
 
 public class UserSearchViewHolder extends RecyclerView.ViewHolder {
-    TextView usernameTxt, firstName, lastName, emailTxt;
+    TextView usernameTxt, firstName, lastName, emailTxt,requestFriendBtn;
     View view;
 
     public UserSearchViewHolder(View itemView) {
         super(itemView);
         view = itemView;
+        requestFriendBtn = itemView.findViewById(R.id.request_friend);
     }
 
     public void setFirst_name(String first_name) {

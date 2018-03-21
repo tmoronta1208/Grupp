@@ -27,8 +27,7 @@ import java.util.List;
 public class FBEventDataUtility {
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth mAuth;
-    private DatabaseReference firebaseDatabase;
-    private DatabaseReference eventReference;
+    private DatabaseReference firebaseDatabase, userReference, eventReference;
 
 
     public static FirebaseUser currentUser;
@@ -39,7 +38,7 @@ public class FBEventDataUtility {
     private static String TAG = "FB EVENT UTILITY: ";
     Events events;
 
-    public FBEventDataUtility(){
+    public FBEventDataUtility() {
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabase = mFirebaseDatabase.getReference();
@@ -47,17 +46,18 @@ public class FBEventDataUtility {
         userReference = firebaseDatabase.child(PUBLIC_USER);
 
         currentUser = mAuth.getCurrentUser();
-        if (currentUser != null){
+        if (currentUser != null) {
             currentUserID = currentUser.getUid();
         }
     }
 
-    /**ajoxe:
+    /**
+     * ajoxe:
      * this method get a single events object form the database
      * it takes in a key and a listener (to send the event to)
-     * */
+     */
 
-    public void getEventFromDB(String key, final EventDataListener listener){
+    public void getEventFromDB(String key, final EventDataListener listener) {
         eventKey = key;
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
@@ -83,10 +83,12 @@ public class FBEventDataUtility {
         };
         eventReference.addValueEventListener(eventListener);
     }
-    /**ajoxe:
+
+    /**
+     * ajoxe:
      * this method gets all event keys from db
-     * */
-    public void getAllEventKeys(){
+     */
+    public void getAllEventKeys() {
 
         ValueEventListener eventKeyListener = new ValueEventListener() {
             @Override
@@ -111,7 +113,7 @@ public class FBEventDataUtility {
 
     }
 
-    public void getAllEvents(final FBEventDataListener listener){
+    public void getAllEvents(final FBEventDataListener listener) {
 
         ValueEventListener eventKeyListener = new ValueEventListener() {
             @Override
@@ -119,12 +121,12 @@ public class FBEventDataUtility {
                 final List<Events> eventsList = new ArrayList<>();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Events events = ds.getValue(Events.class);
-                   eventsList.add(events);
-                   if (events != null){
-                       Log.d(TAG, "getAllEvents: eventName: " + events.getEvent_name());
-                   } else {
-                       Log.d(TAG, "getAllEvents: EVENT IS NULL");
-                   }
+                    eventsList.add(events);
+                    if (events != null) {
+                        Log.d(TAG, "getAllEvents: eventName: " + events.getEvent_name());
+                    } else {
+                        Log.d(TAG, "getAllEvents: EVENT IS NULL");
+                    }
                 }
                 listener.getAllEvents(eventsList);
             }

@@ -1,6 +1,6 @@
 package com.example.c4q.capstone.utils;
 
-import com.example.c4q.capstone.database.model.events.Events;
+import com.example.c4q.capstone.database.events.Events;
 
 import java.util.List;
 

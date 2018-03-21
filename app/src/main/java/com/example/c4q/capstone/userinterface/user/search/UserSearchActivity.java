@@ -2,13 +2,10 @@ package com.example.c4q.capstone.userinterface.user.search;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.c4q.capstone.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -52,10 +49,19 @@ public class UserSearchActivity extends AppCompatActivity {
                 ) {
                     @Override
                     protected void populateViewHolder(UserSearchViewHolder viewHolder, User model, int position) {
-//                        viewHolder.setFirst_name(model.getFirst_name());
-//                        viewHolder.setLast_name(model.getLast_name());
-//                        viewHolder.setUsername(model.getUsername());
                         viewHolder.setEmail(model.getEmail());
+
+                        final String user_id = getRef(position).getKey();
+
+
+                        /**
+                         * Everything commented out below to prevent NullPointerException errors.
+                         * will uncomment as data is made available in database
+                         */
+
+                        //viewHolder.setFirst_name(model.getFirst_name());
+                        //viewHolder.setLast_name(model.getLast_name());
+                        //viewHolder.setUsername(model.getUsername());
                     }
                 };
 
