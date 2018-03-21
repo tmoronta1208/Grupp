@@ -40,6 +40,7 @@ public class FBUserDataUtility {
     public String currentUserID;
     PublicUser publicUser;
     PrivateUser privateUser;
+    List<String> dummyUsers;
     private static List<PublicUser> userfriendsPublicUserList;
 
     private static String TAG = "FB USER UTILITY: ";
@@ -57,6 +58,8 @@ public class FBUserDataUtility {
         }
     }
 
+    /**ajoxe:
+     * this method get a single public user from the datatbase*/
 
     public void getPublicUser(final String userID, final FBUserDataListener userDataListener){
         ValueEventListener userListener = new ValueEventListener() {
@@ -66,7 +69,7 @@ public class FBUserDataUtility {
                 PublicUser user = dataSnapshot.child(userID).getValue(PublicUser.class);
                 if (user != null) {
 
-                    Log.w(TAG, "user first name" + user.getFirst_name());
+                    Log.w(TAG, "getPublicUser: user first name: " + user.getFirst_name());
                     userDataListener.getPublicUser(user);
                 }
                 // ...
@@ -83,12 +86,17 @@ public class FBUserDataUtility {
         publicUserReference.addValueEventListener(userListener);
     }
 
+    /**ajoxe:
+     * this method get a list of Public User
+     * untested/not working*/
+
     public void getCurrentUserFriends(final FBUserFriendsListener userFriendsListener){
-        userfriendsPublicUserList = new ArrayList<>();
+
 
             getUserFriendKeys(currentUserID, new FBUserFriendsListener() {
                 @Override
                 public void getUserFriendIds(List<String> userFriendIds) {
+                    userfriendsPublicUserList = new ArrayList<>();
 
 
                     for(String userFriend : userFriendIds) {
@@ -97,13 +105,13 @@ public class FBUserDataUtility {
                             public void getUid(String userID) {
 
                             }
-
                             @Override
                             public void getPublicUser(PublicUser publicUser) {
                                 userfriendsPublicUserList.add(publicUser);
                                 userFriendsListener.getUserFriends(userfriendsPublicUserList);
                             }
                         });
+
                     }
                 }
 
@@ -114,6 +122,9 @@ public class FBUserDataUtility {
 
 
     }
+
+    /**ajoxe:
+     * this method gets user friend keys from the database */
     public void getUserFriendKeys(final String userID, final  FBUserFriendsListener userFriendsListener){
 
         ValueEventListener userListener = new ValueEventListener() {
@@ -127,7 +138,7 @@ public class FBUserDataUtility {
                     userFriendsList.add(friendKey);
                     Log.d(TAG, "friend key" + friendKey);
                 }
-                Log.d(TAG, "user friends list size" + userFriendsList.size());
+                Log.d(TAG, "getUserFriendKeys: user friends list size: " + userFriendsList.size());
                 userFriendsListener.getUserFriendIds(userFriendsList);
             }
             @Override
@@ -141,14 +152,50 @@ public class FBUserDataUtility {
     }
 
 
+    /**ajoxe:
+     * this method add a list of friends to userfreinds in the database
+     * this is a dummy method for populating friends list.
+     * */
     public void addUserFriends(final List<String> userFriendsList){
-        PublicUserFriends friends = new PublicUserFriends(userFriendsList);
         Map<String, Object> userFriendsMap = new HashMap<>();
         userFriendsMap.put(currentUserID, userFriendsList);
        firebaseDatabase.child(USER_FRIENDS).updateChildren(userFriendsMap);
-        Log.w(TAG, "add friends" + userFriendsList.size());
+        Log.w(TAG, "addUserFriends: " + userFriendsList.size());
+    }
+
+    /**ajoxe:
+     * this method adds a single friend to users friend list.
+     * Not tested
+     * */
+    public void addSingleUserFriend(final String friendID){
+        Map<String, Object> userFriendsMap = new HashMap<>();
+        userFriendsMap.put(currentUserID, friendID);
+        firebaseDatabase.child(USER_FRIENDS).updateChildren(userFriendsMap);
+        Log.w(TAG, "add friends" + friendID);
     }
 
 
+    public void getListPublicUsers(final FBUserFriendsListener userFriendsListener){
+
+        ValueEventListener userListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                dummyUsers = new ArrayList<>();
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String dummyKey = ds.getKey();
+                    dummyUsers.add(dummyKey);
+                }
+                userFriendsListener.getUserFriendIds(dummyUsers);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        };
+        publicUserReference.addValueEventListener(userListener);
+    }
 
 }

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
 
 import static android.content.ContentValues.TAG;
 
@@ -24,10 +25,11 @@ public class ContactListViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void onBind(int position) {
+    public void onBind(PublicUser user) {
 
 
-        Log.d(TAG, "onBind: " + position);
-        name.setText(String.valueOf(position));
+        Log.d(TAG, "onBind: " + user.getLast_name());
+        name.setText(user.getFirst_name() + " " + user.getLast_name());
+
     }
 }
