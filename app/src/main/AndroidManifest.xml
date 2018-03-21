@@ -29,6 +29,7 @@
         <activity android:name=".userinterface.user.EditProfileActivity"/>
         <activity android:name=".userinterface.user.SplashPage"/>
         <activity android:name=".userinterface.user.search.UserSearchActivity"/>
+        <activity android:name=".userinterface.user.AddPersonActivity"/>
     </application>
 
 </manifest>

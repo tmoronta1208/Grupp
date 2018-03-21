@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews.ContactListViewHolder;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews.GroupViewHolder;
 
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class ContactListAdapter extends RecyclerView.Adapter<ContactListViewHolder>{
 
-    List<Integer> randomNumberList = new ArrayList<>();
+    List<PublicUser> userPublicList = new ArrayList<>();
     Context context;
 
 
@@ -27,9 +28,9 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListViewHold
 
     }
 
-    public  ContactListAdapter(List<Integer> randomNumberList,Context context){
+    public  ContactListAdapter(List<PublicUser> randomNumberList, Context context){
             this.context = context;
-            this.randomNumberList = randomNumberList;
+            this.userPublicList = randomNumberList;
     }
 
     @Override
@@ -43,11 +44,11 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListViewHold
 
         // using a dummy list to make sure the contacts will show;
 
-        holder.onBind(randomNumberList.get(position));
+        holder.onBind(userPublicList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return randomNumberList.size();
+        return userPublicList.size();
     }
 }
