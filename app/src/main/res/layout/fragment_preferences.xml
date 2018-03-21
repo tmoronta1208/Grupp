@@ -4,24 +4,55 @@
     android:layout_height="match_parent"
     tools:context="com.example.c4q.capstone.userinterface.user.userprofilefragments.PreferencesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
+    <GridLayout
+        android:id="@+id/user_preferences"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/groups_rec"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight=".20"/>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/events_rec"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight=".80"/>
 
-    </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="What kind of bars do you prefer?" />
+
+        <android.support.design.widget.CheckableImageButton
+            android:id="@+id/beer_pref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_launcher_round" />
+
+
+        <android.support.design.widget.CheckableImageButton
+            android:id="@+id/club_pref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_launcher_round" />
+
+        <android.support.design.widget.CheckableImageButton
+            android:id="@+id/lounge_pref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_launcher_round" />
+
+        <android.support.design.widget.CheckableImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_launcher_round" />
+
+        <android.support.design.widget.CheckableImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_launcher_round" />
+
+        <android.support.design.widget.CheckableImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_launcher_round" />
+
+
+    </GridLayout>
 
 
 </FrameLayout>

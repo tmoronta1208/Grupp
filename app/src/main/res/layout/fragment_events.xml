@@ -5,7 +5,6 @@
     android:background="@android:color/white"
     tools:context="com.example.c4q.capstone.userinterface.user.userprofilefragments.EventsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/events_rec"
         android:layout_width="match_parent"
