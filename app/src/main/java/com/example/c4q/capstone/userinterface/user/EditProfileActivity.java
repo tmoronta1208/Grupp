@@ -21,6 +21,8 @@ import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.model.privateuserdata.PrivateUser;
 import com.example.c4q.capstone.database.model.privateuserdata.PrivateUserLocation;
 import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
+import com.example.c4q.capstone.database.model.publicuserdata.UserSearch;
+import com.example.c4q.capstone.utils.Constants;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -49,8 +51,13 @@ public class EditProfileActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private DatabaseReference publicUserReference, privateUserReference, privateUserLocationReference;
+    private DatabaseReference publicUserReference, privateUserReference, privateUserLocationReference, searchUserReference;
     private FirebaseUser user;
+    private UserSearch userSearch;
+    private PublicUser publicUser;
+    private PrivateUser privateUser;
+    private PrivateUserLocation privateUserLocation;
+    private String currentUserEmail;
 
 
     @Override
@@ -71,12 +78,14 @@ public class EditProfileActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
-        publicUserReference = firebaseDatabase.getReference();
-        privateUserReference = firebaseDatabase.getReference();
-        privateUserLocationReference = firebaseDatabase.getReference();
+        publicUserReference = firebaseDatabase.getReference().child(PUBLIC_USER);
+        privateUserReference = firebaseDatabase.getReference().child(PRIVATE_USER);
+        privateUserLocationReference = firebaseDatabase.getReference().child(PRIVATE_USER);
+        searchUserReference = firebaseDatabase.getReference().child(PUBLIC_USER);
 
         user = mAuth.getCurrentUser();
         userID = user.getUid();
+        currentUserEmail = user.getEmail();
 
         radioGroupSelection();
 
@@ -98,10 +107,12 @@ public class EditProfileActivity extends AppCompatActivity {
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                Log.d(TAG, "onDataChange: Added information to database: \n" +
-                        dataSnapshot.getValue());
+                privateUser = dataSnapshot.child(userID).getValue(PrivateUser.class);
+                privateUserLocation = dataSnapshot.child(userID).getValue(PrivateUserLocation.class);
+                publicUser = dataSnapshot.child(userID).getValue(PublicUser.class);
+                userSearch = dataSnapshot.child(userID).getValue(UserSearch.class);
+
+                Log.d(TAG, "onDataChange: Added information to database: \n" + dataSnapshot.getValue());
             }
 
             @Override
@@ -111,6 +122,7 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         };
 
+        searchUserReference.addValueEventListener(valueEventListener);
         publicUserReference.addValueEventListener(valueEventListener);
         privateUserReference.addValueEventListener(valueEventListener);
         privateUserLocationReference.addValueEventListener(valueEventListener);
@@ -143,13 +155,16 @@ public class EditProfileActivity extends AppCompatActivity {
         zipCodeSting = zipCode.getText().toString();
 
         if (!firstNameString.equals("") && !lastNameString.equals("") && !zipCodeSting.equals("")) {
-            PublicUser publicUser = new PublicUser(firstNameString, lastNameString, zipCodeSting, budgetString, over18, over21, radius);
-            PrivateUser privateUser = new PrivateUser(firstNameString, lastNameString, over18, over21, radius);
-            PrivateUserLocation privateUserLocation = new PrivateUserLocation(share_location, lat, lng);
 
-            publicUserReference.child(PUBLIC_USER).child(userID).setValue(publicUser);
-            privateUserReference.child(PRIVATE_USER).child(userID).setValue(privateUser);
-            privateUserLocationReference.child(PRIVATE_USER).child(userID).child(PRIVATE_LOCATION).setValue(privateUserLocation);
+            publicUser = new PublicUser(firstNameString, lastNameString, zipCodeSting, budgetString, over18, over21, radius);
+            privateUser = new PrivateUser(firstNameString, lastNameString, over18, over21, radius);
+            privateUserLocation = new PrivateUserLocation(share_location, lat, lng);
+            userSearch = new UserSearch(currentUserEmail);
+
+            searchUserReference.child(userID).setValue(userSearch);
+            publicUserReference.child(userID).setValue(publicUser);
+            privateUserReference.child(userID).setValue(privateUser);
+            privateUserLocationReference.child(userID).child(PRIVATE_LOCATION).setValue(privateUserLocation);
 
             startActivity(new Intent(EditProfileActivity.this, UserProfileActivity.class));
         } else {

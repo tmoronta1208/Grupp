@@ -35,9 +35,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
-import static com.example.c4q.capstone.utils.Constants.USER_SEARCH;
-
 public class LoginActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 123;
@@ -63,12 +60,10 @@ public class LoginActivity extends AppCompatActivity {
 
         authentication = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        publicUserDatabaseReference = firebaseDatabase.getReference().child(PUBLIC_USER);
-        searchUserReference = firebaseDatabase.getReference().child(USER_SEARCH);
+        publicUserDatabaseReference = firebaseDatabase.getReference().child(Constants.PUBLIC_USER);
         currentUser = authentication.getCurrentUser();
         if (currentUser != null) {
             currentUserID = currentUser.getUid();
-            currentUserEmail = currentUser.getEmail();
         }
 
         /**
@@ -157,11 +152,7 @@ public class LoginActivity extends AppCompatActivity {
                 // Get Post object and use the values to update the UI
                 Log.d(" LOGIN", "USER LISTENER CALLED");
                 publicUser = dataSnapshot.child(currentUserID).getValue(PublicUser.class);
-                userSearch = dataSnapshot.child(currentUserID).getValue(UserSearch.class);
-
                 if (publicUser != null) {
-                    userSearch = new UserSearch(currentUserEmail);
-                    searchUserReference.child(currentUserID).setValue(userSearch);
                     Log.d(" LOGIN", "user first name" + publicUser.getFirst_name());
                 } else {
                     Log.d(" LOGIN", "user is null");
@@ -178,7 +169,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
         publicUserDatabaseReference.addValueEventListener(userListener);
-        searchUserReference.addValueEventListener(userListener);
     }
 
     /*method to load and display navigation drawer - AJ*/
