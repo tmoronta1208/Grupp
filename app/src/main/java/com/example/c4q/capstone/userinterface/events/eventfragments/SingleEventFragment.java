@@ -23,12 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link SingleEventFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link SingleEventFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * AJ - Single event fragment. Holds Event info and a fragment container for friends list or showing info
+ * subject to change
  */
 public class SingleEventFragment extends Fragment {
     Bundle bundle;
@@ -39,18 +35,10 @@ public class SingleEventFragment extends Fragment {
     TextView eventName, eventOrganizer, eventDate;
     String organizerFullName;
     UserFriendsFragment userFriendsFragment;
-    List<PublicUser> friendsUserList = new ArrayList<>();
-    FBUserDataUtility fbUserDataUtility = new FBUserDataUtility();
-    List<String> friendKeys = new ArrayList<>();
-
-
-
 
     public SingleEventFragment() {
         // Required empty public constructor
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,13 +53,14 @@ public class SingleEventFragment extends Fragment {
         eventName = (TextView) rootView.findViewById(R.id.event_title_text_view);
         eventOrganizer = (TextView) rootView.findViewById(R.id.event_organier_text_view);
         eventDate = (TextView) rootView.findViewById(R.id.event_date_text_view);
-        userFriendsFragment = new UserFriendsFragment();
-        getEventData();
 
+        getEventData();
         loadUserFriendsFragment();
 
         return rootView;
     }
+
+    /**method to get event data ( based on event id from bundle ) from the database*/
 
     public void getEventData(){
         eventPresenter.getEventFromDB(eventID, new EventDataListener() {
@@ -101,19 +90,12 @@ public class SingleEventFragment extends Fragment {
         });
 
     }
-
+    /**method to load UserFreindsFragment below event data*/
     public void loadUserFriendsFragment(){
 
         userFriendsFragment = new UserFriendsFragment();
-        userFriendsFragment.getList(friendsUserList);
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.add(R.id.event_fragment_container, userFriendsFragment).commit();
-
-
     }
-
-
-
-
 
 }
