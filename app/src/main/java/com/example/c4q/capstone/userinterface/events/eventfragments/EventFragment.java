@@ -53,11 +53,10 @@ public class EventFragment extends Fragment {
         //TODO get event from db by key
         //load event data
         eventPresenter = new EventPresenter();
-
+        getEventData();
         eventName = (TextView) rootView.findViewById(R.id.event_title_text_view);
         eventOrganizer = (TextView) rootView.findViewById(R.id.event_organier_text_view);
         eventDate = (TextView) rootView.findViewById(R.id.event_date_text_view);
-        getEventData();
 
 
 
