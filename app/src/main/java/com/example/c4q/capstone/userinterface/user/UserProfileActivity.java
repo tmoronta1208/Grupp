@@ -38,10 +38,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
-
 public class UserProfileActivity extends AppCompatActivity {
     private static final String TAG = "UserProfileActivity";
+    private static final String PUBLIC_USER = "public_user";
 
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth authentication;
@@ -64,6 +63,7 @@ public class UserProfileActivity extends AppCompatActivity {
         userName = findViewById(R.id.user_name);
         editButton = findViewById(R.id.edit_button);
 
+
         authentication = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         publicUserDatabaseReference = firebaseDatabase.getReference().child(PUBLIC_USER);
@@ -73,7 +73,15 @@ public class UserProfileActivity extends AppCompatActivity {
         setNavDrawerLayout();
         setUpGroupFrag();
         setUpEventsFrag();
+
         setFirebaseDatabaseListner();
+//        setToolbar();
+
+
+
+
+
+
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +90,6 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
     }
-
     public void setFirebaseDatabaseListner(){
         publicUserDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -101,6 +108,16 @@ public class UserProfileActivity extends AppCompatActivity {
         PublicUser publicUser = dataSnapshot.child(currentUserID).getValue(PublicUser.class);
         String userFullName = publicUser.getFirst_name() + " " + publicUser.getLast_name();
         userName.setText(userFullName);
+        /*for (DataSnapshot ds : dataSnapshot.getChildren()) {
+            PublicUser publicUser = ds.child(currentUserID).getValue(PublicUser.class);
+            //userName.setText("USER ID KEY" + ds.child(PUBLIC_USER).child(currentUserID).getKey());
+            userName.setText("USER ID KEY" + ds.child(PUBLIC_USER).child(currentUserID).getKey());
+//            lastNameTextView.setText(publicUser.getLast_name());
+//            usernameTextView.setText(publicUser.getUsername());
+//            userIdTextView.setText(ds.child(PUBLIC_USER).child(currentUserID).getKey());
+//            emailTextView.setText(publicUser.getEmail());
+        }*/
+
     }
 
     /*method to load and display navigation drawer - AJ*/

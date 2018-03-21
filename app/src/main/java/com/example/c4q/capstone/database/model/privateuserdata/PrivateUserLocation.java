@@ -1,7 +1,7 @@
 package com.example.c4q.capstone.database.model.privateuserdata;
 
 
-public class PrivateUserLocation {
+class PrivateUserLocation {
     private boolean share_location;
     private double lat;
     private double lng;
