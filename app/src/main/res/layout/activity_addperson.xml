@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <TextView
+        android:text="Find Your friends "
+        android:textSize="23sp"
+        android:padding="16dp"
+        android:layout_gravity="center"
+        android:background="@drawable/button_shapes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+   <TextView
+       android:text="E-mail:"
+       android:layout_marginTop="25dp"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content" />
+   <EditText
+       android:id="@+id/enteremail_ap"
+       android:hint="jonasjoe@gmail.com"
+       android:layout_width="300dp"
+       android:layout_gravity="center"
+       android:padding="16dp"
+       android:layout_height="wrap_content" />
+
+    <TextView
+        android:text="or"
+        android:textSize="28sp"
+        android:padding="16dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:text="Phone Number:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/enterphone_ap"
+        android:hint="(xxx) xxx - xxxx"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:padding="16dp"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/find_friends_button"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="right"
+        android:text="find"
+        android:background="@drawable/button_shapes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>
