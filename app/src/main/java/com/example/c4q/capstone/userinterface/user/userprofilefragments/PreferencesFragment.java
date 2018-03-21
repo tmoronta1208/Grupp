@@ -12,8 +12,9 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.network.barzz.NetworkCall;
+import com.example.c4q.capstone.network.barzz.BarzzNetworkCall;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -32,6 +33,7 @@ public class PreferencesFragment extends Fragment {
     private CheckBox pubCheckbox;
     private CheckBox cocktailCheckbox;
     HashMap<CheckBox, String> prefs = new HashMap<>();
+    public static ArrayList<String> selectedPrefs = new ArrayList<>();
 
     public PreferencesFragment() {
         // Required empty public constructor
@@ -56,7 +58,7 @@ public class PreferencesFragment extends Fragment {
         pubCheckbox = view.findViewById(R.id.pub_pref);
         cocktailCheckbox = view.findViewById(R.id.cocktail_pref);
 
-        //List of user prefs - if the box is checked then it will be added to a list
+        //Added all Checkboxes to a map with the checkbox as the key and type keyword as the value
 
         prefs.put(clubCheckBox, "club");
         prefs.put(loungeCheckBox, "lounge");
@@ -69,13 +71,21 @@ public class PreferencesFragment extends Fragment {
         prefs.put(pubCheckbox, "pub");
         prefs.put(cocktailCheckbox, "cocktail");
 
+        //Foreach - added an onClick listener to each checkbox in the map and t
 
         for (final CheckBox a : prefs.keySet()) {
 
             a.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.d("Item Checked", prefs.get(a));
+
+                    if (a.isChecked()) {
+                        Log.d("Item Checked", prefs.get(a));
+                        selectedPrefs.add(prefs.get(a));
+                       // BarzzNetworkCall.start("10001");
+                        Log.d("selctedPref size: ", selectedPrefs.toString());
+                    }
+
                 }
             });
         }
@@ -84,5 +94,10 @@ public class PreferencesFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
+
+    }
 }
