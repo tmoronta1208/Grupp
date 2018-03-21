@@ -244,6 +244,7 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     public void setUpGroupFrag() {
+
         UPGroupFragment UPGroupFragment = new UPGroupFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
