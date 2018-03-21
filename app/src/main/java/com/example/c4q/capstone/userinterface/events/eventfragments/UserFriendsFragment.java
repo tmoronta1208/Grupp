@@ -32,13 +32,10 @@ public class UserFriendsFragment extends Fragment {
     List<PublicUser> friendsUserList = new ArrayList<>();
     FBUserDataUtility fbUserDataUtility = new FBUserDataUtility();
     List<String> friendKeys = new ArrayList<>();
-    EventPresenter eventPresenter = new EventPresenter();
-
 
     public UserFriendsFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,10 +48,8 @@ public class UserFriendsFragment extends Fragment {
         recyclerView.setAdapter(friendsAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);
         getFriendUsers();
-        //loadFriendsList();
         return rootView;
     }
-
 
     public void getFriendUsers(){
         Log.d("user friends frag", "get friend users called");
@@ -79,7 +74,6 @@ public class UserFriendsFragment extends Fragment {
             fbUserDataUtility.getPublicUser(s, new FBUserDataListener() {
                 @Override
                 public void getUid(String userID) {
-
                 }
 
                 @Override
@@ -90,48 +84,5 @@ public class UserFriendsFragment extends Fragment {
                 }
             });
         }
-/*
-        eventPresenter.getUserData(friendKeys.get(0), new EventDataListener() {
-            @Override
-            public void getEvent(Events event) {
-
-            }
-
-            @Override
-            public void getUserFullName(String name) {
-                Log.d("get user", "friends name" +name);
-
-            }
-
-            @Override
-            public void getUser(PublicUser publicUser) {
-                PublicUser user = publicUser;
-                Log.d("get user", "friends name" + user.getFirst_name());
-
-            }
-        });*/
     }
-
-    public void getUserObject(String id){
-        Log.d("user friends frag", "getuser object called" + friendKeys.size());
-        fbUserDataUtility.getPublicUser(id, new FBUserDataListener() {
-            @Override
-            public void getUid(String userID) {
-
-            }
-
-            @Override
-            public void getPublicUser(PublicUser publicUser) {
-                Log.d("user friends frag", "friends user size" + publicUser.getFirst_name());
-                friendsUserList.add(publicUser);
-                Log.d("user friends frag", "friends user size" + friendsUserList.size());
-            }
-        });
-    }
-
-    public void getList(List<PublicUser> publicUsers){
-        friendsUserList.addAll(publicUsers);
-
-    }
-
 }

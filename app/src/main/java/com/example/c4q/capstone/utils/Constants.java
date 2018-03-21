@@ -4,6 +4,7 @@ package com.example.c4q.capstone.utils;
 public class Constants {
     public static final String BAR_PREFS ="bar_prefs";
     public static final String EVENTS = "events";
+    public static final String FRIENDS = "friends";
     public static final String FRIEND_REQUESTS = "friend_requests";
     public static final String GROUPS = "groups";
     public static final String NOTIFICATIONS = "notifications";

@@ -1,7 +1,6 @@
 package com.example.c4q.capstone.userinterface.events.eventfragments;
 
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -24,9 +23,6 @@ import com.example.c4q.capstone.userinterface.events.eventfragments.createeventu
 import com.example.c4q.capstone.userinterface.events.eventfragments.createeventux.DoneUX;
 import com.example.c4q.capstone.userinterface.events.eventfragments.createeventux.EditTextUX;
 import com.example.c4q.capstone.userinterface.events.eventfragments.createeventux.ExpandUX;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,9 +37,6 @@ public class CreateEventFragment extends Fragment {
     Button closeButton, createEventButton, addFriendsButton, addGroupButton;
     FrameLayout inviteGuestsContainer;
     CreateEventPresenter eventPresenter;
-    DatabaseReference rootRef, friendDatabase, friendReqDatabase, notificationDatabase, usersDatabase;
-    ProgressDialog progressDialog;
-    FirebaseUser mCurrent_user;
 
     SingleEventFragment singleEventFragment = new SingleEventFragment();
     DateTimeUX dateTimeUX;
@@ -62,14 +55,9 @@ public class CreateEventFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_create_event, container, false);
-
-        friendReqDatabase = FirebaseDatabase.getInstance().getReference().child("Friend_req");
-        friendDatabase = FirebaseDatabase.getInstance().getReference().child("Friends");
-
-
         setViews();
+
         loadPresenters();
-        addFriends();
 
         return rootView;
     }
@@ -125,12 +113,4 @@ public class CreateEventFragment extends Fragment {
         fragmentTransaction.commit();
     }
 
-    public void addFriends() {
-        addFriendsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-    }
 }

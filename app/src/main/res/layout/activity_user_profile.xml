@@ -71,6 +71,16 @@
                     android:textAllCaps="false"
                     android:textColor="@android:color/black" />
 
+                <Button
+                    android:id="@+id/add_new_friends"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_gravity="left"
+                    android:background="@drawable/button_shapes"
+                    android:text="search for friend"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/black" />
+
             </LinearLayout>
 
             <FrameLayout

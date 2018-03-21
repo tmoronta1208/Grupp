@@ -21,6 +21,7 @@ import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.events.EventActivity;
 import com.example.c4q.capstone.userinterface.events.VenueVoteSwipeActivity;
+import com.example.c4q.capstone.userinterface.user.search.UserSearchActivity;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPEventsFragment;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPGroupFragment;
 import com.firebase.ui.auth.AuthUI;
@@ -51,7 +52,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private DrawerLayout navDrawerLayout;
     private TextView userName;
     private CircleImageView userImage;
-    private Button editButton, contactButton;
+    private Button editButton, contactButton, searchNewFriends;
     private View fragContainer;
 
 
@@ -82,6 +83,15 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
+        searchNewFriends = findViewById(R.id.add_new_friends);
+
+        searchNewFriends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserProfileActivity.this,UserSearchActivity.class));
+            }
+        });
+
         authentication = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         publicUserDatabaseReference = firebaseDatabase.getReference().child(PUBLIC_USER);
@@ -101,7 +111,7 @@ public class UserProfileActivity extends AppCompatActivity {
         });
     }
 
-    public void setFirebaseDatabaseListner(){
+    public void setFirebaseDatabaseListner() {
         publicUserDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
