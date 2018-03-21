@@ -17,25 +17,26 @@
             android:layout_height="wrap_content"
             android:text="What kind of bars do you prefer?" />
 
-        <RadioButton
+
+        <CheckBox
             android:id="@+id/beer_pref"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Beer Bar" />
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/lounge_pref"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Lounge" />
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/club_pref"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Clubs" />
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/karaoke_pref"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
