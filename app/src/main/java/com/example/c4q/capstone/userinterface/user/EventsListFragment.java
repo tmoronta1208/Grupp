@@ -2,11 +2,20 @@ package com.example.c4q.capstone.userinterface.user;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.database.model.events.Events;
+import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
+import com.example.c4q.capstone.userinterface.events.EventDataListener;
+import com.example.c4q.capstone.utils.FBEventDataListener;
+import com.example.c4q.capstone.utils.FBEventDataUtility;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by melg on 3/20/18.
@@ -15,6 +24,10 @@ import com.example.c4q.capstone.R;
 public class EventsListFragment extends Fragment{
 
     private View view;
+
+
+
+
 
     public EventsListFragment() {
         // Required empty public constructor
@@ -26,8 +39,11 @@ public class EventsListFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_eventslist, container, false);
-        
+
+
         return view;
     }
+
+
 
 }
