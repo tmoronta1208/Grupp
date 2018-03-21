@@ -1,9 +1,9 @@
-package com.example.c4q.capstone.userinterface.events;
+package com.example.c4q.capstone.utils;
 
 import android.util.Log;
 
 import com.example.c4q.capstone.database.model.events.Events;
-import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
+import com.example.c4q.capstone.userinterface.events.EventDataListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -12,11 +12,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.example.c4q.capstone.utils.Constants.EVENTS;
+import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
+
 /**
- * Created by amirahoxendine on 3/20/18.
+ * Created by amirahoxendine on 3/21/18.
  */
 
-public class EventPresenter {
+public class FBEventDataUtility {
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -25,20 +28,20 @@ public class EventPresenter {
     private DatabaseReference userReference;
 
     private FirebaseUser user;
-    private static final String PUBLIC_USER = "public_user";
+
     private String userID;
     String userFirstName;
     String userLastName;
     String eventKey;
-    private static String TAG = "EVENT_PRES: ";
+    private static String TAG = "FB EVENT UTILITY: ";
     Events events;
 
-    public EventPresenter(){
+    public FBEventDataUtility(){
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabase = mFirebaseDatabase.getReference();
-        eventReference = firebaseDatabase.child("events");
-        userReference = firebaseDatabase.child("public_user");
+        eventReference = firebaseDatabase.child(EVENTS);
+        userReference = firebaseDatabase.child(PUBLIC_USER);
 
         user = mAuth.getCurrentUser();
         userID = user.getUid();
@@ -50,15 +53,14 @@ public class EventPresenter {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
-                Log.d(" Event Presenter", "event listener called");
+                Log.d(TAG, "event listener called");
                 events = dataSnapshot.child(eventKey).getValue(Events.class);
                 if (events != null) {
-                    Log.d(" EVENT PRESENTER", "event name" + events.getEvent_name());
+                    Log.d(TAG, "event name" + events.getEvent_name());
                     listener.getEvent(events);
-                    getUserData(events.getEvent_organizer(), listener);
 
                 } else {
-                    Log.d(" EVENT PRESENTER", "event not found");
+                    Log.d(TAG, "event not found");
                 }
             }
 
@@ -71,31 +73,4 @@ public class EventPresenter {
         };
         eventReference.addValueEventListener(eventListener);
     }
-
-    public void getUserData(final String organizer, final EventDataListener listener){
-        ValueEventListener userListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Post object and use the values to update the UI
-                PublicUser user = dataSnapshot.child(organizer).getValue(PublicUser.class);
-               userFirstName = user.getFirst_name();
-                userLastName = user.getLast_name();
-                String userFullName = userFirstName + " " + userLastName;
-                Log.w(TAG, "user full name" + userFullName);
-                listener.getUserFullName(userFullName);
-                //listener.getUser(user);
-                // ...
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                // ...
-            }
-        };
-       userReference.addValueEventListener(userListener);
-    }
-
-
 }

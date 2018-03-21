@@ -8,6 +8,7 @@ import android.widget.TimePicker;
 import com.example.c4q.capstone.database.model.events.Events;
 import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.events.eventfragments.CreateEventFragment;
+import com.example.c4q.capstone.utils.FBUserDataUtility;
 import com.firebase.ui.auth.data.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,8 +39,7 @@ public class CreateEventPresenter {
     public String timeOfEvent;
     public String dateTime = "";
     private static String TAG = "CREATE_EVENT_PRES: ";
-    public String eventName;
-    public String eventDate;
+
     public String eventTime;
 
     private FirebaseDatabase mFirebaseDatabase;
@@ -51,6 +51,7 @@ public class CreateEventPresenter {
     String firstName;
     String lastName;
     List<String> dummyUsers;
+    FBUserDataUtility fbUserDataUtility = new FBUserDataUtility();
 
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     DatabaseReference ref = database.child(PUBLIC_USER);
@@ -68,38 +69,30 @@ public class CreateEventPresenter {
 
     public void sendEventToFB(EventFragmentListener listener){
         getDummyUserKeys();
-
-        Log.d(TAG, "dummy user list" + dummyUsers.size());
-
-        //TODO logic to send newEvent to firebase
-        // Create new post at /user-posts/$userid/$postid and at
-        // /posts/$postid simultaneously
         Log.d(TAG, "create event: eventSent to firebase" + newEvent.getEvent_name());
         key = myRef.child("events").push().getKey();
         Log.d(TAG, "create event: push key " + key);
         myRef.child("events").child(key).setValue(newEvent);
         Log.d(TAG, "create event: set value: " + newEvent.getEvent_name());
         listener.getEventIdKEy(key);
-        eventName = newEvent.getEvent_name();
-        eventTime = newEvent.getEvent_time();
-        eventDate = newEvent.getEvent_date();
     }
 
     public void getDummyUserKeys(){
-        dummyUsers = new ArrayList<>();
+
         ValueEventListener userListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                dummyUsers = new ArrayList<>();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     String dummyKey = ds.getKey();
-                    Log.d(TAG, "dummy user keys" + dummyKey);
                     dummyUsers.add(dummyKey);
-                    newEvent.setInvited_guests(dummyUsers);
-                    Log.d(TAG, "dummy user list" + dummyUsers.size());
-                    myRef.child("events").child(key).setValue(newEvent);
-                    Log.d(TAG, "create event: set value: " + newEvent.getEvent_name());
                 }
-
+                newEvent.setInvited_guests(dummyUsers);
+                Log.d(TAG, "create event: set value: " + newEvent.getEvent_name());
+                Log.d(TAG, "dummy user list" + dummyUsers.size());
+                myRef.child("events").child(key).setValue(newEvent);
+                Log.d(TAG, "final dummy user list" + dummyUsers.size());
+                fbUserDataUtility.addUserFriends(dummyUsers);
             }
 
             @Override

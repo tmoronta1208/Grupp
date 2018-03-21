@@ -3,9 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.c4q.capstone.userinterface.events.eventfragments.EventFragment">
+    tools:context="com.example.c4q.capstone.userinterface.events.eventfragments.SingleEventFragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="1">
     <TextView
         android:id="@+id/event_title_text_view"
         android:layout_width="match_parent"
@@ -24,7 +29,7 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
         android:textSize="18sp"
         android:gravity="center"
-        android:padding="@dimen/layout_item_margin"
+        android:paddingBottom="@dimen/layout_item_margin"
         />
     <TextView
         android:id="@+id/event_date_text_view"
@@ -34,11 +39,12 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
         android:textSize="14sp"
         android:gravity="center"
-        android:padding="@dimen/layout_item_margin"
         />
+    </LinearLayout>
     <FrameLayout
         android:id="@+id/event_fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="0dp"
+        android:layout_weight="3" />
 
 </LinearLayout>
