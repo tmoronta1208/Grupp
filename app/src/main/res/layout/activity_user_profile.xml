@@ -9,10 +9,11 @@
     tools:context="com.example.c4q.capstone.userinterface.user.UserProfileActivity">
 
     <!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/events_content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,7 +51,6 @@
                 android:orientation="vertical"
                 android:padding="10dp">
 
-
                 <Button
                     android:id="@+id/edit_button"
                     android:layout_width="wrap_content"
@@ -61,26 +61,49 @@
                     android:textAllCaps="false"
                     android:textColor="@android:color/black" />
 
+                <Button
+                    android:id="@+id/contact_list_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_gravity="left"
+                    android:background="@drawable/button_shapes"
+                    android:text="contacts"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/black" />
+
             </LinearLayout>
 
-
             <FrameLayout
-                android:id="@+id/group_frag_cont"
+                android:id="@+id/up_bottom_frag_cont"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight=".25"
-                android:background="@android:color/white" />
+                android:layout_weight=".5">
 
-            <FrameLayout
-                android:id="@+id/events_frag_container"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight=".75"
-                android:background="@color/light_salmon" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:id="@+id/group_frag_cont"
+                        android:layout_width="match_parent"
+                        android:layout_height="90dp"
+                        android:background="@android:color/white" />
+
+                    <FrameLayout
+                        android:id="@+id/events_frag_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/light_salmon" />
+                </LinearLayout>
+
+
+            </FrameLayout>
         </LinearLayout>
 
 
-    </FrameLayout>
+    </LinearLayout>
+
 
     <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
     <android.support.design.widget.NavigationView
