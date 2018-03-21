@@ -1,6 +1,6 @@
-package com.example.c4q.capstone.network;
+package com.example.c4q.capstone.network.barzz;
 
-import com.example.c4q.capstone.network.barzzmodel.BarzzModel;
+import com.example.c4q.capstone.network.barzz.barzzmodel.BarzzModel;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

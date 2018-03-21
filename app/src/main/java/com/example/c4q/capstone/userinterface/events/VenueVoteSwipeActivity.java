@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.network.barzzmodel.Results;
+import com.example.c4q.capstone.network.barzz.barzzmodel.Results;
 import com.example.c4q.capstone.utils.DummyDataUtility;
 import com.mindorks.placeholderview.SwipeDecor;
 import com.mindorks.placeholderview.SwipePlaceHolderView;

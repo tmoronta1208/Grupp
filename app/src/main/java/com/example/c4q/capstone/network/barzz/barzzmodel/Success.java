@@ -1,4 +1,4 @@
-package com.example.c4q.capstone.network.barzzmodel;
+package com.example.c4q.capstone.network.barzz.barzzmodel;
 
 import java.util.List;
 

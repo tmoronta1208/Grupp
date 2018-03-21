@@ -1,4 +1,4 @@
-package com.example.c4q.capstone.network.barzzmodel;
+package com.example.c4q.capstone.network.barzz.barzzmodel;
 
 /**
  * Created by c4q on 3/17/18.

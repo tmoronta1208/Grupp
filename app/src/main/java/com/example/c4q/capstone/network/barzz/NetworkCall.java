@@ -1,8 +1,8 @@
-package com.example.c4q.capstone.network;
+package com.example.c4q.capstone.network.barzz;
 
 import android.util.Log;
 
-import com.example.c4q.capstone.network.barzzmodel.BarzzModel;
+import com.example.c4q.capstone.network.barzz.barzzmodel.BarzzModel;
 
 import retrofit2.Call;
 import retrofit2.Callback;

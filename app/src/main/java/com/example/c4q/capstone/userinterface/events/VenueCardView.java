@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.network.barzzmodel.Results;
+import com.example.c4q.capstone.network.barzz.barzzmodel.Results;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.Resolve;
