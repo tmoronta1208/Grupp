@@ -23,7 +23,7 @@ public class NetworkCall {
     public static final String BARZZ_URL = "https://api.barzz.net/api/";
 
 
-    public static void start(String zipCode, String type) {
+    public static void start(String zipcode) {
 
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -34,7 +34,7 @@ public class NetworkCall {
 
         BarzzService barzzService = retrofit.create(BarzzService.class);
 
-        Call<BarzzModel> call = barzzService.getBarzz(zipCode, type, null);
+        Call<BarzzModel> call = barzzService.getBarzz(zipcode);
 
         call.enqueue(new Callback<BarzzModel>() {
             @Override

@@ -18,33 +18,33 @@ public interface BarzzService {
     //   @GET("search"+ NetworkCall.BARZZ_KEY)
 //    Call<BarzzModel> getBarzz(@QueryMap Map<String, String> options);
 
-    @GET("search" + NetworkCall.BARZZ_KEY)
+    @GET("search?" + NetworkCall.BARZZ_KEY)
     Call<BarzzModel> getBarzz(@Query("zip") String zip);
 
 
-    @GET("search" + NetworkCall.BARZZ_KEY)
+    @GET("search?" + NetworkCall.BARZZ_KEY)
     Call<BarzzModel> getBarzz(@Query("zip") String zip,
                               @Query("type") String beer);
 
-    @GET("search" + NetworkCall.BARZZ_KEY)
+    @GET("search?" + NetworkCall.BARZZ_KEY)
     Call<BarzzModel> getBarzz(@Query("zip") String zip,
                               @Query("type") String beer,
                               @Query("type") String club);
 
-    @GET("search" + NetworkCall.BARZZ_KEY)
+    @GET("search?" + NetworkCall.BARZZ_KEY)
     Call<BarzzModel> getBarzz(@Query("zip") String zip,
                               @Query("type") String beer,
                               @Query("type") String club,
                               @Query("type") String beach);
 
-    @GET("search" + NetworkCall.BARZZ_KEY)
+    @GET("search?" + NetworkCall.BARZZ_KEY)
     Call<BarzzModel> getBarzz(@Query("zip") String zip,
                               @Query("type") String beer,
                               @Query("type") String club,
                               @Query("type") String beach,
                               @Query("type") String gay);
 
-    @GET("search" + NetworkCall.BARZZ_KEY)
+    @GET("search?" + NetworkCall.BARZZ_KEY)
     Call<BarzzModel> getBarzz(@Query("zip") String zip,
                               @Query("type") String beer,
                               @Query("type") String club,
@@ -52,7 +52,7 @@ public interface BarzzService {
                               @Query("type") String gay,
                               @Query("type") String hookah);
 
-    @GET("search" + NetworkCall.BARZZ_KEY)
+    @GET("search?" + NetworkCall.BARZZ_KEY)
     Call<BarzzModel> getBarzz(@Query("zip") String zip,
                               @Query("type") String beer,
                               @Query("type") String club,
@@ -61,7 +61,7 @@ public interface BarzzService {
                               @Query("type") String hookah,
                               @Query("type") String hotel);
 
-    @GET("search" + NetworkCall.BARZZ_KEY)
+    @GET("search?" + NetworkCall.BARZZ_KEY)
     Call<BarzzModel> getBarzz(@Query("zip") String zip,
                               @Query("type") String beer,
                               @Query("type") String club,
@@ -72,7 +72,7 @@ public interface BarzzService {
                               @Query("type") String karaoke);
 
 
-    @GET("search" + NetworkCall.BARZZ_KEY)
+    @GET("search?" + NetworkCall.BARZZ_KEY)
     Call<BarzzModel> getBarzz(@Query("zip") String zip,
                               @Query("type") String beer,
                               @Query("type") String club,
@@ -83,7 +83,7 @@ public interface BarzzService {
                               @Query("type") String karaoke,
                               @Query("type") String cocktail);
 
-    @GET("search" + NetworkCall.BARZZ_KEY)
+    @GET("search?" + NetworkCall.BARZZ_KEY)
     Call<BarzzModel> getBarzz(@Query("zip") String zip,
                               @Query("type") String beer,
                               @Query("type") String club,
