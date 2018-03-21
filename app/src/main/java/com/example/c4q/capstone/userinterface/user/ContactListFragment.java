@@ -1,6 +1,7 @@
 package com.example.c4q.capstone.userinterface.user;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
@@ -32,6 +34,7 @@ public class ContactListFragment extends Fragment {
     private View view;
     private RecyclerView recyclerView;
     private List<Integer> numbers = new ArrayList<>();
+
     ContactListAdapter contactListAdapter;
     /**ajoxe:
      * data member variables
@@ -39,6 +42,9 @@ public class ContactListFragment extends Fragment {
     List<PublicUser> friendsUserList = new ArrayList<>();
     FBUserDataUtility fbUserDataUtility = new FBUserDataUtility();
     List<String> friendKeys = new ArrayList<>();
+
+    private Button addPerson;
+
 
     public ContactListFragment() {
         // Required empty public constructor
@@ -58,6 +64,18 @@ public class ContactListFragment extends Fragment {
         getListOfPublicUsers();
 
         recyclerView = view.findViewById(R.id.contact_list_rec);
+        addPerson = view.findViewById(R.id.addperson_cl);
+
+        /*sends user to add person activity*/
+        addPerson.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addPersonIntent = new Intent(getActivity().getApplicationContext(), AddPersonActivity.class);
+                getActivity().getApplicationContext().startActivity(addPersonIntent);
+
+
+            }
+        });
 
         for (int i = 0; i <=20 ; i++) {
             numbers.add(i);
@@ -65,7 +83,7 @@ public class ContactListFragment extends Fragment {
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayout = new LinearLayoutManager(view.getContext());
-        contactListAdapter = new ContactListAdapter(numbers,getContext());
+        contactListAdapter = new ContactListAdapter(friendsUserList,getContext());
         /**ajoxe:
          * after modifying the adapter, set the list as friendsUserList
          * contactListAdapter = new ContactListAdapter(friendsUserList, getContext());
