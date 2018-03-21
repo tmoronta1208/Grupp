@@ -1,19 +1,23 @@
-package com.example.c4q.capstone.database.model.privateuserdata;
+package com.example.c4q.capstone.database.publicuserdata;
 
 
-public class PrivateUser {
+public class PublicUser {
     private String first_name;
     private String last_name;
+    private String zip_code;
+    private String budget;
     private boolean over_18;
     private boolean over_21;
     private int radius;
 
-    public PrivateUser() {
+    public PublicUser() {
     }
 
-    public PrivateUser(String first_name, String last_name, boolean over_18, boolean over_21, int radius) {
+    public PublicUser(String first_name, String last_name, String zip_code, String budget, boolean over_18, boolean over_21, int radius) {
         this.first_name = first_name;
         this.last_name = last_name;
+        this.zip_code = zip_code;
+        this.budget = budget;
         this.over_18 = over_18;
         this.over_21 = over_21;
         this.radius = radius;
@@ -33,6 +37,22 @@ public class PrivateUser {
 
     public void setLast_name(String last_name) {
         this.last_name = last_name;
+    }
+
+    public String getZip_code() {
+        return zip_code;
+    }
+
+    public void setZip_code(String zip_code) {
+        this.zip_code = zip_code;
+    }
+
+    public String getBudget() {
+        return budget;
+    }
+
+    public void setBudget(String budget) {
+        this.budget = budget;
     }
 
     public boolean isOver_18() {

@@ -2,8 +2,8 @@ package com.example.c4q.capstone.userinterface.events;
 
 import android.util.Log;
 
-import com.example.c4q.capstone.database.model.events.Events;
-import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
+import com.example.c4q.capstone.database.events.Events;
+import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

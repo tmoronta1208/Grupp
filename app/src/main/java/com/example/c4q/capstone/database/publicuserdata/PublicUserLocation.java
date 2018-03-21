@@ -1,4 +1,4 @@
-package com.example.c4q.capstone.database.model.publicuserdata;
+package com.example.c4q.capstone.database.publicuserdata;
 
 
 class PublicUserLocation {

@@ -1,4 +1,4 @@
-package com.example.c4q.capstone.database.model.groups;
+package com.example.c4q.capstone.database.groups;
 
 
 import java.util.List;

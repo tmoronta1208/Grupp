@@ -18,11 +18,10 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.database.model.privateuserdata.PrivateUser;
-import com.example.c4q.capstone.database.model.privateuserdata.PrivateUserLocation;
-import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
-import com.example.c4q.capstone.database.model.publicuserdata.UserSearch;
-import com.example.c4q.capstone.utils.Constants;
+import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
+import com.example.c4q.capstone.database.privateuserdata.PrivateUserLocation;
+import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.example.c4q.capstone.database.publicuserdata.UserSearch;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

@@ -2,7 +2,7 @@ package com.example.c4q.capstone.utils;
 
 import android.util.Log;
 
-import com.example.c4q.capstone.database.model.events.Events;
+import com.example.c4q.capstone.database.events.Events;
 import com.example.c4q.capstone.userinterface.events.EventDataListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
