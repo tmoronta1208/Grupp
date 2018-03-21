@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.c4q.capstone.userinterface.user.userprofilefragments.PreferencesFragment">
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/user_preferences"
@@ -37,13 +39,44 @@
             android:text="Clubs" />
 
         <CheckBox
+            android:id="@+id/beach_pref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Beach Bar" />
+        <CheckBox
+            android:id="@+id/gay_pref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gay Bars" />
+        <CheckBox
+            android:id="@+id/hookah_pref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hookah" />
+        <CheckBox
+            android:id="@+id/hotel_pref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hotel Bars" />
+        <CheckBox
             android:id="@+id/karaoke_pref"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Karaoke" />
+        <CheckBox
+            android:id="@+id/pub_pref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pubs" />
+        <CheckBox
+            android:id="@+id/cocktail_pref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cocktail" />
+
 
 
     </LinearLayout>
 
-
+</ScrollView>
 </FrameLayout>

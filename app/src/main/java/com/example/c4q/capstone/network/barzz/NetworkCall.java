@@ -4,6 +4,9 @@ import android.util.Log;
 
 import com.example.c4q.capstone.network.barzz.barzzmodel.BarzzModel;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -16,11 +19,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetworkCall {
 
-    public static final  String BARZZ_KEY = "96b42918912ec3f1d85660e18356617c";
+    public static final  String BARZZ_KEY = "&user_key=96b42918912ec3f1d85660e18356617c";
     public static final String BARZZ_URL = "https://api.barzz.net/api/";
 
 
-    public static void start(String zipCode) {
+    public static void start(String zipCode, String type) {
+
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BARZZ_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -29,7 +34,7 @@ public class NetworkCall {
 
         BarzzService barzzService = retrofit.create(BarzzService.class);
 
-        Call<BarzzModel> call = barzzService.getBarzz(zipCode);
+        Call<BarzzModel> call = barzzService.getBarzz(zipCode, type, null);
 
         call.enqueue(new Callback<BarzzModel>() {
             @Override
