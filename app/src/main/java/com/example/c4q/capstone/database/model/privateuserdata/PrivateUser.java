@@ -4,22 +4,18 @@ package com.example.c4q.capstone.database.model.privateuserdata;
 public class PrivateUser {
     private String first_name;
     private String last_name;
-    private String username;
-    private String email;
-    private String password;
-    private int age;
+    private boolean over_18;
+    private boolean over_21;
     private int radius;
 
     public PrivateUser() {
     }
 
-    public PrivateUser(String first_name, String last_name, String username, String email, String password, int age, int radius) {
+    public PrivateUser(String first_name, String last_name, boolean over_18, boolean over_21, int radius) {
         this.first_name = first_name;
         this.last_name = last_name;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.age = age;
+        this.over_18 = over_18;
+        this.over_21 = over_21;
         this.radius = radius;
     }
 
@@ -39,36 +35,20 @@ public class PrivateUser {
         this.last_name = last_name;
     }
 
-    public String getUsername() {
-        return username;
+    public boolean isOver_18() {
+        return over_18;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setOver_18(boolean over_18) {
+        this.over_18 = over_18;
     }
 
-    public String getEmail() {
-        return email;
+    public boolean isOver_21() {
+        return over_21;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
+    public void setOver_21(boolean over_21) {
+        this.over_21 = over_21;
     }
 
     public int getRadius() {

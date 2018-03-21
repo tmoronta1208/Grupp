@@ -27,6 +27,7 @@
         <EditText
             android:id="@+id/edit_profile_zip_code"
             android:layout_width="match_parent"
+            android:inputType="number"
             android:layout_height="wrap_content"
             android:hint="Zip Code" />
 
