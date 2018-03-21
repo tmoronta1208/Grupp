@@ -205,7 +205,7 @@ public class CreateProfileFragment extends Fragment {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-        fragmentTransaction.replace(R.id.onboard_main_frag_container, preferencesFragment);
+        fragmentTransaction.replace(R.id.onboard_main_fragment_container, preferencesFragment);
         fragmentTransaction.addToBackStack("next");
         fragmentTransaction.commit();
     }
