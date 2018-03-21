@@ -22,6 +22,8 @@ public class EventPresenter {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference firebaseDatabase;
     private DatabaseReference eventReference;
+    private DatabaseReference userReference;
+
     private FirebaseUser user;
     private static final String PUBLIC_USER = "public_user";
     private String userID;
@@ -36,6 +38,8 @@ public class EventPresenter {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabase = mFirebaseDatabase.getReference();
         eventReference = firebaseDatabase.child("events");
+        userReference = firebaseDatabase.child("public_user");
+
         user = mAuth.getCurrentUser();
         userID = user.getUid();
     }
@@ -51,6 +55,8 @@ public class EventPresenter {
                 if (events != null) {
                     Log.d(" EVENT PRESENTER", "event name" + events.getEvent_name());
                     listener.getEvent(events);
+                    getUserData(listener, events.getEvent_organizer());
+
                 } else {
                     Log.d(" EVENT PRESENTER", "event not found");
                 }
@@ -66,14 +72,17 @@ public class EventPresenter {
         eventReference.addValueEventListener(eventListener);
     }
 
-    public void getUserData(){
-        ValueEventListener postListener = new ValueEventListener() {
+    public void getUserData(final EventDataListener listener, final String organizer){
+        ValueEventListener userListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
-                PublicUser user = dataSnapshot.getValue(PublicUser.class);
+                PublicUser user = dataSnapshot.child(organizer).getValue(PublicUser.class);
                userFirstName = user.getFirst_name();
                 userLastName = user.getLast_name();
+                String userFullName = userFirstName + " " + userLastName;
+                Log.w(TAG, "luser full name" + userFullName);
+                listener.getUserFullName(userFullName);
                 // ...
             }
 
@@ -84,6 +93,6 @@ public class EventPresenter {
                 // ...
             }
         };
-        firebaseDatabase.addValueEventListener(postListener);
+       userReference.addValueEventListener(userListener);
     }
 }

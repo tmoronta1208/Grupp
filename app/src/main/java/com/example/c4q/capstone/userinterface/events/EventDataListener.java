@@ -8,4 +8,6 @@ import com.example.c4q.capstone.database.model.events.Events;
 
 public interface EventDataListener {
     void getEvent(Events event);
+
+    void getUserFullName(String name);
 }

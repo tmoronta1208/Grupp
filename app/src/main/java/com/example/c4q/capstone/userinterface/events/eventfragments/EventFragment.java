@@ -30,6 +30,7 @@ public class EventFragment extends Fragment {
     EventPresenter eventPresenter;
     private static Events currentEvent;
     TextView eventName, eventOrganizer, eventDate;
+    String organizerFullName;
 
 
 
@@ -70,11 +71,17 @@ public class EventFragment extends Fragment {
                 if(currentEvent != null){
                     Log.d ("Event Fragment", "event: name" + event.getEvent_name());
                     eventName.setText(currentEvent.getEvent_name());
-                    eventOrganizer.setText(currentEvent.getEvent_organizer());
+
                     eventDate.setText(currentEvent.getEvent_date());
                 } else {
                     Log.d ("Event Fragment", "event is null");
                 }
+            }
+
+            @Override
+            public void getUserFullName(String name) {
+                organizerFullName = name;
+                eventOrganizer.setText(organizerFullName);
             }
         });
 
