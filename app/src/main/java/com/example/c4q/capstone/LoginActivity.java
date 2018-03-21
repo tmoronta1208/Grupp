@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth authentication;
     private FirebaseUser currentUser;
     private DatabaseReference publicUserDatabaseReference, searchUserReference;
-    private String currentUserID, currentUserEmail;
+    private String currentUserID;
     private PublicUser publicUser;
     private UserSearch userSearch;
 

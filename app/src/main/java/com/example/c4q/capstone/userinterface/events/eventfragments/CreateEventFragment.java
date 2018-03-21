@@ -1,6 +1,7 @@
 package com.example.c4q.capstone.userinterface.events.eventfragments;
 
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -23,6 +24,9 @@ import com.example.c4q.capstone.userinterface.events.eventfragments.createeventu
 import com.example.c4q.capstone.userinterface.events.eventfragments.createeventux.DoneUX;
 import com.example.c4q.capstone.userinterface.events.eventfragments.createeventux.EditTextUX;
 import com.example.c4q.capstone.userinterface.events.eventfragments.createeventux.ExpandUX;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +41,9 @@ public class CreateEventFragment extends Fragment {
     Button closeButton, createEventButton, addFriendsButton, addGroupButton;
     FrameLayout inviteGuestsContainer;
     CreateEventPresenter eventPresenter;
+    DatabaseReference rootRef, friendDatabase, friendReqDatabase, notificationDatabase, usersDatabase;
+    ProgressDialog progressDialog;
+    FirebaseUser mCurrent_user;
 
     EventFragment eventFragment = new EventFragment();
     DateTimeUX dateTimeUX;
@@ -44,7 +51,6 @@ public class CreateEventFragment extends Fragment {
     EditTextUX editTextUX;
     ExpandUX expandUX;
     Bundle bundle;
-
 
 
     public CreateEventFragment() {
@@ -56,15 +62,23 @@ public class CreateEventFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_create_event, container, false);
+
+        friendReqDatabase = FirebaseDatabase.getInstance().getReference().child("Friend_req");
+        friendDatabase = FirebaseDatabase.getInstance().getReference().child("Friends");
+
+
         setViews();
         loadPresenters();
+        addFriends();
 
         return rootView;
     }
 
-    /** Load views _ AJ */
+    /**
+     * Load views _ AJ
+     */
     /*method to load views -AJ*/
-    public void setViews(){
+    public void setViews() {
         addDate = (TextView) rootView.findViewById(R.id.add_date_text_view);
         addTime = (TextView) rootView.findViewById(R.id.add_time_text_view);
         dateAndTime = (TextView) rootView.findViewById(R.id.date_time_text_view);
@@ -80,10 +94,10 @@ public class CreateEventFragment extends Fragment {
         eventName.setSingleLine();
     }
 
-    public void loadPresenters(){
+    public void loadPresenters() {
         eventPresenter = new CreateEventPresenter();
         dateTimeUX = new DateTimeUX(timePicker, datePicker, closeButton, addDate, addTime, dateAndTime, eventPresenter);
-        expandUX = new ExpandUX(inviteGuestsContainer,addFriendsButton, addGroupButton);
+        expandUX = new ExpandUX(inviteGuestsContainer, addFriendsButton, addGroupButton);
         editTextUX = new EditTextUX(eventName, addNote, eventPresenter, CreateEventFragment.this.getActivity(), rootView);
         doneUX = new DoneUX(createEventButton, eventPresenter, new EventFragmentListener() {
             @Override
@@ -100,7 +114,7 @@ public class CreateEventFragment extends Fragment {
 
     }
 
-    public void loadEventFragment(){
+    public void loadEventFragment() {
         Log.d("Create Event Frag", "loadEventFragment called");
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -111,4 +125,12 @@ public class CreateEventFragment extends Fragment {
         fragmentTransaction.commit();
     }
 
+    public void addFriends() {
+        addFriendsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
 }
