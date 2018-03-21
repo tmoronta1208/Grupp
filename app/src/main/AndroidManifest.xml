@@ -26,9 +26,8 @@
         <activity android:name=".userinterface.user.SettingsActivity" />
         <activity android:name=".userinterface.events.VenueVoteSwipeActivity" />
         <activity android:name=".userinterface.events.EventActivity" />
-        <activity android:name=".userinterface.user.EditProfileActivity" />
-        <activity android:name=".userinterface.user.SplashPage" />
-        <activity android:name=".userinterface.user.onboarding.OnBoardActivity"></activity>
+        <activity android:name=".userinterface.user.EditProfileActivity"/>
+        <activity android:name=".userinterface.user.SplashPage"/>
     </application>
 
 </manifest>
