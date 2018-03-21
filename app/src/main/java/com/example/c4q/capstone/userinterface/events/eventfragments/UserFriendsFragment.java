@@ -88,21 +88,4 @@ public class UserFriendsFragment extends Fragment {
             });
         }
     }
-
-    public void getUserObject(String id){
-        Log.d("user friends frag", "getuser object called" + friendKeys.size());
-        fbUserDataUtility.getPublicUser(id, new FBUserDataListener() {
-            @Override
-            public void getUid(String userID) {
-
-            }
-
-            @Override
-            public void getPublicUser(PublicUser publicUser) {
-                Log.d("user friends frag", "friends user size" + publicUser.getFirst_name());
-                friendsUserList.add(publicUser);
-                Log.d("user friends frag", "friends user size" + friendsUserList.size());
-            }
-        });
-    }
 }
