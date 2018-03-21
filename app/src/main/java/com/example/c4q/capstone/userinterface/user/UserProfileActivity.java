@@ -3,6 +3,7 @@ package com.example.c4q.capstone.userinterface.user;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -16,15 +17,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.c4q.capstone.LoginActivity;
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.events.EventActivity;
 import com.example.c4q.capstone.userinterface.events.VenueVoteSwipeActivity;
-import com.example.c4q.capstone.userinterface.user.userprofilefragments.EventsFragment;
-import com.example.c4q.capstone.userinterface.user.userprofilefragments.GroupFragment;
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPEventsFragment;
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPGroupFragment;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -53,7 +53,9 @@ public class UserProfileActivity extends AppCompatActivity {
     private DrawerLayout navDrawerLayout;
     private TextView userName;
     private CircleImageView userImage;
-    private Button editButton;
+    private Button editButton, contactButton;
+    private View fragContainer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,24 @@ public class UserProfileActivity extends AppCompatActivity {
         userImage = findViewById(R.id.circle_imageview);
         userName = findViewById(R.id.user_name);
         editButton = findViewById(R.id.edit_button);
+        fragContainer = findViewById(R.id.up_bottom_frag_cont);
+
+        contactButton = findViewById(R.id.contact_list_button);
+        contactButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                ContactListFragment contactListFragment = new ContactListFragment();
+                FragmentManager eFragmentManager = getSupportFragmentManager();
+                FragmentTransaction eFragmentTransaction = eFragmentManager.beginTransaction();
+                eFragmentTransaction.replace(R.id.up_bottom_frag_cont, contactListFragment, "Contact FRAG");
+                eFragmentTransaction.addToBackStack("contactListFragment");
+                eFragmentTransaction.commit();
+
+
+            }
+        });
 
         authentication = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -216,18 +236,18 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     public void setUpEventsFrag() {
-        EventsFragment eventsFragment = new EventsFragment();
+        UPEventsFragment UPEventsFragment = new UPEventsFragment();
         FragmentManager eFragmentManager = getSupportFragmentManager();
         FragmentTransaction eFragmentTransaction = eFragmentManager.beginTransaction();
-        eFragmentTransaction.add(R.id.events_frag_container, eventsFragment, "Events FRAG");
+        eFragmentTransaction.add(R.id.events_frag_container, UPEventsFragment, "Events FRAG");
         eFragmentTransaction.commit();
     }
 
     public void setUpGroupFrag() {
-        GroupFragment groupFragment = new GroupFragment();
+        UPGroupFragment UPGroupFragment = new UPGroupFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.group_frag_cont, groupFragment, "GROUP FRAG");
+        fragmentTransaction.add(R.id.group_frag_cont, UPGroupFragment, "GROUP FRAG");
         fragmentTransaction.commit();
 
     }

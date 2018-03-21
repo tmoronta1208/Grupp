@@ -1,4 +1,4 @@
-package com.example.c4q.capstone.userinterface.user.userprofilefragments;
+package com.example.c4q.capstone.userinterface.user;
 
 
 import android.os.Bundle;
@@ -10,36 +10,50 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller.GroupsAdapter;
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller.ContactListAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static android.view.View.VISIBLE;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GroupFragment extends Fragment {
+public class ContactListFragment extends Fragment {
+
+
     private View view;
     private RecyclerView recyclerView;
-    private GroupsAdapter groupsAdapter;
+    private List<Integer> numbers = new ArrayList<>();
 
-
-    public GroupFragment() {
+    public ContactListFragment() {
         // Required empty public constructor
     }
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_group, container, false);
+        view =  inflater.inflate(R.layout.fragment_contactlist, container, false);
 
+        recyclerView = view.findViewById(R.id.contact_list_rec);
 
-        recyclerView = view.findViewById(R.id.groups_rec);
+        for (int i = 0; i <=20 ; i++) {
+            numbers.add(i);
+        }
 
-        groupsAdapter = new GroupsAdapter();
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayout = new LinearLayoutManager(view.getContext());
+        ContactListAdapter contactListAdapter = new ContactListAdapter(numbers,getContext());
+        recyclerView.setAdapter(contactListAdapter);
         recyclerView.setLayoutManager(linearLayout);
-        return view;
+
+
+
+            return view;
 
     }
 
