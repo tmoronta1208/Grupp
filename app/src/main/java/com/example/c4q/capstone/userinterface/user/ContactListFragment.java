@@ -66,6 +66,7 @@ public class ContactListFragment extends Fragment {
         recyclerView = view.findViewById(R.id.contact_list_rec);
         addPerson = view.findViewById(R.id.addperson_cl);
 
+        /*sends user to add person activity*/
         addPerson.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +83,7 @@ public class ContactListFragment extends Fragment {
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayout = new LinearLayoutManager(view.getContext());
-        contactListAdapter = new ContactListAdapter(numbers,getContext());
+        contactListAdapter = new ContactListAdapter(friendsUserList,getContext());
         /**ajoxe:
          * after modifying the adapter, set the list as friendsUserList
          * contactListAdapter = new ContactListAdapter(friendsUserList, getContext());
