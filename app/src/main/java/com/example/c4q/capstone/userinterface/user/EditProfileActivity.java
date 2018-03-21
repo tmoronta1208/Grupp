@@ -1,21 +1,25 @@
 package com.example.c4q.capstone.userinterface.user;
 
+import android.Manifest;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.database.model.privateuserdata.PrivateUser;
+import com.example.c4q.capstone.database.model.privateuserdata.PrivateUserLocation;
 import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,27 +29,27 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.example.c4q.capstone.utils.Constants.PRIVATE_LOCATION;
+import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
+import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
+
 public class EditProfileActivity extends AppCompatActivity {
-    private static final String PUBLIC_USER = "public_user";
     private static final String TAG = "EditProfileActivity";
-    private static final String AGE_RANGE = "age_range";
-    private static final String BUDGET = "budget";
-    private static final String RADIUS = "radius";
 
-    private String userID, firstNameString, lastNameString, zipCodeString, budgetString;
-    private boolean over18, over21;
+    private String userID, firstNameString, lastNameString, zipCodeSting, budgetString;
+    private boolean over18, over21, share_location;
     private int radius;
-
+    private double lat, lng;
 
     private Button saveBtn;
     private EditText firstName, lastName, zipCode;
-    RadioGroup ageGroup, budgetGroup, radiusGroup;
-    RadioButton ageChoice, budgetChoice, radiusChoice;
+    private RadioGroup ageGroup, budgetGroup, radiusGroup;
+    private RadioButton ageChoice, budgetChoice, radiusChoice;
 
-    private FirebaseDatabase mFirebaseDatabase;
+    private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private DatabaseReference myRef;
+    private DatabaseReference publicUserReference, privateUserReference, privateUserLocationReference;
     private FirebaseUser user;
 
 
@@ -65,13 +69,16 @@ public class EditProfileActivity extends AppCompatActivity {
         zipCode = findViewById(R.id.edit_profile_zip_code);
 
         mAuth = FirebaseAuth.getInstance();
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        myRef = mFirebaseDatabase.getReference();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
+        publicUserReference = firebaseDatabase.getReference();
+        privateUserReference = firebaseDatabase.getReference();
+        privateUserLocationReference = firebaseDatabase.getReference();
+
         user = mAuth.getCurrentUser();
         userID = user.getUid();
 
         radioGroupSelection();
-
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -88,7 +95,7 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         };
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -102,7 +109,11 @@ public class EditProfileActivity extends AppCompatActivity {
                 // Failed to read value
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
-        });
+        };
+
+        publicUserReference.addValueEventListener(valueEventListener);
+        privateUserReference.addValueEventListener(valueEventListener);
+        privateUserLocationReference.addValueEventListener(valueEventListener);
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,16 +122,35 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
+        LocationManager locationManager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1020);
+            return;
+        }
+
+        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        lat = location.getLatitude();
+        lng = location.getLongitude();
     }
 
     private void saveToDatabase() {
         firstNameString = firstName.getText().toString().trim();
         lastNameString = lastName.getText().toString().trim();
-        zipCodeString = zipCode.getText().toString().trim();
+        zipCodeSting = zipCode.getText().toString();
 
-        if (!firstNameString.equals("") && !lastNameString.equals("") && !zipCodeString.equals("")) {
-            PublicUser publicUser = new PublicUser(firstNameString, lastNameString, zipCodeString, budgetString, over18, over21,radius);
-            myRef.child(PUBLIC_USER).child(userID).setValue(publicUser);
+        if (!firstNameString.equals("") && !lastNameString.equals("") && !zipCodeSting.equals("")) {
+            PublicUser publicUser = new PublicUser(firstNameString, lastNameString, zipCodeSting, budgetString, over18, over21, radius);
+            PrivateUser privateUser = new PrivateUser(firstNameString, lastNameString, over18, over21, radius);
+            PrivateUserLocation privateUserLocation = new PrivateUserLocation(share_location, lat, lng);
+
+            publicUserReference.child(PUBLIC_USER).child(userID).setValue(publicUser);
+            privateUserReference.child(PRIVATE_USER).child(userID).setValue(privateUser);
+            privateUserLocationReference.child(PRIVATE_USER).child(userID).child(PRIVATE_LOCATION).setValue(privateUserLocation);
+
             startActivity(new Intent(EditProfileActivity.this, UserProfileActivity.class));
         } else {
             firstName.setError("Required");

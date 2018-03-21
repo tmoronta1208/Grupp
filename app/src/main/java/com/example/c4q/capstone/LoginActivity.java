@@ -16,10 +16,12 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
-import com.example.c4q.capstone.network.barzz.NetworkCall;
+import com.example.c4q.capstone.database.model.publicuserdata.UserSearch;
+import com.example.c4q.capstone.network.NetworkCall;
 import com.example.c4q.capstone.userinterface.user.EditProfileActivity;
 import com.example.c4q.capstone.userinterface.user.SettingsActivity;
 import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
+import com.example.c4q.capstone.utils.Constants;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,18 +35,20 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
+import static com.example.c4q.capstone.utils.Constants.USER_SEARCH;
+
 public class LoginActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 123;
     private DrawerLayout navDrawerLayout;
-    private static final String PUBLIC_USER = "public_user";
-
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth authentication;
     private FirebaseUser currentUser;
-    private DatabaseReference publicUserDatabaseReference;
-    private String currentUserID;
-    PublicUser publicUser;
+    private DatabaseReference publicUserDatabaseReference, searchUserReference;
+    private String currentUserID, currentUserEmail;
+    private PublicUser publicUser;
+    private UserSearch userSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +64,11 @@ public class LoginActivity extends AppCompatActivity {
         authentication = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         publicUserDatabaseReference = firebaseDatabase.getReference().child(PUBLIC_USER);
+        searchUserReference = firebaseDatabase.getReference().child(USER_SEARCH);
         currentUser = authentication.getCurrentUser();
         if (currentUser != null) {
             currentUserID = currentUser.getUid();
+            currentUserEmail = currentUser.getEmail();
         }
 
         /**
@@ -151,7 +157,11 @@ public class LoginActivity extends AppCompatActivity {
                 // Get Post object and use the values to update the UI
                 Log.d(" LOGIN", "USER LISTENER CALLED");
                 publicUser = dataSnapshot.child(currentUserID).getValue(PublicUser.class);
+                userSearch = dataSnapshot.child(currentUserID).getValue(UserSearch.class);
+
                 if (publicUser != null) {
+                    userSearch = new UserSearch(currentUserEmail);
+                    searchUserReference.child(currentUserID).setValue(userSearch);
                     Log.d(" LOGIN", "user first name" + publicUser.getFirst_name());
                 } else {
                     Log.d(" LOGIN", "user is null");
@@ -168,6 +178,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
         publicUserDatabaseReference.addValueEventListener(userListener);
+        searchUserReference.addValueEventListener(userListener);
     }
 
     /*method to load and display navigation drawer - AJ*/
