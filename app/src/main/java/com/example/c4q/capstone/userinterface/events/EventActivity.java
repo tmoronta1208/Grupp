@@ -17,7 +17,7 @@ import android.view.View;
 import com.example.c4q.capstone.LoginActivity;
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.userinterface.events.eventfragments.CreateEventFragment;
-import com.example.c4q.capstone.userinterface.events.eventfragments.EventFragment;
+import com.example.c4q.capstone.userinterface.events.eventfragments.SingleEventFragment;
 import com.example.c4q.capstone.userinterface.user.SettingsActivity;
 import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
 import com.firebase.ui.auth.AuthUI;
@@ -26,7 +26,7 @@ import com.google.android.gms.tasks.Task;
 
 public class EventActivity extends AppCompatActivity {
     private DrawerLayout navDrawerLayout;
-    EventFragment eventFragment = new EventFragment();
+    SingleEventFragment singleEventFragment = new SingleEventFragment();
     CreateEventFragment createEventFragment = new CreateEventFragment();
 
     @Override

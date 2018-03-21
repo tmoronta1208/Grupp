@@ -38,7 +38,7 @@ public class CreateEventFragment extends Fragment {
     FrameLayout inviteGuestsContainer;
     CreateEventPresenter eventPresenter;
 
-    EventFragment eventFragment = new EventFragment();
+    SingleEventFragment singleEventFragment = new SingleEventFragment();
     DateTimeUX dateTimeUX;
     DoneUX doneUX;
     EditTextUX editTextUX;
@@ -105,8 +105,8 @@ public class CreateEventFragment extends Fragment {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-        eventFragment.setArguments(bundle);
-        fragmentTransaction.replace(R.id.event_fragment_container, eventFragment);
+        singleEventFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.event_fragment_container, singleEventFragment);
         fragmentTransaction.addToBackStack("next");
         fragmentTransaction.commit();
     }
