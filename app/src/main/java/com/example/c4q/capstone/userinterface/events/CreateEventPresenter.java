@@ -50,9 +50,11 @@ public class CreateEventPresenter {
     private String userID;
     String firstName;
     String lastName;
+    List<String> dummyUsers;
 
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     DatabaseReference ref = database.child(PUBLIC_USER);
+    String key;
 
     public CreateEventPresenter(){
         newEvent = new Events();
@@ -65,11 +67,15 @@ public class CreateEventPresenter {
     }
 
     public void sendEventToFB(EventFragmentListener listener){
+        getDummyUserKeys();
+
+        Log.d(TAG, "dummy user list" + dummyUsers.size());
+
         //TODO logic to send newEvent to firebase
         // Create new post at /user-posts/$userid/$postid and at
         // /posts/$postid simultaneously
         Log.d(TAG, "create event: eventSent to firebase" + newEvent.getEvent_name());
-        String key = myRef.child("events").push().getKey();
+        key = myRef.child("events").push().getKey();
         Log.d(TAG, "create event: push key " + key);
         myRef.child("events").child(key).setValue(newEvent);
         Log.d(TAG, "create event: set value: " + newEvent.getEvent_name());
@@ -77,6 +83,33 @@ public class CreateEventPresenter {
         eventName = newEvent.getEvent_name();
         eventTime = newEvent.getEvent_time();
         eventDate = newEvent.getEvent_date();
+    }
+
+    public void getDummyUserKeys(){
+        dummyUsers = new ArrayList<>();
+        ValueEventListener userListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String dummyKey = ds.getKey();
+                    Log.d(TAG, "dummy user keys" + dummyKey);
+                    dummyUsers.add(dummyKey);
+                    newEvent.setInvited_guests(dummyUsers);
+                    Log.d(TAG, "dummy user list" + dummyUsers.size());
+                    myRef.child("events").child(key).setValue(newEvent);
+                    Log.d(TAG, "create event: set value: " + newEvent.getEvent_name());
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        };
+        myRef.child(PUBLIC_USER).addValueEventListener(userListener);
     }
 
 
