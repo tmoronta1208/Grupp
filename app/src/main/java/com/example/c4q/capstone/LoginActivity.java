@@ -17,7 +17,6 @@ import android.view.View;
 
 import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.model.publicuserdata.UserSearch;
-import com.example.c4q.capstone.network.NetworkCall;
 import com.example.c4q.capstone.userinterface.user.EditProfileActivity;
 import com.example.c4q.capstone.userinterface.user.SettingsActivity;
 import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
@@ -95,7 +94,6 @@ public class LoginActivity extends AppCompatActivity {
 //                    }
 //                });
 
-        NetworkCall.start("10001");
         setNavDrawerLayout();
 //        setToolbar();
     }

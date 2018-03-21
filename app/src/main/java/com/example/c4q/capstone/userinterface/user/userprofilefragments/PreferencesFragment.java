@@ -26,6 +26,15 @@ public class PreferencesFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_preferences, container, false);
+
+
+
+
+
+
+
+
+
         return view;
     }
 

@@ -23,6 +23,7 @@ import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.events.EventActivity;
 import com.example.c4q.capstone.userinterface.events.VenueVoteSwipeActivity;
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.PreferencesFragment;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPEventsFragment;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPGroupFragment;
 import com.firebase.ui.auth.AuthUI;
@@ -143,6 +144,14 @@ public class UserProfileActivity extends AppCompatActivity {
                             case R.id.upcoming_events_menu_item:
 
                                 //TODO start userProfile with upcomining events fragment loaded.
+                                break;
+                            case R.id.preferences_menu_item:
+                                PreferencesFragment preferencesFragment = new PreferencesFragment();
+                                FragmentManager preferencesMangaer = getSupportFragmentManager();
+                                FragmentTransaction prefTransaction = preferencesMangaer.beginTransaction();
+                                prefTransaction.replace(R.id.up_bottom_frag_cont, preferencesFragment, "PREFERENCES FRAG");
+                                prefTransaction.addToBackStack("preferencesFragment");
+                                prefTransaction.commit();
                                 break;
                             case R.id.create_new_event:
                                 Intent createEventIntent = new Intent(UserProfileActivity.this, EventActivity.class);

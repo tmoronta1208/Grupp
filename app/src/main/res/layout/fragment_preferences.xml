@@ -5,7 +5,7 @@
     tools:context="com.example.c4q.capstone.userinterface.user.userprofilefragments.PreferencesFragment">
 
 
-    <GridLayout
+    <LinearLayout
         android:id="@+id/user_preferences"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,42 +17,32 @@
             android:layout_height="wrap_content"
             android:text="What kind of bars do you prefer?" />
 
-        <android.support.design.widget.CheckableImageButton
+        <RadioButton
             android:id="@+id/beer_pref"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/ic_launcher_round" />
+            android:text="Beer Bar" />
 
-
-        <android.support.design.widget.CheckableImageButton
-            android:id="@+id/club_pref"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/ic_launcher_round" />
-
-        <android.support.design.widget.CheckableImageButton
+        <RadioButton
             android:id="@+id/lounge_pref"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/ic_launcher_round" />
+            android:text="Lounge" />
 
-        <android.support.design.widget.CheckableImageButton
+        <RadioButton
+            android:id="@+id/club_pref"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/ic_launcher_round" />
+            android:text="Clubs" />
 
-        <android.support.design.widget.CheckableImageButton
+        <RadioButton
+            android:id="@+id/karaoke_pref"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/ic_launcher_round" />
-
-        <android.support.design.widget.CheckableImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/ic_launcher_round" />
+            android:text="Karaoke" />
 
 
-    </GridLayout>
+    </LinearLayout>
 
 
 </FrameLayout>

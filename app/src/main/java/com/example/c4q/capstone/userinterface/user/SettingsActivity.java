@@ -3,6 +3,8 @@ package com.example.c4q.capstone.userinterface.user;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -14,6 +16,8 @@ import android.view.View;
 
 import com.example.c4q.capstone.*;
 import com.example.c4q.capstone.userinterface.events.EventActivity;
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.PreferencesFragment;
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPGroupFragment;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -65,6 +69,10 @@ public class SettingsActivity extends AppCompatActivity {
                                 break;
                             case R.id.settings_menu_item:
                                 //TODO start settings activity.
+                                break;
+                            case R.id.preferences_menu_item:
+                              Intent loadPrefs = new Intent(SettingsActivity.this, UserProfileActivity.class);
+                              startActivity(loadPrefs);
                                 break;
                             case R.id.signout_menu_item:
                                 AuthUI.getInstance()
