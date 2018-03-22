@@ -32,6 +32,7 @@ public class ContactListViewHolder extends RecyclerView.ViewHolder {
 
         Log.d(TAG, "onBind: " + user.getLast_name());
         name.setText(user.getFirst_name() + " " + user.getLast_name());
+        email.setText(user.getEmail());
 
     }
 }
