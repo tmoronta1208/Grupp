@@ -66,6 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
                     android:layout_gravity="left"
+                    android:layout_marginBottom="8dp"
                     android:background="@drawable/button_shapes"
                     android:text="contacts"
                     android:textAllCaps="false"
@@ -84,6 +85,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
+
                     <FrameLayout
                         android:id="@+id/group_frag_cont"
                         android:layout_width="match_parent"
@@ -94,7 +96,7 @@
                         android:id="@+id/events_frag_container"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/light_salmon" />
+                        android:background="@color/light_salmon"/>
                 </LinearLayout>
 
 

@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.userinterface.user.ContactListFragment;
 
@@ -39,6 +40,8 @@ public class GroupViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void onBind(int position) {
+       groupImage.setImageDrawable(context.getResources().getDrawable(R.drawable.joanneyun));
+
 
 
     }

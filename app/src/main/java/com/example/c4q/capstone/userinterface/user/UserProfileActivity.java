@@ -248,7 +248,7 @@ public class UserProfileActivity extends AppCompatActivity {
         UPEventsFragment UPEventsFragment = new UPEventsFragment();
         FragmentManager eFragmentManager = getSupportFragmentManager();
         FragmentTransaction eFragmentTransaction = eFragmentManager.beginTransaction();
-        eFragmentTransaction.add(R.id.events_frag_container, UPEventsFragment, "Events FRAG");
+        eFragmentTransaction.replace(R.id.events_frag_container, UPEventsFragment, "Events FRAG");
         eFragmentTransaction.commit();
     }
 
@@ -257,7 +257,7 @@ public class UserProfileActivity extends AppCompatActivity {
         UPGroupFragment UPGroupFragment = new UPGroupFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.group_frag_cont, UPGroupFragment, "GROUP FRAG");
+        fragmentTransaction.replace(R.id.group_frag_cont, UPGroupFragment, "GROUP FRAG");
         fragmentTransaction.commit();
 
     }
