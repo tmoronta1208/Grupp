@@ -6,6 +6,7 @@ public class PublicUser {
     private String last_name;
     private String zip_code;
     private String budget;
+    private String email;
     private boolean over_18;
     private boolean over_21;
     private int radius;
@@ -13,11 +14,12 @@ public class PublicUser {
     public PublicUser() {
     }
 
-    public PublicUser(String first_name, String last_name, String zip_code, String budget, boolean over_18, boolean over_21, int radius) {
+    public PublicUser(String first_name, String last_name, String zip_code, String budget, String email, boolean over_18, boolean over_21, int radius) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.zip_code = zip_code;
         this.budget = budget;
+        this.email = email;
         this.over_18 = over_18;
         this.over_21 = over_21;
         this.radius = radius;
@@ -53,6 +55,14 @@ public class PublicUser {
 
     public void setBudget(String budget) {
         this.budget = budget;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public boolean isOver_18() {

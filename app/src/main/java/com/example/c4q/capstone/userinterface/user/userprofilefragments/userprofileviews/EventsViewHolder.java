@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.database.model.events.Events;
+import com.example.c4q.capstone.database.events.Events;
 import com.example.c4q.capstone.userinterface.user.EventsListFragment;
 
 
@@ -26,10 +26,6 @@ public class EventsViewHolder extends RecyclerView.ViewHolder {
         eventName = itemView.findViewById(R.id.event_name);
         linearLayout = itemView.findViewById(R.id.linearlayout);
         context = itemView.getContext();
-
-
-      
-
     }
 
     public void onBind(Events event) {
