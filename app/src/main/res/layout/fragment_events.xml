@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    android:padding="16sp"
+    android:clickable="true"
     tools:context="com.example.c4q.capstone.userinterface.user.userprofilefragments.UPEventsFragment">
 
     <!-- TODO: Update blank fragment layout -->

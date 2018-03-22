@@ -3,12 +3,18 @@
     android:id="@+id/linearlayout"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:padding="16sp"
+    >
 
     <TextView
         android:id="@+id/event_name"
         android:text="Joe's Bday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:padding="16sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
 
 </LinearLayout>
