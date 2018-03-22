@@ -18,15 +18,15 @@ import java.util.List;
  */
 
 public class GroupsAdapter extends RecyclerView.Adapter<GroupViewHolder> {
-    List<Groups> groupsList = new ArrayList<>();
+    List<Integer> groupsList = new ArrayList<>();
     Context context;
 
     /*constructor to take in list and context from retrofit call*/
 
-//    public GroupsAdapter(Context context, List<Groups> groupsList){
-//        this.context = context;
-//        this.groupsList = groupsList;
-//    }
+    public GroupsAdapter(Context context, List<Integer> groupsList){
+        this.context = context;
+        this.groupsList = groupsList;
+    }
 //
     @Override
     public GroupViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -36,7 +36,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupViewHolder> {
 
     @Override
     public void onBindViewHolder(GroupViewHolder holder, int position) {
-        holder.onBind(position);
+        holder.onBind(groupsList.get(position));
 
     }
 

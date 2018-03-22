@@ -18,15 +18,17 @@ import java.util.List;
  */
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsViewHolder> {
-    List<Groups> eventsList = new ArrayList<>();
+    List<Events> eventsList = new ArrayList<>();
     Context context;
 
        /*constructor to take in list and context from retrofit call*/
 
-    //    public GroupsAdapter(Context context, List<Groups> groupsList){
-//        this.context = context;
-//        this.groupsList = groupsList;
-//    }
+        public EventsAdapter(List<Events> eventsList, Context context){
+            this.context = context;
+            this.eventsList = eventsList;
+
+
+    }
 
     @Override
     public EventsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

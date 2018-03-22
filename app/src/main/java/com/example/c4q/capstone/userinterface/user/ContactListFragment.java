@@ -18,6 +18,7 @@ import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprof
 import com.example.c4q.capstone.utils.FBUserDataListener;
 import com.example.c4q.capstone.utils.FBUserDataUtility;
 import com.example.c4q.capstone.utils.FBUserFriendsListener;
+import com.example.c4q.capstone.utils.SimpleDividerItemDecoration;
 
 import java.awt.font.TextAttribute;
 import java.util.ArrayList;
@@ -89,6 +90,7 @@ public class ContactListFragment extends Fragment {
          * contactListAdapter = new ContactListAdapter(friendsUserList, getContext());
          */
         recyclerView.setAdapter(contactListAdapter);
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
         recyclerView.setLayoutManager(linearLayout);
 
 

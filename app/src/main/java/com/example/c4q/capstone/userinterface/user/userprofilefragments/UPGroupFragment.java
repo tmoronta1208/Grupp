@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller.GroupsAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -19,6 +22,7 @@ public class UPGroupFragment extends Fragment {
     private View view;
     private RecyclerView recyclerView;
     private GroupsAdapter groupsAdapter;
+    List<Integer> randomNumbersList = new ArrayList<>();
 
 
     public UPGroupFragment() {
@@ -35,10 +39,12 @@ public class UPGroupFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.groups_rec);
 
-        groupsAdapter = new GroupsAdapter();
-        recyclerView.setHasFixedSize(true);
+
+        groupsAdapter = new GroupsAdapter(getContext(), randomNumbersList);
         LinearLayoutManager linearLayout = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(linearLayout);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(groupsAdapter);
         return view;
 
     }
