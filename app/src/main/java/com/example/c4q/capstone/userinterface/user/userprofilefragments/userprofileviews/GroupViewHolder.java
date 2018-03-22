@@ -40,7 +40,8 @@ public class GroupViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void onBind(int position) {
-       groupImage.setImageDrawable(context.getResources().getDrawable(R.drawable.joanneyun));
+       groupName.setText("Grupp " + String.valueOf(position));
+
 
 
 

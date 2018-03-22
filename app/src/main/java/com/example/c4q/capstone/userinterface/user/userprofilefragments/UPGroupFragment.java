@@ -39,9 +39,12 @@ public class UPGroupFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.groups_rec);
 
+        for (int i = 1; i <= 5; i++) {
+            randomNumbersList.add(i);
+        }
 
         groupsAdapter = new GroupsAdapter(getContext(), randomNumbersList);
-        LinearLayoutManager linearLayout = new LinearLayoutManager(view.getContext());
+        LinearLayoutManager linearLayout = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL,false);
         recyclerView.setLayoutManager(linearLayout);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(groupsAdapter);
