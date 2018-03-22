@@ -46,7 +46,6 @@ public class CreateEventFragment extends Fragment {
     Bundle bundle;
 
 
-
     public CreateEventFragment() {
         // Required empty public constructor
     }
@@ -57,14 +56,17 @@ public class CreateEventFragment extends Fragment {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_create_event, container, false);
         setViews();
+
         loadPresenters();
 
         return rootView;
     }
 
-    /** Load views _ AJ */
+    /**
+     * Load views _ AJ
+     */
     /*method to load views -AJ*/
-    public void setViews(){
+    public void setViews() {
         addDate = (TextView) rootView.findViewById(R.id.add_date_text_view);
         addTime = (TextView) rootView.findViewById(R.id.add_time_text_view);
         dateAndTime = (TextView) rootView.findViewById(R.id.date_time_text_view);
@@ -80,10 +82,10 @@ public class CreateEventFragment extends Fragment {
         eventName.setSingleLine();
     }
 
-    public void loadPresenters(){
+    public void loadPresenters() {
         eventPresenter = new CreateEventPresenter();
         dateTimeUX = new DateTimeUX(timePicker, datePicker, closeButton, addDate, addTime, dateAndTime, eventPresenter);
-        expandUX = new ExpandUX(inviteGuestsContainer,addFriendsButton, addGroupButton);
+        expandUX = new ExpandUX(inviteGuestsContainer, addFriendsButton, addGroupButton);
         editTextUX = new EditTextUX(eventName, addNote, eventPresenter, CreateEventFragment.this.getActivity(), rootView);
         doneUX = new DoneUX(createEventButton, eventPresenter, new EventFragmentListener() {
             @Override
@@ -100,7 +102,7 @@ public class CreateEventFragment extends Fragment {
 
     }
 
-    public void loadEventFragment(){
+    public void loadEventFragment() {
         Log.d("Create Event Frag", "loadEventFragment called");
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

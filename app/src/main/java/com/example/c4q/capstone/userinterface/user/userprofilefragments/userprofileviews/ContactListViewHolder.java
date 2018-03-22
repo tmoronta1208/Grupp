@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
+import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 
 import static android.content.ContentValues.TAG;
 

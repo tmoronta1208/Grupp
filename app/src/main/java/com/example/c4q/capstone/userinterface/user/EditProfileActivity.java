@@ -18,11 +18,10 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.database.model.privateuserdata.PrivateUser;
-import com.example.c4q.capstone.database.model.privateuserdata.PrivateUserLocation;
-import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
-import com.example.c4q.capstone.database.model.publicuserdata.UserSearch;
-import com.example.c4q.capstone.utils.Constants;
+import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
+import com.example.c4q.capstone.database.privateuserdata.PrivateUserLocation;
+import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.example.c4q.capstone.database.publicuserdata.UserSearch;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,7 +37,7 @@ import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 public class EditProfileActivity extends AppCompatActivity {
     private static final String TAG = "EditProfileActivity";
 
-    private String userID, firstNameString, lastNameString, zipCodeSting, budgetString;
+    private String currentUserID, firstNameString, lastNameString, zipCodeSting, budgetString;
     private boolean over18, over21, share_location;
     private int radius;
     private double lat, lng;
@@ -48,11 +47,10 @@ public class EditProfileActivity extends AppCompatActivity {
     private RadioGroup ageGroup, budgetGroup, radiusGroup;
     private RadioButton ageChoice, budgetChoice, radiusChoice;
 
-    private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private DatabaseReference publicUserReference, privateUserReference, privateUserLocationReference, searchUserReference;
-    private FirebaseUser user;
+    private DatabaseReference rootRef, publicUserReference, privateUserReference, privateUserLocationReference, searchUserReference;
+    private FirebaseUser currentUser;
     private UserSearch userSearch;
     private PublicUser publicUser;
     private PrivateUser privateUser;
@@ -76,26 +74,26 @@ public class EditProfileActivity extends AppCompatActivity {
         zipCode = findViewById(R.id.edit_profile_zip_code);
 
         mAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
+        rootRef = FirebaseDatabase.getInstance().getReference();
 
-        publicUserReference = firebaseDatabase.getReference().child(PUBLIC_USER);
-        privateUserReference = firebaseDatabase.getReference().child(PRIVATE_USER);
-        privateUserLocationReference = firebaseDatabase.getReference().child(PRIVATE_USER);
-        searchUserReference = firebaseDatabase.getReference().child(PUBLIC_USER);
+        publicUserReference = rootRef.child(PUBLIC_USER);
+        privateUserReference = rootRef.child(PRIVATE_USER);
+        privateUserLocationReference = rootRef.child(PRIVATE_USER);
+        searchUserReference = rootRef.child(PUBLIC_USER);
 
-        user = mAuth.getCurrentUser();
-        userID = user.getUid();
-        currentUserEmail = user.getEmail();
+        currentUser = mAuth.getCurrentUser();
+        currentUserID = currentUser.getUid();
+        currentUserEmail = currentUser.getEmail();
 
         radioGroupSelection();
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (user != null) {
+                if (currentUser != null) {
                     // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    Toast.makeText(EditProfileActivity.this, "Successfully signed in with: " + user.getEmail(), Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + currentUser.getUid());
+                    Toast.makeText(EditProfileActivity.this, "Successfully signed in with: " + currentUser.getEmail(), Toast.LENGTH_SHORT).show();
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -107,10 +105,10 @@ public class EditProfileActivity extends AppCompatActivity {
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                privateUser = dataSnapshot.child(userID).getValue(PrivateUser.class);
-                privateUserLocation = dataSnapshot.child(userID).getValue(PrivateUserLocation.class);
-                publicUser = dataSnapshot.child(userID).getValue(PublicUser.class);
-                userSearch = dataSnapshot.child(userID).getValue(UserSearch.class);
+                privateUser = dataSnapshot.child(currentUserID).getValue(PrivateUser.class);
+                privateUserLocation = dataSnapshot.child(currentUserID).getValue(PrivateUserLocation.class);
+                publicUser = dataSnapshot.child(currentUserID).getValue(PublicUser.class);
+                userSearch = dataSnapshot.child(currentUserID).getValue(UserSearch.class);
 
                 Log.d(TAG, "onDataChange: Added information to database: \n" + dataSnapshot.getValue());
             }
@@ -141,6 +139,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
                     android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1020);
+            share_location = true;
             return;
         }
 
@@ -156,15 +155,15 @@ public class EditProfileActivity extends AppCompatActivity {
 
         if (!firstNameString.equals("") && !lastNameString.equals("") && !zipCodeSting.equals("")) {
 
-            publicUser = new PublicUser(firstNameString, lastNameString, zipCodeSting, budgetString, over18, over21, radius);
+            publicUser = new PublicUser(firstNameString, lastNameString, zipCodeSting, budgetString,currentUserEmail, over18, over21, radius);
             privateUser = new PrivateUser(firstNameString, lastNameString, over18, over21, radius);
             privateUserLocation = new PrivateUserLocation(share_location, lat, lng);
             userSearch = new UserSearch(currentUserEmail);
 
-            searchUserReference.child(userID).setValue(userSearch);
-            publicUserReference.child(userID).setValue(publicUser);
-            privateUserReference.child(userID).setValue(privateUser);
-            privateUserLocationReference.child(userID).child(PRIVATE_LOCATION).setValue(privateUserLocation);
+            searchUserReference.child(currentUserID).setValue(userSearch);
+            publicUserReference.child(currentUserID).setValue(publicUser);
+            privateUserReference.child(currentUserID).setValue(privateUser);
+            privateUserLocationReference.child(currentUserID).child(PRIVATE_LOCATION).setValue(privateUserLocation);
 
             startActivity(new Intent(EditProfileActivity.this, UserProfileActivity.class));
         } else {

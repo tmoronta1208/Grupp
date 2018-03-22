@@ -1,6 +1,6 @@
 package com.example.c4q.capstone.utils;
 
-import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
+import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 
 import java.util.List;
 

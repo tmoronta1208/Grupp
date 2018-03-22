@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
+import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews.ContactListViewHolder;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews.GroupViewHolder;
 

@@ -2,7 +2,6 @@ package com.example.c4q.capstone.userinterface.events.eventfragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,13 +10,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.database.model.events.Events;
-import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
+import com.example.c4q.capstone.database.events.Events;
+import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.events.EventDataListener;
 import com.example.c4q.capstone.userinterface.events.EventPresenter;
-import com.example.c4q.capstone.utils.FBUserDataListener;
 import com.example.c4q.capstone.utils.FBUserDataUtility;
-import com.example.c4q.capstone.utils.FBUserFriendsListener;
 
 import java.util.ArrayList;
 import java.util.List;

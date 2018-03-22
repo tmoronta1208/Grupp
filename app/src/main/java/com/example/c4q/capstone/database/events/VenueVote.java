@@ -1,4 +1,4 @@
-package com.example.c4q.capstone.database.model.events;
+package com.example.c4q.capstone.database.events;
 
 
 import java.util.List;

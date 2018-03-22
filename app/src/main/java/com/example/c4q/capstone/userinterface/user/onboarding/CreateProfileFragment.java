@@ -1,7 +1,6 @@
 package com.example.c4q.capstone.userinterface.user.onboarding;
 
 
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -22,10 +21,9 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.database.model.privateuserdata.PrivateUser;
-import com.example.c4q.capstone.database.model.privateuserdata.PrivateUserLocation;
-import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
-import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
+import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
+import com.example.c4q.capstone.database.privateuserdata.PrivateUserLocation;
+import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.PreferencesFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -48,7 +46,7 @@ public class CreateProfileFragment extends Fragment {
 
     private static final String TAG = "CreateProfileActivity";
 
-    private String userID, firstNameString, lastNameString, zipCodeSting, budgetString;
+    private String userID,userEmail, firstNameString, lastNameString, zipCodeSting, budgetString;
     private boolean over18, over21, share_location;
     private int radius;
     private double lat, lng;
@@ -63,7 +61,6 @@ public class CreateProfileFragment extends Fragment {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference publicUserReference, privateUserReference, privateUserLocationReference;
     private FirebaseUser user;
-
 
     public CreateProfileFragment() {
         // Required empty public constructor
@@ -99,6 +96,7 @@ public class CreateProfileFragment extends Fragment {
 
         user = mAuth.getCurrentUser();
         userID = user.getUid();
+        userEmail = user.getEmail();
 
         radioGroupSelection();
 
@@ -172,7 +170,7 @@ public class CreateProfileFragment extends Fragment {
         zipCodeSting = zipCode.getText().toString();
 
         if (!firstNameString.equals("") && !lastNameString.equals("") && !zipCodeSting.equals("")) {
-            PublicUser publicUser = new PublicUser(firstNameString, lastNameString, zipCodeSting, budgetString, over18, over21, radius);
+            PublicUser publicUser = new PublicUser(firstNameString, lastNameString, zipCodeSting, budgetString,userEmail, over18, over21, radius);
             PrivateUser privateUser = new PrivateUser(firstNameString, lastNameString, over18, over21, radius);
             PrivateUserLocation privateUserLocation = new PrivateUserLocation(share_location, lat, lng);
 

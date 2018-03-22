@@ -1,4 +1,4 @@
-package com.example.c4q.capstone.database.model.privateuserdata;
+package com.example.c4q.capstone.database.privateuserdata;
 
 
 public class Address {
