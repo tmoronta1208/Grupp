@@ -157,6 +157,10 @@ public class UserProfileActivity extends AppCompatActivity {
                                 PreferencesFragment preferencesFragment = new PreferencesFragment();
                                 FragmentManager preferencesMangaer = getSupportFragmentManager();
                                 FragmentTransaction prefTransaction = preferencesMangaer.beginTransaction();
+                                /*Temporarily used the up_bottom_frag_cont - not permanent
+                                With merge it is overlapping with another fragment but just need to check the size and content
+                                of preference list as well as whether network calls are being made and returning a specific object
+                                succesfully */
                                 prefTransaction.replace(R.id.up_bottom_frag_cont, preferencesFragment, "PREFERENCES FRAG");
                                 prefTransaction.addToBackStack("preferencesFragment");
                                 prefTransaction.commit();
