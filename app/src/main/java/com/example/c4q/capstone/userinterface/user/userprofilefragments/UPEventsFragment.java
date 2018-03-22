@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.database.model.events.Events;
+import com.example.c4q.capstone.database.events.Events;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller.EventsAdapter;
 import com.example.c4q.capstone.utils.FBEventDataListener;
 import com.example.c4q.capstone.utils.FBEventDataUtility;

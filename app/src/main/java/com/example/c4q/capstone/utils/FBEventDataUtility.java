@@ -2,8 +2,8 @@ package com.example.c4q.capstone.utils;
 
 import android.util.Log;
 
-import com.example.c4q.capstone.database.model.events.Events;
-import com.example.c4q.capstone.database.model.publicuserdata.PublicUser;
+import com.example.c4q.capstone.database.events.Events;
+import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.events.EventDataListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -13,8 +13,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.example.c4q.capstone.utils.Constants.EVENTS;
+import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Created by amirahoxendine on 3/21/18.
@@ -23,8 +27,7 @@ import java.util.List;
 public class FBEventDataUtility {
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth mAuth;
-    private DatabaseReference firebaseDatabase;
-    private DatabaseReference eventReference;
+    private DatabaseReference firebaseDatabase, userReference, eventReference;
 
 
     public static FirebaseUser currentUser;
@@ -35,24 +38,26 @@ public class FBEventDataUtility {
     private static String TAG = "FB EVENT UTILITY: ";
     Events events;
 
-    public FBEventDataUtility(){
+    public FBEventDataUtility() {
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabase = mFirebaseDatabase.getReference();
-        eventReference = firebaseDatabase.child("events");
+        eventReference = firebaseDatabase.child(EVENTS);
+        userReference = firebaseDatabase.child(PUBLIC_USER);
 
         currentUser = mAuth.getCurrentUser();
-        if (currentUser != null){
+        if (currentUser != null) {
             currentUserID = currentUser.getUid();
         }
     }
 
-    /**ajoxe:
+    /**
+     * ajoxe:
      * this method get a single events object form the database
      * it takes in a key and a listener (to send the event to)
-     * */
+     */
 
-    public void getEventFromDB(String key, final EventDataListener listener){
+    public void getEventFromDB(String key, final EventDataListener listener) {
         eventKey = key;
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
@@ -78,10 +83,12 @@ public class FBEventDataUtility {
         };
         eventReference.addValueEventListener(eventListener);
     }
-    /**ajoxe:
+
+    /**
+     * ajoxe:
      * this method gets all event keys from db
-     * */
-    public void getAllEventKeys(){
+     */
+    public void getAllEventKeys() {
 
         ValueEventListener eventKeyListener = new ValueEventListener() {
             @Override
@@ -106,7 +113,7 @@ public class FBEventDataUtility {
 
     }
 
-    public void getAllEvents(final FBEventDataListener listener){
+    public void getAllEvents(final FBEventDataListener listener) {
 
         ValueEventListener eventKeyListener = new ValueEventListener() {
             @Override
@@ -114,12 +121,12 @@ public class FBEventDataUtility {
                 final List<Events> eventsList = new ArrayList<>();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Events events = ds.getValue(Events.class);
-                   eventsList.add(events);
-                   if (events != null){
-                       Log.d(TAG, "getAllEvents: eventName: " + events.getEvent_name());
-                   } else {
-                       Log.d(TAG, "getAllEvents: EVENT IS NULL");
-                   }
+                    eventsList.add(events);
+                    if (events != null) {
+                        Log.d(TAG, "getAllEvents: eventName: " + events.getEvent_name());
+                    } else {
+                        Log.d(TAG, "getAllEvents: EVENT IS NULL");
+                    }
                 }
                 listener.getAllEvents(eventsList);
             }
