@@ -22,6 +22,7 @@ import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.events.EventActivity;
 import com.example.c4q.capstone.userinterface.events.VenueVoteSwipeActivity;
 import com.example.c4q.capstone.userinterface.user.search.UserSearchActivity;
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.PreferencesFragment;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPEventsFragment;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPGroupFragment;
 import com.firebase.ui.auth.AuthUI;
