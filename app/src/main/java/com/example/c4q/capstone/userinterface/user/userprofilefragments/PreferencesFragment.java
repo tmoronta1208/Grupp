@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.network.barzz.BarzzNetworkCall;
@@ -58,6 +59,7 @@ public class PreferencesFragment extends Fragment {
         pubCheckbox = view.findViewById(R.id.pub_pref);
         cocktailCheckbox = view.findViewById(R.id.cocktail_pref);
 
+
         //Added all Checkboxes to a map with the checkbox as the key and type keyword as the value
 
         prefs.put(clubCheckBox, "club");
@@ -71,33 +73,52 @@ public class PreferencesFragment extends Fragment {
         prefs.put(pubCheckbox, "pub");
         prefs.put(cocktailCheckbox, "cocktail");
 
-        //Foreach - added an onClick listener to each checkbox in the map and t
+        //Foreach - added an onClick listener to each checkbox in the map
 
         for (final CheckBox a : prefs.keySet()) {
 
-            a.setOnClickListener(new View.OnClickListener() {
+            a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
-                public void onClick(View view) {
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
+                    if (!a.isChecked()) {
+                        selectedPrefs.remove(prefs.get(a));
+                        Log.d("selctedPref size: ", selectedPrefs.toString());
+
+                    }
                     if (a.isChecked()) {
                         Log.d("Item Checked", prefs.get(a));
                         selectedPrefs.add(prefs.get(a));
-                       // BarzzNetworkCall.start("10001");
+                        BarzzNetworkCall.start("10001");
                         Log.d("selctedPref size: ", selectedPrefs.toString());
                     }
 
                 }
             });
+
+//            a.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//
+//                    if (a.isChecked()) {
+//                        Log.d("Item Checked", prefs.get(a));
+//                        selectedPrefs.add(prefs.get(a));
+//                        // BarzzNetworkCall.start("10001");
+//                        Log.d("selctedPref size: ", selectedPrefs.toString());
+//                    }
+//                    if (!a.isChecked()) {
+//                        selectedPrefs.remove(a);
+//                    }
+////                        Log.d("selctedPref size: ", selectedPrefs.toString());
+//
+//                }
+//
+//            });
         }
 
 
         return view;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
-
-    }
 }

@@ -20,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class BarzzNetworkCall {
 
-    public static final  String BARZZ_KEY = "&user_key=96b42918912ec3f1d85660e18356617c";
+    public static final String BARZZ_KEY = "&user_key=96b42918912ec3f1d85660e18356617c";
     public static final String BARZZ_URL = "https://api.barzz.net/api/";
 
 
@@ -36,7 +36,6 @@ public class BarzzNetworkCall {
         final BarzzService barzzService = retrofit.create(BarzzService.class);
 
         for (int i = 0; i < PreferencesFragment.selectedPrefs.size(); i++) {
-
 
 
             Call<BarzzModel> call = barzzService.getBarzz(zipcode, PreferencesFragment.selectedPrefs.get(i));
@@ -59,10 +58,7 @@ public class BarzzNetworkCall {
             });
 
 
-
         }
-
-
 
 
     }
