@@ -15,11 +15,13 @@ import static android.content.ContentValues.TAG;
  */
 
 public class ContactListViewHolder extends RecyclerView.ViewHolder {
-    private TextView name;
+    private TextView name,email;
+
     public ContactListViewHolder(View itemView) {
         super(itemView);
 
         name = itemView.findViewById(R.id.name_contactlist);
+        email = itemView.findViewById(R.id.email_contactlist);
 
 
 

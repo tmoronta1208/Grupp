@@ -17,8 +17,10 @@ import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprof
 
 public class AddPersonActivity extends AppCompatActivity{
     private EditText addPersonEmail,addPersonNumber;
+    private String newUserEmail,newUserPhone;
     private Button findFriends;
-    GroupsAdapter groupsAdapter = new GroupsAdapter();
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,14 +30,15 @@ public class AddPersonActivity extends AppCompatActivity{
         addPersonNumber = findViewById(R.id.enterphone_ap);
         findFriends = findViewById(R.id.find_friends_button);
 
+        newUserEmail = addPersonEmail.getText().toString();
+        newUserPhone = addPersonNumber.getText().toString();
 
-        findFriends.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent contactListIntent = new Intent(AddPersonActivity.this, ContactListFragment.class);
-                groupsAdapter.notifyDataSetChanged();
-                startActivity(contactListIntent);
-            }
-        });
+
+//        findFriends.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//               //
+//            }
+//        });
     }
 }

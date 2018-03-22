@@ -15,6 +15,7 @@ import com.example.c4q.capstone.database.model.events.Events;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller.EventsAdapter;
 import com.example.c4q.capstone.utils.FBEventDataListener;
 import com.example.c4q.capstone.utils.FBEventDataUtility;
+import com.example.c4q.capstone.utils.SimpleDividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,11 +47,13 @@ public class UPEventsFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.events_rec);
 
-        eventsAdapter = new EventsAdapter(); /** change events adapter to accept a List<Events> */
+        eventsAdapter = new EventsAdapter(listOfEvents,getContext()); /** change events adapter to accept a List<Events> */
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayout = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(linearLayout);
+        recyclerView.setAdapter(eventsAdapter);
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
     /** ajoxe: populate listOfEvents*/
         getAllEvents();
         return view;

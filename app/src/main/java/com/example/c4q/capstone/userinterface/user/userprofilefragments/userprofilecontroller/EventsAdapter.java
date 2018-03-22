@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.database.model.events.Events;
 import com.example.c4q.capstone.database.model.groups.Groups;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews.EventsViewHolder;
 
@@ -18,15 +19,17 @@ import java.util.List;
  */
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsViewHolder> {
-    List<Groups> eventsList = new ArrayList<>();
+    List<Events> eventsList = new ArrayList<>();
     Context context;
 
        /*constructor to take in list and context from retrofit call*/
 
-    //    public GroupsAdapter(Context context, List<Groups> groupsList){
-//        this.context = context;
-//        this.groupsList = groupsList;
-//    }
+        public EventsAdapter(List<Events> eventsList, Context context){
+            this.context = context;
+            this.eventsList = eventsList;
+
+
+    }
 
     @Override
     public EventsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -36,7 +39,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsViewHolder> {
 
     @Override
     public void onBindViewHolder(EventsViewHolder holder, int position) {
-        holder.onBind(position);
+        holder.onBind(eventsList.get(position));
     }
 
     @Override
