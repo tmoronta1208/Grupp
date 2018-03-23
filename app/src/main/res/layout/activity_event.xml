@@ -26,14 +26,25 @@
                 android:background="?attr/colorPrimary"
                 android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
-            <FrameLayout
-                android:id="@+id/event_fragment_container"
+    <!--<FrameLayout
+        android:id="@+id/event_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />-->
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vpPager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-    </FrameLayout>
+                android:layout_height="wrap_content">
 
-    <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/create_event_tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top" />
+            </android.support.v4.view.ViewPager>
+</LinearLayout>
+</FrameLayout>
+
+<!-- Container for contents of drawer - use NavigationView to make configuration easier -->
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"

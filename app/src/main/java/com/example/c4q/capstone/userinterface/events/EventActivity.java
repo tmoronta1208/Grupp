@@ -3,9 +3,12 @@ package com.example.c4q.capstone.userinterface.events;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,8 +17,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.ToxicBakery.viewpager.transforms.FlipVerticalTransformer;
+import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
 import com.example.c4q.capstone.LoginActivity;
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.userinterface.events.createevent.CreateEventPagerAdapter;
 import com.example.c4q.capstone.userinterface.events.eventfragments.CreateEventFragment;
 import com.example.c4q.capstone.userinterface.events.eventfragments.SingleEventFragment;
 import com.example.c4q.capstone.userinterface.user.SettingsActivity;
@@ -28,6 +34,12 @@ public class EventActivity extends AppCompatActivity {
     private DrawerLayout navDrawerLayout;
     SingleEventFragment singleEventFragment = new SingleEventFragment();
     CreateEventFragment createEventFragment = new CreateEventFragment();
+    Intent intent;
+    String eventID;
+    Bundle bundle;
+
+    ViewPager vpPager;
+    FragmentPagerAdapter adapterViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +47,24 @@ public class EventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event);
         setNavDrawerLayout();
         setToolbar();
-        setEventFragment();
+        intent = getIntent();
+        eventID = intent.getStringExtra("eventID");
+
+        ViewPager vpPager = (ViewPager) findViewById(R.id.vpPager);
+        adapterViewPager = new CreateEventPagerAdapter(getSupportFragmentManager());
+        vpPager.setAdapter(adapterViewPager);
+        vpPager.setPageTransformer(true, new FlipVerticalTransformer());
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.create_event_tab_layout);
+        tabLayout.setupWithViewPager(vpPager);
+        //setEventFragment();
     }
 
     /*method to setup events fragment - AJ*/
     public void setEventFragment(){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.event_fragment_container, createEventFragment);
+        fragmentTransaction.replace(R.id.event_fragment_container, singleEventFragment);
+        bundle.putString("eventID", eventID);
         fragmentTransaction.commit();
     }
 

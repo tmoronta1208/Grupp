@@ -1,6 +1,7 @@
 package com.example.c4q.capstone.userinterface.events.eventfragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,6 +19,7 @@ import android.widget.TimePicker;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.userinterface.events.CreateEventPresenter;
+import com.example.c4q.capstone.userinterface.events.EventActivity;
 import com.example.c4q.capstone.userinterface.events.EventFragmentListener;
 import com.example.c4q.capstone.userinterface.events.eventfragments.createeventux.DateTimeUX;
 import com.example.c4q.capstone.userinterface.events.eventfragments.createeventux.DoneUX;
@@ -44,6 +46,8 @@ public class CreateEventFragment extends Fragment {
     EditTextUX editTextUX;
     ExpandUX expandUX;
     Bundle bundle;
+
+    String eventID;
 
 
     public CreateEventFragment() {
@@ -97,20 +101,24 @@ public class CreateEventFragment extends Fragment {
             public void getEventIdKEy(String key) {
                 bundle = new Bundle();
                 bundle.putString("eventID", key);
+                eventID = key;
             }
         });
 
     }
 
     public void loadEventFragment() {
-        Log.d("Create Event Frag", "loadEventFragment called");
+       /* Log.d("Create Event Frag", "loadEventFragment called");
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
         singleEventFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.event_fragment_container, singleEventFragment);
         fragmentTransaction.addToBackStack("next");
-        fragmentTransaction.commit();
+        fragmentTransaction.commit();*/
+       Intent intent = new Intent(CreateEventFragment.this.getActivity(), EventActivity.class);
+       intent.putExtra("eventID", eventID);
+       startActivity(intent);
     }
 
 }
