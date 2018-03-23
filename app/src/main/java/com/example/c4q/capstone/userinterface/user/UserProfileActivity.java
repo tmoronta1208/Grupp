@@ -20,40 +20,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.c4q.capstone.LoginActivity;
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.CurrentUser;
-import com.example.c4q.capstone.userinterface.events.EventActivity;
-import com.example.c4q.capstone.userinterface.events.VenueVoteSwipeActivity;
 import com.example.c4q.capstone.userinterface.navdrawer.NavDrawerPresenter;
 import com.example.c4q.capstone.userinterface.user.search.UserSearchActivity;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPEventsFragment;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPGroupFragment;
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 
 public class UserProfileActivity extends AppCompatActivity {
     private static final String TAG = "UserProfileActivity";
-
-    private FirebaseDatabase firebaseDatabase;
-    private FirebaseAuth authentication;
-    private FirebaseUser currentUser;
-    private FirebaseAuth.AuthStateListener authStateListener;
-    private DatabaseReference publicUserDatabaseReference;
-    private String currentUserID;
 
     private TextView userName;
     private CircleImageView userImage;
@@ -81,18 +60,47 @@ public class UserProfileActivity extends AppCompatActivity {
 
         context = this;
         activity = this;
+        setNavDrawerLayout();
 
-        userFullName = currentUserInstance.getUserFullName();
-        Log.d(TAG, "current user test" + userFullName);
+        setUserInfo();
+        setEditButton();
+        setSearchNewFriends();
+        setContactsButton();
 
-
-
-        userImage = findViewById(R.id.circle_imageview);
-        userName = findViewById(R.id.user_name);
-        editButton = findViewById(R.id.edit_button);
         fragContainer = findViewById(R.id.up_bottom_frag_cont);
-        userName.setText(userFullName);
+        setUpGroupFrag();
+        setUpEventsFrag();
 
+    }
+
+    private void setUserInfo(){
+        userFullName = currentUserInstance.getUserFullName();
+        userName = findViewById(R.id.user_name);
+        userName.setText(userFullName);
+        userImage = findViewById(R.id.circle_imageview);
+    }
+    private void setEditButton(){
+        editButton = findViewById(R.id.edit_button);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserProfileActivity.this, EditProfileActivity.class));
+            }
+        });
+    }
+
+    private void setSearchNewFriends(){
+        searchNewFriends = findViewById(R.id.add_new_friends);
+
+        searchNewFriends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserProfileActivity.this, UserSearchActivity.class));
+            }
+        });
+    }
+
+    private void setContactsButton(){
         contactButton = findViewById(R.id.contact_list_button);
         contactButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,56 +117,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
             }
         });
-
-        searchNewFriends = findViewById(R.id.add_new_friends);
-
-        searchNewFriends.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(UserProfileActivity.this, UserSearchActivity.class));
-            }
-        });
-
-        /*authentication = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        publicUserDatabaseReference = firebaseDatabase.getReference().child(PUBLIC_USER);
-        currentUser = authentication.getCurrentUser();
-        currentUserID = currentUser.getUid();*/
-
-        setNavDrawerLayout();
-        setUpGroupFrag();
-        setUpEventsFrag();
-        //setFirebaseDatabaseListner();
-
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(UserProfileActivity.this, EditProfileActivity.class));
-            }
-        });
-
     }
-
-    /*public void setFirebaseDatabaseListner() {
-        publicUserDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                showData(dataSnapshot);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void showData(DataSnapshot dataSnapshot) {
-        PublicUser publicUser = dataSnapshot.child(currentUserID).getValue(PublicUser.class);
-        String userFullName = publicUser.getFirst_name() + " " + publicUser.getLast_name();
-        userName.setText(userFullName);
-    }*/
-
     public void setUpEventsFrag() {
         UPEventsFragment UPEventsFragment = new UPEventsFragment();
         FragmentManager eFragmentManager = getSupportFragmentManager();
