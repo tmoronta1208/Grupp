@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.example.c4q.capstone.LoginActivity;
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
+import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.events.EventActivity;
 import com.example.c4q.capstone.userinterface.events.VenueVoteSwipeActivity;
 import com.example.c4q.capstone.userinterface.user.SettingsActivity;
@@ -57,6 +59,7 @@ public class NavDrawerPresenter {
         if(activity == null){
             Log.d("NAV DRAWER PRESENTER", "activity is null");
         }
+        setNavHeader();
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -116,12 +119,19 @@ public class NavDrawerPresenter {
      * ajoxe : This method sets the nav header
      * **Incomplete** TODO (@ajoxe) - programatically set user name and initials
      */
-    public void setNavHeader(String userInitals, String userName){
+    public void setNavHeader(){
+        CurrentUser currentUser = CurrentUser.getInstance();
+        PrivateUser currentPrivateUser = currentUser.getCurrentPrivateUser();
+        StringBuilder sb = new StringBuilder("");
+        sb.append(currentPrivateUser.getFirst_name().charAt(0));
+        sb.append(currentPrivateUser.getLast_name().charAt(0));
+        String userInit = sb.toString();
+        String userFullName = currentUser.getUserFullName();
         View hView =  navigationView.getHeaderView(0);
         TextView nav_userInitials = (TextView)hView.findViewById(R.id.drawer_username_initials);
         TextView nav_userName = (TextView)hView.findViewById(R.id.drawer_username);
-        nav_userInitials.setText(userInitals);
-        nav_userName.setText(userName);
+        nav_userInitials.setText(userInit);
+        nav_userName.setText(userFullName);
     }
     /**
      * ajoxe : This method sets up the action bar and takes in a title

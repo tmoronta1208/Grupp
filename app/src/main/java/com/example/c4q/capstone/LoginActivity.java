@@ -18,6 +18,7 @@ import android.view.View;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.UserSearch;
 import com.example.c4q.capstone.network.NetworkCall;
+import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.user.EditProfileActivity;
 import com.example.c4q.capstone.userinterface.user.SettingsActivity;
 import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
@@ -46,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     private String currentUserID;
     private PublicUser publicUser;
     private UserSearch userSearch;
+    CurrentUser currentUserInstance = CurrentUser.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

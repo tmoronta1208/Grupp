@@ -14,6 +14,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import com.example.c4q.capstone.LoginActivity;
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.events.EventActivity;
 import com.example.c4q.capstone.userinterface.events.VenueVoteSwipeActivity;
 import com.example.c4q.capstone.userinterface.navdrawer.NavDrawerPresenter;
@@ -57,6 +59,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private CircleImageView userImage;
     private Button editButton, contactButton, searchNewFriends;
     private View fragContainer;
+    private String userFullName;
 
     /**
      * ajoxe: Nav Drawer
@@ -68,6 +71,7 @@ public class UserProfileActivity extends AppCompatActivity {
     Context context;
     Toolbar toolbar;
     ActionBar actionbar;
+    CurrentUser currentUserInstance = CurrentUser.getInstance();
 
 
     @Override
@@ -78,10 +82,16 @@ public class UserProfileActivity extends AppCompatActivity {
         context = this;
         activity = this;
 
+        userFullName = currentUserInstance.getUserFullName();
+        Log.d(TAG, "current user test" + userFullName);
+
+
+
         userImage = findViewById(R.id.circle_imageview);
         userName = findViewById(R.id.user_name);
         editButton = findViewById(R.id.edit_button);
         fragContainer = findViewById(R.id.up_bottom_frag_cont);
+        userName.setText(userFullName);
 
         contactButton = findViewById(R.id.contact_list_button);
         contactButton.setOnClickListener(new View.OnClickListener() {
@@ -109,16 +119,16 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
-        authentication = FirebaseAuth.getInstance();
+        /*authentication = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         publicUserDatabaseReference = firebaseDatabase.getReference().child(PUBLIC_USER);
         currentUser = authentication.getCurrentUser();
-        currentUserID = currentUser.getUid();
+        currentUserID = currentUser.getUid();*/
 
         setNavDrawerLayout();
         setUpGroupFrag();
         setUpEventsFrag();
-        setFirebaseDatabaseListner();
+        //setFirebaseDatabaseListner();
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,9 +136,10 @@ public class UserProfileActivity extends AppCompatActivity {
                 startActivity(new Intent(UserProfileActivity.this, EditProfileActivity.class));
             }
         });
+
     }
 
-    public void setFirebaseDatabaseListner() {
+    /*public void setFirebaseDatabaseListner() {
         publicUserDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -146,7 +157,7 @@ public class UserProfileActivity extends AppCompatActivity {
         PublicUser publicUser = dataSnapshot.child(currentUserID).getValue(PublicUser.class);
         String userFullName = publicUser.getFirst_name() + " " + publicUser.getLast_name();
         userName.setText(userFullName);
-    }
+    }*/
 
     public void setUpEventsFrag() {
         UPEventsFragment UPEventsFragment = new UPEventsFragment();
