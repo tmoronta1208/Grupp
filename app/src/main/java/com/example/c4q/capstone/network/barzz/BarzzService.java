@@ -1,6 +1,7 @@
 package com.example.c4q.capstone.network.barzz;
 
 import com.example.c4q.capstone.network.barzz.barzzmodel.BarzzModel;
+import com.example.c4q.capstone.utils.Constants;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -13,11 +14,10 @@ import retrofit2.http.Query;
 public interface BarzzService {
 
     //Unable to do a query-map - "key" for type has to be the same
+    //@GET("search"+ BarzzNetworkCall.BARZZ_KEY)
+    //Call<BarzzModel> getBarzz(@QueryMap Map<String, String> options);
 
-    //   @GET("search"+ BarzzNetworkCall.BARZZ_KEY)
-//    Call<BarzzModel> getBarzz(@QueryMap Map<String, String> options);
-
-    @GET("search?" + BarzzNetworkCall.BARZZ_KEY)
+    @GET("search?" + Constants.BARZZ_KEY)
     Call<BarzzModel> getBarzz(@Query("zip") String zip);
 
 
