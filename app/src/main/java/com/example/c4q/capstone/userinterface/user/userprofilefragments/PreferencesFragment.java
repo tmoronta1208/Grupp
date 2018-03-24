@@ -97,24 +97,6 @@ public class PreferencesFragment extends Fragment {
                 }
             });
 
-//            a.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//
-//                    if (a.isChecked()) {
-//                        Log.d("Item Checked", prefs.get(a));
-//                        selectedPrefs.add(prefs.get(a));
-//                        // BarzzNetworkCall.start("10001");
-//                        Log.d("selctedPref size: ", selectedPrefs.toString());
-//                    }
-//                    if (!a.isChecked()) {
-//                        selectedPrefs.remove(a);
-//                    }
-////                        Log.d("selctedPref size: ", selectedPrefs.toString());
-//
-//                }
-//
-//            });
         }
 
 
