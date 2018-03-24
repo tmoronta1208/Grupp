@@ -22,5 +22,11 @@ public class Constants {
     public static final String USER_SEARCH = "user_search";
     public static final String VENUES = "venues";
     public static final String VENUE_ADDRESS = "venue_address";
+    public static final String BARZZ_KEY = "&user_key=96b42918912ec3f1d85660e18356617c";
+    public static final String BARZZ_URL = "https://api.barzz.net/api/";
+    public static final String FOUR_SQUARE_CLIENT_ID = "client_id=1VAPAUMKNRRWESSSF5QGTCE4OTJ43TMOYM1S0X1LHBFFGWGB";
+    public static final String FOUR_SQUARE_CLIENT_SECRET = "client_secret=YL54NLBRUR41WMSNQGX1P33PICLW0V1VQUGKKJOH5NNLDKHM";
+    public static final String FOUR_SQUARE_URL = "https://api.foursquare.com/v2/venues/";
+
 
 }

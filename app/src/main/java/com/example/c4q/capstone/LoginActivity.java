@@ -17,7 +17,6 @@ import android.view.View;
 
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.UserSearch;
-import com.example.c4q.capstone.network.NetworkCall;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.events.createevent.CreateEventFragment;
 import com.example.c4q.capstone.userinterface.user.EditProfileActivity;
@@ -68,7 +67,6 @@ public class LoginActivity extends AppCompatActivity {
         if (currentUser != null) {
             currentUserID = currentUser.getUid();
         }
-
         /**
          * gets user data to check if user is in database
          * */
@@ -98,7 +96,6 @@ public class LoginActivity extends AppCompatActivity {
 //                    }
 //                });
 
-        NetworkCall.start("10001");
         setNavDrawerLayout();
 //        setToolbar();
     }

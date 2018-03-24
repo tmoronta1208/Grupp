@@ -46,7 +46,7 @@ public class CreateProfileFragment extends Fragment {
 
     private static final String TAG = "CreateProfileActivity";
 
-    private String userID,userEmail, firstNameString, lastNameString, zipCodeSting, budgetString;
+    private String userID, userEmail, firstNameString, lastNameString, zipCodeSting, budgetString;
     private boolean over18, over21, share_location;
     private int radius;
     private double lat, lng;
@@ -65,7 +65,9 @@ public class CreateProfileFragment extends Fragment {
     public CreateProfileFragment() {
         // Required empty public constructor
     }
-    /** @Tati this is the CreateProfile fragment, basically a copy and paste of @Ashley's EditProfileCode.
+
+    /**
+     * @Tati this is the CreateProfile fragment, basically a copy and paste of @Ashley's EditProfileCode.
      * I've indicated when and where the fragment gets swapped with a todo.
      * Theres a lot of code on this page. You can make it nicer,
      * if youd like :)
@@ -75,7 +77,7 @@ public class CreateProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        rootView =  inflater.inflate(com.example.c4q.capstone.R.layout.fragment_create_profile, container, false);
+        rootView = inflater.inflate(com.example.c4q.capstone.R.layout.fragment_create_profile, container, false);
 
         saveBtn = rootView.findViewById(R.id.edit_profile_save_button);
 
@@ -147,7 +149,7 @@ public class CreateProfileFragment extends Fragment {
         return rootView;
     }
 
-    public void locationManagerLogic(){
+    public void locationManagerLogic() {
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(CreateProfileFragment.this.getActivity().LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(CreateProfileFragment.this.getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
@@ -170,7 +172,7 @@ public class CreateProfileFragment extends Fragment {
         zipCodeSting = zipCode.getText().toString();
 
         if (!firstNameString.equals("") && !lastNameString.equals("") && !zipCodeSting.equals("")) {
-            PublicUser publicUser = new PublicUser(firstNameString, lastNameString, zipCodeSting, budgetString,userEmail, over18, over21, radius);
+            PublicUser publicUser = new PublicUser(firstNameString, lastNameString, zipCodeSting, budgetString, userEmail, over18, over21, radius);
             PrivateUser privateUser = new PrivateUser(firstNameString, lastNameString, over18, over21, radius);
             PrivateUserLocation privateUserLocation = new PrivateUserLocation(share_location, lat, lng);
 
@@ -191,14 +193,17 @@ public class CreateProfileFragment extends Fragment {
             zipCode.setError("Required");
         }
     }
-    /** This methods gets the OnboardActivity's fragment manager and replaces this fragment with a PreferencesFragment
+
+    /**
+     * This methods gets the OnboardActivity's fragment manager and replaces this fragment with a PreferencesFragment
      * You can easily expand you Preferences fragment to multiple, so your screens arent so busy.
      * im pretty sure the view pager transformer requires fragments
      * https://developer.android.com/training/animation/screen-slide.html <--- link to view pagers
      * https://github.com/ToxicBakery/ViewPagerTransforms <---- link to view pager transformers (the cube spin thing like
      * instagram stories)
      */
-    private void loadPreferencesScreen(){
+    private void loadPreferencesScreen() {
+
         PreferencesFragment preferencesFragment = new PreferencesFragment();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
