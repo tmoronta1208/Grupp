@@ -89,7 +89,7 @@ public class CreateEventFragment extends Fragment {
     public void loadPresenters() {
         eventPresenter = new CreateEventPresenter();
         dateTimeUX = new DateTimeUX(timePicker, datePicker, closeButton, addDate, addTime, dateAndTime, eventPresenter);
-        expandUX = new ExpandUX(inviteGuestsContainer, addFriendsButton, addGroupButton);
+        //expandUX = new ExpandUX(inviteGuestsContainer, addFriendsButton, addGroupButton);
         editTextUX = new EditTextUX(eventName, addNote, eventPresenter, CreateEventFragment.this.getActivity(), rootView);
         doneUX = new DoneUX(createEventButton, eventPresenter, new EventFragmentListener() {
             @Override
