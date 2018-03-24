@@ -1,60 +1,61 @@
 package com.example.c4q.capstone.userinterface.user;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.SupportActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.example.c4q.capstone.LoginActivity;
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.database.publicuserdata.PublicUser;
-import com.example.c4q.capstone.userinterface.events.EventActivity;
-import com.example.c4q.capstone.userinterface.events.VenueVoteSwipeActivity;
+import com.example.c4q.capstone.userinterface.CurrentUser;
+import com.example.c4q.capstone.userinterface.navdrawer.NavDrawerPresenter;
 import com.example.c4q.capstone.userinterface.user.search.UserSearchActivity;
-import com.example.c4q.capstone.userinterface.user.userprofilefragments.PreferencesFragment;
-import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPEventsFragment;
-import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPGroupFragment;
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.MainUserProfileFragment;
+
+
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 
-public class UserProfileActivity extends AppCompatActivity {
+public class UserProfileActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener{
     private static final String TAG = "UserProfileActivity";
 
-    private FirebaseDatabase firebaseDatabase;
-    private FirebaseAuth authentication;
-    private FirebaseUser currentUser;
-    private FirebaseAuth.AuthStateListener authStateListener;
-    private DatabaseReference publicUserDatabaseReference;
-    private String currentUserID;
-
-    private DrawerLayout navDrawerLayout;
     private TextView userName;
     private CircleImageView userImage;
     private Button editButton, contactButton, searchNewFriends;
     private View fragContainer;
+    private String userFullName;
+
+    /**
+     * ajoxe: Nav Drawer
+     */
+    NavigationView navigationView;
+    private DrawerLayout navDrawerLayout;
+    NavDrawerPresenter navDrawerPresenter;
+    SupportActivity activity;
+    Context context;
+    Toolbar toolbar;
+    ActionBar actionbar;
+    CurrentUser currentUserInstance = CurrentUser.getInstance();
+
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
+    MainUserProfileFragment mainUserProfileFragment;
 
 
     @Override
@@ -62,186 +63,74 @@ public class UserProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
-        userImage = findViewById(R.id.circle_imageview);
-        userName = findViewById(R.id.user_name);
-        editButton = findViewById(R.id.edit_button);
-        fragContainer = findViewById(R.id.up_bottom_frag_cont);
-
-        contactButton = findViewById(R.id.contact_list_button);
-        contactButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                ContactListFragment contactListFragment = new ContactListFragment();
-                FragmentManager eFragmentManager = getSupportFragmentManager();
-                FragmentTransaction eFragmentTransaction = eFragmentManager.beginTransaction();
-                eFragmentTransaction.replace(R.id.up_bottom_frag_cont, contactListFragment, "Contact FRAG");
-                eFragmentTransaction.addToBackStack("contactListFragment");
-                eFragmentTransaction.commit();
-
-
-            }
-        });
-
-        searchNewFriends = findViewById(R.id.add_new_friends);
-
-        searchNewFriends.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(UserProfileActivity.this,UserSearchActivity.class));
-            }
-        });
-
-        authentication = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        publicUserDatabaseReference = firebaseDatabase.getReference().child(PUBLIC_USER);
-        currentUser = authentication.getCurrentUser();
-        currentUserID = currentUser.getUid();
-
+        context = this;
+        activity = this;
         setNavDrawerLayout();
-        setUpGroupFrag();
-        setUpEventsFrag();
-        setFirebaseDatabaseListner();
 
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(UserProfileActivity.this, EditProfileActivity.class));
-            }
-        });
+        setUserInfo();
+        setMainUserProfileFragment();
+
+
     }
 
-    public void setFirebaseDatabaseListner() {
-        publicUserDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                showData(dataSnapshot);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+    private void setMainUserProfileFragment(){
+        mainUserProfileFragment = new MainUserProfileFragment();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.up_bottom_frag_cont, mainUserProfileFragment);
+        fragmentTransaction.commit();
     }
 
-    private void showData(DataSnapshot dataSnapshot) {
-        PublicUser publicUser = dataSnapshot.child(currentUserID).getValue(PublicUser.class);
-        String userFullName = publicUser.getFirst_name() + " " + publicUser.getLast_name();
+    private void setUserInfo(){
+        userFullName = currentUserInstance.getUserFullName();
+        userName = findViewById(R.id.user_name);
         userName.setText(userFullName);
+        userImage = findViewById(R.id.circle_imageview);
     }
 
+    public void showMenu(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.user_profile_pop_menu);
+        popup.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.edit_profile_menu_item:
+                startActivity(new Intent(UserProfileActivity.this, EditProfileActivity.class));
+                break;
+            case R.id.edit_preferences_menu_item:
+                //TODO
+                break;
+            case R.id.add_friends_menu_item:
+                startActivity(new Intent(UserProfileActivity.this, UserSearchActivity.class));
+                break;
+            case R.id.add_group_menu_item:
+                //TODO
+                break;
+        }
+        return true;
+    }
+/** ajoxe:  Nav Drawer set up **/
     /*method to load and display navigation drawer - AJ*/
     public void setNavDrawerLayout() {
         navDrawerLayout = findViewById(R.id.drawer_layout);
-
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        // set item as selected to persist highlight
-                        menuItem.setChecked(true);
-                        // close drawer when item is tapped
-                        switch (menuItem.getItemId()) {
-                            case R.id.notifications_menu_item:
-
-                                //TODO start userProfile with notifications fragment loaded.
-                                break;
-                            case R.id.upcoming_events_menu_item:
-
-                                //TODO start userProfile with upcomining events fragment loaded.
-                                break;
-                            case R.id.preferences_menu_item:
-                                PreferencesFragment preferencesFragment = new PreferencesFragment();
-                                FragmentManager preferencesMangaer = getSupportFragmentManager();
-                                FragmentTransaction prefTransaction = preferencesMangaer.beginTransaction();
-                                /*Temporarily used the up_bottom_frag_cont - not permanent
-                                With merge it is overlapping with another fragment but just need to check the size and content
-                                of preference list as well as whether network calls are being made and returning a specific object
-                                succesfully */
-                                prefTransaction.replace(R.id.up_bottom_frag_cont, preferencesFragment, "PREFERENCES FRAG");
-                                prefTransaction.addToBackStack("preferencesFragment");
-                                prefTransaction.commit();
-                                break;
-                            case R.id.create_new_event:
-                                Intent createEventIntent = new Intent(UserProfileActivity.this, EventActivity.class);
-                                startActivity(createEventIntent);
-                                //TODO start settings activity.
-                                break;
-                            case R.id.my_groups_menu_item:
-
-                                //TODO start userProfile with groups fragment loaded.
-                                break;
-                            case R.id.settings_menu_item:
-                                Intent settings = new Intent(UserProfileActivity.this, SettingsActivity.class);
-                                startActivity(settings);
-                                //TODO start settings activity.
-                                break;
-                            case R.id.venue_swipe_test:
-                                Intent venueSwipeIntent = new Intent(UserProfileActivity.this, VenueVoteSwipeActivity.class);
-                                startActivity(venueSwipeIntent);
-                                //TODO start settings activity.
-                                break;
-
-                            case R.id.signout_menu_item:
-                                AuthUI.getInstance()
-                                        .signOut(getApplicationContext())
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                // ...
-                                                Intent signOutIntent = new Intent(UserProfileActivity.this, LoginActivity.class);
-                                                signOutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                startActivity(signOutIntent);
-                                            }
-                                        });
-                                break;
-
-                        }
-                        navDrawerLayout.closeDrawers();
-
-
-                        // Add code here to update the UI based on the item selected
-                        // For example, swap UI fragments here
-
-                        return true;
-                    }
-                });
-        navDrawerLayout.addDrawerListener(
-                new DrawerLayout.DrawerListener() {
-                    @Override
-                    public void onDrawerSlide(View drawerView, float slideOffset) {
-                        // Respond when the drawer's position changes
-                    }
-
-                    @Override
-                    public void onDrawerOpened(View drawerView) {
-                        // Respond when the drawer is opened
-                    }
-
-                    @Override
-                    public void onDrawerClosed(View drawerView) {
-                        // Respond when the drawer is closed
-                    }
-
-                    @Override
-                    public void onDrawerStateChanged(int newState) {
-                        // Respond when the drawer motion state changes
-                    }
-                }
-        );
+        navigationView = findViewById(R.id.nav_view);
+        navDrawerPresenter = new NavDrawerPresenter(activity, context);
+        navDrawerPresenter.setNavDrawerViews(navDrawerLayout, navigationView);
+        navDrawerPresenter.setNavigationViewMethods();
+        setToolbar();
     }
 
     /*method to load toolbar as action bar and display nav drawer icon - AJ*/
     public void setToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
-        //TODO set title for testing only, change when done.
-        actionbar.setTitle("User Profile");
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
+        actionbar = getSupportActionBar();
+        navDrawerPresenter.setToolbarViews(toolbar, actionbar);
+        navDrawerPresenter.setActionbar("My Profile");
     }
 
     /*method that closes navigation drawer whenever item is selected - AJ*/
@@ -254,24 +143,6 @@ public class UserProfileActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void setUpEventsFrag() {
-        UPEventsFragment UPEventsFragment = new UPEventsFragment();
-        FragmentManager eFragmentManager = getSupportFragmentManager();
-        FragmentTransaction eFragmentTransaction = eFragmentManager.beginTransaction();
-        eFragmentTransaction.replace(R.id.events_frag_container, UPEventsFragment, "Events FRAG");
-        eFragmentTransaction.commit();
-    }
-
-    public void setUpGroupFrag() {
-
-        UPGroupFragment UPGroupFragment = new UPGroupFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.group_frag_cont, UPGroupFragment, "GROUP FRAG");
-        fragmentTransaction.commit();
-
     }
 
 }

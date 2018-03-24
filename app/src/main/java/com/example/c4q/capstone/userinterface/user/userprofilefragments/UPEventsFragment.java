@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.events.Events;
+import com.example.c4q.capstone.userinterface.events.createevent.CreateEventOneFragment;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller.EventsAdapter;
 import com.example.c4q.capstone.utils.FBEventDataListener;
 import com.example.c4q.capstone.utils.FBEventDataUtility;
@@ -36,6 +37,14 @@ public class UPEventsFragment extends Fragment {
 
     public UPEventsFragment() {
         // Required empty public constructor
+    }
+
+    public static UPEventsFragment newInstance(String title) {
+        UPEventsFragment fragment = new UPEventsFragment();
+        Bundle args = new Bundle();
+        args.putString("title", title);
+        fragment.setArguments(args);
+        return fragment;
     }
 
 
