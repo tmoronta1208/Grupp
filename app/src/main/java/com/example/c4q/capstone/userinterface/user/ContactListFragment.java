@@ -11,21 +11,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
-import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPGroupFragment;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller.ContactListAdapter;
 import com.example.c4q.capstone.utils.FBUserDataListener;
 import com.example.c4q.capstone.utils.FBUserDataUtility;
 import com.example.c4q.capstone.utils.FBUserFriendsListener;
 import com.example.c4q.capstone.utils.SimpleDividerItemDecoration;
 
-import java.awt.font.TextAttribute;
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.view.View.VISIBLE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,6 +31,7 @@ public class ContactListFragment extends Fragment {
 
 
     private View view;
+    private EditText searchView;
     private RecyclerView recyclerView;
     private List<Integer> numbers = new ArrayList<>();
 
@@ -51,6 +49,9 @@ public class ContactListFragment extends Fragment {
     public ContactListFragment() {
         // Required empty public constructor
     }
+
+
+
 
     public static ContactListFragment newInstance(String title) {
         ContactListFragment fragment = new ContactListFragment();
@@ -73,6 +74,11 @@ public class ContactListFragment extends Fragment {
          */
         getListOfPublicUsers();
 
+        searchView = view.findViewById(R.id.search_bar_cl);
+        searchView.setHint("Name, #Grupptag, Email");
+        searchView.setHintTextColor(getActivity().getResources().getColor(R.color.hintcolor));
+
+
         recyclerView = view.findViewById(R.id.contact_list_rec);
         addPerson = view.findViewById(R.id.addperson_cl);
 
@@ -82,37 +88,35 @@ public class ContactListFragment extends Fragment {
             public void onClick(View v) {
                 Intent addPersonIntent = new Intent(getActivity().getApplicationContext(), AddPersonActivity.class);
                 getActivity().getApplicationContext().startActivity(addPersonIntent);
-
-
             }
         });
 
-        for (int i = 0; i <=20 ; i++) {
-            numbers.add(i);
-        }
+
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayout = new LinearLayoutManager(view.getContext());
         contactListAdapter = new ContactListAdapter(friendsUserList,getContext());
+
         /**ajoxe:
          * after modifying the adapter, set the list as friendsUserList
          * contactListAdapter = new ContactListAdapter(friendsUserList, getContext());
          */
+
         recyclerView.setAdapter(contactListAdapter);
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
         recyclerView.setLayoutManager(linearLayout);
 
 
-
             return view;
     }
+
     /**ajoxe:
      * method to get a list of public user ids from the database
      * this method calls the load friends method which gets the public user object by ID
      * when this method is called, the friendsUserList is populated and the adapter is notified of the data set changed
      *
      *
-     * Important: to use this list, you must modify your adapater to accept a list of PublicUser objects.
+     * Important: to use this list, you must modify your adapter to accept a list of PublicUser objects.
      */
     public void getListOfPublicUsers(){
         fbUserDataUtility.getListPublicUsers(new FBUserFriendsListener() {

@@ -4,8 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.c4q.capstone.userinterface.events.createevent.CreateEventOneFragment;
-import com.example.c4q.capstone.userinterface.events.createevent.CreateEventTwoFragment;
 import com.example.c4q.capstone.userinterface.user.ContactListFragment;
 
 /**
@@ -35,6 +33,7 @@ public class UserProfilePagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return ContactListFragment.newInstance("Friends");
             case 2:
+
                 return UPGroupFragment.newInstance("Groups");
             default:
                 return null;
@@ -51,7 +50,6 @@ public class UserProfilePagerAdapter extends FragmentPagerAdapter {
                 return "Friends";
             case 2:
                 return "Group";
-
             default:
                 return null;
         }

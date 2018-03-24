@@ -6,6 +6,7 @@
     tools:context="com.example.c4q.capstone.userinterface.user.userprofilefragments.UPGroupFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/groups_rec"
         android:layout_width="match_parent"
