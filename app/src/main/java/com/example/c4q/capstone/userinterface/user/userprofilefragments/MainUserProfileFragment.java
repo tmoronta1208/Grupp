@@ -43,7 +43,7 @@ public class MainUserProfileFragment extends Fragment {
         viewPager = (ViewPager) rootView.findViewById(R.id.user_profile_view_pager);
         adapterViewPager = new UserProfilePagerAdapter(getFragmentManager());
         viewPager.setAdapter(adapterViewPager);
-        viewPager.setPageTransformer(true, new ZoomOutSlideTransformer());
+        viewPager.setPageTransformer(true, new FlipVerticalTransformer());
         TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.user_profile_tab_layout);
         tabLayout.setupWithViewPager(viewPager);
 
