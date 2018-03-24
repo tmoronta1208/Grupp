@@ -17,7 +17,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 
@@ -68,6 +70,9 @@ public class CreateEventPresenter {
         key = myRef.child("events").push().getKey();
         Log.d(TAG, "create event: push key " + key);
         myRef.child("events").child(key).setValue(newEvent);
+        Map<String, Object> user_events = new HashMap<>();
+        user_events.put(userID, key);
+        myRef.child("user_events").updateChildren(user_events);
         Log.d(TAG, "create event: set value: " + newEvent.getEvent_name());
         listener.getEventIdKEy(key);
     }

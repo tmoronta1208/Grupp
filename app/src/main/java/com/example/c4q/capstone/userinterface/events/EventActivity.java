@@ -2,36 +2,21 @@ package com.example.c4q.capstone.userinterface.events;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.SupportActivity;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 
-import com.ToxicBakery.viewpager.transforms.FlipVerticalTransformer;
-import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
-import com.example.c4q.capstone.LoginActivity;
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.userinterface.events.createevent.CreateEventPagerAdapter;
-import com.example.c4q.capstone.userinterface.events.eventfragments.CreateEventFragment;
 import com.example.c4q.capstone.userinterface.events.eventfragments.SingleEventFragment;
 import com.example.c4q.capstone.userinterface.navdrawer.NavDrawerPresenter;
-import com.example.c4q.capstone.userinterface.user.SettingsActivity;
-import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 
 public class EventActivity extends AppCompatActivity {
 
