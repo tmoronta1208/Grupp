@@ -4,12 +4,14 @@ package com.example.c4q.capstone.userinterface.events.createevent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.userinterface.CurrentUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,6 +40,7 @@ public class CreateEventOneFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         title = getArguments().getString("title");
+        //CurrentUser.getInstance().
     }
 
 
@@ -57,6 +60,14 @@ public class CreateEventOneFragment extends Fragment {
 
 
         return rootView;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //(CreateEventActivity) getActivity().
+
+        Log.d("Create Event One", "on pause called");
     }
 
     public void onButtonClick(){

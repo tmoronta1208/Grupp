@@ -29,7 +29,7 @@ import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
  */
 
 public class CreateEventPresenter {
-    private static Events newEvent;
+    private Events newEvent;
     private static List<String> invitedGuests = new ArrayList<>();
     private boolean eventNameSet, eventDateSet, eventTimeSet, eventGuestsSet;
     public String dateOfEvent;
@@ -69,7 +69,9 @@ public class CreateEventPresenter {
         Log.d(TAG, "create event: eventSent to firebase" + newEvent.getEvent_name());
         key = myRef.child("events").push().getKey();
         Log.d(TAG, "create event: push key " + key);
+
         myRef.child("events").child(key).setValue(newEvent);
+
         Map<String, Object> user_events = new HashMap<>();
         user_events.put(userID, key);
         myRef.child("user_events").updateChildren(user_events);

@@ -27,7 +27,6 @@ public class CreateEventActivity extends AppCompatActivity {
         vpPager.setAdapter(adapterViewPager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.create_event_tab_layout);
         tabLayout.setupWithViewPager(vpPager);
-
     }
 
     public void venueTypeButtonClick(View view) {
