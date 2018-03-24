@@ -39,7 +39,6 @@ public class EventActivity extends AppCompatActivity {
     CreateEventFragment createEventFragment = new CreateEventFragment();
     Intent intent;
     String eventID;
-    Bundle bundle;
 
     ViewPager vpPager;
     FragmentPagerAdapter adapterViewPager;
@@ -53,6 +52,7 @@ public class EventActivity extends AppCompatActivity {
     Context context;
     Toolbar toolbar;
     ActionBar actionbar;
+    Bundle eventBundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,22 +65,25 @@ public class EventActivity extends AppCompatActivity {
         setToolbar();
         intent = getIntent();
         eventID = intent.getStringExtra("eventID");
+        eventBundle = new Bundle();
+        eventBundle.putString("eventID", eventID);
 
-       vpPager = (ViewPager) findViewById(R.id.vpPager);
+       /*vpPager = (ViewPager) findViewById(R.id.vpPager);
         adapterViewPager = new CreateEventPagerAdapter(getSupportFragmentManager());
         vpPager.setAdapter(adapterViewPager);
         vpPager.setPageTransformer(true, new FlipVerticalTransformer());
         TabLayout tabLayout = (TabLayout) findViewById(R.id.create_event_tab_layout);
-        tabLayout.setupWithViewPager(vpPager);
-        //setEventFragment();
+        tabLayout.setupWithViewPager(vpPager);*/
+        setEventFragment();
     }
 
     /*method to setup events fragment - AJ*/
     public void setEventFragment(){
+        singleEventFragment = new SingleEventFragment();
+        singleEventFragment.setArguments(eventBundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.event_fragment_container, singleEventFragment);
-        bundle.putString("eventID", eventID);
         fragmentTransaction.commit();
     }
 /** Navigation Drawer Set up **/
