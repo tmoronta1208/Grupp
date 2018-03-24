@@ -21,23 +21,23 @@
             android:background="?attr/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
 
-            <LinearLayout
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:orientation="horizontal"
-                android:padding="16dp">
+                android:padding="16dp"
+                >
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/circle_imageview"
                     android:layout_width="90dp"
                     android:layout_height="85dp"
                     app:civ_border_color="@android:color/white"
-                    app:civ_border_width="2dp" />
+                    app:civ_border_width="2dp"
+                    android:layout_marginEnd="@dimen/layout_item_margin"
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/joanneyun"/>
 
                 <TextView
                     android:id="@+id/user_name"
@@ -46,50 +46,24 @@
                     android:padding="16sp"
                     android:text="Melina Gonzalez "
                     android:textColor="@android:color/black"
-                    android:textSize="20sp" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-                <Button
-                    android:id="@+id/edit_button"
+                    android:textSize="20sp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignEnd="@id/image_pop_button"
+                    android:layout_marginBottom="@dimen/layout_item_margin"/>
+                <ImageButton
+                    android:id="@+id/image_pop_button"
                     android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:layout_gravity="right"
-                    android:background="@drawable/button_shapes"
-                    android:text="Edit"
-                    android:textAllCaps="false"
-                    android:textColor="@android:color/black" />
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_more_vert_black_24dp"
+                    android:onClick="showMenu"
+                    android:layout_marginTop="@dimen/layout_item_margin"
+                    android:layout_alignBottom="@id/user_name"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:background="#ffffff"/>
 
-                <Button
-                    android:id="@+id/contact_list_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:layout_gravity="left"
-                    android:layout_marginBottom="8dp"
-                    android:background="@drawable/button_shapes"
-                    android:text="contacts"
-                    android:textAllCaps="false"
-                    android:textColor="@android:color/black" />
-
-                <Button
-                    android:id="@+id/add_new_friends"
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:layout_gravity="left"
-                    android:background="@drawable/button_shapes"
-                    android:text="search for friend"
-                    android:textAllCaps="false"
-                    android:textColor="@android:color/black"
-                    android:layout_marginBottom="2dp"/>
-
-            </LinearLayout>
+            </RelativeLayout>
 
             <FrameLayout
                 android:id="@+id/up_bottom_frag_cont"
@@ -97,7 +71,7 @@
                 android:layout_height="0dp"
                 android:layout_weight=".5">
 
-                <LinearLayout
+                <!--<LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
@@ -115,10 +89,11 @@
                         android:layout_height="match_parent"
                         android:background="@color/light_salmon"/>
                 </LinearLayout>
+                -->
 
 
             </FrameLayout>
-        </LinearLayout>
+
 
 
     </LinearLayout>

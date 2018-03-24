@@ -18,42 +18,22 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.example.c4q.capstone.LoginActivity;
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.CurrentUser;
-import com.example.c4q.capstone.userinterface.events.EventActivity;
-import com.example.c4q.capstone.userinterface.events.VenueVoteSwipeActivity;
 import com.example.c4q.capstone.userinterface.navdrawer.NavDrawerPresenter;
 import com.example.c4q.capstone.userinterface.user.search.UserSearchActivity;
-import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPEventsFragment;
-import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPGroupFragment;
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.MainUserProfileFragment;
+
+
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 
-public class UserProfileActivity extends AppCompatActivity {
+public class UserProfileActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener{
     private static final String TAG = "UserProfileActivity";
-
-    private FirebaseDatabase firebaseDatabase;
-    private FirebaseAuth authentication;
-    private FirebaseUser currentUser;
-    private FirebaseAuth.AuthStateListener authStateListener;
-    private DatabaseReference publicUserDatabaseReference;
-    private String currentUserID;
 
     private TextView userName;
     private CircleImageView userImage;
@@ -73,6 +53,10 @@ public class UserProfileActivity extends AppCompatActivity {
     ActionBar actionbar;
     CurrentUser currentUserInstance = CurrentUser.getInstance();
 
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
+    MainUserProfileFragment mainUserProfileFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,99 +65,53 @@ public class UserProfileActivity extends AppCompatActivity {
 
         context = this;
         activity = this;
-
-        userFullName = currentUserInstance.getUserFullName();
-        Log.d(TAG, "current user test" + userFullName);
-
-
-
-        userImage = findViewById(R.id.circle_imageview);
-        userName = findViewById(R.id.user_name);
-        editButton = findViewById(R.id.edit_button);
-        fragContainer = findViewById(R.id.up_bottom_frag_cont);
-        userName.setText(userFullName);
-
-        contactButton = findViewById(R.id.contact_list_button);
-        contactButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                ContactListFragment contactListFragment = new ContactListFragment();
-                FragmentManager eFragmentManager = getSupportFragmentManager();
-                FragmentTransaction eFragmentTransaction = eFragmentManager.beginTransaction();
-                eFragmentTransaction.replace(R.id.up_bottom_frag_cont, contactListFragment, "Contact FRAG");
-                eFragmentTransaction.addToBackStack("contactListFragment");
-                eFragmentTransaction.commit();
-
-
-            }
-        });
-
-        searchNewFriends = findViewById(R.id.add_new_friends);
-
-        searchNewFriends.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(UserProfileActivity.this, UserSearchActivity.class));
-            }
-        });
-
-        /*authentication = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        publicUserDatabaseReference = firebaseDatabase.getReference().child(PUBLIC_USER);
-        currentUser = authentication.getCurrentUser();
-        currentUserID = currentUser.getUid();*/
-
         setNavDrawerLayout();
-        setUpGroupFrag();
-        setUpEventsFrag();
-        //setFirebaseDatabaseListner();
 
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(UserProfileActivity.this, EditProfileActivity.class));
-            }
-        });
+        setUserInfo();
+        setMainUserProfileFragment();
+
 
     }
 
-    /*public void setFirebaseDatabaseListner() {
-        publicUserDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                showData(dataSnapshot);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void showData(DataSnapshot dataSnapshot) {
-        PublicUser publicUser = dataSnapshot.child(currentUserID).getValue(PublicUser.class);
-        String userFullName = publicUser.getFirst_name() + " " + publicUser.getLast_name();
-        userName.setText(userFullName);
-    }*/
-
-    public void setUpEventsFrag() {
-        UPEventsFragment UPEventsFragment = new UPEventsFragment();
-        FragmentManager eFragmentManager = getSupportFragmentManager();
-        FragmentTransaction eFragmentTransaction = eFragmentManager.beginTransaction();
-        eFragmentTransaction.replace(R.id.events_frag_container, UPEventsFragment, "Events FRAG");
-        eFragmentTransaction.commit();
-    }
-
-    public void setUpGroupFrag() {
-
-        UPGroupFragment UPGroupFragment = new UPGroupFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.group_frag_cont, UPGroupFragment, "GROUP FRAG");
+    private void setMainUserProfileFragment(){
+        mainUserProfileFragment = new MainUserProfileFragment();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.up_bottom_frag_cont, mainUserProfileFragment);
         fragmentTransaction.commit();
+    }
+
+    private void setUserInfo(){
+        userFullName = currentUserInstance.getUserFullName();
+        userName = findViewById(R.id.user_name);
+        userName.setText(userFullName);
+        userImage = findViewById(R.id.circle_imageview);
+    }
+
+    public void showMenu(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.user_profile_pop_menu);
+        popup.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.edit_profile_menu_item:
+                startActivity(new Intent(UserProfileActivity.this, EditProfileActivity.class));
+                break;
+            case R.id.edit_preferences_menu_item:
+                //TODO
+                break;
+            case R.id.add_friends_menu_item:
+                startActivity(new Intent(UserProfileActivity.this, UserSearchActivity.class));
+                break;
+            case R.id.add_group_menu_item:
+                //TODO
+                break;
+        }
+        return true;
     }
 /** ajoxe:  Nav Drawer set up **/
     /*method to load and display navigation drawer - AJ*/
