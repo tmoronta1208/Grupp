@@ -82,8 +82,8 @@ public class PreferencesFragment extends Fragment {
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
                     if (!a.isChecked()) {
-                       // selectedPrefs.remove(prefs.get(a));
-                        selectedPrefs.add(null);
+                        selectedPrefs.remove(prefs.get(a));
+                        //selectedPrefs.add(null);
                         Log.d("selctedPref size: ", selectedPrefs.toString());
 
                     }
