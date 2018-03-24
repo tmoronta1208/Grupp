@@ -12,6 +12,8 @@ import retrofit2.http.Query;
 
 public interface BarzzService {
 
+    //Unable to do a query-map - "key" for type has to be the same
+
     //   @GET("search"+ BarzzNetworkCall.BARZZ_KEY)
 //    Call<BarzzModel> getBarzz(@QueryMap Map<String, String> options);
 
