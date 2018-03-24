@@ -18,20 +18,21 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.navdrawer.NavDrawerPresenter;
 import com.example.c4q.capstone.userinterface.user.search.UserSearchActivity;
-import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPEventsFragment;
-import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPGroupFragment;
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.MainUserProfileFragment;
+
 
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class UserProfileActivity extends AppCompatActivity {
+public class UserProfileActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener{
     private static final String TAG = "UserProfileActivity";
 
     private TextView userName;
@@ -52,6 +53,10 @@ public class UserProfileActivity extends AppCompatActivity {
     ActionBar actionbar;
     CurrentUser currentUserInstance = CurrentUser.getInstance();
 
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
+    MainUserProfileFragment mainUserProfileFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,14 +68,17 @@ public class UserProfileActivity extends AppCompatActivity {
         setNavDrawerLayout();
 
         setUserInfo();
-        setEditButton();
-        setSearchNewFriends();
-        setContactsButton();
+        setMainUserProfileFragment();
 
-        fragContainer = findViewById(R.id.up_bottom_frag_cont);
-        setUpGroupFrag();
-        setUpEventsFrag();
 
+    }
+
+    private void setMainUserProfileFragment(){
+        mainUserProfileFragment = new MainUserProfileFragment();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.up_bottom_frag_cont, mainUserProfileFragment);
+        fragmentTransaction.commit();
     }
 
     private void setUserInfo(){
@@ -79,60 +87,31 @@ public class UserProfileActivity extends AppCompatActivity {
         userName.setText(userFullName);
         userImage = findViewById(R.id.circle_imageview);
     }
-    private void setEditButton(){
-        editButton = findViewById(R.id.edit_button);
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+
+    public void showMenu(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.user_profile_pop_menu);
+        popup.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.edit_profile_menu_item:
                 startActivity(new Intent(UserProfileActivity.this, EditProfileActivity.class));
-            }
-        });
-    }
-
-    private void setSearchNewFriends(){
-        searchNewFriends = findViewById(R.id.add_new_friends);
-
-        searchNewFriends.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                break;
+            case R.id.edit_preferences_menu_item:
+                //TODO
+                break;
+            case R.id.add_friends_menu_item:
                 startActivity(new Intent(UserProfileActivity.this, UserSearchActivity.class));
-            }
-        });
-    }
-
-    private void setContactsButton(){
-        contactButton = findViewById(R.id.contact_list_button);
-        contactButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                ContactListFragment contactListFragment = new ContactListFragment();
-                FragmentManager eFragmentManager = getSupportFragmentManager();
-                FragmentTransaction eFragmentTransaction = eFragmentManager.beginTransaction();
-                eFragmentTransaction.replace(R.id.up_bottom_frag_cont, contactListFragment, "Contact FRAG");
-                eFragmentTransaction.addToBackStack("contactListFragment");
-                eFragmentTransaction.commit();
-
-
-            }
-        });
-    }
-    public void setUpEventsFrag() {
-        UPEventsFragment UPEventsFragment = new UPEventsFragment();
-        FragmentManager eFragmentManager = getSupportFragmentManager();
-        FragmentTransaction eFragmentTransaction = eFragmentManager.beginTransaction();
-        eFragmentTransaction.replace(R.id.events_frag_container, UPEventsFragment, "Events FRAG");
-        eFragmentTransaction.commit();
-    }
-
-    public void setUpGroupFrag() {
-
-        UPGroupFragment UPGroupFragment = new UPGroupFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.group_frag_cont, UPGroupFragment, "GROUP FRAG");
-        fragmentTransaction.commit();
+                break;
+            case R.id.add_group_menu_item:
+                //TODO
+                break;
+        }
+        return true;
     }
 /** ajoxe:  Nav Drawer set up **/
     /*method to load and display navigation drawer - AJ*/

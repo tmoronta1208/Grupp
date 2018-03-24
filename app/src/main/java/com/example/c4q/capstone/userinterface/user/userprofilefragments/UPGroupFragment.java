@@ -29,6 +29,14 @@ public class UPGroupFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public static UPGroupFragment newInstance(String title) {
+        UPGroupFragment fragment = new UPGroupFragment();
+        Bundle args = new Bundle();
+        args.putString("title", title);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

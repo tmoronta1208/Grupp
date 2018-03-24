@@ -21,5 +21,8 @@
     <string name="done_creating">Done</string>
     <string name="add_note">+ add note</string>
     <string name="my_prefs">My Preferences</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="add_contacts">Add Friends</string>
+    <string name="edit_preferences">Edit Preferences</string>
 
 </resources>

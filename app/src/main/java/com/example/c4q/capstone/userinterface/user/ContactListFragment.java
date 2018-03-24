@@ -14,6 +14,7 @@ import android.widget.Button;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPGroupFragment;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller.ContactListAdapter;
 import com.example.c4q.capstone.utils.FBUserDataListener;
 import com.example.c4q.capstone.utils.FBUserDataUtility;
@@ -49,6 +50,14 @@ public class ContactListFragment extends Fragment {
 
     public ContactListFragment() {
         // Required empty public constructor
+    }
+
+    public static ContactListFragment newInstance(String title) {
+        ContactListFragment fragment = new ContactListFragment();
+        Bundle args = new Bundle();
+        args.putString("title", title);
+        fragment.setArguments(args);
+        return fragment;
     }
 
 
