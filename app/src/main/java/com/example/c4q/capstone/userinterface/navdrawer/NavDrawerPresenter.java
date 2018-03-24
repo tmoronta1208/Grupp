@@ -19,6 +19,7 @@ import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.events.EventActivity;
 import com.example.c4q.capstone.userinterface.events.VenueVoteSwipeActivity;
+import com.example.c4q.capstone.userinterface.events.createevent.CreateEventActivity;
 import com.example.c4q.capstone.userinterface.user.SettingsActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -75,7 +76,7 @@ public class NavDrawerPresenter {
                                 //TODO start userProfile with upcomining events fragment loaded.
                                 break;
                             case R.id.create_new_event:
-                                Intent createEventIntent = new Intent(context, EventActivity.class);
+                                Intent createEventIntent = new Intent(context, CreateEventActivity.class);
                                 activity.startActivity(createEventIntent);
                                 //TODO start settings activity.
                                 break;

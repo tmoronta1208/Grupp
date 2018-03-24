@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.userinterface.events.eventfragments.CreateEventFragment;
 
 /**
  * Created by amirahoxendine on 3/23/18.
@@ -29,7 +30,7 @@ public class CreateEventPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return CreateEventOneFragment.newInstance("Name Your Event");
+                return new CreateEventFragment();
             case 1:
                 return CreateEventOneFragment.newInstance("Pick a venue type");
             case 2:
