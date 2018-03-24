@@ -35,8 +35,8 @@ public class CurrentUser {
         setUserListener();
         setCurrentPrivateUser();
         setCurrentPublicUser();
-        setUserFriendsList();
-        setUserEventsList();
+        //setUserFriendsList();
+        //setUserEventsList();
     }
     public static CurrentUser getInstance(){
         Log.d(TAG, "getInstance: instance called");

@@ -25,12 +25,9 @@ public class CreateEventActivity extends AppCompatActivity {
         vpPager = (ViewPager) findViewById(R.id.vpPager);
         adapterViewPager = new CreateEventPagerAdapter(getSupportFragmentManager());
         vpPager.setAdapter(adapterViewPager);
-        vpPager.setPageTransformer(true, new FlipVerticalTransformer());
         TabLayout tabLayout = (TabLayout) findViewById(R.id.create_event_tab_layout);
         tabLayout.setupWithViewPager(vpPager);
-    }
-    public ViewPager getViewPager(){
-        return vpPager;
+
     }
 
     public void venueTypeButtonClick(View view) {

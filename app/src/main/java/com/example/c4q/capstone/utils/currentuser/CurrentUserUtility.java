@@ -67,12 +67,14 @@ public class CurrentUserUtility {
         userFriendsReference = firebaseDatabase.child(USER_FRIENDS);
         userEventsReference = firebaseDatabase.child("user_events");
         eventsReference = firebaseDatabase.child(EVENTS);
+
         if (currentUser != null) {
             /**
              * this needs to be called after sign in
              */
             getCurrentUserFriendIDs();
             getCurrentUserEventIds();
+
 
         }
     }
