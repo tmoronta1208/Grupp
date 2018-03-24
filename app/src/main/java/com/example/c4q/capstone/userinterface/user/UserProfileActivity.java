@@ -121,17 +121,17 @@ public class UserProfileActivity extends AppCompatActivity implements PopupMenu.
         navDrawerPresenter = new NavDrawerPresenter(activity, context);
         navDrawerPresenter.setNavDrawerViews(navDrawerLayout, navigationView);
         navDrawerPresenter.setNavigationViewMethods();
-        setToolbar();
+//        setToolbar();
     }
 
     /*method to load toolbar as action bar and display nav drawer icon - AJ*/
-    public void setToolbar() {
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        actionbar = getSupportActionBar();
-        navDrawerPresenter.setToolbarViews(toolbar, actionbar);
-        navDrawerPresenter.setActionbar("My Profile");
-    }
+//    public void setToolbar() {
+//        toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//        actionbar = getSupportActionBar();
+//        navDrawerPresenter.setToolbarViews(toolbar, actionbar);
+//        navDrawerPresenter.setActionbar("My Profile");
+//    }
 
     /*method that closes navigation drawer whenever item is selected - AJ*/
 

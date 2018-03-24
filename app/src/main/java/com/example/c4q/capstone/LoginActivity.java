@@ -53,7 +53,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Transition explode = new Explode();
         TransitionManager tm = getContentTransitionManager();
         setContentTransitionManager(tm);
@@ -120,8 +119,8 @@ public class LoginActivity extends AppCompatActivity {
                  * if user is not in db, launches edit profile intent
                  * */
 
-//                if (userNotInDB()) {
-                    Intent editProfileIntent = new Intent(LoginActivity.this, EditProfileActivity.class);
+             //   if (userNotInDB()) {
+                    Intent editProfileIntent = new Intent(LoginActivity.this, UserProfileActivity.class);
                     startActivity(editProfileIntent);
                     Log.d(" LOGIN", "set up profile");
 
@@ -134,8 +133,9 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 // Sign in failed, check response for error code
                 // ...
-            }
-//        }
+
+           // }
+        }
     }
 
     private boolean userNotInDB() {
