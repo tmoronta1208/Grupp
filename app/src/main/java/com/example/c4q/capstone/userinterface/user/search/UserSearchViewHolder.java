@@ -3,19 +3,21 @@ package com.example.c4q.capstone.userinterface.user.search;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.c4q.capstone.R;
 
 
 public class UserSearchViewHolder extends RecyclerView.ViewHolder {
-    TextView usernameTxt, firstName, lastName, emailTxt,requestFriendBtn;
+    TextView usernameTxt, firstName, lastName, emailTxt;
+    Button requestFriendBtn;
     View view;
 
     public UserSearchViewHolder(View itemView) {
         super(itemView);
         view = itemView;
-        requestFriendBtn = itemView.findViewById(R.id.request_friend);
+        requestFriendBtn = itemView.findViewById(R.id.request_friend_btn);
     }
 
     public void setFirst_name(String first_name) {

@@ -132,6 +132,12 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
+
+        ///////////////////////////////////////////
+        /**
+         * code below needs to be place in the launch of the app so the user can give location
+         * permission beforehand.
+         */
         LocationManager locationManager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
@@ -146,6 +152,8 @@ public class EditProfileActivity extends AppCompatActivity {
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         lat = location.getLatitude();
         lng = location.getLongitude();
+
+        ///////////////////////////////////////////
     }
 
     private void saveToDatabase() {

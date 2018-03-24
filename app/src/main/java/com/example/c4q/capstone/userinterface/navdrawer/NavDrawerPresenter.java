@@ -59,7 +59,7 @@ public class NavDrawerPresenter {
         if(activity == null){
             Log.d("NAV DRAWER PRESENTER", "activity is null");
         }
-        setNavHeader();
+//        setNavHeader();
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override

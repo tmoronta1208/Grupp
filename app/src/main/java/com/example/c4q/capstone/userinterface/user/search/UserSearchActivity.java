@@ -6,12 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.UserSearch;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -46,9 +45,7 @@ public class UserSearchActivity extends AppCompatActivity {
     private DatabaseReference rootRef, searchUserDatabase, friendReqDatabase;
     private LinearLayoutManager linearLayoutManager;
     private FirebaseUser currentUser;
-    private String currentState, currentUserID, currentUserEmail;
-    String requestedUserEmail;
-
+    private String currentState, currentUserID, currentUserEmail, requestedUserEmail;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,7 +55,6 @@ public class UserSearchActivity extends AppCompatActivity {
         rootRef = FirebaseDatabase.getInstance().getReference();
         searchUserDatabase = rootRef.child(USER_SEARCH);
         friendReqDatabase = rootRef.child(FRIEND_REQUESTS);
-
 
         linearLayoutManager = new LinearLayoutManager(this);
 
@@ -72,9 +68,7 @@ public class UserSearchActivity extends AppCompatActivity {
         searchResultsList.setLayoutManager(linearLayoutManager);
 
         currentState = NOT_FRIENDS;
-
     }
-
 
     @Override
     protected void onStart() {
@@ -91,12 +85,12 @@ public class UserSearchActivity extends AppCompatActivity {
                         searchUserDatabase
                 ) {
                     @Override
-                    protected void populateViewHolder(UserSearchViewHolder viewHolder, User model, int position) {
+                    protected void populateViewHolder(final UserSearchViewHolder viewHolder, User model, int position) {
                         viewHolder.setEmail(model.getEmail());
 
                         final String requestFriend = getRef(position).getKey();
 
-                        viewHolder.view.setOnClickListener(new View.OnClickListener() {
+                        viewHolder.requestFriendBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
 
@@ -118,7 +112,7 @@ public class UserSearchActivity extends AppCompatActivity {
                                     }
                                 });
 
-                                sendRequest(requestFriend);
+                                sendRequest(requestFriend, viewHolder.requestFriendBtn);
                             }
                         });
 
@@ -136,7 +130,7 @@ public class UserSearchActivity extends AppCompatActivity {
         searchResultsList.setAdapter(firebaseRecyclerAdapter);
     }
 
-    private void sendRequest(final String requestedID) {
+    private void sendRequest(final String requestedID, final Button requestFriendBtn) {
 
         /**
          *sends friend requests
@@ -146,7 +140,6 @@ public class UserSearchActivity extends AppCompatActivity {
 
             searchUserDatabase = rootRef.child(requestedID).push();
             String newNotificationId = searchUserDatabase.getKey();
-
 
             HashMap<String, String> notificationData = new HashMap<>();
             notificationData.put("to", requestedUserEmail);
@@ -164,6 +157,10 @@ public class UserSearchActivity extends AppCompatActivity {
                     if (databaseError != null) {
                         Toast.makeText(UserSearchActivity.this, "There was some error in sending request", Toast.LENGTH_SHORT).show();
                     } else {
+
+
+                        requestFriendBtn.setText("Cancel");
+
                         currentState = REQUEST_SENT;
                     }
                 }
@@ -183,6 +180,7 @@ public class UserSearchActivity extends AppCompatActivity {
                     friendReqDatabase.child(requestedID).child(currentUserID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void v) {
+                            requestFriendBtn.setText("Add Friend");
 
                             currentState = NOT_FRIENDS;
 
@@ -251,6 +249,4 @@ public class UserSearchActivity extends AppCompatActivity {
             });
         }
     }
-
-
 }
