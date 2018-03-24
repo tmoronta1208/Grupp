@@ -149,11 +149,10 @@ public class EditProfileActivity extends AppCompatActivity {
             return;
         }
 
-        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+       /* Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         lat = location.getLatitude();
-        lng = location.getLongitude();
+        lng = location.getLongitude();*/
 
-        ///////////////////////////////////////////
     }
 
     private void saveToDatabase() {
