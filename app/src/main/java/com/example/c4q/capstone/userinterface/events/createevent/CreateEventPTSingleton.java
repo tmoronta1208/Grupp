@@ -26,6 +26,4 @@ public class CreateEventPTSingleton {
             return createEventPTSingleton;
     }
 
-
-
 }
