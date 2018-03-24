@@ -204,13 +204,13 @@ public class CreateProfileFragment extends Fragment {
      */
     private void loadPreferencesScreen() {
 
-        PreferencesFragment preferencesFragment = new PreferencesFragment();
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-        fragmentTransaction.replace(R.id.onboard_main_fragment_container, preferencesFragment);
-        fragmentTransaction.addToBackStack("next");
-        fragmentTransaction.commit();
+//        PreferencesFragment preferencesFragment = new PreferencesFragment();
+//        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+//        fragmentTransaction.replace(R.id.onboard_main_fragment_container, preferencesFragment);
+//        fragmentTransaction.addToBackStack("next");
+//        fragmentTransaction.commit();
     }
 
     @Override

@@ -1,21 +1,33 @@
 package com.example.c4q.capstone.userinterface.user.onboarding;
 
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.PreferencesFragment;
 
 public class OnBoardActivity extends AppCompatActivity {
+
     CreateProfileFragment createProfileFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_board);
-        loadCreatProfilFragment();
+        // loadCreatProfilFragment();
+
+
     }
+
 
     /** @Tati this is the onboard activity, it holds all the fragments for onboarding. It starts with the Create Profile
      * Fragment (copy and paste of the EditProfileActvity) when you click next on each fragment, you should call
