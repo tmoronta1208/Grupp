@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,8 +18,8 @@ import com.example.c4q.capstone.userinterface.events.eventfragments.CreateEventF
  */
 public class CreateEventOneFragment extends Fragment {
     private String title;
-    private int image;
     View rootView;
+    EditText eventName;
 
 
     public CreateEventOneFragment() {
@@ -36,7 +37,6 @@ public class CreateEventOneFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        image = getArguments().getInt("image", 0);
         title = getArguments().getString("title");
     }
 
