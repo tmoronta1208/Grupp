@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:clickable="true"
+    android:background="@color/colorPrimary"
+    tools:context="com.example.c4q.capstone.userinterface.events.createevent.CreateEventActivity"
     >
 
 <LinearLayout
@@ -12,14 +15,15 @@
     android:padding="@dimen/layout_padding"
     android:gravity="center"
     android:layout_gravity="center"
-    tools:context="com.example.c4q.capstone.userinterface.events.eventfragments.CreateEventFragment">
+    android:clickable="true"
+    >
 
     <!-- TODO: Update blank fragment layout -->
     <EditText
         android:id="@+id/event_name_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/layout_item_margin"
+        android:layout_margin="@dimen/layout_item_margin"
         android:gravity="center"
         android:hint="Name your event"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
@@ -28,15 +32,14 @@
         android:inputType="text"
         android:maxLines="1"
         android:imeOptions="actionDone"
-        android:focusable="true"
-        android:focusedByDefault="true"
-        android:cursorVisible="true"
+        android:clickable="true"
         />
     <TextView
         android:id="@+id/date_time_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:textColor="@color/dark_gray"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -52,7 +55,7 @@
             android:background="@drawable/small_button_inverse_shapes"
             android:text="@string/pick_a_date"
             android:padding="@dimen/layout_item_margin"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/dark_gray"
             android:textSize="@dimen/small_button_text_size"
             />
 
@@ -65,7 +68,7 @@
             android:layout_margin="@dimen/layout_item_margin"
             android:background="@drawable/small_button_inverse_shapes"
             android:text="@string/pick_a_time"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/dark_gray"
             android:padding="@dimen/layout_item_margin"
             android:textSize="@dimen/small_button_text_size"
             />

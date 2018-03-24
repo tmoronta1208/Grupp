@@ -6,8 +6,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 
 import com.example.c4q.capstone.R;
 
@@ -18,7 +19,10 @@ public class CreateEventTwoFragment extends Fragment {
     private String title;
     private int imageMain;
     private int imageSecondary;
-    View view;
+    View rootView;
+    Button addFriendsButton, addGroupButton;
+    EditText addNote;
+    FrameLayout inviteGuestsContainer;
 
 
     public CreateEventTwoFragment() {
@@ -46,10 +50,14 @@ public class CreateEventTwoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-      view = inflater.inflate(R.layout.fragment_create_event_two, container, false);
+      rootView = inflater.inflate(R.layout.fragment_create_event_two, container, false);
+        addNote = (EditText) rootView.findViewById(R.id.add_note);
+        addFriendsButton = (Button) rootView.findViewById(R.id.add_friends_button);
+        addGroupButton = (Button) rootView.findViewById(R.id.add_group_button);
+        inviteGuestsContainer = (FrameLayout) rootView.findViewById(R.id.invite_guests_fragment_container);
+        //expandUX = new ExpandUX(inviteGuestsContainer, addFriendsButton, addGroupButton);
 
-
-        return view;
+        return rootView;
     }
 
 }

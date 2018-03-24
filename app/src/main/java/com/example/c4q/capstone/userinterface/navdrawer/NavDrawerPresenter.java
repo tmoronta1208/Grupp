@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -23,7 +21,7 @@ import com.example.c4q.capstone.userinterface.events.EventActivity;
 import com.example.c4q.capstone.userinterface.events.VenueVoteSwipeActivity;
 import com.example.c4q.capstone.userinterface.events.createevent.CreateEventActivity;
 import com.example.c4q.capstone.userinterface.user.SettingsActivity;
-import com.example.c4q.capstone.userinterface.user.userprofilefragments.PreferencesFragment;
+import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -75,15 +73,15 @@ public class NavDrawerPresenter {
                             case R.id.notifications_menu_item:
                                 //TODO start userProfile with notifications fragment loaded.
                                 break;
-                            case R.id.upcoming_events_menu_item:
-                                //TODO start userProfile with upcomining events fragment loaded.
-                                break;
+
                             case R.id.create_new_event:
                                 Intent createEventIntent = new Intent(context, CreateEventActivity.class);
                                 activity.startActivity(createEventIntent);
                                 //TODO start settings activity.
                                 break;
                             case R.id.my_groups_menu_item:
+                                Intent homeIntent = new Intent(context, UserProfileActivity.class);
+                                activity.startActivity(homeIntent);
 
                                 //TODO start userProfile with groups fragment loaded.
                                 break;

@@ -18,6 +18,7 @@ import android.view.View;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.UserSearch;
 import com.example.c4q.capstone.userinterface.CurrentUser;
+import com.example.c4q.capstone.userinterface.events.createevent.CreateEventFragment;
 import com.example.c4q.capstone.userinterface.user.EditProfileActivity;
 import com.example.c4q.capstone.userinterface.user.SettingsActivity;
 import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
@@ -189,9 +190,9 @@ public class LoginActivity extends AppCompatActivity {
                                 startActivity(notifications);
                                 //TODO start userProfile with notifications fragment loaded.
                                 break;
-                            case R.id.upcoming_events_menu_item:
-                                Intent upcomingEvents = new Intent(LoginActivity.this, UserProfileActivity.class);
-                                startActivity(upcomingEvents);
+                            case R.id.create_new_event:
+                                Intent creatEvents = new Intent(LoginActivity.this, CreateEventFragment.class);
+                                startActivity(creatEvents);
                                 //TODO start userProfile with upcomining events fragment loaded.
                                 break;
                             case R.id.my_groups_menu_item:

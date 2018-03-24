@@ -10,14 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:gravity="center"
+        android:background="@color/colorPrimary">
     <TextView
         android:id="@+id/event_title_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Event Title"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-        android:textSize="32sp"
+        android:textSize="40sp"
         android:gravity="center"
         android:padding="@dimen/layout_item_margin"
          />
@@ -40,11 +42,21 @@
         android:textSize="14sp"
         android:gravity="center"
         />
+
     </LinearLayout>
+    <ImageButton
+        android:id="@+id/image_pop_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_more_vert_black_24dp"
+        android:layout_marginTop="@dimen/layout_item_margin"
+        android:layout_gravity="end"
+        android:background="#ffffff"/>
     <FrameLayout
         android:id="@+id/event_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3" />
+        android:layout_weight="3"
+        android:visibility="gone"/>
 
 </LinearLayout>
