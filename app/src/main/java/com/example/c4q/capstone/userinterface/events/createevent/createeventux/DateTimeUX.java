@@ -1,4 +1,4 @@
-package com.example.c4q.capstone.userinterface.events.eventfragments.createeventux;
+package com.example.c4q.capstone.userinterface.events.createevent.createeventux;
 
 import android.view.View;
 import android.widget.Button;

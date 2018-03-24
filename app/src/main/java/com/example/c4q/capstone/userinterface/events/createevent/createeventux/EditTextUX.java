@@ -1,4 +1,4 @@
-package com.example.c4q.capstone.userinterface.events.eventfragments.createeventux;
+package com.example.c4q.capstone.userinterface.events.createevent.createeventux;
 
 import android.app.Activity;
 import android.view.KeyEvent;
@@ -12,36 +12,34 @@ import android.widget.TextView;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.userinterface.events.CreateEventPresenter;
-import com.example.c4q.capstone.userinterface.events.EventFragmentListener;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by amirahoxendine on 3/20/18.
  */
 
 public class EditTextUX {
-    private EditText eventName, addNote;
+    private EditText editText;
     private CreateEventPresenter eventPresenter;
     private Activity activity;
     private  View rootView;
+    private String type;
 
 
-    public EditTextUX(EditText eventName, EditText addNote, CreateEventPresenter eventPresenter, Activity activity, View rootview) {
-        this.eventName = eventName;
-        this.addNote = addNote;
+    public EditTextUX(EditText editText, CreateEventPresenter eventPresenter, Activity activity, View rootview, String type) {
+        this.editText = editText;
         this.eventPresenter = eventPresenter;
         this.activity = activity;
         this.rootView = rootview;
+        this.type = type;
 
         setEditText();
-       // hideKeyBoardOffFocus(rootView);
+       hideKeyBoardOffFocus(rootView);
     }
 
     /** Hide KeyBoards  -AJ*/
     /*method to set action listeners for edit texts so keyboard hides when users click go/enter*/
     public void setEditText() {
-        setETActionListener(eventName);
+        setETActionListener(editText);
         //setETActionListener(addNote);
     }
     /*method to hide keyboard when user clicks go & add data*/
@@ -53,11 +51,11 @@ public class EditTextUX {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     hideSoftKeyboard(activity);
 
-                    if(editText.getId() == R.id.event_name_edit_text){
+                    if(type.equals("eventName")){
                         String name = editText.getText().toString();
                         eventPresenter.setEventName(name);
 
-                    } else {
+                    } else if(type.equals("addNote")) {
                         eventPresenter.setEventNote(editText.getText().toString());
                     }
                     handled = true;
@@ -74,12 +72,18 @@ public class EditTextUX {
         if (!(view instanceof EditText)) {
             view.setOnTouchListener(new View.OnTouchListener() {
                 public boolean onTouch(View v, MotionEvent event) {
-                    //hideSoftKeyboard(activity);
-                    if(!eventName.getText().toString().equals("")) {
-                        String name = eventName.getText().toString();
-                        eventPresenter.setEventName(name);
-                    }
+                    hideSoftKeyboard(activity);
+                    if(!editText.getText().toString().equals("")) {
+                        String text = editText.getText().toString();
 
+                        if (type.equals("eventName")){
+                            eventPresenter.setEventName(text);
+                        } else if (type.equals("eventName")) {
+                            eventPresenter.setEventNote(text);
+                        }
+                    } else {
+                        editText.setError("Please enter a name");
+                    }
                     return false;
                 }
             });
