@@ -18,14 +18,14 @@ public class CurrentUser {
     private static CurrentUser userInstance;
     private CurrentUserListener userListener;
     private CurrentUserUtility userUtility = new CurrentUserUtility();
-    private static String TAG = "CURRENT USER INSTANCE";
+    private  static final String TAG = "CURRENT USER INSTANCE";
 
-    private static String userID;
-    private static String userFullName;
-    private static PrivateUser currentPrivateUser;
-    private static PublicUser currentPublicUser;
-    private static List<PublicUser> userFriendsList;
-    private static List<Events> userEventsList;
+    private  String userID;
+    private  String userFullName;
+    private  PrivateUser currentPrivateUser;
+    private  PublicUser currentPublicUser;
+    private  List<PublicUser> userFriendsList;
+    private  List<Events> userEventsList;
 
 
 
@@ -40,9 +40,9 @@ public class CurrentUser {
     }
     public static CurrentUser getInstance(){
         Log.d(TAG, "getInstance: instance called");
-        if (userInstance == null)
-            userInstance = new CurrentUser();
-        return userInstance;
+        if (userInstance == null) userInstance = new CurrentUser();
+            return userInstance;
+
     }
 
     public String getUserFullName() {
@@ -59,15 +59,15 @@ public class CurrentUser {
         return currentPrivateUser;
     }
 
-    public static PublicUser getCurrentPublicUser() {
+    public  PublicUser getCurrentPublicUser() {
         return currentPublicUser;
     }
 
-    public static List<PublicUser> getUserFriendsList() {
+    public  List<PublicUser> getUserFriendsList() {
         return userFriendsList;
     }
 
-    public static List<Events> getUserEventsList() {
+    public List<Events> getUserEventsList() {
         return userEventsList;
     }
 
