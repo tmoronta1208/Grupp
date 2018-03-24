@@ -120,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
                  * if user is not in db, launches edit profile intent
                  * */
 
-                if (userNotInDB()) {
+//                if (userNotInDB()) {
                     Intent editProfileIntent = new Intent(LoginActivity.this, EditProfileActivity.class);
                     startActivity(editProfileIntent);
                     Log.d(" LOGIN", "set up profile");
@@ -135,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
                 // Sign in failed, check response for error code
                 // ...
             }
-        }
+//        }
     }
 
     private boolean userNotInDB() {
