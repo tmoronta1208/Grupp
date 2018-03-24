@@ -30,7 +30,8 @@
         <activity android:name=".userinterface.user.SplashPage" />
         <activity android:name=".userinterface.user.search.UserSearchActivity" />
         <activity android:name=".userinterface.user.AddPersonActivity" />
-        <activity android:name=".userinterface.events.createevent.CreateEventActivity"></activity>
+        <activity android:name=".userinterface.events.createevent.CreateEventActivity" />
+        <activity android:name=".userinterface.user.onboarding.ViewPagerActivity"></activity>
     </application>
 
 </manifest>
