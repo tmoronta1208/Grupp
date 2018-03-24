@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.userinterface.user.ContactListFragment;
 

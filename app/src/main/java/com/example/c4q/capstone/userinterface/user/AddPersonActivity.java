@@ -21,6 +21,9 @@ public class AddPersonActivity extends AppCompatActivity{
     private Button findFriends;
 
 
+
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
