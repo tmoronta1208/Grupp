@@ -11,6 +11,7 @@
     android:orientation="vertical"
     android:padding="@dimen/layout_padding"
     android:gravity="center"
+    android:layout_gravity="center"
     tools:context="com.example.c4q.capstone.userinterface.events.eventfragments.CreateEventFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -19,9 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/layout_item_margin"
-        android:background="@drawable/edit_text_shapes"
         android:gravity="center"
-        android:hint="@string/enter_name"
+        android:hint="Name your event"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
         android:textSize="32sp"
         android:padding="@dimen/layout_padding"
@@ -52,7 +52,7 @@
             android:background="@drawable/small_button_inverse_shapes"
             android:text="@string/pick_a_date"
             android:padding="@dimen/layout_item_margin"
-            android:textColor="@color/salmon"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/small_button_text_size"
             />
 
@@ -65,7 +65,7 @@
             android:layout_margin="@dimen/layout_item_margin"
             android:background="@drawable/small_button_inverse_shapes"
             android:text="@string/pick_a_time"
-            android:textColor="@color/salmon"
+            android:textColor="@color/colorPrimary"
             android:padding="@dimen/layout_item_margin"
             android:textSize="@dimen/small_button_text_size"
             />
@@ -98,82 +98,14 @@
         android:layout_gravity="center"
         android:timePickerMode="spinner"
         android:visibility="gone" />
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:spinnerMode="dropdown"
-        tools:listheader="@string/venue_type_choice"
-        tools:listitem="@string/bar"
-        android:layout_marginVertical="@dimen/layout_item_margin"
-        />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/layout_item_margin"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/add_group_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/layout_item_margin"
-            android:layout_weight="1"
-            android:background="@drawable/button_shapes"
-            android:text="@string/add_group"
-            android:textColor="@color/dark_gray"
-            android:tag="add group button"/>
-        <Button
-            android:id="@+id/add_friends_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/layout_item_margin"
-            android:layout_weight="1"
-            android:background="@drawable/button_shapes"
-            android:text="@string/add_friends"
-            android:textColor="@color/dark_gray"
-            android:tag="add friends button"/>
-    </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/invite_guests_fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Invite guests gragment  goes here"
-            android:gravity="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
-    </FrameLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/add_note"/>
-    <EditText
-        android:id="@+id/add_note"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/edit_text_shapes"
-        android:hint="@string/add_note"
-        android:padding="@dimen/layout_padding"
-        android:layout_marginVertical="@dimen/layout_item_margin"
-        android:imeOptions="actionGo"
-        android:visibility="gone"/>
-
     <Button
         android:id="@+id/create_event_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_margin="@dimen/layout_item_margin"
         android:layout_gravity="end"
-        android:background="@drawable/button_shapes"
-        android:text="@string/done_creating"
+        android:background="@drawable/ic_arrow_forward_black_24dp"
         android:textColor="@color/dark_gray" />
-
-
 </LinearLayout>
+
 </ScrollView>

@@ -5,14 +5,17 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.ToxicBakery.viewpager.transforms.FlipVerticalTransformer;
 import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
 import com.example.c4q.capstone.R;
 
 public class CreateEventActivity extends AppCompatActivity {
-    ViewPager vpPager;
+    public ViewPager vpPager;
     FragmentPagerAdapter adapterViewPager;
+    CreateEventModel createEventModel = new CreateEventModel();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +27,38 @@ public class CreateEventActivity extends AppCompatActivity {
         vpPager.setPageTransformer(true, new FlipVerticalTransformer());
         TabLayout tabLayout = (TabLayout) findViewById(R.id.create_event_tab_layout);
         tabLayout.setupWithViewPager(vpPager);
+    }
+    public ViewPager getViewPager(){
+        return vpPager;
+    }
 
+    public void venueTypeButtonClick(View view) {
+
+        View otherView;
+
+        if(view.getTag().toString().equals("selected")){
+            view.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        }
+        if (view.getId() == R.id.bar_choice_button) {
+            createEventModel.setEventVenueType("bar");
+            view.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+            view.setTag("selected");
+            otherView = view.getRootView().findViewById(R.id.restaurant_choice_button);
+            otherView.setTag("unselected");
+            otherView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        } else if (view.getId() == R.id.restaurant_choice_button) {
+            createEventModel.setEventVenueType("restaurant");
+            view.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+            view.setTag("selected");
+            otherView = view.getRootView().findViewById(R.id.bar_choice_button);
+            otherView.setTag("unselected");
+            otherView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        }
+    }
+
+
+
+    public void nextPage(View view){
+        vpPager.setCurrentItem(vpPager.getCurrentItem() + 1);
     }
 }

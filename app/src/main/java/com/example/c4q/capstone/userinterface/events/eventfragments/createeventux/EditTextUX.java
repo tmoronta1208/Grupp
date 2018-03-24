@@ -35,14 +35,14 @@ public class EditTextUX {
         this.rootView = rootview;
 
         setEditText();
-        hideKeyBoardOffFocus(rootView);
+       // hideKeyBoardOffFocus(rootView);
     }
 
     /** Hide KeyBoards  -AJ*/
     /*method to set action listeners for edit texts so keyboard hides when users click go/enter*/
     public void setEditText() {
         setETActionListener(eventName);
-        setETActionListener(addNote);
+        //setETActionListener(addNote);
     }
     /*method to hide keyboard when user clicks go & add data*/
     public void setETActionListener(final EditText editText){
@@ -74,7 +74,12 @@ public class EditTextUX {
         if (!(view instanceof EditText)) {
             view.setOnTouchListener(new View.OnTouchListener() {
                 public boolean onTouch(View v, MotionEvent event) {
-                    hideSoftKeyboard(activity);
+                    //hideSoftKeyboard(activity);
+                    if(!eventName.getText().toString().equals("")) {
+                        String name = eventName.getText().toString();
+                        eventPresenter.setEventName(name);
+                    }
+
                     return false;
                 }
             });
