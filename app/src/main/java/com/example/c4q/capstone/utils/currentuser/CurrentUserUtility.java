@@ -31,7 +31,6 @@ import static com.example.c4q.capstone.utils.Constants.USER_FRIENDS;
 /**
  * Created by ajoxe on 3/23/18.
  * This is a utility class used to query current user info from the database
- *
  */
 
 public class CurrentUserUtility {
@@ -58,7 +57,7 @@ public class CurrentUserUtility {
     private static String TAG = "CURRENT USER UTILITY: ";
 
 
-    public CurrentUserUtility(){
+    public CurrentUserUtility() {
         setCurrentUserID();
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -68,23 +67,30 @@ public class CurrentUserUtility {
         userFriendsReference = firebaseDatabase.child(USER_FRIENDS);
         userEventsReference = firebaseDatabase.child("user_events");
         eventsReference = firebaseDatabase.child(EVENTS);
-        getCurrentUserFriendIDs();
-        getCurrentUserEventIds();
+        if (currentUser != null) {
+            /**
+             * this needs to be called after sign in
+             */
+            getCurrentUserFriendIDs();
+            getCurrentUserEventIds();
 
+        }
     }
 
-    private void setCurrentUserID(){
+    private void setCurrentUserID() {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        if (currentUser != null){
+        if (currentUser != null) {
             currentUserID = currentUser.getUid();
         }
     }
 
-    /**ajoxe:
-     * this method gets current private user (Private user object from db) user from the datatbase*/
+    /**
+     * ajoxe:
+     * this method gets current private user (Private user object from db) user from the datatbase
+     */
 
-    public void getCurrentPrivateUser(final CurrentUserListener listener){
+    public void getCurrentPrivateUser(final CurrentUserListener listener) {
         ValueEventListener privateUserListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -108,10 +114,12 @@ public class CurrentUserUtility {
         privateUserReference.addValueEventListener(privateUserListener);
     }
 
-    /**ajoxe:
-     * this method gets current private user (Private user object from db) user from the datatbase*/
+    /**
+     * ajoxe:
+     * this method gets current private user (Private user object from db) user from the datatbase
+     */
 
-    public void getCurrentPublicUser(final CurrentUserListener listener){
+    public void getCurrentPublicUser(final CurrentUserListener listener) {
         ValueEventListener publicUserListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -133,15 +141,18 @@ public class CurrentUserUtility {
         };
         publicUserReference.addValueEventListener(publicUserListener);
     }
-    /**ajoxe:
-     * this method gets current users friend IDs*/
-    public void getCurrentUserFriendIDs(){
+
+    /**
+     * ajoxe:
+     * this method gets current users friend IDs
+     */
+    public void getCurrentUserFriendIDs() {
 
         userFriendsReference.child(currentUserID).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 userFriendIds.add(dataSnapshot.getValue().toString());
-                Log.d(TAG, "getCurrentUserFriendIds: list size " + userFriendIds.size() );
+                Log.d(TAG, "getCurrentUserFriendIds: list size " + userFriendIds.size());
                 String id = dataSnapshot.getValue().toString();
                 Log.d(TAG, "getCurrentUserFriendIds: id " + id);
             }
@@ -168,39 +179,45 @@ public class CurrentUserUtility {
         });
 
     }
-    /**ajoxe:
-     * this method gets current users friends as public user objects*/
-    public void getCurrentUserFriends(final CurrentUserListener listener){
+
+    /**
+     * ajoxe:
+     * this method gets current users friends as public user objects
+     */
+    public void getCurrentUserFriends(final CurrentUserListener listener) {
         Log.d(TAG, "get current user friends called :");
         userfriendsPublicUserList = new ArrayList<>();
 
-            publicUserReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (final String friendID: userFriendIds) {
-                        PublicUser user = dataSnapshot.child(friendID).getValue(PublicUser.class);
-                        userfriendsPublicUserList.add(user);
-                    }
-                    Log.d(TAG, "get current user friends called :" + userfriendsPublicUserList.size());
-                    listener.getUserFriends(userfriendsPublicUserList);
+        publicUserReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (final String friendID : userFriendIds) {
+                    PublicUser user = dataSnapshot.child(friendID).getValue(PublicUser.class);
+                    userfriendsPublicUserList.add(user);
                 }
+                Log.d(TAG, "get current user friends called :" + userfriendsPublicUserList.size());
+                listener.getUserFriends(userfriendsPublicUserList);
+            }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-                }
-            });
+            }
+        });
     }
-    /**ajoxe:
-     * this method gets current users events IDs*/
 
-    public void getCurrentUserEventIds(){
+    /**
+     * ajoxe:
+     * this method gets current users events IDs
+     */
+
+    public void getCurrentUserEventIds() {
 
         userEventsReference.child(currentUserID).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 userEventIDs.add(dataSnapshot.getValue().toString());
-                Log.d(TAG, "getCurrentUserEventIds: list size " + userEventIDs.size() );
+                Log.d(TAG, "getCurrentUserEventIds: list size " + userEventIDs.size());
                 String id = dataSnapshot.getValue().toString();
                 Log.d(TAG, "getCurrentUserEventIds: id " + id);
             }
@@ -227,17 +244,20 @@ public class CurrentUserUtility {
         });
 
     }
-    /**ajoxe:
-     * this method gets current users events as objects*/
 
-    public void getCurrentUserEvents(final CurrentUserListener listener){
+    /**
+     * ajoxe:
+     * this method gets current users events as objects
+     */
+
+    public void getCurrentUserEvents(final CurrentUserListener listener) {
         Log.d(TAG, "get current user events called :");
         userEventsList = new ArrayList<>();
 
         eventsReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (final String eventID: userEventIDs) {
+                for (final String eventID : userEventIDs) {
                     Events event = dataSnapshot.child(eventID).getValue(Events.class);
                     userEventsList.add(event);
                 }
@@ -252,21 +272,23 @@ public class CurrentUserUtility {
         });
     }
 
-    /**ajoxe:
+    /**
+     * ajoxe:
      * add methods : not complete
-     * */
-    public void addUserFriends(final List<String> userFriendsList){
+     */
+    public void addUserFriends(final List<String> userFriendsList) {
         Map<String, Object> userFriendsMap = new HashMap<>();
         userFriendsMap.put(currentUserID, userFriendsList);
         firebaseDatabase.child(USER_FRIENDS).updateChildren(userFriendsMap);
         Log.w(TAG, "addUserFriends: " + userFriendsList.size());
     }
 
-    /**ajoxe:
+    /**
+     * ajoxe:
      * this method adds a single friend to users friend list.
      * Not tested
-     * */
-    public void addSingleUserFriend(final String friendID){
+     */
+    public void addSingleUserFriend(final String friendID) {
         Map<String, Object> userFriendsMap = new HashMap<>();
         userFriendsMap.put(currentUserID, friendID);
         firebaseDatabase.child(USER_FRIENDS).updateChildren(userFriendsMap);

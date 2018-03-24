@@ -59,10 +59,12 @@
             android:textColor="@android:color/black"
             android:textSize="18sp" />
     </LinearLayout>
-    <TextView
-        android:id="@+id/request_friend"
-        android:layout_weight=".5"
+
+    <Button
+        android:id="@+id/request_friend_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="add friend"/>
+        android:layout_weight=".5"
+        android:text="add friend" />
+
 </LinearLayout>

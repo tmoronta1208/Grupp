@@ -67,7 +67,6 @@ public class LoginActivity extends AppCompatActivity {
         if (currentUser != null) {
             currentUserID = currentUser.getUid();
         }
-
         /**
          * gets user data to check if user is in database
          * */
