@@ -14,4 +14,5 @@
     <color name="mustard">#e8af28</color>
     <color name="light_green">#b1deb4</color>
     <color name="colorPrimaryT">#57bad5</color>
+    <color name="hintcolor">#D3D3D3</color>
 </resources>

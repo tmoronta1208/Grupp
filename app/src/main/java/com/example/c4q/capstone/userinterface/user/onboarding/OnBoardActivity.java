@@ -1,5 +1,6 @@
 package com.example.c4q.capstone.userinterface.user.onboarding;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -24,6 +25,9 @@ public class OnBoardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_board);
         // loadCreatProfilFragment();
+
+        Intent intent = new Intent(OnBoardActivity.this, ViewPagerActivity.class);
+        startActivity(intent);
 
 
     }
