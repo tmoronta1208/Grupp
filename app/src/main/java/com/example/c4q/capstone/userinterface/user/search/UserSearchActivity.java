@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.database.publicuserdata.FriendsList;
 import com.example.c4q.capstone.database.publicuserdata.UserSearch;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -22,17 +23,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.DateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import static com.example.c4q.capstone.utils.Constants.FRIENDS;
 import static com.example.c4q.capstone.utils.Constants.FRIEND_REQUESTS;
 import static com.example.c4q.capstone.utils.Constants.NOTIFICATIONS;
 import static com.example.c4q.capstone.utils.Constants.NOT_FRIENDS;
 import static com.example.c4q.capstone.utils.Constants.RECEIVED;
-import static com.example.c4q.capstone.utils.Constants.REQUEST_RECEIVED;
 import static com.example.c4q.capstone.utils.Constants.REQUEST_SENT;
 import static com.example.c4q.capstone.utils.Constants.REQUEST_TYPE;
 import static com.example.c4q.capstone.utils.Constants.SENT;
@@ -42,9 +41,10 @@ import static com.example.c4q.capstone.utils.Constants.USER_SEARCH;
 public class UserSearchActivity extends AppCompatActivity {
     private RecyclerView searchResultsList;
     private FirebaseAuth authentication;
-    private DatabaseReference rootRef, searchUserDatabase, friendReqDatabase;
+    private DatabaseReference rootRef, searchUserDatabase, friendReqDatabase, friendsListDatabase;
     private LinearLayoutManager linearLayoutManager;
     private FirebaseUser currentUser;
+    private List<String> userFriendList = new ArrayList<>();
     private String currentState, currentUserID, currentUserEmail, requestedUserEmail;
 
     @Override
@@ -55,6 +55,7 @@ public class UserSearchActivity extends AppCompatActivity {
         rootRef = FirebaseDatabase.getInstance().getReference();
         searchUserDatabase = rootRef.child(USER_SEARCH);
         friendReqDatabase = rootRef.child(FRIEND_REQUESTS);
+        friendsListDatabase = rootRef.child(USER_FRIENDS);
 
         linearLayoutManager = new LinearLayoutManager(this);
 
@@ -130,7 +131,7 @@ public class UserSearchActivity extends AppCompatActivity {
         searchResultsList.setAdapter(firebaseRecyclerAdapter);
     }
 
-    private void sendRequest(final String requestedID, final Button requestFriendBtn) {
+    private void sendRequest(final String requestedID, final Button requestBtn) {
 
         /**
          *sends friend requests
@@ -146,7 +147,7 @@ public class UserSearchActivity extends AppCompatActivity {
             notificationData.put("from", currentUserEmail);
             notificationData.put("type", FRIEND_REQUESTS);
 
-            Map requestMap = new HashMap();
+            Map<String, Object> requestMap = new HashMap<>();
             requestMap.put(FRIEND_REQUESTS + "/" + currentUserID + "/" + requestedID + "/" + REQUEST_TYPE, SENT);
             requestMap.put(FRIEND_REQUESTS + "/" + requestedID + "/" + currentUserID + "/" + REQUEST_TYPE, RECEIVED);
             requestMap.put(NOTIFICATIONS + "/" + requestedID + "/" + newNotificationId, notificationData);
@@ -158,8 +159,8 @@ public class UserSearchActivity extends AppCompatActivity {
                         Toast.makeText(UserSearchActivity.this, "There was some error in sending request", Toast.LENGTH_SHORT).show();
                     } else {
 
-
-                        requestFriendBtn.setText("Cancel");
+                        addToFriendsList(currentUserID, requestedID,requestBtn);
+                        requestBtn.setText("Remove Friend");
 
                         currentState = REQUEST_SENT;
                     }
@@ -180,7 +181,7 @@ public class UserSearchActivity extends AppCompatActivity {
                     friendReqDatabase.child(requestedID).child(currentUserID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void v) {
-                            requestFriendBtn.setText("Add Friend");
+                            requestBtn.setText("Add Friend");
 
                             currentState = NOT_FRIENDS;
 
@@ -189,64 +190,14 @@ public class UserSearchActivity extends AppCompatActivity {
                 }
             });
         }
+    }
 
-        /**
-         *current user's pending friend requests
-         */
-
-        if (currentState.equals(REQUEST_RECEIVED)) {
-
-            final String currentDate = DateFormat.getDateTimeInstance().format(new Date());
-
-            Map friendsMap = new HashMap();
-            friendsMap.put(USER_FRIENDS + "/" + currentUserID + "/" + requestedID + "/date", currentDate);
-            friendsMap.put(USER_FRIENDS + "/" + requestedID + "/" + currentUserID + "/date", currentDate);
-
-            friendsMap.put(FRIEND_REQUESTS + "/" + currentUserID + "/" + requestedID, null);
-            friendsMap.put(FRIEND_REQUESTS + "/" + requestedID + "/" + currentUserID, null);
-
-            rootRef.updateChildren(friendsMap, new DatabaseReference.CompletionListener() {
-                @Override
-                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                    if (databaseError == null) {
-
-                        currentState = FRIENDS;
-
-                    } else {
-
-                        String error = databaseError.getMessage();
-
-                        Toast.makeText(UserSearchActivity.this, error, Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        }
-
-        /**
-         *removes friend from friend list
-         */
-
-        if (currentState.equals(FRIENDS)) {
-
-            Map unfriendMap = new HashMap();
-            unfriendMap.put(USER_FRIENDS + "/" + currentUserID + "/" + requestedID, null);
-            unfriendMap.put(USER_FRIENDS + "/" + requestedID + "/" + currentUserID, null);
-
-            rootRef.updateChildren(unfriendMap, new DatabaseReference.CompletionListener() {
-                @Override
-                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-
-                    if (databaseError == null) {
-
-                        currentState = NOT_FRIENDS;
-
-                    } else {
-
-                        String error = databaseError.getMessage();
-                        Toast.makeText(UserSearchActivity.this, error, Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+    public void addToFriendsList(final String currentUserID, final String requestID, Button requestBtn) {
+        userFriendList.add(requestID);
+        if (currentUserID != requestID) {
+            friendsListDatabase.child(currentUserID).setValue(userFriendList);
+        } else{
+            requestBtn.setEnabled(false);
         }
     }
 }
