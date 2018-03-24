@@ -2,7 +2,9 @@ package com.example.c4q.capstone.userinterface.user.userprofilefragments;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,6 +31,18 @@ public class UPGroupFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        /* populate GROUP LIST HERE list here because the view pager  calls oncreateview
+        it populates the list as many times as you go into the fragment MG */
+        for (int i = 1; i <= 5; i++) {
+            randomNumbersList.add(i);
+        }
+
+    }
+
     public static UPGroupFragment newInstance(String title) {
         UPGroupFragment fragment = new UPGroupFragment();
         Bundle args = new Bundle();
@@ -47,13 +61,9 @@ public class UPGroupFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.groups_rec);
 
-        for (int i = 1; i <= 5; i++) {
-            randomNumbersList.add(i);
-        }
 
         groupsAdapter = new GroupsAdapter(getContext(), randomNumbersList);
-        LinearLayoutManager linearLayout = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL,false);
-        recyclerView.setLayoutManager(linearLayout);
+        recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 3));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(groupsAdapter);
         return view;
