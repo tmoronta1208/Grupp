@@ -1,6 +1,7 @@
 package com.example.c4q.capstone.userinterface.events.createevent.createeventux;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -72,8 +73,14 @@ public class EditTextUX {
         if (!(view instanceof EditText)) {
             view.setOnTouchListener(new View.OnTouchListener() {
                 public boolean onTouch(View v, MotionEvent event) {
-                    hideSoftKeyboard(activity);
-                    if(!editText.getText().toString().equals("")) {
+
+                    if(event.getActionMasked() == MotionEvent.ACTION_UP) {
+                        hideSoftKeyboard(activity);
+                        Log.d("Edit text UX" , "hide keyboard called");
+                    }
+
+
+                    /*if(!editText.getText().toString().equals("")) {
                         String text = editText.getText().toString();
 
                         if (type.equals("eventName")){
@@ -83,7 +90,7 @@ public class EditTextUX {
                         }
                     } else {
                         editText.setError("Please enter a name");
-                    }
+                    }*/
                     return false;
                 }
             });
@@ -94,13 +101,13 @@ public class EditTextUX {
             for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
                 View innerView = ((ViewGroup) view).getChildAt(i);
                 hideKeyBoardOffFocus(innerView);
+
             }
         }
     }
 
     /*method to hide soft keyboard -AJ*/
     public static void hideSoftKeyboard(Activity activity) {
-        try {
             if (activity != null) {
                 InputMethodManager inputMethodManager =
                         (InputMethodManager) activity.getSystemService(
@@ -109,9 +116,6 @@ public class EditTextUX {
                         activity.getCurrentFocus().getWindowToken(), 0);
             }
 
-        } catch (NullPointerException n) {
-            n.printStackTrace();
-        }
 
 
     }
