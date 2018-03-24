@@ -39,8 +39,7 @@ public class CreateEventTwoFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        imageMain = getArguments().getInt("imageMain", 0);
-        imageSecondary = getArguments().getInt("imageSecondary", 0);
+
         title = getArguments().getString("title");
     }
 
@@ -48,8 +47,7 @@ public class CreateEventTwoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
       view = inflater.inflate(R.layout.fragment_create_event_two, container, false);
-        TextView tvLabel = (TextView) view.findViewById(R.id.txtMain);
-        tvLabel.setText(title);
+
 
         return view;
     }

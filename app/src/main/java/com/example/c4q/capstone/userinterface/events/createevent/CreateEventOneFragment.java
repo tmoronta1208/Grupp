@@ -3,9 +3,11 @@ package com.example.c4q.capstone.userinterface.events.createevent;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,7 +21,9 @@ import com.example.c4q.capstone.userinterface.events.eventfragments.CreateEventF
 public class CreateEventOneFragment extends Fragment {
     private String title;
     View rootView;
-    EditText eventName;
+    Button barButton, restaurantButton;
+    CreateEventModel createEventModel;
+    ViewPager viewPager;
 
 
     public CreateEventOneFragment() {
@@ -47,11 +51,32 @@ public class CreateEventOneFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_create_event_one, container, false);
-        TextView tvLabel = (TextView) rootView.findViewById(R.id.txtMain);
-        tvLabel.setText(title);
+
+
+
+
+
+        barButton = (Button) rootView.findViewById(R.id.bar_choice_button);
+        restaurantButton = (Button) rootView.findViewById(R.id.restaurant_choice_button);
 
 
         return rootView;
+    }
+
+    public void onButtonClick(){
+        View.OnClickListener choiceClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            if (v.getTag().toString().equals("bar")) {
+                createEventModel.setEventVenueType("bar");
+            } else {
+                createEventModel.setEventVenueType("restaurant");
+            }
+            v.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+            }
+        };
+        barButton.setOnClickListener(choiceClickListener);
+        restaurantButton.setOnClickListener(choiceClickListener);
     }
 
 }

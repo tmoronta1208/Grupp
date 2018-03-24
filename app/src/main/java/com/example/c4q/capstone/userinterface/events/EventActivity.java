@@ -36,12 +36,10 @@ import com.google.android.gms.tasks.Task;
 public class EventActivity extends AppCompatActivity {
 
     SingleEventFragment singleEventFragment = new SingleEventFragment();
-    CreateEventFragment createEventFragment = new CreateEventFragment();
     Intent intent;
     String eventID;
 
-    ViewPager vpPager;
-    FragmentPagerAdapter adapterViewPager;
+
     /**
      * ajoxe: Nav Drawer
      */
@@ -68,12 +66,6 @@ public class EventActivity extends AppCompatActivity {
         eventBundle = new Bundle();
         eventBundle.putString("eventID", eventID);
 
-       /*vpPager = (ViewPager) findViewById(R.id.vpPager);
-        adapterViewPager = new CreateEventPagerAdapter(getSupportFragmentManager());
-        vpPager.setAdapter(adapterViewPager);
-        vpPager.setPageTransformer(true, new FlipVerticalTransformer());
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.create_event_tab_layout);
-        tabLayout.setupWithViewPager(vpPager);*/
         setEventFragment();
     }
 
