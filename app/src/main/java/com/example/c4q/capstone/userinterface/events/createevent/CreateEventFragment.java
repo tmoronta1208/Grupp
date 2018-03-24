@@ -183,8 +183,6 @@ public class CreateEventFragment extends Fragment {
         } catch (NullPointerException n) {
             n.printStackTrace();
         }
-
-
     }
 
 

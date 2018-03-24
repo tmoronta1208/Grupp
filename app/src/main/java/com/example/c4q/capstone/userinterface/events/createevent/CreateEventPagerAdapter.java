@@ -27,9 +27,9 @@ public class CreateEventPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return CreateEventFragment.newInstance("Name your Event");
-            case 1:
                 return CreateEventOneFragment.newInstance("Pick a venue type");
+            case 1:
+                return CreateEventFragment.newInstance("Name your Event");
 
             case 2:
                 return CreateEventTwoFragment.newInstance("Schedule Your Event");
