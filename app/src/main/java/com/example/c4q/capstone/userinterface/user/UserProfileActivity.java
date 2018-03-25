@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.TempUserActivity;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.events.createevent.CreateEventActivity;
 import com.example.c4q.capstone.userinterface.user.search.UserSearchActivity;
@@ -115,7 +116,6 @@ public class UserProfileActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.up_bottom_frag_cont, eventsFragment)
-                .addToBackStack("next")
                 .commit();
     }
 
@@ -123,7 +123,6 @@ public class UserProfileActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.up_bottom_frag_cont, fragment)
-                .addToBackStack("next")
                 .commit();
     }
 
@@ -151,6 +150,9 @@ public class UserProfileActivity extends AppCompatActivity {
                 break;
             case R.id.edit_preferences_menu_item:
                 //TODO
+
+                startActivity(new Intent(UserProfileActivity.this, TempUserActivity.class));
+
                 break;
             case R.id.add_friends_menu_item:
                 startActivity(new Intent(UserProfileActivity.this, UserSearchActivity.class));
