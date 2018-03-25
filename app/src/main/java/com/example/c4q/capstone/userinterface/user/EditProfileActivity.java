@@ -163,11 +163,14 @@ public class EditProfileActivity extends AppCompatActivity {
 
         if (!firstNameString.equals("") && !lastNameString.equals("") && !zipCodeSting.equals("")) {
 
-            publicUser = new PublicUser(firstNameString, lastNameString, zipCodeSting, budgetString,currentUserEmail, over18, over21, radius);
+            publicUser = new PublicUser(firstNameString, lastNameString, zipCodeSting, budgetString, currentUserEmail, over18, over21, radius);
             privateUser = new PrivateUser(firstNameString, lastNameString, over18, over21, radius);
             privateUserLocation = new PrivateUserLocation(share_location, lat, lng);
             userSearch = new UserSearch(currentUserEmail);
 
+            /**
+             * searchUserReference needs to be added at time of account creation
+             */
             searchUserReference.child(currentUserID).setValue(userSearch);
             publicUserReference.child(currentUserID).setValue(publicUser);
             privateUserReference.child(currentUserID).setValue(privateUser);
