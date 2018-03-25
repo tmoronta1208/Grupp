@@ -14,4 +14,7 @@
     <item android:id="@+id/add_group_menu_item"
         android:title="+create Event"
         />
+    <item android:id="@+id/sign_out"
+        android:title="sign out"
+        />
 </menu>
