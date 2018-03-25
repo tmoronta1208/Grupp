@@ -35,7 +35,7 @@ public class UPGroupFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /* populate GROUP LIST HERE list here because the view pager  calls oncreateview
+        /* populate GROUP LIST HERE list here because the view pager calls oncreateview
         it populates the list as many times as you go into the fragment MG */
         for (int i = 1; i <= 5; i++) {
             randomNumbersList.add(i);
