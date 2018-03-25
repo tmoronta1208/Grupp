@@ -29,12 +29,12 @@ public class UserProfilePagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return UPEventsFragment.newInstance("Events");
+                return new UPEventsFragment();
             case 1:
-                return ContactListFragment.newInstance("Friends");
+                return new ContactListFragment();
             case 2:
 
-                return UPGroupFragment.newInstance("Groups");
+                return new UPGroupFragment();
             default:
                 return null;
         }

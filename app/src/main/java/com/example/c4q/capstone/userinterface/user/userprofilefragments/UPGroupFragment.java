@@ -43,13 +43,13 @@ public class UPGroupFragment extends Fragment {
 
     }
 
-    public static UPGroupFragment newInstance(String title) {
+    /*public static UPGroupFragment newInstance(String title) {
         UPGroupFragment fragment = new UPGroupFragment();
         Bundle args = new Bundle();
         args.putString("title", title);
         fragment.setArguments(args);
         return fragment;
-    }
+    }*/
 
 
     @Override
