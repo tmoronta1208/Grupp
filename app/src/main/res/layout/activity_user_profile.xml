@@ -11,8 +11,6 @@
 
     <!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
 
-
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -20,41 +18,25 @@
         android:background="?attr/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
-    <io.ghyeok.stickyswitch.widget.StickySwitch
-        android:layout_marginTop="20dp"
-        android:id="@+id/sticky_switch"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_centerInParent="true"
-        app:ss_animationDuration="600"
-        app:ss_animationType="line"
-        app:ss_iconPadding="14dp"
-        app:ss_iconSize="19dp"
-        app:ss_leftIcon="@drawable/ic_event_available_black_24dp"
-        app:ss_leftText="Events"
-        app:ss_rightIcon="@drawable/ic_group_black_24dp"
-        app:ss_rightText="Groups"
-        app:ss_selectedTextSize="12sp"
-        app:ss_sliderBackgroundColor="@color/light_salmon"
-        app:ss_switchColor="@android:color/white"
-        app:ss_textColor="@android:color/black"
-        app:ss_textSize="12sp" />
-
-    <FrameLayout
-        android:id="@+id/up_bottom_frag_cont"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".5"/>
 
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingactionb"
-        android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
-        android:src="@drawable/ic_plus_sign_24dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <android.support.v4.view.ViewPager
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"/>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingactionb"
+            android:layout_gravity="bottom|center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_plus_sign_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+
 
 </LinearLayout>
 

@@ -1,10 +1,9 @@
 package com.example.c4q.capstone.userinterface.user;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -12,18 +11,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.SupportActivity;
 
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.c4q.capstone.LoginActivity;
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.TempUserActivity;
 import com.example.c4q.capstone.userinterface.CurrentUser;
@@ -31,6 +31,7 @@ import com.example.c4q.capstone.userinterface.events.createevent.CreateEventActi
 import com.example.c4q.capstone.userinterface.user.search.UserSearchActivity;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPEventsFragment;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPGroupFragment;
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.fragmentanimation.ScreenSlidePagerAdapter;
 import com.firebase.ui.auth.AuthUI;
 
 
@@ -43,23 +44,14 @@ import io.ghyeok.stickyswitch.widget.StickySwitch;
 public class UserProfileActivity extends AppCompatActivity {
     private static final String TAG = "UserProfileActivity";
 
-    private TextView userName;
-    private CircleImageView userImage;
-    private Button editButton, contactButton, searchNewFriends;
-    private View fragContainer;
-    private String userFullName;
 
     private Toolbar toolbar;
-    private SupportActivity activity;
-    private Context context;
-    private BottomNavigationView navigation;
     private FloatingActionButton floatingActionButton;
+    private Context context;
+    private Activity activity;
 
-    private ContactListFragment contactListFragment;
-    private UPEventsFragment eventsFragment;
-    private UPGroupFragment groupFragment;
-    private FragmentManager fragmentManager;
-    private FragmentTransaction fragmentTransaction;
+    private ViewPager mPager;
+    private PagerAdapter mPagerAdapter;
 
     private CurrentUser currentUserInstance = CurrentUser.getInstance();
 
@@ -68,13 +60,21 @@ public class UserProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
-        setFragmentReference();
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        loadFirstFragment();
+
+
+        mPager = findViewById(R.id.pager);
+        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        mPager.setAdapter(mPagerAdapter);
 
         context = this;
         activity = this;
+
+
+
+
 
         floatingActionButton = findViewById(R.id.floatingactionb);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -84,54 +84,15 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
-//        setUserInfo();
 
-        final StickySwitch stickySwitch = findViewById(R.id.sticky_switch);
-        stickySwitch.setOnSelectedChangeListener(new StickySwitch.OnSelectedChangeListener() {
-            @Override
-            public void onSelectedChange(@NotNull StickySwitch.Direction direction, @NotNull String text) {
-                if (stickySwitch.getDirection() == StickySwitch.Direction.RIGHT) {
-//                    Toast.makeText(activity, "Direction " + stickySwitch.getDirection(), Toast.LENGTH_SHORT).show();
-                    swapFragments(groupFragment);
-                } else if (stickySwitch.getDirection() == StickySwitch.Direction.LEFT){
-//                    Toast.makeText(activity, "Direction "+ stickySwitch.getDirection(), Toast.LENGTH_SHORT).show();
-                    swapFragments(eventsFragment);
-                }
-            }
 
-        });
 
 
     }
 
 
-    public void setFragmentReference() {
-        contactListFragment = new ContactListFragment();
-        eventsFragment = new UPEventsFragment();
-        groupFragment = new UPGroupFragment();
 
-    }
 
-    private void loadFirstFragment() {
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.up_bottom_frag_cont, eventsFragment)
-                .commit();
-    }
-
-    private void swapFragments(Fragment fragment) {
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.up_bottom_frag_cont, fragment)
-                .commit();
-    }
-
-////    private void setUserInfo() {
-//        userFullName = currentUserInstance.getUserFullName();
-//        userName = findViewById(R.id.user_name);
-//        userName.setText(userFullName);
-//        userImage = findViewById(R.id.circle_imageview);
-//    }
 
 
     @Override
@@ -157,12 +118,15 @@ public class UserProfileActivity extends AppCompatActivity {
             case R.id.add_friends_menu_item:
                 startActivity(new Intent(UserProfileActivity.this, UserSearchActivity.class));
                 break;
-            case R.id.add_group_menu_item:
-                startActivity(new Intent(UserProfileActivity.this, CreateEventActivity.class));
-                //TODO
-                break;
+//            case R.id.add_group_menu_item:
+//                startActivity(new Intent(UserProfileActivity.this, CreateEventActivity.class));
+//                //TODO
+//                break;
             case R.id.signout_menu_item:
                 AuthUI.getInstance().signOut(this);
+                startActivity(new Intent(UserProfileActivity.this, LoginActivity.class));
+
+
                 //TODO
                 break;
         }
