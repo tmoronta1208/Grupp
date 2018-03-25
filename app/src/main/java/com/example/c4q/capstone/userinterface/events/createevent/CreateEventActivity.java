@@ -55,6 +55,8 @@ public class CreateEventActivity extends AppCompatActivity {
             otherView.setTag("unselected");
             otherView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         }
+
+        vpPager.setCurrentItem(vpPager.getCurrentItem() + 1);
     }
 
     public void nextPage(View view){

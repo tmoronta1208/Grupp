@@ -48,7 +48,9 @@ public class VenueCardView {
 
     @Resolve
     private void onResolved(){
+
         Glide.with(context).load(results.getBar_Image()).into(profileImageView);
+
         nameAgeTxt.setText(results.getName());
         locationNameTxt.setText(results.getAddress());
 

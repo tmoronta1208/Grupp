@@ -13,12 +13,12 @@
 
 
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
     <io.ghyeok.stickyswitch.widget.StickySwitch
         android:layout_marginTop="20dp"
@@ -52,7 +52,7 @@
         android:id="@+id/floatingactionb"
         android:layout_gravity="center"
         android:layout_marginBottom="10dp"
-      android:src="@drawable/ic_plus_sign_24dp"
+        android:src="@drawable/ic_plus_sign_24dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -60,6 +60,3 @@
 
 
     <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
-
-
-
