@@ -13,6 +13,7 @@
         android:layout_height="80dp"
         android:layout_gravity="bottom"
         android:gravity="center"
+        android:layout_marginTop="@dimen/layout_padding"
         android:orientation="horizontal">
 
         <ImageButton
