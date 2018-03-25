@@ -3,10 +3,9 @@ package com.example.c4q.capstone.userinterface.user;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -22,25 +21,36 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.database.publicuserdata.UserIcon;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.events.createevent.CreateEventActivity;
 import com.example.c4q.capstone.userinterface.user.search.UserSearchActivity;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPEventsFragment;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPGroupFragment;
-import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
-
-import org.jetbrains.annotations.NotNull;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import io.ghyeok.stickyswitch.widget.StickySwitch;
+
+import static com.example.c4q.capstone.utils.Constants.USER_ICON;
 
 
 public class UserProfileActivity extends AppCompatActivity {
     private static final String TAG = "UserProfileActivity";
+    private static final int RC_PHOTO_PICKER = 2;
 
     private TextView userName;
     private CircleImageView userImage;
@@ -52,15 +62,16 @@ public class UserProfileActivity extends AppCompatActivity {
     private SupportActivity activity;
     private Context context;
     private BottomNavigationView navigation;
-    private FloatingActionButton floatingActionButton;
 
     private ContactListFragment contactListFragment;
     private UPEventsFragment eventsFragment;
     private UPGroupFragment groupFragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    private DatabaseReference userIconDB;
 
     private CurrentUser currentUserInstance = CurrentUser.getInstance();
+    private FirebaseStorage firebaseStorage;
 
 
     @Override
@@ -68,41 +79,23 @@ public class UserProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
         setFragmentReference();
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        loadFirstFragment();
+        userIconDB = FirebaseDatabase.getInstance().getReference();
 
+        firebaseStorage = FirebaseStorage.getInstance();
         context = this;
         activity = this;
 
-        floatingActionButton = findViewById(R.id.floatingactionb);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(UserProfileActivity.this, CreateEventActivity.class));
-            }
-        });
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-//        setUserInfo();
+        setUserInfo();
+        loadFirstFragment();
 
-        final StickySwitch stickySwitch = findViewById(R.id.sticky_switch);
-        stickySwitch.setOnSelectedChangeListener(new StickySwitch.OnSelectedChangeListener() {
-            @Override
-            public void onSelectedChange(@NotNull StickySwitch.Direction direction, @NotNull String text) {
-                if (stickySwitch.getDirection() == StickySwitch.Direction.RIGHT) {
-//                    Toast.makeText(activity, "Direction " + stickySwitch.getDirection(), Toast.LENGTH_SHORT).show();
-                    swapFragments(groupFragment);
-                } else if (stickySwitch.getDirection() == StickySwitch.Direction.LEFT){
-//                    Toast.makeText(activity, "Direction "+ stickySwitch.getDirection(), Toast.LENGTH_SHORT).show();
-                    swapFragments(eventsFragment);
-                }
-            }
+        newIconImg();
 
-        });
-
-
+        navigation = findViewById(R.id.bottom_navigation_container);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
-
 
     public void setFragmentReference() {
         contactListFragment = new ContactListFragment();
@@ -127,12 +120,14 @@ public class UserProfileActivity extends AppCompatActivity {
                 .commit();
     }
 
-////    private void setUserInfo() {
-//        userFullName = currentUserInstance.getUserFullName();
-//        userName = findViewById(R.id.user_name);
-//        userName.setText(userFullName);
-//        userImage = findViewById(R.id.circle_imageview);
-//    }
+    private void setUserInfo() {
+        userFullName = currentUserInstance.getUserFullName();
+        userName = findViewById(R.id.user_name);
+        userName.setText(userFullName);
+        userImage = findViewById(R.id.circle_imageview);
+
+    }
+
 
 
     @Override
@@ -156,19 +151,39 @@ public class UserProfileActivity extends AppCompatActivity {
                 startActivity(new Intent(UserProfileActivity.this, UserSearchActivity.class));
                 break;
             case R.id.add_group_menu_item:
+
                 startActivity(new Intent(UserProfileActivity.this, CreateEventActivity.class));
-                //TODO
-                break;
-            case R.id.signout_menu_item:
-                AuthUI.getInstance().signOut(this);
+
                 //TODO
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_events:
+                    //mTextMessage.setText("Events");
+                    swapFragments(eventsFragment);
+                    return true;
+                case R.id.navigation_groups:
+                    swapFragments(groupFragment);
+                    return true;
+                case R.id.navigation_friends:
+                    swapFragments(contactListFragment);
+                    return true;
+//                case R.id.navigation_profile:
+//                    mTextMessage.setText("Profile");
+//                    return true;
+            }
+            return false;
+        }
+    };
+
+
+
 
 }
-
-
-

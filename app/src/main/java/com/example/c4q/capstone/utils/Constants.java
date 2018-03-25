@@ -19,6 +19,7 @@ public class Constants {
     public static final String RESTAURANT_PREFS ="restaurant_prefs";
     public static final String SENT = "Request sent";
     public static final String USER_FRIENDS = "user_friends";
+    public static final String USER_ICON = "user_icon";
     public static final String USER_SEARCH = "user_search";
     public static final String VENUES = "venues";
     public static final String VENUE_ADDRESS = "venue_address";
