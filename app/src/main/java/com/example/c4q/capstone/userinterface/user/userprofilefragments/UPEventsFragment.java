@@ -54,6 +54,7 @@ public class UPEventsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_events, container, false);
+        getAllEvents();
 
         recyclerView = view.findViewById(R.id.events_rec);
 
@@ -65,7 +66,7 @@ public class UPEventsFragment extends Fragment {
         recyclerView.setAdapter(eventsAdapter);
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
     /** ajoxe: populate listOfEvents*/
-        getAllEvents();
+
         return view;
     }
 
