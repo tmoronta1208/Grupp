@@ -6,7 +6,7 @@
         android:title="@string/edit_profile"
         />
     <item android:id="@+id/edit_preferences_menu_item"
-        android:title="@string/edit_preferences"
+        android:title="fake Profile"
         />
     <item android:id="@+id/add_friends_menu_item"
         android:title="@string/add_friends"
