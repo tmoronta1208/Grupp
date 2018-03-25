@@ -80,16 +80,9 @@ public class ContactListFragment extends Fragment {
 
 
         recyclerView = view.findViewById(R.id.contact_list_rec);
-        addPerson = view.findViewById(R.id.addperson_cl);
 
         /*sends user to add person activity*/
-        addPerson.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent addPersonIntent = new Intent(getActivity().getApplicationContext(), AddPersonActivity.class);
-                getActivity().getApplicationContext().startActivity(addPersonIntent);
-            }
-        });
+
 
 
 
