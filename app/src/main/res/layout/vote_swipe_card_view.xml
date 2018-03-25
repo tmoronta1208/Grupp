@@ -2,8 +2,8 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="350dp"
-    android:layout_height="425dp"
+    android:layout_width="300dp"
+    android:layout_height="400dp"
     android:layout_marginBottom="50dp"
     android:orientation="vertical">
     <android.support.v7.widget.CardView
@@ -14,23 +14,31 @@
         android:layout_margin="10dp"
         app:cardCornerRadius="7dp"
         app:cardElevation="4dp">
-        <ImageView
-            android:id="@+id/profileImageView"
-            android:scaleType="centerCrop"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="75dp"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="#ffffff"
+            android:padding="8dp">
+        <ImageView
+            android:id="@+id/profileImageView"
+            android:scaleType="fitCenter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="vertical"
             android:layout_gravity="bottom"
-            android:gravity="center|left"
-            android:paddingLeft="20dp">
+            android:gravity="center"
+            android:paddingBottom="20dp"
+            android:background="#ffffff">
             <TextView
                 android:id="@+id/nameAgeTxt"
                 android:layout_width="wrap_content"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimary"
                 android:textSize="18dp"
                 android:textStyle="bold"
                 android:layout_height="wrap_content"/>
@@ -38,9 +46,10 @@
                 android:id="@+id/locationNameTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14dp"
                 android:textStyle="normal"/>
+        </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </FrameLayout>
