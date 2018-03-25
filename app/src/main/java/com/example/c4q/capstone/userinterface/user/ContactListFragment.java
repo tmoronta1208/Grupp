@@ -53,13 +53,13 @@ public class ContactListFragment extends Fragment {
 
 
 
-    public static ContactListFragment newInstance(String title) {
+   /* public static ContactListFragment newInstance(String title) {
         ContactListFragment fragment = new ContactListFragment();
         Bundle args = new Bundle();
         args.putString("title", title);
         fragment.setArguments(args);
         return fragment;
-    }
+    }*/
 
 
 

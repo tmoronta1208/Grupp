@@ -39,13 +39,13 @@ public class UPEventsFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static UPEventsFragment newInstance(String title) {
+   /* public static UPEventsFragment newInstance(String title) {
         UPEventsFragment fragment = new UPEventsFragment();
         Bundle args = new Bundle();
         args.putString("title", title);
         fragment.setArguments(args);
         return fragment;
-    }
+    }*/
 
 
     @Override
