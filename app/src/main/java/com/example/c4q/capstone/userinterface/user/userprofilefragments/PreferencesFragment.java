@@ -14,6 +14,8 @@ import android.widget.CompoundButton;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.network.barzz.BarzzNetworkCall;
+import com.example.c4q.capstone.userinterface.events.createevent.CreateEventOneFragment;
+import com.example.c4q.capstone.userinterface.user.onboarding.OnboardingListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,8 +38,23 @@ public class PreferencesFragment extends Fragment {
     HashMap<CheckBox, String> prefs = new HashMap<>();
     public static ArrayList<String> selectedPrefs = new ArrayList<>();
 
+    OnboardingListener listener;
+
+    /**aj - getting id from prev frag*/
+
+    Bundle bundle;
+    static String userId;
+
     public PreferencesFragment() {
         // Required empty public constructor
+    }
+
+    public static PreferencesFragment newInstance(String id) {
+        PreferencesFragment preferencesFragment = new PreferencesFragment();
+        userId = id;
+        Log.d("Prefs frag : ", "listener called  id" + id);
+        Log.d("Prefs frag : ", "listener called user id" + userId);
+        return preferencesFragment;
     }
 
 
@@ -46,6 +63,7 @@ public class PreferencesFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_preferences, container, false);
+        bundle = getArguments();
 
 
         clubCheckBox = view.findViewById(R.id.club_pref);

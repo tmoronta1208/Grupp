@@ -62,8 +62,20 @@ public class CreateProfileFragment extends Fragment {
     private DatabaseReference publicUserReference, privateUserReference, privateUserLocationReference;
     private FirebaseUser user;
 
+    OnboardingListener olistener;
+
     public CreateProfileFragment() {
         // Required empty public constructor
+    }
+
+    public static CreateProfileFragment newInstance(OnboardingListener listener) {
+        CreateProfileFragment createProfileFragment = new CreateProfileFragment();
+
+        createProfileFragment.olistener = listener;
+        String listenerString = "listener string";
+        listener.getID(listenerString);
+        Log.d("CreateProfile Frag : ", "new instance" + listenerString);
+        return createProfileFragment;
     }
 
     /**
@@ -79,7 +91,7 @@ public class CreateProfileFragment extends Fragment {
 
         rootView = inflater.inflate(com.example.c4q.capstone.R.layout.fragment_create_profile, container, false);
 
-        saveBtn = rootView.findViewById(R.id.edit_profile_save_button);
+       /* saveBtn = rootView.findViewById(R.id.edit_profile_save_button);
 
         ageGroup = rootView.findViewById(R.id.radio_group_age);
         budgetGroup = rootView.findViewById(R.id.radio_group_budget);
@@ -97,7 +109,11 @@ public class CreateProfileFragment extends Fragment {
         privateUserLocationReference = firebaseDatabase.getReference();
 
         user = mAuth.getCurrentUser();
-        userID = user.getUid();
+        userID = user.getUid();*/
+
+
+/*
+
         userEmail = user.getEmail();
 
         radioGroupSelection();
@@ -145,10 +161,11 @@ public class CreateProfileFragment extends Fragment {
         });
 
         locationManagerLogic();
+*/
 
         return rootView;
     }
-
+/*
     public void locationManagerLogic() {
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(CreateProfileFragment.this.getActivity().LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(CreateProfileFragment.this.getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -182,10 +199,10 @@ public class CreateProfileFragment extends Fragment {
 
             //startActivity(new Intent(CreateProfileFragment.this.getActivity(), UserProfileActivity.class))
 
-            /*****/       // TODO  @Tati - Onboarding : swap this fragment with preferences fragment
-            /** cmd + click on the method to find it and see what ti does
+            *//*****//*       // TODO  @Tati - Onboarding : swap this fragment with preferences fragment
+            *//** cmd + click on the method to find it and see what ti does
              *
-             */
+             *//*
             loadPreferencesScreen();
         } else {
             firstName.setError("Required");
@@ -194,23 +211,25 @@ public class CreateProfileFragment extends Fragment {
         }
     }
 
-    /**
+    *//**
      * This methods gets the OnboardActivity's fragment manager and replaces this fragment with a PreferencesFragment
      * You can easily expand you Preferences fragment to multiple, so your screens arent so busy.
      * im pretty sure the view pager transformer requires fragments
      * https://developer.android.com/training/animation/screen-slide.html <--- link to view pagers
      * https://github.com/ToxicBakery/ViewPagerTransforms <---- link to view pager transformers (the cube spin thing like
      * instagram stories)
-     */
+     *//*
     private void loadPreferencesScreen() {
-
+        *//*Bundle bundle = new Bundle();
+        bundle.putString("userID", userID);
         PreferencesFragment preferencesFragment = new PreferencesFragment();
+        preferencesFragment.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
         fragmentTransaction.replace(R.id.onboard_main_fragment_container, preferencesFragment);
         fragmentTransaction.addToBackStack("next");
-        fragmentTransaction.commit();
+        fragmentTransaction.commit();*//*
     }
 
     @Override
@@ -294,6 +313,6 @@ public class CreateProfileFragment extends Fragment {
                 }
             }
         });
-    }
+    }*/
 
 }

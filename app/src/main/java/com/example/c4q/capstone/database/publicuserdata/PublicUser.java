@@ -1,6 +1,8 @@
 package com.example.c4q.capstone.database.publicuserdata;
 
 
+import java.util.List;
+
 public class PublicUser {
     private String first_name;
     private String last_name;
@@ -10,6 +12,8 @@ public class PublicUser {
     private boolean over_18;
     private boolean over_21;
     private int radius;
+    private List<String> bar_prefs;
+    private List<String> restaurant_prefs;
 
     public PublicUser() {
     }

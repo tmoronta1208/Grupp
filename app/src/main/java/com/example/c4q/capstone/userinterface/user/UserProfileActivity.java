@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.SupportActivity;
 
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -23,6 +24,8 @@ import android.widget.TextView;
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.events.createevent.CreateEventActivity;
+import com.example.c4q.capstone.userinterface.user.onboarding.OnBoardActivity;
+import com.example.c4q.capstone.userinterface.user.onboarding.ViewPagerActivity;
 import com.example.c4q.capstone.userinterface.user.search.UserSearchActivity;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPEventsFragment;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPGroupFragment;
@@ -123,7 +126,7 @@ public class UserProfileActivity extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.edit_profile_menu_item:
-                startActivity(new Intent(UserProfileActivity.this, EditProfileActivity.class));
+                startActivity(new Intent(UserProfileActivity.this, ViewPagerActivity.class));
                 break;
             case R.id.edit_preferences_menu_item:
                 //TODO

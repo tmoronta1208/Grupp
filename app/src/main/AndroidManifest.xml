@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".userinterface.user.UserProfileActivity" />
+        <activity android:name=".userinterface.user.onboarding.OnBoardActivity" />
         <activity android:name=".userinterface.user.SettingsActivity" />
         <activity android:name=".userinterface.events.VenueVoteSwipeActivity" />
         <activity android:name=".userinterface.events.EventActivity" />

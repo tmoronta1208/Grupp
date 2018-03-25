@@ -24,6 +24,7 @@ public class OnBoardActivity extends AppCompatActivity {
 
     public void loadCreatProfilFragment(){
         FragmentManager fragmentManager = getSupportFragmentManager();
+        createProfileFragment = new CreateProfileFragment();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.onboard_main_fragment_container,createProfileFragment);
         fragmentTransaction.commit();
