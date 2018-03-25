@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 
 public class CreateEventPagerAdapter extends FragmentPagerAdapter {
-    private static int NUM_ITEMS = 5;
+    private static int NUM_ITEMS = 2;
 
     public CreateEventPagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
@@ -47,15 +47,15 @@ public class CreateEventPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "•";
+                return "";
             case 1:
-                return "•";
+                return "";
             case 2:
-                return "•";
+                return "";
             case 3:
-                return "•";
+                return "";
             case 4:
-                return "•";
+                return "";
             default:
                 return null;
         }

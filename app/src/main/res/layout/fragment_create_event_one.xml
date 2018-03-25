@@ -59,7 +59,8 @@
         android:layout_margin="@dimen/layout_padding"
         android:layout_gravity="end"
         android:onClick="nextPage"
-        android:src="@drawable/ic_arrow_forward_black_24dp"/>
+        android:src="@drawable/ic_arrow_forward_black_24dp"
+        android:visibility="gone"/>
 
 
 </LinearLayout>
