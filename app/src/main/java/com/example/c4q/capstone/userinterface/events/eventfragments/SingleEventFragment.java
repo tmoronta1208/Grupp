@@ -92,7 +92,7 @@ public class SingleEventFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent voteIntent = new Intent(SingleEventFragment.this.getActivity(), VenueVoteSwipeActivity.class);
-                //put some extras
+                voteIntent.putExtra("eventID", eventID);
                 startActivity(voteIntent);
             }
         });
@@ -112,6 +112,7 @@ public class SingleEventFragment extends Fragment {
                     }
                     eventName.setTextSize(40);
                     eventOrganizer.setTextSize(18);
+                    //moreButton.setBackground(getResources().getDrawable(R.drawable.ic_more_horiz_black_24dp));
                 } else if(frameLayout.getVisibility() == View.GONE){
                     Log.d ("Event Fragment", "frame is invisible");
                     frameLayout.setVisibility(View.VISIBLE);
