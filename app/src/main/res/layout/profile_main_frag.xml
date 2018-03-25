@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    >
+
+    <io.ghyeok.stickyswitch.widget.StickySwitch
+        android:layout_marginTop="20dp"
+        android:id="@+id/sticky_switch"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        app:ss_animationDuration="600"
+        app:ss_animationType="line"
+        app:ss_iconPadding="14dp"
+        app:ss_iconSize="19dp"
+        app:ss_leftIcon="@drawable/ic_event_available_black_24dp"
+        app:ss_leftText="Events"
+        app:ss_rightIcon="@drawable/ic_group_black_24dp"
+        app:ss_rightText="Groups"
+        app:ss_selectedTextSize="12sp"
+        app:ss_sliderBackgroundColor="@color/light_salmon"
+        app:ss_switchColor="@android:color/white"
+        app:ss_textColor="@android:color/black"
+        app:ss_textSize="12sp" />
+
+    <FrameLayout
+        android:id="@+id/up_bottom_frag_cont"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".5"/>
+
+</LinearLayout>

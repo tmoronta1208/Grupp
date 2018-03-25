@@ -19,6 +19,7 @@ import com.example.c4q.capstone.utils.FBEventDataUtility;
 import com.example.c4q.capstone.utils.SimpleDividerItemDecoration;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -73,14 +74,17 @@ public class UPEventsFragment extends Fragment {
      * this method calls notifyDatasetChanged() on the adapter when the list is populated
      */
     public void getAllEvents(){
-        eventDataUtility.getAllEvents(new FBEventDataListener() {
-            @Override
-            public void getAllEvents(List<Events> eventsList) {
-                listOfEvents.addAll(eventsList);
-                Log.d("EVENTS:", "listOfEvents size: " + listOfEvents.size());
-                eventsAdapter.notifyDataSetChanged();
-            }
-        });
+        if(listOfEvents.size() == 0) {
+            eventDataUtility.getAllEvents(new FBEventDataListener() {
+                @Override
+                public void getAllEvents(List<Events> eventsList) {
+                    listOfEvents.addAll(eventsList);
+                    Log.d("EVENTS:", "listOfEvents size: " + listOfEvents.size());
+                    Collections.reverse(listOfEvents);
+                    eventsAdapter.notifyDataSetChanged();
+                }
+            });
+        }
     }
 
 }

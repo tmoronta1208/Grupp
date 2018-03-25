@@ -1,14 +1,12 @@
 package com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.events.Events;
-import com.example.c4q.capstone.userinterface.user.EventsListFragment;
 
 
 /**

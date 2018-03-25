@@ -9,11 +9,8 @@
         android:title="fake Profile"
         />
     <item android:id="@+id/add_friends_menu_item"
-        android:title="@string/add_friends"
-        />
-    <item android:id="@+id/add_group_menu_item"
-        android:title="+create Event"
-        />
+        android:title="@string/add_friends"/>
+
     <item android:id="@+id/sign_out"
         android:title="sign out"
         />
