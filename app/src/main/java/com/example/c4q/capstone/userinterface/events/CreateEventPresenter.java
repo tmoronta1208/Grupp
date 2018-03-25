@@ -68,7 +68,10 @@ public class CreateEventPresenter {
         getDummyUserKeys();
         Log.d(TAG, "create event: eventSent to firebase" + newEvent.getEvent_name());
         key = myRef.child("events").push().getKey();
+
         Log.d(TAG, "create event: push key " + key);
+
+        newEvent.setEvent_id(key);
 
         myRef.child("events").child(key).setValue(newEvent);
 

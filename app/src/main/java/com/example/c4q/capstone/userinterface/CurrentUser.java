@@ -38,6 +38,7 @@ public class CurrentUser {
         //setUserFriendsList();
         //setUserEventsList();
     }
+
     public static CurrentUser getInstance(){
         Log.d(TAG, "getInstance: instance called");
         if (userInstance == null) userInstance = new CurrentUser();
@@ -79,7 +80,8 @@ public class CurrentUser {
     }
 
     private void setCurrentPrivateUser() {
-        userUtility.getCurrentPrivateUser(userListener);
+        //userUtility.getCurrentPrivateUser(userListener);
+
     }
 
     private void setUserFriendsList(){
