@@ -1,7 +1,9 @@
 package com.example.c4q.capstone.userinterface.user.search;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -67,6 +69,7 @@ public class UserSearchActivity extends AppCompatActivity {
         searchResultsList = findViewById(R.id.search_users_rv);
         searchResultsList.setHasFixedSize(true);
         searchResultsList.setLayoutManager(linearLayoutManager);
+
 
         currentState = NOT_FRIENDS;
     }
@@ -152,6 +155,7 @@ public class UserSearchActivity extends AppCompatActivity {
             requestMap.put(FRIEND_REQUESTS + "/" + requestedID + "/" + currentUserID + "/" + REQUEST_TYPE, RECEIVED);
             requestMap.put(NOTIFICATIONS + "/" + requestedID + "/" + newNotificationId, notificationData);
 
+
             rootRef.updateChildren(requestMap, new DatabaseReference.CompletionListener() {
                 @Override
                 public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
@@ -159,8 +163,8 @@ public class UserSearchActivity extends AppCompatActivity {
                         Toast.makeText(UserSearchActivity.this, "There was some error in sending request", Toast.LENGTH_SHORT).show();
                     } else {
 
-                        addToFriendsList(currentUserID, requestedID,requestBtn);
-                        requestBtn.setText("Remove Friend");
+                        addToFriendsList(currentUserID, requestedID, requestBtn);
+                        requestBtn.setVisibility(View.INVISIBLE);
 
                         currentState = REQUEST_SENT;
                     }
@@ -168,27 +172,19 @@ public class UserSearchActivity extends AppCompatActivity {
             });
         }
 
-        /**
-         *cancels pending friend requests
-         */
 
         if (currentState.equals(REQUEST_SENT)) {
 
-            friendReqDatabase.child(currentUserID).child(requestedID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void v) {
 
-                    friendReqDatabase.child(requestedID).child(currentUserID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void v) {
-                            requestBtn.setText("Add Friend");
+//            friendReqDatabase.child(currentUserID).child(requestedID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                @Override
+//                public void onSuccess(Void v) {
+//                    requestBtn.setText("Add Friend");
+//
+//                    currentState = NOT_FRIENDS;
+//                }
+//            });
 
-                            currentState = NOT_FRIENDS;
-
-                        }
-                    });
-                }
-            });
         }
     }
 
@@ -196,7 +192,7 @@ public class UserSearchActivity extends AppCompatActivity {
         userFriendList.add(requestID);
         if (currentUserID != requestID) {
             friendsListDatabase.child(currentUserID).setValue(userFriendList);
-        } else{
+        } else {
             requestBtn.setEnabled(false);
         }
     }
