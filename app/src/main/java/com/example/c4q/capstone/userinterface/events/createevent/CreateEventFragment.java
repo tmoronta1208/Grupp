@@ -103,6 +103,8 @@ public class CreateEventFragment extends Fragment {
         createEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG,"event button clicked");
+
                 if (!eventPresenter.validateEvent()){
                     Log.d(TAG, "create event: event not valid");
                     //TODO alert user
@@ -189,6 +191,8 @@ public class CreateEventFragment extends Fragment {
     public void loadEventFragment() {
        Intent intent = new Intent(CreateEventFragment.this.getActivity(), EventActivity.class);
        intent.putExtra("eventID", eventID);
+       intent.putExtra("eventType", "new");
+
        startActivity(intent);
     }
 

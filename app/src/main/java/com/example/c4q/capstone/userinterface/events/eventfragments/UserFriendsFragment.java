@@ -14,6 +14,7 @@ import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.events.EventPresenter;
 import com.example.c4q.capstone.userinterface.events.eventsrecyclerviews.FriendsAdapter;
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller.ContactListAdapter;
 import com.example.c4q.capstone.utils.FBUserDataListener;
 import com.example.c4q.capstone.utils.FBUserDataUtility;
 import com.example.c4q.capstone.utils.FBUserFriendsListener;
@@ -28,6 +29,7 @@ public class UserFriendsFragment extends Fragment {
     View rootView;
     RecyclerView recyclerView;
     FriendsAdapter friendsAdapter;
+    ContactListAdapter contactListAdapter;
     LinearLayoutManager linearLayoutManager;
     List<PublicUser> friendsUserList = new ArrayList<>();
     FBUserDataUtility fbUserDataUtility = new FBUserDataUtility();
@@ -43,9 +45,10 @@ public class UserFriendsFragment extends Fragment {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_user_friends, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.friends_recycler_view);
-        friendsAdapter = new FriendsAdapter(friendsUserList);
+       // friendsAdapter = new FriendsAdapter(friendsUserList);
+        contactListAdapter = new ContactListAdapter(friendsUserList, getActivity() );
         linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-        recyclerView.setAdapter(friendsAdapter);
+        recyclerView.setAdapter(contactListAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);
         getFriendUsers();
         return rootView;
@@ -79,7 +82,7 @@ public class UserFriendsFragment extends Fragment {
                 @Override
                 public void getPublicUser(PublicUser publicUser) {
                     friendsUserList.add(publicUser);
-                    friendsAdapter.notifyDataSetChanged();
+                    contactListAdapter.notifyDataSetChanged();
                     Log.d("get public user", "friends name" + publicUser.getFirst_name());
                 }
             });

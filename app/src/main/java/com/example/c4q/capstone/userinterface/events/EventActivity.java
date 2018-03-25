@@ -23,6 +23,7 @@ public class EventActivity extends AppCompatActivity {
     SingleEventFragment singleEventFragment = new SingleEventFragment();
     Intent intent;
     String eventID;
+    String eventType;
 
 
     /**
@@ -48,8 +49,10 @@ public class EventActivity extends AppCompatActivity {
         setToolbar();
         intent = getIntent();
         eventID = intent.getStringExtra("eventID");
+        eventType = intent.getStringExtra("eventType");
         eventBundle = new Bundle();
         eventBundle.putString("eventID", eventID);
+        eventBundle.putString("eventType", eventType);
 
         setEventFragment();
     }

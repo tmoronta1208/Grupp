@@ -51,7 +51,6 @@
                    android:textSize="20sp"
                    android:layout_alignParentEnd="true"
                    android:layout_alignParentTop="true"
-                   android:layout_alignEnd="@id/image_pop_button"
                    android:layout_marginBottom="@dimen/layout_item_margin"/>
 
 
