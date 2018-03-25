@@ -1,9 +1,7 @@
 package com.example.c4q.capstone.userinterface.user.search;
 
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,17 +11,13 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.database.publicuserdata.FriendsList;
-import com.example.c4q.capstone.database.publicuserdata.UserSearch;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,7 +41,7 @@ public class UserSearchActivity extends AppCompatActivity {
     private LinearLayoutManager linearLayoutManager;
     private FirebaseUser currentUser;
     private List<String> userFriendList = new ArrayList<>();
-    private String currentState, currentUserID, currentUserEmail, requestedUserEmail;
+    private String currentState, currentUserID, currentUserEmail;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,7 +63,6 @@ public class UserSearchActivity extends AppCompatActivity {
         searchResultsList = findViewById(R.id.search_users_rv);
         searchResultsList.setHasFixedSize(true);
         searchResultsList.setLayoutManager(linearLayoutManager);
-
 
         currentState = NOT_FRIENDS;
     }
@@ -97,25 +90,6 @@ public class UserSearchActivity extends AppCompatActivity {
                         viewHolder.requestFriendBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
-                                /**
-                                 * need to fix logic. the email isn't showing up in
-                                 * the database on the first click
-                                 */
-
-                                rootRef.child(USER_SEARCH).child(requestFriend).addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        UserSearch userSearch = dataSnapshot.getValue(UserSearch.class);
-                                        requestedUserEmail = userSearch.getEmail();
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });
-
                                 sendRequest(requestFriend, viewHolder.requestFriendBtn);
                             }
                         });
@@ -146,7 +120,6 @@ public class UserSearchActivity extends AppCompatActivity {
             String newNotificationId = searchUserDatabase.getKey();
 
             HashMap<String, String> notificationData = new HashMap<>();
-            notificationData.put("to", requestedUserEmail);
             notificationData.put("from", currentUserEmail);
             notificationData.put("type", FRIEND_REQUESTS);
 
@@ -162,9 +135,8 @@ public class UserSearchActivity extends AppCompatActivity {
                     if (databaseError != null) {
                         Toast.makeText(UserSearchActivity.this, "There was some error in sending request", Toast.LENGTH_SHORT).show();
                     } else {
-
-                        addToFriendsList(currentUserID, requestedID, requestBtn);
-                        requestBtn.setVisibility(View.INVISIBLE);
+                        userFriendList.add(requestedID);
+                        friendsListDatabase.child(currentUserID).setValue(userFriendList);
 
                         currentState = REQUEST_SENT;
                     }
@@ -175,25 +147,16 @@ public class UserSearchActivity extends AppCompatActivity {
 
         if (currentState.equals(REQUEST_SENT)) {
 
+            friendReqDatabase.child(currentUserID).child(requestedID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void v) {
+                    requestBtn.setText("Add Friend");
 
-//            friendReqDatabase.child(currentUserID).child(requestedID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-//                @Override
-//                public void onSuccess(Void v) {
-//                    requestBtn.setText("Add Friend");
-//
-//                    currentState = NOT_FRIENDS;
-//                }
-//            });
+                    currentState = NOT_FRIENDS;
+                }
+            });
 
         }
     }
 
-    public void addToFriendsList(final String currentUserID, final String requestID, Button requestBtn) {
-        userFriendList.add(requestID);
-        if (currentUserID != requestID) {
-            friendsListDatabase.child(currentUserID).setValue(userFriendList);
-        } else {
-            requestBtn.setEnabled(false);
-        }
-    }
 }

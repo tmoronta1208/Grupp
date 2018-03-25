@@ -75,25 +75,32 @@ public class TempUserActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_PHOTO_PICKER) {
+
             final Uri uri = data.getData();
+
             UserIcon test = new UserIcon("hello");
+
             FirebaseDatabase.getInstance().getReference().child(USER_ICON).child(currentUserId).setValue(test, new DatabaseReference.CompletionListener() {
                 @Override
                 public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                     if (databaseError == null) {
+
                         String key = databaseReference.getKey();
+
                         StorageReference storage = FirebaseStorage.getInstance()
                                 .getReference(USER_ICON)
                                 .child(currentUserId)
                                 .child(key)
                                 .child(uri.getLastPathSegment());
+
                         storage.putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                                 if (task.isSuccessful()) {
-                                    UserIcon test = new UserIcon(task.getResult().getMetadata().getDownloadUrl().toString());
-                                    FirebaseDatabase.getInstance().getReference().child(USER_ICON).child(currentUserId).setValue(test);
 
+                                    UserIcon test = new UserIcon(task.getResult().getMetadata().getDownloadUrl().toString());
+
+                                    FirebaseDatabase.getInstance().getReference().child(USER_ICON).child(currentUserId).setValue(test);
                                 }
                             }
                         });
@@ -101,7 +108,6 @@ public class TempUserActivity extends AppCompatActivity {
                 }
             });
         }
-
     }
 
     private void uploadImage() {
@@ -118,6 +124,7 @@ public class TempUserActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 UserIcon userIcon = dataSnapshot.getValue(UserIcon.class);
                 try {
+
                     String userIconUrl = userIcon.getIcon_url();
                     Glide.with(TempUserActivity.this).load(userIconUrl).into(profilePic);
 
