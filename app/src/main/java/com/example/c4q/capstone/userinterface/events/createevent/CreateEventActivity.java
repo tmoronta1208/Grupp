@@ -16,7 +16,8 @@ import com.example.c4q.capstone.R;
 public class CreateEventActivity extends AppCompatActivity {
     public ViewPager vpPager;
     FragmentPagerAdapter adapterViewPager;
-    CreateEventModel createEventModel = new CreateEventModel();
+    CreateEventPTSingleton eventSingleton = CreateEventPTSingleton.getNewInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +28,9 @@ public class CreateEventActivity extends AppCompatActivity {
         vpPager.setAdapter(adapterViewPager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.create_event_tab_layout);
         tabLayout.setupWithViewPager(vpPager);
+
+        eventSingleton.setNewEvent(false);
+        eventSingleton.setInProgress(true);
     }
 
     public void venueTypeButtonClick(View view) {
@@ -37,14 +41,14 @@ public class CreateEventActivity extends AppCompatActivity {
             view.setBackgroundColor(getResources().getColor(R.color.colorAccent));
         }
         if (view.getId() == R.id.bar_choice_button) {
-            createEventModel.setEventVenueType("bar");
+            //createEventModel.setEventVenueType("bar");
             view.setBackgroundColor(getResources().getColor(R.color.colorAccent));
             view.setTag("selected");
             otherView = view.getRootView().findViewById(R.id.restaurant_choice_button);
             otherView.setTag("unselected");
             otherView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         } else if (view.getId() == R.id.restaurant_choice_button) {
-            createEventModel.setEventVenueType("restaurant");
+            //createEventModel.setEventVenueType("restaurant");
             view.setBackgroundColor(getResources().getColor(R.color.colorAccent));
             view.setTag("selected");
             otherView = view.getRootView().findViewById(R.id.bar_choice_button);
