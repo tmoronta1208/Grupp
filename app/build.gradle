@@ -58,6 +58,13 @@ dependencies {
     implementation 'com.android.support:cardview-v7:26.1.0'
     implementation 'com.aurelhubert:ahbottomnavigation:2.0.4'
 
+    //stickyswitch
+    implementation 'com.github.GwonHyeok:StickySwitch:0.0.15'
+
+    //wasabeef FAB design
+    implementation 'com.getbase:floatingactionbutton:1.10.1'
+    implementation 'com.melnykov:floatingactionbutton:1.3.0'
+
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
