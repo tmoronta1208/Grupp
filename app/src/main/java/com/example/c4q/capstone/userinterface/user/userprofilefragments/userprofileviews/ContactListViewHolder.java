@@ -23,8 +23,6 @@ public class ContactListViewHolder extends RecyclerView.ViewHolder {
         name = itemView.findViewById(R.id.name_contactlist);
         email = itemView.findViewById(R.id.email_contactlist);
 
-
-
     }
 
     public void onBind(PublicUser user) {
