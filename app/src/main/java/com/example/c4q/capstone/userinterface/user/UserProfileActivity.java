@@ -4,12 +4,6 @@ package com.example.c4q.capstone.userinterface.user;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.SupportActivity;
 
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -20,8 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+
 
 import com.example.c4q.capstone.LoginActivity;
 import com.example.c4q.capstone.R;
@@ -29,16 +22,13 @@ import com.example.c4q.capstone.TempUserActivity;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.events.createevent.CreateEventActivity;
 import com.example.c4q.capstone.userinterface.user.search.UserSearchActivity;
-import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPEventsFragment;
-import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPGroupFragment;
+
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.fragmentanimation.ScreenSlidePagerAdapter;
 import com.firebase.ui.auth.AuthUI;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
 
-import org.jetbrains.annotations.NotNull;
-
-import de.hdodenhof.circleimageview.CircleImageView;
-import io.ghyeok.stickyswitch.widget.StickySwitch;
 
 
 public class UserProfileActivity extends AppCompatActivity {
@@ -46,7 +36,9 @@ public class UserProfileActivity extends AppCompatActivity {
 
 
     private Toolbar toolbar;
-    private FloatingActionButton floatingActionButton;
+//    private FloatingActionButton floatingActionButton;
+    private FloatingActionMenu floatingActionMenu;
+    private FloatingActionButton creatEvent, addPerson;
     private Context context;
     private Activity activity;
 
@@ -72,17 +64,35 @@ public class UserProfileActivity extends AppCompatActivity {
         context = this;
         activity = this;
 
-
-
-
-
-        floatingActionButton = findViewById(R.id.floatingactionb);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        floatingActionMenu = findViewById(R.id.floatingaction_menu);
+        creatEvent = findViewById(R.id.create_event_mini);
+        creatEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(UserProfileActivity.this, CreateEventActivity.class));
             }
         });
+        addPerson = findViewById(R.id.add_group_mini);
+        addPerson.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserProfileActivity.this, AddPersonActivity.class));
+
+            }
+        });
+
+
+
+
+
+
+//        floatingActionButton = findViewById(R.id.floatingactionb);
+//        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(UserProfileActivity.this, CreateEventActivity.class));
+//            }
+//        });
 
 
 

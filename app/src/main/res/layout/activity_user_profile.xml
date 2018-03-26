@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><!-- Use DrawerLayout as root container for activity -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
@@ -10,6 +11,10 @@
     tools:context="com.example.c4q.capstone.userinterface.user.UserProfileActivity">
 
     <!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -19,26 +24,62 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
 
-
-        <android.support.v4.view.ViewPager
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/pager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"/>
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floatingactionb"
-            android:layout_gravity="bottom|center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:src="@drawable/ic_plus_sign_24dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-
-
+    <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2" />
 
 </LinearLayout>
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/floatingactionb"-->
+    <!--android:layout_gravity="bottom|center"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:layout_marginBottom="10dp"-->
+    <!--android:src="@drawable/ic_plus_sign_24dp"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content" />-->
+
+
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/floatingaction_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            app:menu_backgroundColor="@color/floatingmenucolor"
+            app:menu_labels_textColor="@color/fabuttoncolor"
+            app:menu_labels_colorNormal="@android:color/white"
+            app:menu_colorNormal="@color/fabuttoncolor"
+            app:menu_colorPressed="@color/floatingmenucolor"
+            app:menu_shadowColor="@android:color/transparent"
+            app:menu_openDirection="up">
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/create_event_mini"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/eventicon"
+                app:fab_colorNormal="@color/light_salmon"
+                app:fab_label="create event"
+                app:fab_size="mini" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/add_group_mini"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="@color/light_salmon"
+                android:src="@drawable/addgroup"
+                app:fab_label="add group"
+                app:fab_size="mini" />
+
+        </com.github.clans.fab.FloatingActionMenu>
+
+
+
+
+
+</FrameLayout>
 
 
     <!-- Container for contents of drawer - use NavigationView to make configuration easier -->

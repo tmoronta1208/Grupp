@@ -17,7 +17,7 @@
         app:ss_animationType="line"
         app:ss_iconPadding="14dp"
         app:ss_iconSize="19dp"
-        app:ss_leftIcon="@drawable/ic_event_available_black_24dp"
+        app:ss_leftIcon="@drawable/eventwithacheck"
         app:ss_leftText="Events"
         app:ss_rightIcon="@drawable/ic_group_black_24dp"
         app:ss_rightText="Groups"
