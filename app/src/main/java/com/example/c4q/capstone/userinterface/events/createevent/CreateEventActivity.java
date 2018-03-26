@@ -12,6 +12,10 @@ import android.widget.EditText;
 import com.ToxicBakery.viewpager.transforms.FlipVerticalTransformer;
 import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.userinterface.CurrentUserPost;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CreateEventActivity extends AppCompatActivity {
     public ViewPager vpPager;

@@ -27,6 +27,7 @@ public class CurrentUserPostUtility {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference firebaseDatabase;
     private DatabaseReference userEventsReference;
+    private DatabaseReference preferencesReference;
     private DatabaseReference eventsReference;
     CurrentUser currentUser = CurrentUser.getInstance();
     private static final String TAG = "PostUtility";
@@ -36,6 +37,7 @@ public class CurrentUserPostUtility {
         firebaseDatabase = mFirebaseDatabase.getReference();
         userEventsReference = firebaseDatabase.child("user_events");
         eventsReference = firebaseDatabase.child(EVENTS);
+        preferencesReference = firebaseDatabase.child(PUBLIC_USER).child(CurrentUser.getInstance().getUserID());
     }
 
     public String getNewEventKey(){
@@ -85,5 +87,15 @@ public class CurrentUserPostUtility {
         firebaseDatabase.child(PUBLIC_USER).addValueEventListener(userListener);
     }
 
+    public void updateBarPrefs(List<String> barPrefs){
+        Map<String, Object> userPrefs = new HashMap<>();
+        userPrefs.put("bar_preferences", barPrefs);
+        preferencesReference.updateChildren(userPrefs);
+    }
 
+    public void updateResPrefs(List<String> resPrefs){
+        Map<String, Object> userPrefs = new HashMap<>();
+        userPrefs.put("restaurant_preferences", resPrefs);
+        preferencesReference.updateChildren(userPrefs);
+    }
 }
