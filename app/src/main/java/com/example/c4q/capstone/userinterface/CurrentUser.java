@@ -20,7 +20,6 @@ public class CurrentUser {
     private CurrentUserListener userListener;
     private CurrentUserUtility userUtility   = new CurrentUserUtility();
 
-
     private  String userID;
     private  String userFullName;
     private  PrivateUser currentPrivateUser;
@@ -35,13 +34,10 @@ public class CurrentUser {
     private boolean userHasPublicProfile;
     private boolean userHasPrivateProfile;
 
-
-
     private CurrentUser(){
         Log.d(TAG, "constructor called");
         setUserListener();
         setUtility();
-
     }
 
     private void setUtility(){
@@ -148,7 +144,6 @@ public class CurrentUser {
                     userFullName = currentPrivateUser.getFirst_name() + " " + currentPrivateUser.getLast_name();
                     Log.d(TAG, "user full name: " + userFullName);
                 }
-
             }
 
             @Override
@@ -174,7 +169,6 @@ public class CurrentUser {
                 if (userHasFriends){
                     setUserFriendsList();
                 }
-
             }
 
             @Override
@@ -184,7 +178,6 @@ public class CurrentUser {
                 if(userHasEvents){
                     setUserEventsList();
                 }
-
             }
 
             @Override

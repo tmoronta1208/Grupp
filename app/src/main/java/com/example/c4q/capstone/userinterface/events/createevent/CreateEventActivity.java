@@ -38,21 +38,20 @@ public class CreateEventActivity extends AppCompatActivity {
             view.setBackgroundColor(getResources().getColor(R.color.colorAccent));
         }
         if (view.getId() == R.id.bar_choice_button) {
-            //createEventModel.setEventVenueType("bar");
+            eventSingleton.setEventVenueType("bar");
             view.setBackgroundColor(getResources().getColor(R.color.colorAccent));
             view.setTag("selected");
             otherView = view.getRootView().findViewById(R.id.restaurant_choice_button);
             otherView.setTag("unselected");
             otherView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         } else if (view.getId() == R.id.restaurant_choice_button) {
-            //createEventModel.setEventVenueType("restaurant");
+            eventSingleton.setEventVenueType("restaurant");
             view.setBackgroundColor(getResources().getColor(R.color.colorAccent));
             view.setTag("selected");
             otherView = view.getRootView().findViewById(R.id.bar_choice_button);
             otherView.setTag("unselected");
             otherView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         }
-
         vpPager.setCurrentItem(vpPager.getCurrentItem() + 1);
     }
 

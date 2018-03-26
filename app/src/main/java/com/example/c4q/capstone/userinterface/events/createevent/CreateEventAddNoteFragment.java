@@ -30,8 +30,6 @@ public class CreateEventAddNoteFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //title = getArguments().getString("title");
-        //CurrentUser.getInstance().
     }
 
 

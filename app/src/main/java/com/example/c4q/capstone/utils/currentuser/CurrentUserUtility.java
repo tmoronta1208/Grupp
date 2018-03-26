@@ -32,14 +32,12 @@ import static com.example.c4q.capstone.utils.Constants.USER_FRIENDS;
 public class CurrentUserUtility {
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth mAuth;
-
     private DatabaseReference firebaseDatabase;
     private DatabaseReference publicUserReference;
     private DatabaseReference privateUserReference;
     private DatabaseReference userFriendsReference;
     private DatabaseReference userEventsReference;
     private DatabaseReference eventsReference;
-
     private static FirebaseUser currentUser;
 
     public String currentUserID;
@@ -48,9 +46,6 @@ public class CurrentUserUtility {
     public boolean userHasEvents;
     public boolean userHasPrivateProfile;
     public boolean userHasPublicProfile;
-
-    //FriendsList friendIds;
-
     private List<String> userEventIDs = new ArrayList<>();
     private List<Events> userEventsList = new ArrayList<>();
     private List<String> userFriendIds = new ArrayList<>();
@@ -59,9 +54,7 @@ public class CurrentUserUtility {
     private static final String TAG = "CURRENT USER UTILITY: ";
     CurrentUserListener currentUserListener;
 
-
     public CurrentUserUtility() {
-
         Log.d(TAG, "constructor called");
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -71,8 +64,6 @@ public class CurrentUserUtility {
         userFriendsReference = firebaseDatabase.child(USER_FRIENDS);
         userEventsReference = firebaseDatabase.child("user_events");
         eventsReference = firebaseDatabase.child(EVENTS);
-
-
     }
 
     public void setListener(CurrentUserListener currentUserListener){
@@ -245,7 +236,6 @@ public class CurrentUserUtility {
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
     }
@@ -276,7 +266,6 @@ public class CurrentUserUtility {
                 Log.d(TAG, "getCurrentUserEventIds: user has events: " + userHasEvents);
                 currentUserListener.userHasEvents(userHasEvents);
                 currentUserListener.getUserEventIDs(userEventIDs);
-
             }
 
             @Override
@@ -296,7 +285,6 @@ public class CurrentUserUtility {
                         Log.d(TAG, "getCurrentUserEventIds: user has no events ");
                     }
                 }
-
             }
 
             @Override
@@ -336,7 +324,6 @@ public class CurrentUserUtility {
                     Log.d(TAG, "get current user events called :" + userEventsList.size());
                     listener.getUserEvents(userEventsList);
                 }
-
             }
 
             @Override

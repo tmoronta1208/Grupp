@@ -37,14 +37,9 @@ public class CreateEventAddNameFragment extends Fragment {
     DatePicker datePicker;
     Button closeButton, createEventButton;
     EditTextUX editTextUX;
-
     CreateEventPresenter eventPresenter;
-    private  CreateEventPTSingleton createEventPTSingleton;
-
-
+    private CreateEventPTSingleton createEventPTSingleton;
     String eventID;
-
-
 
     public CreateEventAddNameFragment() {
         // Required empty public constructor
@@ -79,7 +74,7 @@ public class CreateEventAddNameFragment extends Fragment {
         return rootView;
     }
 
-    public void loadeEventSingleton(CreateEventPTSingleton eventPTSingleton){
+    public void loadeEventSingleton(CreateEventPTSingleton eventPTSingleton) {
         createEventPTSingleton = eventPTSingleton;
         eventPresenter = new CreateEventPresenter(createEventPTSingleton);
     }
@@ -100,23 +95,22 @@ public class CreateEventAddNameFragment extends Fragment {
 
     }
 
-    public void setCreateeventButton(){
+    public void setCreateeventButton() {
         createEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG,"event button clicked");
+                Log.d(TAG, "event button clicked");
 
-                if (!eventPresenter.validateEvent()){
+                if (!eventPresenter.validateEvent()) {
                     Log.d(TAG, "create event: event not valid");
                     //TODO alert user
-                } else{
+                } else {
                     eventPresenter.sendEventToFB(new EventFragmentListener() {
                         @Override
                         public void swapFragments() {
-                            Log.d(TAG,"Swap fragments called");
+                            Log.d(TAG, "Swap fragments called");
                             loadEventFragment();
                         }
-
                         @Override
                         public void getEventIdKEy(String key) {
                             eventID = key;
@@ -130,7 +124,7 @@ public class CreateEventAddNameFragment extends Fragment {
         });
     }
 
-    public void setDatTimeClick(){
+    public void setDatTimeClick() {
         addTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,7 +143,7 @@ public class CreateEventAddNameFragment extends Fragment {
 
     }
 
-    public void setCloseButton(){
+    public void setCloseButton() {
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,34 +161,19 @@ public class CreateEventAddNameFragment extends Fragment {
             }
         });
     }
-    public void setEnterNameEditText(){
-        editTextUX = new EditTextUX(eventName, eventPresenter,CreateEventAddNameFragment.this.getActivity(), rootView, "eventName");
 
-    }
+    public void setEnterNameEditText() {
+        editTextUX = new EditTextUX(eventName, eventPresenter, CreateEventAddNameFragment.this.getActivity(), rootView, "eventName");
 
-    /*method to hide soft keyboard -AJ*/
-    public static void hideSoftKeyboard(Activity activity) {
-        try {
-            if (activity != null) {
-                InputMethodManager inputMethodManager =
-                        (InputMethodManager) activity.getSystemService(
-                                Activity.INPUT_METHOD_SERVICE);
-                inputMethodManager.hideSoftInputFromWindow(
-                        activity.getCurrentFocus().getWindowToken(), 0);
-            }
-
-        } catch (NullPointerException n) {
-            n.printStackTrace();
-        }
     }
 
     public void loadEventFragment() {
-       Intent intent = new Intent(CreateEventAddNameFragment.this.getActivity(), EventActivity.class);
-       intent.putExtra("eventID", eventID);
-       intent.putExtra("eventType", "new");
-       startActivity(intent);
-       createEventPTSingleton.destroyInstance();
-       getActivity().finish();
+        Intent intent = new Intent(CreateEventAddNameFragment.this.getActivity(), EventActivity.class);
+        intent.putExtra("eventID", eventID);
+        intent.putExtra("eventType", "new");
+        startActivity(intent);
+        createEventPTSingleton.destroyInstance();
+        getActivity().finish();
     }
 
 }

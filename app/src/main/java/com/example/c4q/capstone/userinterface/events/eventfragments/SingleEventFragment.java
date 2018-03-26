@@ -65,8 +65,6 @@ public class SingleEventFragment extends Fragment {
         setVoteClick();
         showHideMore();
 
-
-
         return rootView;
     }
 

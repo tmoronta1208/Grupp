@@ -25,14 +25,10 @@ public class CreateEventPTSingleton {
     private boolean newEvent;
     private boolean inProgress;
 
-
-
     private CreateEventPTSingleton(){
 
 
     }
-
-
 
     public static CreateEventPTSingleton getNewInstance(){
         Log.d(TAG, "getNewInstance: new instance called");
@@ -41,7 +37,6 @@ public class CreateEventPTSingleton {
         createEventPTSingleton.setInProgress(true);
         return createEventPTSingleton;
     }
-
     public static CreateEventPTSingleton getInstance(){
         Log.d(TAG, "getInstance: new instance called");
         if(createEventPTSingleton != null){

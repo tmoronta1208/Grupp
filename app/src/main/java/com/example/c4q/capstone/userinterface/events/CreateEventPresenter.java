@@ -57,34 +57,6 @@ public class CreateEventPresenter {
         listener.getEventIdKEy(key);
     }
 
-    public void getDummyUserKeys(){
-
-        /*ValueEventListener userListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                dummyUsers = new ArrayList<>();
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String dummyKey = ds.getKey();
-                    dummyUsers.add(dummyKey);
-                }
-                newEvent.setInvited_guests(dummyUsers);
-                Log.d(TAG, "create event: set value: " + newEvent.getEvent_name());
-                Log.d(TAG, "dummy user list" + dummyUsers.size());
-                //myRef.child("events").child(key).setValue(newEvent);
-                Log.d(TAG, "final dummy user list" + dummyUsers.size());
-                //fbUserDataUtility.addUserFriends(dummyUsers);//<-- add dummy friends
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                // ...
-            }
-        };
-        //myRef.child(PUBLIC_USER).addValueEventListener(userListener);*/
-    }
-
     public void setEventName(String eventName){
         createEventPTSingleton.setEventName(eventName);
         Log.d(TAG, "event name : " + eventName);
@@ -126,10 +98,6 @@ public class CreateEventPresenter {
 
     public void setEventGuests(List<String> invitedGuests){
         createEventPTSingleton.setInvitedGuests(invitedGuests);
-       /* newEvent.setInvited_guests(invitedGuests);
-        if(invitedGuests.size() == 0){
-            eventGuestsSet = false;
-        }*/
         eventGuestsSet = true;
     }
 
@@ -155,7 +123,6 @@ public class CreateEventPresenter {
         newEvent.setEvent_note(createEventPTSingleton.getEventNote());
         newEvent.setEvent_time(createEventPTSingleton.getEventTime());
         newEvent.setEvent_date(createEventPTSingleton.getEventDate());
-
         newEvent.setEvent_organizer(currentUser.getUserID());
         Log.d(TAG, "create event: userId" + currentUser.getUserID());
     }

@@ -3,7 +3,14 @@ package com.example.c4q.capstone.userinterface;
 import android.util.Log;
 
 import com.example.c4q.capstone.database.events.Events;
+import com.example.c4q.capstone.utils.FBUserDataUtility;
 import com.example.c4q.capstone.utils.currentuser.CurrentUserPostUtility;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by amirahoxendine on 3/26/18.
@@ -35,4 +42,6 @@ public class CurrentUserPost {
         userPostUtility.addEventToUserEvents(newEventKey);
         return newEventKey;
     }
+
+
 }

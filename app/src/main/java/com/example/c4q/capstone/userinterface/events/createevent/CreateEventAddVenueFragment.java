@@ -38,7 +38,6 @@ public class CreateEventAddVenueFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //CurrentUser.getInstance().
     }
 
 
