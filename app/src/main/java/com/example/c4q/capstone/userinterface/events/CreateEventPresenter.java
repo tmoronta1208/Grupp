@@ -26,7 +26,7 @@ import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 
 /**
  * Created by amirahoxendine on 3/19/18.
- * This is a class to handle data input for CreateEventFragment
+ * This is a class to handle data input for CreateEventAddNameFragment
  */
 
 public class CreateEventPresenter {

@@ -24,7 +24,7 @@ public class CreateEventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_event);
 
         vpPager = (ViewPager) findViewById(R.id.vpPager);
-        adapterViewPager = new CreateEventPagerAdapter(getSupportFragmentManager());
+        adapterViewPager = new CreateEventPagerAdapter(getSupportFragmentManager(), eventSingleton);
         vpPager.setAdapter(adapterViewPager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.create_event_tab_layout);
         tabLayout.setupWithViewPager(vpPager);

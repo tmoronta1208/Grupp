@@ -6,12 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -30,7 +28,7 @@ import com.example.c4q.capstone.userinterface.events.createevent.createeventux.E
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CreateEventFragment extends Fragment {
+public class CreateEventAddNameFragment extends Fragment {
     View rootView;
     private static String TAG = "CREATE_EVENT_FRAG: ";
     EditText eventName;
@@ -47,12 +45,12 @@ public class CreateEventFragment extends Fragment {
     String title;
 
 
-    public CreateEventFragment() {
+    public CreateEventAddNameFragment() {
         // Required empty public constructor
     }
 
-    public static CreateEventFragment newInstance(String title) {
-        CreateEventFragment fragment = new CreateEventFragment();
+    public static CreateEventAddNameFragment newInstance(String title) {
+        CreateEventAddNameFragment fragment = new CreateEventAddNameFragment();
         Bundle args = new Bundle();
         args.putString("title", title);
         fragment.setArguments(args);
@@ -69,7 +67,7 @@ public class CreateEventFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootView = inflater.inflate(R.layout.fragment_create_event, container, false);
+        rootView = inflater.inflate(R.layout.fragment_create_event_add_name_date, container, false);
         rootView.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 return true;
@@ -167,7 +165,7 @@ public class CreateEventFragment extends Fragment {
         });
     }
     public void setEnterNameEditText(){
-        editTextUX = new EditTextUX(eventName, eventPresenter,CreateEventFragment.this.getActivity(), rootView, "eventName");
+        editTextUX = new EditTextUX(eventName, eventPresenter,CreateEventAddNameFragment.this.getActivity(), rootView, "eventName");
 
     }
 
@@ -189,7 +187,7 @@ public class CreateEventFragment extends Fragment {
 
 
     public void loadEventFragment() {
-       Intent intent = new Intent(CreateEventFragment.this.getActivity(), EventActivity.class);
+       Intent intent = new Intent(CreateEventAddNameFragment.this.getActivity(), EventActivity.class);
        intent.putExtra("eventID", eventID);
        intent.putExtra("eventType", "new");
 

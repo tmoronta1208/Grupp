@@ -15,7 +15,7 @@ import com.example.c4q.capstone.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CreateEventTwoFragment extends Fragment {
+public class CreateEventInviteFragment extends Fragment {
     private String title;
     private int imageMain;
     private int imageSecondary;
@@ -25,12 +25,12 @@ public class CreateEventTwoFragment extends Fragment {
     FrameLayout inviteGuestsContainer;
 
 
-    public CreateEventTwoFragment() {
+    public CreateEventInviteFragment() {
         // Required empty public constructor
     }
 
-    public static CreateEventTwoFragment newInstance(String title) {
-        CreateEventTwoFragment fragment = new CreateEventTwoFragment();
+    public static CreateEventInviteFragment newInstance(String title) {
+        CreateEventInviteFragment fragment = new CreateEventInviteFragment();
         Bundle args = new Bundle();
         args.putString("title", title);
         fragment.setArguments(args);
@@ -50,7 +50,7 @@ public class CreateEventTwoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-      rootView = inflater.inflate(R.layout.fragment_create_event_two, container, false);
+      rootView = inflater.inflate(R.layout.fragment_create_event_invite, container, false);
         addNote = (EditText) rootView.findViewById(R.id.add_note);
         addFriendsButton = (Button) rootView.findViewById(R.id.add_friends_button);
         addGroupButton = (Button) rootView.findViewById(R.id.add_group_button);

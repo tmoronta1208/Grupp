@@ -11,12 +11,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.userinterface.CurrentUser;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CreateEventOneFragment extends Fragment {
+public class CreateEventAddVenueFragment extends Fragment {
     private String title;
     View rootView;
     Button barButton, restaurantButton;
@@ -24,12 +23,12 @@ public class CreateEventOneFragment extends Fragment {
     ViewPager viewPager;
 
 
-    public CreateEventOneFragment() {
+    public CreateEventAddVenueFragment() {
         // Required empty public constructor
     }
 
-    public static CreateEventOneFragment newInstance(String title) {
-        CreateEventOneFragment fragment = new CreateEventOneFragment();
+    public static CreateEventAddVenueFragment newInstance(String title) {
+        CreateEventAddVenueFragment fragment = new CreateEventAddVenueFragment();
         Bundle args = new Bundle();
         args.putString("title", title);
         fragment.setArguments(args);
@@ -49,7 +48,7 @@ public class CreateEventOneFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootView = inflater.inflate(R.layout.fragment_create_event_one, container, false);
+        rootView = inflater.inflate(R.layout.fragment_create_event_add_venue, container, false);
 
 
 

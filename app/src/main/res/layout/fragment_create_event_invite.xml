@@ -4,7 +4,7 @@ xmlns:tools="http://schemas.android.com/tools"
 android:orientation="vertical"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context="com.example.c4q.capstone.userinterface.events.createevent.CreateEventTwoFragment">
+tools:context="com.example.c4q.capstone.userinterface.events.createevent.CreateEventInviteFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
