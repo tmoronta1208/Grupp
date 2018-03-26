@@ -39,28 +39,26 @@ public class CreateEventAddNameFragment extends Fragment {
     EditTextUX editTextUX;
 
     CreateEventPresenter eventPresenter;
+    private  CreateEventPTSingleton createEventPTSingleton;
 
 
     String eventID;
-    String title;
+
 
 
     public CreateEventAddNameFragment() {
         // Required empty public constructor
     }
 
-    public static CreateEventAddNameFragment newInstance(String title) {
+    public static CreateEventAddNameFragment newInstance(CreateEventPTSingleton eventPTSingleton) {
         CreateEventAddNameFragment fragment = new CreateEventAddNameFragment();
-        Bundle args = new Bundle();
-        args.putString("title", title);
-        fragment.setArguments(args);
+        fragment.loadeEventSingleton(eventPTSingleton);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        title = getArguments().getString("title");
     }
 
     @Override
@@ -81,6 +79,11 @@ public class CreateEventAddNameFragment extends Fragment {
         return rootView;
     }
 
+    public void loadeEventSingleton(CreateEventPTSingleton eventPTSingleton){
+        createEventPTSingleton = eventPTSingleton;
+        eventPresenter = new CreateEventPresenter(createEventPTSingleton);
+    }
+
     /**
      * Load views _ AJ
      */
@@ -94,7 +97,7 @@ public class CreateEventAddNameFragment extends Fragment {
         closeButton = (Button) rootView.findViewById(R.id.close_button);
         createEventButton = (Button) rootView.findViewById(R.id.create_event_button);
         eventName = (EditText) rootView.findViewById(R.id.event_name_edit_text);
-        eventPresenter = new CreateEventPresenter();
+
     }
 
     public void setCreateeventButton(){
@@ -185,13 +188,13 @@ public class CreateEventAddNameFragment extends Fragment {
         }
     }
 
-
     public void loadEventFragment() {
        Intent intent = new Intent(CreateEventAddNameFragment.this.getActivity(), EventActivity.class);
        intent.putExtra("eventID", eventID);
        intent.putExtra("eventType", "new");
-
        startActivity(intent);
+       createEventPTSingleton.destroyInstance();
+       getActivity().finish();
     }
 
 }

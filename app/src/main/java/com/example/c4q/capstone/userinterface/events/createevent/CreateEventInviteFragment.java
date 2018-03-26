@@ -11,29 +11,28 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.userinterface.events.CreateEventPresenter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class CreateEventInviteFragment extends Fragment {
-    private String title;
-    private int imageMain;
-    private int imageSecondary;
+
     View rootView;
     Button addFriendsButton, addGroupButton;
     EditText addNote;
     FrameLayout inviteGuestsContainer;
+    private CreateEventPTSingleton createEventPTSingleton;
+    CreateEventPresenter eventPresenter;
 
 
     public CreateEventInviteFragment() {
         // Required empty public constructor
     }
 
-    public static CreateEventInviteFragment newInstance(String title) {
+    public static CreateEventInviteFragment newInstance(CreateEventPTSingleton eventPTSingleton) {
         CreateEventInviteFragment fragment = new CreateEventInviteFragment();
-        Bundle args = new Bundle();
-        args.putString("title", title);
-        fragment.setArguments(args);
+        fragment.loadEventSingleton(eventPTSingleton);
         return fragment;
     }
 
@@ -43,8 +42,6 @@ public class CreateEventInviteFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        title = getArguments().getString("title");
     }
 
     @Override
@@ -58,6 +55,11 @@ public class CreateEventInviteFragment extends Fragment {
         //expandUX = new ExpandUX(inviteGuestsContainer, addFriendsButton, addGroupButton);
 
         return rootView;
+    }
+
+    public void loadEventSingleton(CreateEventPTSingleton eventPTSingleton){
+        createEventPTSingleton = eventPTSingleton;
+        eventPresenter = new CreateEventPresenter(createEventPTSingleton);
     }
 
 }

@@ -11,34 +11,33 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.userinterface.events.CreateEventPresenter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class CreateEventAddVenueFragment extends Fragment {
-    private String title;
+
     View rootView;
     Button barButton, restaurantButton;
-    CreateEventModel createEventModel;
-    ViewPager viewPager;
+    CreateEventPTSingleton createEventPTSingleton;
+    CreateEventPresenter eventPresenter;
+
 
 
     public CreateEventAddVenueFragment() {
         // Required empty public constructor
     }
 
-    public static CreateEventAddVenueFragment newInstance(String title) {
+    public static CreateEventAddVenueFragment newInstance(CreateEventPTSingleton createEventPTSingleton) {
         CreateEventAddVenueFragment fragment = new CreateEventAddVenueFragment();
-        Bundle args = new Bundle();
-        args.putString("title", title);
-        fragment.setArguments(args);
+        fragment.loadEventSingleton(createEventPTSingleton);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        title = getArguments().getString("title");
         //CurrentUser.getInstance().
     }
 
@@ -49,16 +48,16 @@ public class CreateEventAddVenueFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_create_event_add_venue, container, false);
-
-
-
-
-
         barButton = (Button) rootView.findViewById(R.id.bar_choice_button);
         restaurantButton = (Button) rootView.findViewById(R.id.restaurant_choice_button);
 
 
         return rootView;
+    }
+
+    public void loadEventSingleton(CreateEventPTSingleton eventPTSingleton){
+        createEventPTSingleton = eventPTSingleton;
+        eventPresenter = new CreateEventPresenter(createEventPTSingleton);
     }
 
     @Override
@@ -74,9 +73,9 @@ public class CreateEventAddVenueFragment extends Fragment {
             @Override
             public void onClick(View v) {
             if (v.getTag().toString().equals("bar")) {
-                createEventModel.setEventVenueType("bar");
+                createEventPTSingleton.setEventVenueType("bar");
             } else {
-                createEventModel.setEventVenueType("restaurant");
+                createEventPTSingleton.setEventVenueType("restaurant");
             }
             v.setBackgroundColor(getResources().getColor(R.color.colorAccent));
             }

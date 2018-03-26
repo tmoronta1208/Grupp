@@ -2,6 +2,7 @@ package com.example.c4q.capstone.userinterface.events.createevent;
 
 import android.util.Log;
 
+import com.example.c4q.capstone.network.foursquare.foursquaremodel.Venues;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 
 import java.util.List;
@@ -15,11 +16,14 @@ public class CreateEventPTSingleton {
     private static final String TAG = "CreateEventPTSingleton";
     private String eventName;
     private String eventDate;
-    private String eventOrganizer;
+    private String eventTime;
     private String eventNote;
+    private String eventVenueType;
+    private String eventID;
     private List<String> invitedGuests;
-    public boolean newEvent;
-    boolean inProgress;
+    private List<Venues> venueVoteList;
+    private boolean newEvent;
+    private boolean inProgress;
 
 
 
@@ -33,17 +37,56 @@ public class CreateEventPTSingleton {
     public static CreateEventPTSingleton getNewInstance(){
         Log.d(TAG, "getNewInstance: new instance called");
         createEventPTSingleton = new CreateEventPTSingleton();
-
         createEventPTSingleton.setNewEvent(true);
         createEventPTSingleton.setInProgress(true);
-
         return createEventPTSingleton;
     }
 
     public static CreateEventPTSingleton getInstance(){
         Log.d(TAG, "getInstance: new instance called");
-
+        if(createEventPTSingleton != null){
+            createEventPTSingleton.setNewEvent(false);
+            createEventPTSingleton.setInProgress(true);
+        } else {
+            getNewInstance();
+        }
         return createEventPTSingleton;
+    }
+
+    public void destroyInstance(){
+        createEventPTSingleton = null;
+    }
+
+    public String getEventTime() {
+        return eventTime;
+    }
+
+    public void setEventTime(String eventTime) {
+        this.eventTime = eventTime;
+    }
+
+    public List<Venues> getVenueVoteList() {
+        return venueVoteList;
+    }
+
+    public void setVenueVoteList(List<Venues> venueVoteList) {
+        this.venueVoteList = venueVoteList;
+    }
+
+    public String getEventVenueType() {
+        return eventVenueType;
+    }
+
+    public void setEventVenueType(String eventVenueType) {
+        this.eventVenueType = eventVenueType;
+    }
+
+    public String getEventID() {
+        return eventID;
+    }
+
+    public void setEventID(String eventID) {
+        this.eventID = eventID;
     }
 
     public static String getTAG() {
@@ -64,14 +107,6 @@ public class CreateEventPTSingleton {
 
     public void setEventDate(String eventDate) {
         this.eventDate = eventDate;
-    }
-
-    public String getEventOrganizer() {
-        return eventOrganizer;
-    }
-
-    public void setEventOrganizer(String eventOrganizer) {
-        this.eventOrganizer = eventOrganizer;
     }
 
     public String getEventNote() {

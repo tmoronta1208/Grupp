@@ -10,9 +10,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 public class CreateEventPagerAdapter extends FragmentPagerAdapter {
     private static int NUM_ITEMS = 2;
+    private CreateEventPTSingleton createEventPTSingleton;
 
     public CreateEventPagerAdapter(FragmentManager fragmentManager, CreateEventPTSingleton eventPTSingleton) {
         super(fragmentManager);
+        createEventPTSingleton = eventPTSingleton;
     }
 
     // Returns total number of pages.
@@ -27,16 +29,14 @@ public class CreateEventPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return CreateEventAddVenueFragment.newInstance("Pick a venue type");
+                return CreateEventAddVenueFragment.newInstance(createEventPTSingleton);
             case 1:
-                return CreateEventAddNameFragment.newInstance("Name your Event");
+                return CreateEventAddNameFragment.newInstance(createEventPTSingleton);
 
             case 2:
-                return CreateEventInviteFragment.newInstance("Schedule Your Event");
+                return CreateEventInviteFragment.newInstance(createEventPTSingleton);
             case 3:
-                return CreateEventInviteFragment.newInstance("Add Friends");
-            case 4:
-                return CreateEventInviteFragment.newInstance("Finalize");
+                return CreateEventAddNoteFragment.newInstance(createEventPTSingleton);
             default:
                 return null;
         }

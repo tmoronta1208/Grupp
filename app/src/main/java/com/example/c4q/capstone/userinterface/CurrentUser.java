@@ -39,8 +39,6 @@ public class CurrentUser {
 
     private CurrentUser(){
         Log.d(TAG, "constructor called");
-
-
         setUserListener();
         setUtility();
 

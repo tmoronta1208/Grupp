@@ -32,6 +32,7 @@ public class FBEventDataUtility {
 
     public static FirebaseUser currentUser;
     private String currentUserID;
+    FBUserDataUtility userDataUtility = new FBUserDataUtility();
 
 
     String eventKey;
@@ -68,12 +69,21 @@ public class FBEventDataUtility {
                 if (events != null) {
                     Log.d(TAG, "event name" + events.getEvent_name());
                     listener.getEvent(events);
+                    userDataUtility.getPublicUser(events.getEvent_organizer(), new FBUserDataListener() {
+                        @Override
+                        public void getUid(String userID) {
 
+                        }
+                        @Override
+                        public void getPublicUser(PublicUser publicUser) {
+                            String userFullName = publicUser.getFirst_name() + " " + publicUser.getLast_name();
+                            listener.getUserFullName(userFullName);
+                        }
+                    });
                 } else {
                     Log.d(TAG, "event not found");
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Getting Post failed, log a message

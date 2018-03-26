@@ -8,22 +8,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.userinterface.events.CreateEventPresenter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class CreateEventAddNoteFragment extends Fragment {
-
+    CreateEventPTSingleton createEventPTSingleton;
+    CreateEventPresenter eventPresenter;
 
     public CreateEventAddNoteFragment() {
         // Required empty public constructor
     }
 
-    public static CreateEventAddNoteFragment newInstance(String title) {
+    public static CreateEventAddNoteFragment newInstance(CreateEventPTSingleton createEventPTSingleton) {
         CreateEventAddNoteFragment fragment = new CreateEventAddNoteFragment();
-        Bundle args = new Bundle();
-        args.putString("title", title);
-        fragment.setArguments(args);
+        fragment.loadeEventSingleton(createEventPTSingleton);
         return fragment;
     }
 
@@ -40,6 +40,11 @@ public class CreateEventAddNoteFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_create_event_add_note, container, false);
+    }
+
+    public void loadeEventSingleton(CreateEventPTSingleton eventPTSingleton){
+        createEventPTSingleton = eventPTSingleton;
+        eventPresenter = new CreateEventPresenter(createEventPTSingleton);
     }
 
 }
