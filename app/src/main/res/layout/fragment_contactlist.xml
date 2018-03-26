@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="8dp"
     android:background="@android:color/white"
     android:clickable="true"
     >
@@ -18,15 +18,6 @@
         android:inputType="text"
         android:maxLines="1"
         />
-
-    <Button
-        android:id="@+id/addperson_cl"
-        android:text="add"
-        android:layout_gravity="right"
-        android:background="@drawable/button_shapes"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginBottom="8dp"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/contact_list_rec"

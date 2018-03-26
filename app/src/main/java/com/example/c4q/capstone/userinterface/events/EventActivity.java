@@ -23,18 +23,16 @@ public class EventActivity extends AppCompatActivity {
     SingleEventFragment singleEventFragment = new SingleEventFragment();
     Intent intent;
     String eventID;
+    String eventType;
 
 
     /**
      * ajoxe: Nav Drawer
      */
-    NavigationView navigationView;
-    private DrawerLayout navDrawerLayout;
-    NavDrawerPresenter navDrawerPresenter;
+
     SupportActivity activity;
     Context context;
-    Toolbar toolbar;
-    ActionBar actionbar;
+
     Bundle eventBundle;
 
     @Override
@@ -44,12 +42,12 @@ public class EventActivity extends AppCompatActivity {
 
         context = this;
         activity = this;
-        setNavDrawerLayout();
-        setToolbar();
         intent = getIntent();
         eventID = intent.getStringExtra("eventID");
+        eventType = intent.getStringExtra("eventType");
         eventBundle = new Bundle();
         eventBundle.putString("eventID", eventID);
+        eventBundle.putString("eventType", eventType);
 
         setEventFragment();
     }
@@ -62,33 +60,5 @@ public class EventActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.event_fragment_container, singleEventFragment);
         fragmentTransaction.commit();
-    }
-/** Navigation Drawer Set up **/
-    public void setNavDrawerLayout() {
-        navDrawerLayout = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
-        navDrawerPresenter = new NavDrawerPresenter(activity, context);
-        navDrawerPresenter.setNavDrawerViews(navDrawerLayout, navigationView);
-        navDrawerPresenter.setNavigationViewMethods();
-        setToolbar();
-    }
-
-    public void setToolbar() {
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        actionbar = getSupportActionBar();
-        navDrawerPresenter.setToolbarViews(toolbar, actionbar);
-        navDrawerPresenter.setActionbar("Create Event");
-    }
-
-    /*method that closes navigation drawer whenever item is selected - AJ*/
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                navDrawerLayout.openDrawer(GravityCompat.START);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

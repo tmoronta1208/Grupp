@@ -6,17 +6,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -30,7 +29,7 @@ import com.example.c4q.capstone.userinterface.events.createevent.createeventux.E
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CreateEventFragment extends Fragment {
+public class CreateEventAddNameFragment extends Fragment {
     View rootView;
     private static String TAG = "CREATE_EVENT_FRAG: ";
     EditText eventName;
@@ -39,37 +38,33 @@ public class CreateEventFragment extends Fragment {
     DatePicker datePicker;
     Button closeButton, createEventButton;
     EditTextUX editTextUX;
-
     CreateEventPresenter eventPresenter;
-
-
+    private CreateEventPTSingleton createEventPTSingleton;
     String eventID;
-    String title;
+    LinearLayout hiddenLayout;
+    LinearLayout visibleLayout;
 
-
-    public CreateEventFragment() {
+    public CreateEventAddNameFragment() {
         // Required empty public constructor
     }
 
-    public static CreateEventFragment newInstance(String title) {
-        CreateEventFragment fragment = new CreateEventFragment();
-        Bundle args = new Bundle();
-        args.putString("title", title);
-        fragment.setArguments(args);
+    public static CreateEventAddNameFragment newInstance(CreateEventPTSingleton eventPTSingleton) {
+        CreateEventAddNameFragment fragment = new CreateEventAddNameFragment();
+        fragment.loadeEventSingleton(eventPTSingleton);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        title = getArguments().getString("title");
+        eventPresenter = new CreateEventPresenter(CreateEventPTSingleton.getInstance());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootView = inflater.inflate(R.layout.fragment_create_event, container, false);
+        rootView = inflater.inflate(R.layout.fragment_create_event_add_name_date, container, false);
         rootView.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 return true;
@@ -81,6 +76,11 @@ public class CreateEventFragment extends Fragment {
         setCloseButton();
         setEnterNameEditText();
         return rootView;
+    }
+
+    public void loadeEventSingleton(CreateEventPTSingleton eventPTSingleton) {
+        createEventPTSingleton = eventPTSingleton;
+        eventPresenter = new CreateEventPresenter(createEventPTSingleton);
     }
 
     /**
@@ -96,21 +96,25 @@ public class CreateEventFragment extends Fragment {
         closeButton = (Button) rootView.findViewById(R.id.close_button);
         createEventButton = (Button) rootView.findViewById(R.id.create_event_button);
         eventName = (EditText) rootView.findViewById(R.id.event_name_edit_text);
-        eventPresenter = new CreateEventPresenter();
+        hiddenLayout = rootView.findViewById(R.id.hidden_linear_layout);
+        visibleLayout = rootView.findViewById(R.id.visible_layout);
+
     }
 
-    public void setCreateeventButton(){
+    public void setCreateeventButton() {
         createEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!eventPresenter.validateEvent()){
+                Log.d(TAG, "event button clicked");
+
+                if (!eventPresenter.validateEvent()) {
                     Log.d(TAG, "create event: event not valid");
                     //TODO alert user
-                } else{
+                } else {
                     eventPresenter.sendEventToFB(new EventFragmentListener() {
                         @Override
                         public void swapFragments() {
-                            Log.d(TAG,"Swap fragments called");
+                            Log.d(TAG, "Swap fragments called");
                             loadEventFragment();
                         }
 
@@ -127,12 +131,14 @@ public class CreateEventFragment extends Fragment {
         });
     }
 
-    public void setDatTimeClick(){
+    public void setDatTimeClick() {
         addTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 timePicker.setVisibility(View.VISIBLE);
                 closeButton.setVisibility(View.VISIBLE);
+                hiddenLayout.setVisibility(View.VISIBLE);
+                visibleLayout.setVisibility(View.GONE);
             }
         });
 
@@ -141,55 +147,80 @@ public class CreateEventFragment extends Fragment {
             public void onClick(View v) {
                 datePicker.setVisibility(View.VISIBLE);
                 closeButton.setVisibility(View.VISIBLE);
+                hiddenLayout.setVisibility(View.VISIBLE);
+                visibleLayout.setVisibility(View.GONE);
             }
         });
 
     }
 
-    public void setCloseButton(){
+    public void setCloseButton() {
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (timePicker.getVisibility() == View.VISIBLE) {
+
                     eventPresenter.setEventTime(timePicker);
                     dateAndTime.setText(eventPresenter.dateTime);
                     timePicker.setVisibility(View.GONE);
+                    hiddenLayout.setVisibility(View.GONE);
                 } else if (datePicker.getVisibility() == View.VISIBLE) {
+
                     eventPresenter.setEventDate(datePicker);
                     dateAndTime.setText(eventPresenter.dateTime);
                     datePicker.setVisibility(View.GONE);
+                    hiddenLayout.setVisibility(View.GONE);
                 }
+                visibleLayout.setVisibility(View.VISIBLE);
                 closeButton.setVisibility(View.GONE);
+                if (!eventPresenter.validateNameDone()) {
+                    Log.d(TAG, "create event: event not valid");
+                    //TODO alert user
+                } else {
+                    eventPresenter.sendEventToFB(new EventFragmentListener() {
+                        @Override
+                        public void swapFragments() {
+                            Log.d(TAG, "Swap fragments called");
+                            loadEventFragment();
+                        }
+
+                        @Override
+                        public void getEventIdKEy(String key) {
+                            eventID = key;
+                            loadEventFragment();
+                        }
+                    });
+                    Log.d(TAG, "create event: eventSent to firebase");
+
+                }
                 //TODO add logic to grab choice data
             }
         });
     }
-    public void setEnterNameEditText(){
-        editTextUX = new EditTextUX(eventName, eventPresenter,CreateEventFragment.this.getActivity(), rootView, "eventName");
 
-    }
-
-    /*method to hide soft keyboard -AJ*/
-    public static void hideSoftKeyboard(Activity activity) {
-        try {
-            if (activity != null) {
-                InputMethodManager inputMethodManager =
-                        (InputMethodManager) activity.getSystemService(
-                                Activity.INPUT_METHOD_SERVICE);
-                inputMethodManager.hideSoftInputFromWindow(
-                        activity.getCurrentFocus().getWindowToken(), 0);
+    public void setEnterNameEditText() {
+        editTextUX = new EditTextUX(eventName, eventPresenter, CreateEventAddNameFragment.this.getActivity(), rootView, "eventName", new EventFragmentListener() {
+            @Override
+            public void swapFragments() {
+                Log.d(TAG, "Swap fragments called");
+                loadEventFragment();
             }
 
-        } catch (NullPointerException n) {
-            n.printStackTrace();
-        }
+            @Override
+            public void getEventIdKEy(String key) {
+                eventID = key;
+                loadEventFragment();
+            }
+        });
     }
 
-
     public void loadEventFragment() {
-       Intent intent = new Intent(CreateEventFragment.this.getActivity(), EventActivity.class);
-       intent.putExtra("eventID", eventID);
-       startActivity(intent);
+        Intent intent = new Intent(CreateEventAddNameFragment.this.getActivity(), EventActivity.class);
+        intent.putExtra("eventID", eventID);
+        intent.putExtra("eventType", "new");
+        startActivity(intent);
+        createEventPTSingleton.destroyInstance();
+        getActivity().finish();
     }
 
 }

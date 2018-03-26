@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.userinterface.events.CreateEventPresenter;
+import com.example.c4q.capstone.userinterface.events.EventFragmentListener;
 
 /**
  * Created by amirahoxendine on 3/20/18.
@@ -24,14 +25,16 @@ public class EditTextUX {
     private Activity activity;
     private  View rootView;
     private String type;
+    private EventFragmentListener listener;
 
 
-    public EditTextUX(EditText editText, CreateEventPresenter eventPresenter, Activity activity, View rootview, String type) {
+    public EditTextUX(EditText editText, CreateEventPresenter eventPresenter, Activity activity, View rootview, String type, EventFragmentListener listener) {
         this.editText = editText;
         this.eventPresenter = eventPresenter;
         this.activity = activity;
         this.rootView = rootview;
         this.type = type;
+        this.listener = listener;
 
         setEditText();
        hideKeyBoardOffFocus(rootView);
@@ -56,6 +59,13 @@ public class EditTextUX {
                         String name = editText.getText().toString();
                         eventPresenter.setEventName(name);
 
+                        if (!eventPresenter.validateEvent()) {
+
+                            //TODO alert user
+                        } else {
+                            eventPresenter.sendEventToFB(listener);
+                        }
+
                     } else if(type.equals("addNote")) {
                         eventPresenter.setEventNote(editText.getText().toString());
                     }
@@ -77,6 +87,8 @@ public class EditTextUX {
                     if(event.getActionMasked() == MotionEvent.ACTION_UP) {
                         hideSoftKeyboard(activity);
                         Log.d("Edit text UX" , "hide keyboard called");
+                        String name = editText.getText().toString();
+                        eventPresenter.setEventName(name);
                     }
 
 
@@ -101,7 +113,6 @@ public class EditTextUX {
             for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
                 View innerView = ((ViewGroup) view).getChildAt(i);
                 hideKeyBoardOffFocus(innerView);
-
             }
         }
     }
@@ -112,11 +123,11 @@ public class EditTextUX {
                 InputMethodManager inputMethodManager =
                         (InputMethodManager) activity.getSystemService(
                                 Activity.INPUT_METHOD_SERVICE);
-                inputMethodManager.hideSoftInputFromWindow(
-                        activity.getCurrentFocus().getWindowToken(), 0);
+                if (activity.getCurrentFocus() != null){
+                    inputMethodManager.hideSoftInputFromWindow(
+
+                            activity.getCurrentFocus().getWindowToken(), 0);
+                }
             }
-
-
-
     }
 }

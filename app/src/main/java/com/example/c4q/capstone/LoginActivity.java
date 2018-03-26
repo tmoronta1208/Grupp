@@ -18,8 +18,7 @@ import android.view.View;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.UserSearch;
 import com.example.c4q.capstone.userinterface.CurrentUser;
-import com.example.c4q.capstone.userinterface.events.createevent.CreateEventFragment;
-import com.example.c4q.capstone.userinterface.user.EditProfileActivity;
+import com.example.c4q.capstone.userinterface.events.createevent.CreateEventAddNameFragment;
 import com.example.c4q.capstone.userinterface.user.SettingsActivity;
 import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
 import com.example.c4q.capstone.utils.Constants;
@@ -48,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     private PublicUser publicUser;
     private UserSearch userSearch;
     CurrentUser currentUserInstance = CurrentUser.getInstance();
+    private String TAG = "login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,18 +87,11 @@ public class LoginActivity extends AppCompatActivity {
                         //  .setTheme(R.style.MySuperAppTheme) <-- Set theme
                         .build(),
                 RC_SIGN_IN);
-        /*Deletes Firebase Authentication as well as all social identity providers (MG)*/
-//        AuthUI.getInstance()
-//                .signOut(this)
-//                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        // ...
-//                    }
-//                });
 
-        setNavDrawerLayout();
-//        setToolbar();
+
     }
+
+
 
     /* takes user's credentials and controls what to do with it.
      i.e database stuff (MG)*/
@@ -113,8 +106,6 @@ public class LoginActivity extends AppCompatActivity {
                 // Successfully signed in
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 String userID = user.getUid();
-
-
                 /**
                  * if user is not in db, launches edit profile intent
                  * */
@@ -191,7 +182,7 @@ public class LoginActivity extends AppCompatActivity {
                                 //TODO start userProfile with notifications fragment loaded.
                                 break;
                             case R.id.create_new_event:
-                                Intent creatEvents = new Intent(LoginActivity.this, CreateEventFragment.class);
+                                Intent creatEvents = new Intent(LoginActivity.this, CreateEventAddNameFragment.class);
                                 startActivity(creatEvents);
                                 //TODO start userProfile with upcomining events fragment loaded.
                                 break;

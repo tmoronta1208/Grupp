@@ -10,6 +10,7 @@ import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.network.barzz.barzzmodel.Results;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Layout;
+import com.mindorks.placeholderview.annotations.NonReusable;
 import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
 import com.mindorks.placeholderview.annotations.swipe.SwipeCancelState;
@@ -48,6 +49,7 @@ public class VenueCardView {
 
     @Resolve
     private void onResolved(){
+
         Glide.with(context).load(results.getBar_Image()).into(profileImageView);
         nameAgeTxt.setText(results.getName());
         locationNameTxt.setText(results.getAddress());
@@ -57,7 +59,7 @@ public class VenueCardView {
     @SwipeOut
     private void onSwipedOut(){
         Log.d("EVENT", "onSwipedOut");
-        swipeView.addView(this);
+        //swipeView.addView(this);
     }
 
     @SwipeCancelState

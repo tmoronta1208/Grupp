@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Grupp</string>
+    <string name="app_name">Grüpp</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -11,8 +11,8 @@
 
     <string name="enter_name">Event Name</string>
     <string name="create_new_event">New Event</string>
-    <string name="pick_a_date">+ add date</string>
-    <string name="pick_a_time">+add time</string>
+    <string name="pick_a_date">Add a Date</string>
+    <string name="pick_a_time">Add a Time</string>
     <string name="venue_type_choice">Type of Venue</string>
     <string name="restaurant">Restaurant</string>
     <string name="bar">Bar</string>

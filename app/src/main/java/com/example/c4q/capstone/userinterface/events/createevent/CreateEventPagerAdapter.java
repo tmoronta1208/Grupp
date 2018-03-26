@@ -9,10 +9,12 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 
 public class CreateEventPagerAdapter extends FragmentPagerAdapter {
-    private static int NUM_ITEMS = 5;
+    private static int NUM_ITEMS = 4;
+    private CreateEventPTSingleton createEventPTSingleton;
 
-    public CreateEventPagerAdapter(FragmentManager fragmentManager) {
+    public CreateEventPagerAdapter(FragmentManager fragmentManager, CreateEventPTSingleton eventPTSingleton) {
         super(fragmentManager);
+        createEventPTSingleton = eventPTSingleton;
     }
 
     // Returns total number of pages.
@@ -27,16 +29,14 @@ public class CreateEventPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return CreateEventOneFragment.newInstance("Pick a venue type");
+                return CreateEventAddVenueFragment.newInstance(createEventPTSingleton);
             case 1:
-                return CreateEventFragment.newInstance("Name your Event");
+                return CreateEventAddNameFragment.newInstance(createEventPTSingleton);
 
             case 2:
-                return CreateEventTwoFragment.newInstance("Schedule Your Event");
+                return CreateEventInviteFragment.newInstance(createEventPTSingleton);
             case 3:
-                return CreateEventTwoFragment.newInstance("Add Friends");
-            case 4:
-                return CreateEventTwoFragment.newInstance("Finalize");
+                return CreateEventAddNoteFragment.newInstance(createEventPTSingleton);
             default:
                 return null;
         }
@@ -47,15 +47,15 @@ public class CreateEventPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "•";
+                return "";
             case 1:
-                return "•";
+                return "";
             case 2:
-                return "•";
+                return "";
             case 3:
-                return "•";
+                return "";
             case 4:
-                return "•";
+                return "";
             default:
                 return null;
         }

@@ -9,6 +9,8 @@ public class Events {
     private String event_name;
     private String event_note;
     private String event_organizer;
+    private String event_id;
+    private String venue_type;
     private String event_time;
     private String final_venue;
     private List<String> confirmed_guests;
@@ -128,5 +130,21 @@ public class Events {
 
     public void setTop_three_venues(List<String> top_three_venues) {
         this.top_three_venues = top_three_venues;
+    }
+
+    public String getEvent_id() {
+        return event_id;
+    }
+
+    public void setEvent_id(String event_id) {
+        this.event_id = event_id;
+    }
+
+    public String getVenue_type() {
+        return venue_type;
+    }
+
+    public void setVenue_type(String venue_type) {
+        this.venue_type = venue_type;
     }
 }
