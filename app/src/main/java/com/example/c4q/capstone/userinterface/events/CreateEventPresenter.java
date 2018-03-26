@@ -49,6 +49,7 @@ public class CreateEventPresenter {
     String firstName;
     String lastName;
     List<String> dummyUsers;
+    List<String> eventKeys = CurrentUser.getInstance().getUserEventIDList();
     FBUserDataUtility fbUserDataUtility = new FBUserDataUtility();
 
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -77,7 +78,11 @@ public class CreateEventPresenter {
         myRef.child("events").child(key).setValue(newEvent);
 
         Map<String, Object> user_events = new HashMap<>();
-        List<String> eventKeys = CurrentUser.getInstance().getUserEventIDList();
+
+
+        if (eventKeys == null){
+            eventKeys = new ArrayList<>();
+        }
         eventKeys.add(key);
         user_events.put(userID, eventKeys);
         myRef.child("user_events").updateChildren(user_events);
