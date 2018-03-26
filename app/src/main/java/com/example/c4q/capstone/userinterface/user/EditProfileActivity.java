@@ -33,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_LOCATION;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
+import static com.example.c4q.capstone.utils.Constants.USER_SEARCH;
 
 public class EditProfileActivity extends AppCompatActivity {
     private static final String TAG = "EditProfileActivity";
@@ -79,7 +80,7 @@ public class EditProfileActivity extends AppCompatActivity {
         publicUserReference = rootRef.child(PUBLIC_USER);
         privateUserReference = rootRef.child(PRIVATE_USER);
         privateUserLocationReference = rootRef.child(PRIVATE_USER);
-        searchUserReference = rootRef.child(PUBLIC_USER);
+        searchUserReference = rootRef.child(USER_SEARCH);
 
         currentUser = mAuth.getCurrentUser();
         currentUserID = currentUser.getUid();
@@ -162,11 +163,14 @@ public class EditProfileActivity extends AppCompatActivity {
 
         if (!firstNameString.equals("") && !lastNameString.equals("") && !zipCodeSting.equals("")) {
 
-            publicUser = new PublicUser(firstNameString, lastNameString, zipCodeSting, budgetString,currentUserEmail, over18, over21, radius);
+            publicUser = new PublicUser(firstNameString, lastNameString, zipCodeSting, budgetString, currentUserEmail, over18, over21, radius);
             privateUser = new PrivateUser(firstNameString, lastNameString, over18, over21, radius);
             privateUserLocation = new PrivateUserLocation(share_location, lat, lng);
             userSearch = new UserSearch(currentUserEmail);
 
+            /**
+             * searchUserReference needs to be added at time of account creation
+             */
             searchUserReference.child(currentUserID).setValue(userSearch);
             publicUserReference.child(currentUserID).setValue(publicUser);
             privateUserReference.child(currentUserID).setValue(privateUser);
