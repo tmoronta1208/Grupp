@@ -36,7 +36,8 @@ public class CreateEventPresenter {
     CurrentUser currentUser = CurrentUser.getInstance();
     CurrentUserPost currentUserPost = CurrentUserPost.getInstance();
     private static List<String> invitedGuests = new ArrayList<>();
-    private boolean eventNameSet, eventDateSet, eventTimeSet, eventGuestsSet;
+    private boolean eventNameSet, eventDateSet, eventTimeSet, eventGuestsSet, eventNoteSet;
+    private boolean nameDone, friendsDone;
     public String dateOfEvent;
     public String timeOfEvent;
     public String dateTime = "";
@@ -105,15 +106,27 @@ public class CreateEventPresenter {
     public void setEventGuests(List<String> invitedGuests){
         createEventPTSingleton.setInvitedGuests(invitedGuests);
         eventGuestsSet = true;
+        friendsDone = true;
+        Log.d(TAG, "invite size" + invitedGuests.size());
+        validateEvent();
+    }
+    public boolean validateFriendsDone(){
+        return friendsDone;
+    }
+    public boolean validateNameDone(){
+        return eventTimeSet && eventDateSet && eventNameSet;
     }
 
     public void setEventNote(String note){
         createEventPTSingleton.setEventNote(note);
+        Log.d(TAG, "event type" + note);
+        eventNoteSet = true;
+        validateEvent();
     }
 
     public boolean validateEvent(){
         boolean validEvent = false;
-        if (eventTimeSet && eventNameSet && eventDateSet){
+        if (eventTimeSet && eventNameSet && eventDateSet && eventGuestsSet &&eventNoteSet){
             Log.d(TAG, "create event: event valid");
             validEvent = true;
             setFinalizedEvent();
@@ -129,7 +142,10 @@ public class CreateEventPresenter {
         newEvent.setEvent_note(createEventPTSingleton.getEventNote());
         newEvent.setEvent_time(createEventPTSingleton.getEventTime());
         newEvent.setEvent_date(createEventPTSingleton.getEventDate());
+        newEvent.setVenue_type(createEventPTSingleton.getEventVenueType());
+        newEvent.setEvent_note(createEventPTSingleton.getEventNote());
+        newEvent.setInvited_guests(createEventPTSingleton.getInvitedGuests());
         newEvent.setEvent_organizer(currentUser.getUserID());
-        Log.d(TAG, "create event: userId" + currentUser.getUserID());
+        Log.d(TAG, "event type" + createEventPTSingleton.getEventVenueType());
     }
 }

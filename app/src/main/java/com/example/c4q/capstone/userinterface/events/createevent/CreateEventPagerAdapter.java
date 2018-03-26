@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 
 public class CreateEventPagerAdapter extends FragmentPagerAdapter {
-    private static int NUM_ITEMS = 2;
+    private static int NUM_ITEMS = 4;
     private CreateEventPTSingleton createEventPTSingleton;
 
     public CreateEventPagerAdapter(FragmentManager fragmentManager, CreateEventPTSingleton eventPTSingleton) {

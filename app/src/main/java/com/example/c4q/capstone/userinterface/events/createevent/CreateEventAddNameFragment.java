@@ -173,7 +173,7 @@ public class CreateEventAddNameFragment extends Fragment {
                 }
                 visibleLayout.setVisibility(View.VISIBLE);
                 closeButton.setVisibility(View.GONE);
-                if (!eventPresenter.validateEvent()) {
+                if (!eventPresenter.validateNameDone()) {
                     Log.d(TAG, "create event: event not valid");
                     //TODO alert user
                 } else {

@@ -45,7 +45,6 @@ public class UserFriendsFragment extends Fragment {
 
         rootView = inflater.inflate(R.layout.fragment_user_friends, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.friends_recycler_view);
-
         contactListAdapter = new ContactListAdapter(friendsUserList, getActivity() );
         linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setAdapter(contactListAdapter);
