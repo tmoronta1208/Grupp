@@ -7,6 +7,7 @@ import android.widget.TimePicker;
 
 import com.example.c4q.capstone.database.events.Events;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.utils.FBUserDataUtility;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -76,7 +77,9 @@ public class CreateEventPresenter {
         myRef.child("events").child(key).setValue(newEvent);
 
         Map<String, Object> user_events = new HashMap<>();
-        user_events.put(userID, key);
+        List<String> eventKeys = CurrentUser.getInstance().getUserEventIDList();
+        eventKeys.add(key);
+        user_events.put(userID, eventKeys);
         myRef.child("user_events").updateChildren(user_events);
         Log.d(TAG, "create event: set value: " + newEvent.getEvent_name());
         listener.getEventIdKEy(key);
@@ -97,7 +100,7 @@ public class CreateEventPresenter {
                 Log.d(TAG, "dummy user list" + dummyUsers.size());
                 myRef.child("events").child(key).setValue(newEvent);
                 Log.d(TAG, "final dummy user list" + dummyUsers.size());
-                fbUserDataUtility.addUserFriends(dummyUsers);
+                //fbUserDataUtility.addUserFriends(dummyUsers);//<-- add dummy friends
             }
 
             @Override
@@ -110,27 +113,6 @@ public class CreateEventPresenter {
         myRef.child(PUBLIC_USER).addValueEventListener(userListener);
     }
 
-
-    public void getUserData(){
-        ValueEventListener postListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Post object and use the values to update the UI
-                PublicUser user = dataSnapshot.getValue(PublicUser.class);
-                firstName = user.getFirst_name();
-                lastName = user.getLast_name();
-                // ...
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                // ...
-            }
-        };
-        myRef.addValueEventListener(postListener);
-    }
 
     public void setEventOrganizer(){
         newEvent.setEvent_organizer(userID);

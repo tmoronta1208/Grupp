@@ -16,9 +16,10 @@ import java.util.List;
 
 public class CurrentUser {
     private static CurrentUser userInstance;
-    private CurrentUserListener userListener;
-    private CurrentUserUtility userUtility = new CurrentUserUtility();
     private  static final String TAG = "CURRENT USER INSTANCE";
+    private CurrentUserListener userListener;
+    private CurrentUserUtility userUtility   = new CurrentUserUtility();
+
 
     private  String userID;
     private  String userFullName;
@@ -26,17 +27,35 @@ public class CurrentUser {
     private  PublicUser currentPublicUser;
     private  List<PublicUser> userFriendsList;
     private  List<Events> userEventsList;
+    private  List<String> userFriendIDList;
+    private  List<String> userEventIDList;
+    private boolean currentUserExists;
+    private boolean userHasFriends;
+    private boolean userHasEvents;
+    private boolean userHasPublicProfile;
+    private boolean userHasPrivateProfile;
 
 
 
     private CurrentUser(){
         Log.d(TAG, "constructor called");
-        setUserID();
+
+
         setUserListener();
-        setCurrentPrivateUser();
-        setCurrentPublicUser();
-        //setUserFriendsList();
-        //setUserEventsList();
+        setUtility();
+
+    }
+
+    private void setUtility(){
+        userUtility.setListener(userListener);
+    }
+
+    private void createUser(Boolean userExists){
+        Log.d(TAG, "create user called");
+        if(userExists){
+            setCurrentPrivateUser();
+            setCurrentPublicUser();
+        }
     }
 
     public static CurrentUser getInstance(){
@@ -50,7 +69,33 @@ public class CurrentUser {
         return userFullName;
     }
 
+    public boolean isCurrentUserExists() {
+        return currentUserExists;
+    }
 
+    public boolean isUserHasFriends() {
+        return userHasFriends;
+    }
+
+    public boolean isUserHasEvents() {
+        return userHasEvents;
+    }
+
+    public boolean isUserHasPublicProfile() {
+        return userHasPublicProfile;
+    }
+
+    public boolean isUserHasPrivateProfile() {
+        return userHasPrivateProfile;
+    }
+
+    public List<String> getUserFriendIDList() {
+        return userFriendIDList;
+    }
+
+    public List<String> getUserEventIDList() {
+        return userEventIDList;
+    }
 
     public String getUserID() {
         return userID;
@@ -72,15 +117,12 @@ public class CurrentUser {
         return userEventsList;
     }
 
-    private void setUserID() {
-        userID =userUtility.currentUserID;
-    }
     private void setCurrentPublicUser(){
         userUtility.getCurrentPublicUser(userListener);
     }
 
     private void setCurrentPrivateUser() {
-        //userUtility.getCurrentPrivateUser(userListener);
+        userUtility.getCurrentPrivateUser(userListener);
 
     }
 
@@ -95,26 +137,77 @@ public class CurrentUser {
             @Override
             public void getPrivateUser(PrivateUser privateUser) {
                 currentPrivateUser = privateUser;
-                userFullName = currentPrivateUser.getFirst_name() + " " + currentPrivateUser.getLast_name();
-                Log.d(TAG, "user full name: " + userFullName);
+                userHasPrivateProfile = userUtility.userHasPrivateProfile;
+                Log.d(TAG, "user has private profile: " + userHasPrivateProfile);
             }
 
             @Override
             public void getPublicUser(PublicUser publicUser) {
                 currentPublicUser = publicUser;
-                Log.d(TAG, "current public user: " + currentPublicUser.getFirst_name());
+                userHasPublicProfile =userUtility.userHasPublicProfile;
+                Log.d(TAG, "user has public profile: " + userHasPublicProfile);
+                if (currentPublicUser != null){
+                    userFullName = currentPrivateUser.getFirst_name() + " " + currentPrivateUser.getLast_name();
+                    Log.d(TAG, "user full name: " + userFullName);
+                }
+
             }
 
             @Override
             public void getUserFriends(List<PublicUser> publicUserList) {
                 userFriendsList = publicUserList;
-                Log.d(TAG, "user friends list size: " + userFriendsList.size());
+                if (userFriendsList != null){
+                    Log.d(TAG, "user friends list size: " + userFriendsList.size());
+                }
+
             }
             @Override
             public void getUserEvents(List<Events> eventsList) {
                 userEventsList = eventsList;
-                Log.d(TAG, "user events list size: " + userEventsList.size());
+                if (userEventsList != null){
+                    Log.d(TAG, "user events list size: " + userEventsList.size());
+                }
             }
+
+            @Override
+            public void userHasFriends(Boolean hasFriends) {
+                userHasFriends = hasFriends;
+                Log.d(TAG, "user has friends: " + userHasFriends);
+                if (userHasFriends){
+                    setUserFriendsList();
+                }
+
+            }
+
+            @Override
+            public void userHasEvents(Boolean hasEvents) {
+                userHasEvents = hasEvents;
+                Log.d(TAG, "user has events: " + userHasEvents);
+                if(userHasEvents){
+                    setUserEventsList();
+                }
+
+            }
+
+            @Override
+            public void setUser(Boolean userInDB, String id) {
+                createUser(userInDB);
+                currentUserExists = userInDB;
+                Log.d(TAG, "user in database: " + currentUserExists);
+                userID = id;
+                Log.d(TAG, "user id: " + userID);
+            }
+
+            @Override
+            public void getUserFriendIDs(List<String> friendIds) {
+                userFriendIDList = friendIds;
+            }
+
+            @Override
+            public void getUserEventIDs(List<String> eventIds) {
+                userEventIDList = eventIds;
+            }
+
         };
     }
 }

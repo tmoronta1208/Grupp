@@ -15,4 +15,10 @@ public interface CurrentUserListener {
     void getPublicUser(PublicUser publicUser);
     void getUserFriends(List<PublicUser> publicUserList);
     void getUserEvents(List<Events> eventsList);
+    void userHasFriends(Boolean hasFriends);
+    void userHasEvents(Boolean hasEvents);
+    void setUser(Boolean userInDB, String id);
+    void getUserFriendIDs(List<String> friendIds);
+    void getUserEventIDs(List<String> eventIds);
+
 }
