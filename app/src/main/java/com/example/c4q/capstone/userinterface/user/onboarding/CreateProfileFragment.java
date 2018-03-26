@@ -172,7 +172,7 @@ public class CreateProfileFragment extends Fragment {
         zipCodeSting = zipCode.getText().toString();
 
         if (!firstNameString.equals("") && !lastNameString.equals("") && !zipCodeSting.equals("")) {
-            PublicUser publicUser = new PublicUser(firstNameString, lastNameString, zipCodeSting, budgetString, userEmail, over18, over21, radius);
+            PublicUser publicUser = new PublicUser(userID,firstNameString, lastNameString, zipCodeSting, budgetString, userEmail, over18, over21, radius);
             PrivateUser privateUser = new PrivateUser(firstNameString, lastNameString, over18, over21, radius);
             PrivateUserLocation privateUserLocation = new PrivateUserLocation(share_location, lat, lng);
 
