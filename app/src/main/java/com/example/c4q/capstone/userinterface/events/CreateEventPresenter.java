@@ -59,16 +59,20 @@ public class CreateEventPresenter {
 
     public void setEventName(String eventName){
         createEventPTSingleton.setEventName(eventName);
+        eventNameSet = true;
         Log.d(TAG, "event name : " + eventName);
         eventNameSet = true;
+        validateEvent();
     }
 
     public void setEventDate(DatePicker datePicker){
         dateOfEvent = String.valueOf(datePicker.getMonth()) + "/" + String.valueOf(datePicker.getDayOfMonth());
         createEventPTSingleton.setEventDate(dateOfEvent);
         setDateAndTime();
-        Log.d(TAG, "event date : " + dateOfEvent);
         eventDateSet = true;
+        Log.d(TAG, "event date : " + dateOfEvent);
+        validateEvent();
+
     }
 
     public void setEventTime(TimePicker timePicker){
@@ -80,8 +84,10 @@ public class CreateEventPresenter {
         }
         createEventPTSingleton.setEventTime(timeOfEvent);
         setDateAndTime();
-        Log.d(TAG, "event time : " + timeOfEvent);
         eventTimeSet = true;
+        validateEvent();
+        Log.d(TAG, "event time : " + timeOfEvent);
+
     }
 
     public void setDateAndTime(){

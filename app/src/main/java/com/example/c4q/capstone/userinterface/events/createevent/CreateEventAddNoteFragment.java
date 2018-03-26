@@ -30,6 +30,7 @@ public class CreateEventAddNoteFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        eventPresenter = new CreateEventPresenter(CreateEventPTSingleton.getInstance());
     }
 
 

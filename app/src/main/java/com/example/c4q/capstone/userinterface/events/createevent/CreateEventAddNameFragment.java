@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -40,6 +41,8 @@ public class CreateEventAddNameFragment extends Fragment {
     CreateEventPresenter eventPresenter;
     private CreateEventPTSingleton createEventPTSingleton;
     String eventID;
+    LinearLayout hiddenLayout;
+    LinearLayout visibleLayout;
 
     public CreateEventAddNameFragment() {
         // Required empty public constructor
@@ -54,6 +57,7 @@ public class CreateEventAddNameFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        eventPresenter = new CreateEventPresenter(CreateEventPTSingleton.getInstance());
     }
 
     @Override
@@ -92,6 +96,8 @@ public class CreateEventAddNameFragment extends Fragment {
         closeButton = (Button) rootView.findViewById(R.id.close_button);
         createEventButton = (Button) rootView.findViewById(R.id.create_event_button);
         eventName = (EditText) rootView.findViewById(R.id.event_name_edit_text);
+        hiddenLayout = rootView.findViewById(R.id.hidden_linear_layout);
+        visibleLayout = rootView.findViewById(R.id.visible_layout);
 
     }
 
@@ -111,6 +117,7 @@ public class CreateEventAddNameFragment extends Fragment {
                             Log.d(TAG, "Swap fragments called");
                             loadEventFragment();
                         }
+
                         @Override
                         public void getEventIdKEy(String key) {
                             eventID = key;
@@ -130,6 +137,8 @@ public class CreateEventAddNameFragment extends Fragment {
             public void onClick(View v) {
                 timePicker.setVisibility(View.VISIBLE);
                 closeButton.setVisibility(View.VISIBLE);
+                hiddenLayout.setVisibility(View.VISIBLE);
+                visibleLayout.setVisibility(View.GONE);
             }
         });
 
@@ -138,6 +147,8 @@ public class CreateEventAddNameFragment extends Fragment {
             public void onClick(View v) {
                 datePicker.setVisibility(View.VISIBLE);
                 closeButton.setVisibility(View.VISIBLE);
+                hiddenLayout.setVisibility(View.VISIBLE);
+                visibleLayout.setVisibility(View.GONE);
             }
         });
 
@@ -148,23 +159,59 @@ public class CreateEventAddNameFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (timePicker.getVisibility() == View.VISIBLE) {
+
                     eventPresenter.setEventTime(timePicker);
                     dateAndTime.setText(eventPresenter.dateTime);
                     timePicker.setVisibility(View.GONE);
+                    hiddenLayout.setVisibility(View.GONE);
                 } else if (datePicker.getVisibility() == View.VISIBLE) {
+
                     eventPresenter.setEventDate(datePicker);
                     dateAndTime.setText(eventPresenter.dateTime);
                     datePicker.setVisibility(View.GONE);
+                    hiddenLayout.setVisibility(View.GONE);
                 }
+                visibleLayout.setVisibility(View.VISIBLE);
                 closeButton.setVisibility(View.GONE);
+                if (!eventPresenter.validateEvent()) {
+                    Log.d(TAG, "create event: event not valid");
+                    //TODO alert user
+                } else {
+                    eventPresenter.sendEventToFB(new EventFragmentListener() {
+                        @Override
+                        public void swapFragments() {
+                            Log.d(TAG, "Swap fragments called");
+                            loadEventFragment();
+                        }
+
+                        @Override
+                        public void getEventIdKEy(String key) {
+                            eventID = key;
+                            loadEventFragment();
+                        }
+                    });
+                    Log.d(TAG, "create event: eventSent to firebase");
+
+                }
                 //TODO add logic to grab choice data
             }
         });
     }
 
     public void setEnterNameEditText() {
-        editTextUX = new EditTextUX(eventName, eventPresenter, CreateEventAddNameFragment.this.getActivity(), rootView, "eventName");
+        editTextUX = new EditTextUX(eventName, eventPresenter, CreateEventAddNameFragment.this.getActivity(), rootView, "eventName", new EventFragmentListener() {
+            @Override
+            public void swapFragments() {
+                Log.d(TAG, "Swap fragments called");
+                loadEventFragment();
+            }
 
+            @Override
+            public void getEventIdKEy(String key) {
+                eventID = key;
+                loadEventFragment();
+            }
+        });
     }
 
     public void loadEventFragment() {

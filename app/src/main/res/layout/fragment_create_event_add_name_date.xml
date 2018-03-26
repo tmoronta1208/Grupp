@@ -12,105 +12,137 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="@dimen/layout_padding"
+
     android:gravity="center"
     android:layout_gravity="center"
     android:clickable="true"
     >
 
     <!-- TODO: Update blank fragment layout -->
-    <EditText
-        android:id="@+id/event_name_edit_text"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/layout_item_margin"
-        android:gravity="center"
-        android:hint="Name your event"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-        android:textSize="32sp"
-        android:padding="@dimen/layout_padding"
-        android:inputType="text"
-        android:maxLines="1"
-        android:imeOptions="actionDone"
-        android:clickable="true"
-        />
-    <TextView
-        android:id="@+id/date_time_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textColor="@color/dark_gray"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/add_date_text_view"
+        android:foregroundGravity="center">
+        <LinearLayout
+            android:id="@+id/hidden_linear_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:background="#ffffff"
+            android:visibility="gone"
+            android:paddingBottom="@dimen/layout_padding"
+            >
+            <FrameLayout
+                android:layout_width="275dp"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                >
+                <DatePicker
+                    android:id="@+id/date_picker"
+                    android:layout_width="300dp"
+                    android:layout_height="400dp"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="@dimen/layout_item_margin"
+                    android:datePickerMode="calendar"
+                    android:visibility="gone"
+                    android:calendarViewShown="true"
+                    />
+
+                <TimePicker
+                    android:id="@+id/time_picker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:timePickerMode="spinner"
+                    android:numbersInnerTextColor="@color/colorAccent"
+                    android:numbersTextColor="@color/colorAccent"
+                    android:visibility="gone"
+                    />
+            </FrameLayout>
+            <Button
+                android:id="@+id/close_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryShade"
+                android:layout_gravity="center"
+                android:text="ok"
+                android:visibility="gone"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/visible_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/layout_padding"
+            >
+        <EditText
+            android:id="@+id/event_name_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="@dimen/layout_item_margin"
-            android:background="@drawable/small_button_inverse_shapes"
+            android:gravity="center"
+            android:hint="Name your event"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+            android:textSize="32sp"
+            android:padding="@dimen/layout_padding"
+            android:inputType="text"
+            android:maxLines="1"
+            android:imeOptions="actionDone"
+            android:clickable="true"
+            />
+        <TextView
+            android:id="@+id/date_time_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/dark_gray"/>
+        <TextView
+            android:id="@+id/add_date_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/layout_item_margin"
+            android:background="@color/colorPrimaryShade"
+            android:gravity="center"
+            android:textAllCaps="true"
             android:text="@string/pick_a_date"
             android:padding="@dimen/layout_item_margin"
-            android:textColor="@color/dark_gray"
-            android:textSize="@dimen/small_button_text_size"
+            android:textColor="@color/colorPrimary"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:textSize="16sp"
             />
-
-
 
         <TextView
             android:id="@+id/add_time_text_view"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/layout_item_margin"
-            android:background="@drawable/small_button_inverse_shapes"
+            android:background="@color/colorPrimaryShade"
+            android:gravity="center"
+            android:textAllCaps="true"
             android:text="@string/pick_a_time"
-            android:textColor="@color/dark_gray"
             android:padding="@dimen/layout_item_margin"
-            android:textSize="@dimen/small_button_text_size"
+            android:textColor="@color/colorPrimary"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:textSize="16sp"
             />
-
-
-    </LinearLayout>
-    <Button
-        android:id="@+id/close_button"
-        android:layout_width="@dimen/small_button_height"
-        android:layout_height="@dimen/small_button_height"
-        android:background="@drawable/ic_check_black_24dp"
-        android:layout_gravity="end"
-        android:visibility="gone"/>
-
-    <DatePicker
-        android:id="@+id/date_picker"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginVertical="@dimen/layout_item_margin"
-        android:datePickerMode="calendar"
-        android:scrollbars="vertical"
-        android:visibility="gone"
-        />
-
-    <TimePicker
-        android:id="@+id/time_picker"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:timePickerMode="spinner"
-        android:visibility="gone" />
-    <Button
-        android:id="@+id/create_event_button"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
-        android:layout_margin="@dimen/layout_item_margin"
-        android:padding="30dp"
-        android:layout_gravity="end"
-        android:background="@drawable/ic_arrow_forward_black_24dp"
-        android:textColor="@color/dark_gray"/>
+        <Button
+            android:id="@+id/create_event_button"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_margin="@dimen/layout_item_margin"
+            android:padding="30dp"
+            android:layout_gravity="end"
+            android:background="@drawable/ic_arrow_forward_black_24dp"
+            android:textColor="@color/dark_gray"
+            android:visibility="gone"/>
+        </LinearLayout>
         <!--android:enabled="false" -->
+    </FrameLayout>
+
 
 </LinearLayout>
 
