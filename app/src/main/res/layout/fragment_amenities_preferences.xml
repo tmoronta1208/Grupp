@@ -1,0 +1,70 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.c4q.capstone.userinterface.user.onboarding.AmenitiesPreferencesFragment">
+
+    <LinearLayout
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_gravity="center"
+            android:text="What kind of amenities do you prefer?" />
+
+
+        <CheckBox
+            android:id="@+id/brunch_pref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Brunch" />
+
+        <CheckBox
+            android:id="@+id/outdoor_pref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Outdoor Seating" />
+
+        <CheckBox
+            android:id="@+id/rooftop_pref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rooftop" />
+
+
+        <CheckBox
+            android:id="@+id/dance_floor_pref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dance Floor" />
+
+        <CheckBox
+            android:id="@+id/fullmenu_pref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Full Menu" />
+
+        <CheckBox
+            android:id="@+id/video_games_pref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Video Games" />
+
+        <CheckBox
+            android:id="@+id/darts_pref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Darts" />
+        <CheckBox
+            android:id="@+id/pooltable_pref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rooftop" />
+    </LinearLayout>
+
+</FrameLayout>
