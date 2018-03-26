@@ -3,7 +3,7 @@ package com.example.c4q.capstone.database.publicuserdata;
 
 import java.util.List;
 
-class PublicUserPreferences {
+public class PublicUserPreferences {
     private List<String> bar_prefs;
     private List<String> restaurant_prefs;
 

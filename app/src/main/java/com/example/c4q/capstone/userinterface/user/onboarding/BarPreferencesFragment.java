@@ -1,4 +1,4 @@
-package com.example.c4q.capstone.userinterface.user.userprofilefragments;
+package com.example.c4q.capstone.userinterface.user.onboarding;
 
 
 import android.os.Bundle;
@@ -17,11 +17,12 @@ import com.example.c4q.capstone.network.barzz.BarzzNetworkCall;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PreferencesFragment extends Fragment {
+public class BarPreferencesFragment extends Fragment {
     private View view;
     private CheckBox clubCheckBox;
     private CheckBox loungeCheckBox;
@@ -34,9 +35,9 @@ public class PreferencesFragment extends Fragment {
     private CheckBox pubCheckbox;
     private CheckBox cocktailCheckbox;
     HashMap<CheckBox, String> prefs = new HashMap<>();
-    public static ArrayList<String> selectedPrefs = new ArrayList<>();
+    public static List<String> selectedPrefs = new ArrayList<>();
 
-    public PreferencesFragment() {
+    public BarPreferencesFragment() {
         // Required empty public constructor
     }
 

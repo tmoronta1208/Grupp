@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.c4q.capstone.userinterface.user.userprofilefragments.PreferencesFragment">
+    android:background="@color/colorPrimary"
+    tools:context="com.example.c4q.capstone.userinterface.user.onboarding.BarPreferencesFragment">
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -17,6 +18,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="40dp"
             android:text="What kind of bars do you prefer?" />
 
 
@@ -73,29 +75,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cocktail" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="What kind of music do you like?" />
-
-
-        <CheckBox
-            android:id="@+id/country_music_pref"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Country Music" />
-
-        <CheckBox
-            android:id="@+id/reggae_music_pref"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Reggae Music" />
-
-        <CheckBox
-            android:id="@+id/jazz_music_pref"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Jazz" />
 
 
     </LinearLayout>
