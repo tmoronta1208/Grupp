@@ -5,13 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.example.c4q.capstone.userinterface.events.createevent.CreateEventFragment;
-import com.example.c4q.capstone.userinterface.events.createevent.CreateEventOneFragment;
-import com.example.c4q.capstone.userinterface.events.createevent.CreateEventTwoFragment;
 import com.example.c4q.capstone.userinterface.user.ContactListFragment;
 import com.example.c4q.capstone.userinterface.user.MainProfileFragment;
-import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPEventsFragment;
-import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPGroupFragment;
 
 /**
  * Created by melg on 3/25/18.

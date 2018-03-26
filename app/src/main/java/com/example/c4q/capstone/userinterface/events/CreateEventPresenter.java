@@ -7,6 +7,9 @@ import android.widget.TimePicker;
 
 import com.example.c4q.capstone.database.events.Events;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.example.c4q.capstone.userinterface.CurrentUser;
+import com.example.c4q.capstone.userinterface.CurrentUserPost;
+import com.example.c4q.capstone.userinterface.events.createevent.CreateEventPTSingleton;
 import com.example.c4q.capstone.utils.FBUserDataUtility;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,129 +28,52 @@ import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 
 /**
  * Created by amirahoxendine on 3/19/18.
- * This is a class to handle data input for CreateEventFragment
+ * This is a class to handle data input for CreateEventAddNameFragment
  */
 
 public class CreateEventPresenter {
     private Events newEvent;
+    CurrentUser currentUser = CurrentUser.getInstance();
+    CurrentUserPost currentUserPost = CurrentUserPost.getInstance();
     private static List<String> invitedGuests = new ArrayList<>();
-    private boolean eventNameSet, eventDateSet, eventTimeSet, eventGuestsSet;
+    private boolean eventNameSet, eventDateSet, eventTimeSet, eventGuestsSet, eventNoteSet;
+    private boolean nameDone, friendsDone;
     public String dateOfEvent;
     public String timeOfEvent;
     public String dateTime = "";
     private static String TAG = "CREATE_EVENT_PRES: ";
-
-    public String eventTime;
-
-    private FirebaseDatabase mFirebaseDatabase;
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-    private DatabaseReference myRef;
-    private FirebaseUser user;
-    private String userID;
-    String firstName;
-    String lastName;
     List<String> dummyUsers;
-    FBUserDataUtility fbUserDataUtility = new FBUserDataUtility();
-
-    DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference ref = database.child(PUBLIC_USER);
+    CreateEventPTSingleton createEventPTSingleton;
     String key;
 
-    public CreateEventPresenter(){
+    public CreateEventPresenter(CreateEventPTSingleton eventPTSingleton){
+        createEventPTSingleton = eventPTSingleton;
         newEvent = new Events();
-        mAuth = FirebaseAuth.getInstance();
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        myRef = mFirebaseDatabase.getReference();
-        user = mAuth.getCurrentUser();
-        userID = user.getUid();
-        setEventOrganizer();
     }
 
     public void sendEventToFB(EventFragmentListener listener){
-        getDummyUserKeys();
-        Log.d(TAG, "create event: eventSent to firebase" + newEvent.getEvent_name());
-        key = myRef.child("events").push().getKey();
-
-        Log.d(TAG, "create event: push key " + key);
-
-        newEvent.setEvent_id(key);
-
-        myRef.child("events").child(key).setValue(newEvent);
-
-        Map<String, Object> user_events = new HashMap<>();
-        user_events.put(userID, key);
-        myRef.child("user_events").updateChildren(user_events);
-        Log.d(TAG, "create event: set value: " + newEvent.getEvent_name());
+        setFinalizedEvent();
+        key = currentUserPost.postNewEvent(newEvent);
+        Log.d(TAG, "event key : " + key);
         listener.getEventIdKEy(key);
     }
 
-    public void getDummyUserKeys(){
-
-        ValueEventListener userListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                dummyUsers = new ArrayList<>();
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String dummyKey = ds.getKey();
-                    dummyUsers.add(dummyKey);
-                }
-                newEvent.setInvited_guests(dummyUsers);
-                Log.d(TAG, "create event: set value: " + newEvent.getEvent_name());
-                Log.d(TAG, "dummy user list" + dummyUsers.size());
-                myRef.child("events").child(key).setValue(newEvent);
-                Log.d(TAG, "final dummy user list" + dummyUsers.size());
-                fbUserDataUtility.addUserFriends(dummyUsers);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                // ...
-            }
-        };
-        myRef.child(PUBLIC_USER).addValueEventListener(userListener);
-    }
-
-
-    public void getUserData(){
-        ValueEventListener postListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Post object and use the values to update the UI
-                PublicUser user = dataSnapshot.getValue(PublicUser.class);
-                firstName = user.getFirst_name();
-                lastName = user.getLast_name();
-                // ...
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                // ...
-            }
-        };
-        myRef.addValueEventListener(postListener);
-    }
-
-    public void setEventOrganizer(){
-        newEvent.setEvent_organizer(userID);
-    }
-
     public void setEventName(String eventName){
-        newEvent.setEvent_name(eventName);
+        createEventPTSingleton.setEventName(eventName);
+        eventNameSet = true;
         Log.d(TAG, "event name : " + eventName);
         eventNameSet = true;
+        validateEvent();
     }
 
     public void setEventDate(DatePicker datePicker){
         dateOfEvent = String.valueOf(datePicker.getMonth()) + "/" + String.valueOf(datePicker.getDayOfMonth());
-        newEvent.setEvent_date(dateOfEvent);
+        createEventPTSingleton.setEventDate(dateOfEvent);
         setDateAndTime();
-        Log.d(TAG, "event date : " + dateOfEvent);
         eventDateSet = true;
+        Log.d(TAG, "event date : " + dateOfEvent);
+        validateEvent();
+
     }
 
     public void setEventTime(TimePicker timePicker){
@@ -157,53 +83,69 @@ public class CreateEventPresenter {
         } else {
             timeOfEvent = String.valueOf(timePicker.getHour()) + ":" + String.valueOf(timePicker.getMinute());
         }
-        newEvent.setEvent_time(timeOfEvent);
+        createEventPTSingleton.setEventTime(timeOfEvent);
         setDateAndTime();
-        Log.d(TAG, "event time : " + timeOfEvent);
         eventTimeSet = true;
+        validateEvent();
+        Log.d(TAG, "event time : " + timeOfEvent);
+
     }
 
     public void setDateAndTime(){
         dateTime = "";
         StringBuilder sb = new StringBuilder(dateTime);
-        if (dateOfEvent != null) {
-            sb.append("Date: ").append(dateOfEvent).append(" ");
+        if (createEventPTSingleton.getEventDate() != null) {
+            sb.append("Date: ").append(createEventPTSingleton.getEventDate()).append(" ");
         }
-        if (timeOfEvent != null){
-            sb.append("Time: ").append(timeOfEvent);
+        if (createEventPTSingleton.getEventTime() != null){
+            sb.append("Time: ").append(createEventPTSingleton.getEventTime());
         }
         dateTime = sb.toString();
     }
 
-    public void setEventGuests(){
-        newEvent.setInvited_guests(invitedGuests);
-        if(invitedGuests.size() == 0){
-            eventGuestsSet = false;
-        }
+    public void setEventGuests(List<String> invitedGuests){
+        createEventPTSingleton.setInvitedGuests(invitedGuests);
         eventGuestsSet = true;
+        friendsDone = true;
+        Log.d(TAG, "invite size" + invitedGuests.size());
+        validateEvent();
+    }
+    public boolean validateFriendsDone(){
+        return friendsDone;
+    }
+    public boolean validateNameDone(){
+        return eventTimeSet && eventDateSet && eventNameSet;
     }
 
     public void setEventNote(String note){
-        newEvent.setEvent_note(note);
+        createEventPTSingleton.setEventNote(note);
+        Log.d(TAG, "event type" + note);
+        eventNoteSet = true;
+        validateEvent();
     }
 
     public boolean validateEvent(){
         boolean validEvent = false;
-        if (eventTimeSet &&eventNameSet && eventDateSet){
+        if (eventTimeSet && eventNameSet && eventDateSet && eventGuestsSet &&eventNoteSet){
             Log.d(TAG, "create event: event valid");
             validEvent = true;
+            setFinalizedEvent();
         } else {
             Log.d(TAG, "create event: event not valid");
         }
         return validEvent;
     }
 
-    public void inviteGuest(String guestId){
-        invitedGuests.add(guestId);
+    public void setFinalizedEvent(){
+        newEvent.setEvent_id(createEventPTSingleton.getEventID());
+        newEvent.setEvent_name(createEventPTSingleton.getEventName());
+        newEvent.setEvent_note(createEventPTSingleton.getEventNote());
+        newEvent.setEvent_time(createEventPTSingleton.getEventTime());
+        newEvent.setEvent_date(createEventPTSingleton.getEventDate());
+        newEvent.setVenue_type(createEventPTSingleton.getEventVenueType());
+        newEvent.setEvent_note(createEventPTSingleton.getEventNote());
+        newEvent.setInvited_guests(createEventPTSingleton.getInvitedGuests());
+        newEvent.setEvent_organizer(currentUser.getUserID());
+        Log.d(TAG, "event type" + createEventPTSingleton.getEventVenueType());
     }
-
-    public void eventDoneFragmentSwap(){
-        //TODO swap create event frag with event frag.
-    }
-
 }

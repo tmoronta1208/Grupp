@@ -1,7 +1,6 @@
 package com.example.c4q.capstone;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,22 +14,16 @@ import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.UserSearch;
 import com.example.c4q.capstone.userinterface.CurrentUser;
-import com.example.c4q.capstone.userinterface.events.createevent.CreateEventFragment;
-import com.example.c4q.capstone.userinterface.user.EditProfileActivity;
+import com.example.c4q.capstone.userinterface.events.createevent.CreateEventAddNameFragment;
 import com.example.c4q.capstone.userinterface.user.SettingsActivity;
 import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
 import com.example.c4q.capstone.utils.Constants;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
-import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -189,7 +182,7 @@ public class LoginActivity extends AppCompatActivity {
                                 //TODO start userProfile with notifications fragment loaded.
                                 break;
                             case R.id.create_new_event:
-                                Intent creatEvents = new Intent(LoginActivity.this, CreateEventFragment.class);
+                                Intent creatEvents = new Intent(LoginActivity.this, CreateEventAddNameFragment.class);
                                 startActivity(creatEvents);
                                 //TODO start userProfile with upcomining events fragment loaded.
                                 break;
