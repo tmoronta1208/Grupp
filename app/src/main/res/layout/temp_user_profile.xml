@@ -16,7 +16,7 @@
         android:layout_height="85dp"
         android:layout_alignParentStart="true"
         android:layout_marginEnd="@dimen/layout_item_margin"
-        android:src="@drawable/joanneyun" />
+        android:src="@drawable/default_avatar" />
 
     <TextView
         android:id="@+id/user_name"

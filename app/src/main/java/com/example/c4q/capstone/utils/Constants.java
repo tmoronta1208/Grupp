@@ -14,6 +14,7 @@ public class Constants {
     public static final String GROUPS = "groups";
     public static final String NOT_FRIENDS ="not_friends";
     public static final String NOTIFICATIONS = "notifications";
+    public static final String PREFERENCES = "preferences";
     public static final String PRIVATE_USER = "private_user";
     public static final String PRIVATE_LOCATION = "current_location";
     public static final String PUBLIC_USER = "public_user";
@@ -23,6 +24,7 @@ public class Constants {
     public static final String REQUEST_RECEIVED ="req_received";
     public static final String RESTAURANT_PREFS ="restaurant_prefs";
     public static final String SENT = "Request sent";
+    public static final String USER_EVENTS = "user_events";
     public static final String USER_FRIENDS = "user_friends";
     public static final String USER_ICON = "user_icon";
     public static final String USER_SEARCH = "user_search";

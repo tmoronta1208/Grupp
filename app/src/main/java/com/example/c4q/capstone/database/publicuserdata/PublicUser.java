@@ -2,6 +2,7 @@ package com.example.c4q.capstone.database.publicuserdata;
 
 
 public class PublicUser {
+    private String user_id;
     private String first_name;
     private String last_name;
     private String zip_code;
@@ -14,15 +15,24 @@ public class PublicUser {
     public PublicUser() {
     }
 
-    public PublicUser(String first_name, String last_name, String zip_code, String budget, String email, boolean over_18, boolean over_21, int radius) {
+    public PublicUser(String user_id, String first_name, String last_name, String zip_code, String budget, String email, boolean over_18, boolean over_21, int radius) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.zip_code = zip_code;
+        this.user_id = user_id;
         this.budget = budget;
         this.email = email;
         this.over_18 = over_18;
         this.over_21 = over_21;
         this.radius = radius;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
     public String getFirst_name() {

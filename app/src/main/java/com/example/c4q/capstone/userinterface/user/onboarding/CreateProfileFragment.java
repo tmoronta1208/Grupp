@@ -46,7 +46,7 @@ public class CreateProfileFragment extends Fragment {
 
     private static final String TAG = "CreateProfileActivity";
 
-    private String userID, userEmail, firstNameString, lastNameString, zipCodeSting, budgetString;
+    private String currentUserID, userEmail, firstNameString, lastNameString, zipCodeSting, budgetString;
     private boolean over18, over21, share_location;
     private int radius;
     private double lat, lng;
@@ -60,7 +60,7 @@ public class CreateProfileFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference publicUserReference, privateUserReference, privateUserLocationReference;
-    private FirebaseUser user;
+    private FirebaseUser currentUser;
 
     public CreateProfileFragment() {
         // Required empty public constructor
@@ -96,19 +96,19 @@ public class CreateProfileFragment extends Fragment {
         privateUserReference = firebaseDatabase.getReference();
         privateUserLocationReference = firebaseDatabase.getReference();
 
-        user = mAuth.getCurrentUser();
-        userID = user.getUid();
-        userEmail = user.getEmail();
+        currentUser = mAuth.getCurrentUser();
+        currentUserID = currentUser.getUid();
+        userEmail = currentUser.getEmail();
 
         radioGroupSelection();
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (user != null) {
+                if (currentUser != null) {
                     // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    Toast.makeText(CreateProfileFragment.this.getActivity(), "Successfully signed in with: " + user.getEmail(), Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + currentUser.getUid());
+                    Toast.makeText(CreateProfileFragment.this.getActivity(), "Successfully signed in with: " + currentUser.getEmail(), Toast.LENGTH_SHORT).show();
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -172,13 +172,13 @@ public class CreateProfileFragment extends Fragment {
         zipCodeSting = zipCode.getText().toString();
 
         if (!firstNameString.equals("") && !lastNameString.equals("") && !zipCodeSting.equals("")) {
-            PublicUser publicUser = new PublicUser(firstNameString, lastNameString, zipCodeSting, budgetString, userEmail, over18, over21, radius);
+            PublicUser publicUser = new PublicUser(currentUserID,firstNameString, lastNameString, zipCodeSting, budgetString, userEmail, over18, over21, radius);
             PrivateUser privateUser = new PrivateUser(firstNameString, lastNameString, over18, over21, radius);
             PrivateUserLocation privateUserLocation = new PrivateUserLocation(share_location, lat, lng);
 
-            publicUserReference.child(PUBLIC_USER).child(userID).setValue(publicUser);
-            privateUserReference.child(PRIVATE_USER).child(userID).setValue(privateUser);
-            privateUserLocationReference.child(PRIVATE_USER).child(userID).child(PRIVATE_LOCATION).setValue(privateUserLocation);
+            publicUserReference.child(PUBLIC_USER).child(currentUserID).setValue(publicUser);
+            privateUserReference.child(PRIVATE_USER).child(currentUserID).setValue(privateUser);
+            privateUserLocationReference.child(PRIVATE_USER).child(currentUserID).child(PRIVATE_LOCATION).setValue(privateUserLocation);
 
             //startActivity(new Intent(CreateProfileFragment.this.getActivity(), UserProfileActivity.class))
 

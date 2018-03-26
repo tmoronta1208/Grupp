@@ -18,6 +18,7 @@ import java.util.Map;
 
 import static com.example.c4q.capstone.utils.Constants.EVENTS;
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
+import static com.example.c4q.capstone.utils.Constants.USER_EVENTS;
 
 /**
  * Created by amirahoxendine on 3/26/18.
@@ -35,7 +36,7 @@ public class CurrentUserPostUtility {
     public CurrentUserPostUtility(){
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabase = mFirebaseDatabase.getReference();
-        userEventsReference = firebaseDatabase.child("user_events");
+        userEventsReference = firebaseDatabase.child(USER_EVENTS);
         eventsReference = firebaseDatabase.child(EVENTS);
         preferencesReference = firebaseDatabase.child(PUBLIC_USER).child(CurrentUser.getInstance().getUserID());
     }
