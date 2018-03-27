@@ -1,21 +1,20 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.c4q.capstone.userinterface.user.onboarding.BarPreferencesFragment">
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
     <LinearLayout
+        android:layout_centerInParent="true"
         android:id="@+id/user_preferences"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
 
         <TextView
             android:textSize="25sp"
+            android:layout_gravity="bottom|center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="What kind of bars do you prefer?" />
@@ -79,11 +78,11 @@
             android:id="@+id/bar_pref_save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="bottom|center"
+            android:background="@color/colorPrimary"
             android:text="Save" />
 
 
     </LinearLayout>
 
-</ScrollView>
-</FrameLayout>
+</RelativeLayout>

@@ -2,6 +2,7 @@ package com.example.c4q.capstone.userinterface.user.onboarding;
 
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -13,24 +14,41 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toolbar;
 
 import com.example.c4q.capstone.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import github.chenupt.multiplemodel.viewpager.ModelPagerAdapter;
+import github.chenupt.multiplemodel.viewpager.PagerModelManager;
+import github.chenupt.springindicator.SpringIndicator;
+import github.chenupt.springindicator.viewpager.ScrollerViewPager;
 
 public class OnBoardActivity extends FragmentActivity {
     CreateProfileFragment createProfileFragment;
     private static final int NUM_PAGES = 3;
-    private ViewPager viewPager;
+    private ScrollerViewPager viewPager;
     private FragmentStatePagerAdapter pagerAdapter;
+    SpringIndicator springIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_board);
+        springIndicator = findViewById(R.id.indicator);
 
+        viewPager = (ScrollerViewPager) findViewById(R.id.view_pager);
 
-        viewPager = findViewById(R.id.onboarding_pager);
-        pagerAdapter = new ViewPagerActivityAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(pagerAdapter);
+        PagerModelManager manager = new PagerModelManager();
+
+       // manager.addCommonFragment(BarPreferencesFragment.class, AmenityPreferencesFragment.class, getTitles());
+        ViewPagerActivityAdapter adapter =new ViewPagerActivityAdapter(getSupportFragmentManager());
+        //ModelPagerAdapter adapter = new ModelPagerAdapter(getSupportFragmentManager(), manager);
+        viewPager.setAdapter(adapter);
+        viewPager.fixScrollSpeed();
+        springIndicator.setViewPager(viewPager);
 
 
     }
@@ -46,6 +64,16 @@ public class OnBoardActivity extends FragmentActivity {
         }
 
     }
+
+    private List<String> getTitles() {
+        List<String> list = new ArrayList<>();
+        list.add("1");
+        list.add("2");
+        list.add("3");
+
+        return list;
+    }
+
 
     private class ViewPagerActivityAdapter extends FragmentStatePagerAdapter {
         public ViewPagerActivityAdapter(FragmentManager supportFragmentManager) {
@@ -74,6 +102,12 @@ public class OnBoardActivity extends FragmentActivity {
             }
 
             return fragment;
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return getTitle();
         }
 
         @Override
