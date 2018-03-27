@@ -1,7 +1,9 @@
 package com.example.c4q.capstone.userinterface.user.onboarding;
 
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -13,7 +15,7 @@ import com.example.c4q.capstone.R;
 
 public class OnBoardActivity extends AppCompatActivity {
     CreateProfileFragment createProfileFragment;
-    private static final int NUM_PAGES = 4;
+    private static final int NUM_PAGES = 3;
     private ViewPager viewPager;
     private PagerAdapter pagerAdapter;
 
@@ -25,22 +27,54 @@ public class OnBoardActivity extends AppCompatActivity {
 
         viewPager = findViewById(R.id.onboarding_pager);
         pagerAdapter = new ViewPagerActivityAdapter(getSupportFragmentManager());
-
+        viewPager.setAdapter(pagerAdapter);
 
     }
 
-    private class ViewPagerActivityAdapter extends PagerAdapter {
+    @Override
+    public void onBackPressed() {
+        if (viewPager.getCurrentItem() == 0) {
+
+            super.onBackPressed();
+
+        } else {
+            viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
+        }
+
+    }
+
+    private class ViewPagerActivityAdapter extends FragmentStatePagerAdapter {
         public ViewPagerActivityAdapter(FragmentManager supportFragmentManager) {
+            super(supportFragmentManager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+
+            Fragment fragment = null;
+
+            switch (position) {
+                case 0:
+                    fragment = new CreateProfileFragment();
+                    break;
+                case 1:
+                    fragment = new BarPreferencesFragment();
+                    break;
+                case 2:
+                    fragment = new AmenityPreferencesFragment();
+                    break;
+
+                default:
+                    fragment = null;
+
+            }
+
+            return fragment;
         }
 
         @Override
         public int getCount() {
-            return 0;
-        }
-
-        @Override
-        public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-            return false;
+            return NUM_PAGES;
         }
     }
 }

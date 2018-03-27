@@ -21,7 +21,7 @@ import java.util.HashMap;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PreferencesFragment extends Fragment {
+public class BarPreferencesFragment extends Fragment {
     private View view;
     private CheckBox clubCheckBox;
     private CheckBox loungeCheckBox;
@@ -36,7 +36,7 @@ public class PreferencesFragment extends Fragment {
     HashMap<CheckBox, String> prefs = new HashMap<>();
     public static ArrayList<String> selectedPrefs = new ArrayList<>();
 
-    public PreferencesFragment() {
+    public BarPreferencesFragment() {
         // Required empty public constructor
     }
 
