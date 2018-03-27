@@ -16,6 +16,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toolbar;
 
+import com.ToxicBakery.viewpager.transforms.CubeInTransformer;
+import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
+import com.ToxicBakery.viewpager.transforms.ForegroundToBackgroundTransformer;
+import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
 import com.example.c4q.capstone.R;
 
 import java.util.ArrayList;
@@ -49,6 +53,8 @@ public class OnBoardActivity extends FragmentActivity {
         viewPager.setAdapter(adapter);
         viewPager.fixScrollSpeed();
         springIndicator.setViewPager(viewPager);
+
+        viewPager.setPageTransformer(true, new CubeOutTransformer());
 
 
     }

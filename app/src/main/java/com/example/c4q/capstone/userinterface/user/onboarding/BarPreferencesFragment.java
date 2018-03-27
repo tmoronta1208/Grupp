@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.network.barzz.BarzzNetworkCall;
@@ -30,8 +31,9 @@ import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
  */
 public class BarPreferencesFragment extends Fragment {
     private View view;
-    private CheckBox clubCheckBox, loungeCheckBox, beerCheckBox, karaokeCheckBox, hookahPrefCheckBox,
+    private CheckBox clubCheckBox, loungeCheckBox, karaokeCheckBox, hookahPrefCheckBox,
             gayPrefCheckBox, beachCheckBox, hotelCheckbox, pubCheckbox, cocktailCheckbox;
+    Switch beerCheckBox;
     private Button saveButton;
     HashMap<CheckBox, String> prefs = new HashMap<>();
     public static ArrayList<String> selectedPrefs = new ArrayList<>();
@@ -63,7 +65,7 @@ public class BarPreferencesFragment extends Fragment {
 
         clubCheckBox = view.findViewById(R.id.club_pref);
         loungeCheckBox = view.findViewById(R.id.lounge_pref);
-        beerCheckBox = view.findViewById(R.id.beer_pref);
+//        beerCheckBox = view.findViewById(R.id.beer_pref);
         karaokeCheckBox = view.findViewById(R.id.karaoke_pref);
         hookahPrefCheckBox = view.findViewById(R.id.hookah_pref);
         gayPrefCheckBox = view.findViewById(R.id.gayBar_pref);
@@ -79,7 +81,7 @@ public class BarPreferencesFragment extends Fragment {
 
         prefs.put(clubCheckBox, "club");
         prefs.put(loungeCheckBox, "lounge");
-        prefs.put(beerCheckBox, "beer");
+        // prefs.put(beerCheckBox, "beer");
         prefs.put(karaokeCheckBox, "karaoke");
         prefs.put(hookahPrefCheckBox, "hookah");
         prefs.put(gayPrefCheckBox, "gay");
@@ -113,14 +115,13 @@ public class BarPreferencesFragment extends Fragment {
             });
 
 
-
         }
 
         saveToDatabase();
         return view;
     }
 
-    public void saveToDatabase(){
+    public void saveToDatabase() {
 
 
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -131,7 +132,6 @@ public class BarPreferencesFragment extends Fragment {
         });
 
     }
-
 
 
 }

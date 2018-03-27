@@ -5,26 +5,31 @@
     tools:context="com.example.c4q.capstone.userinterface.user.onboarding.BarPreferencesFragment">
 
     <LinearLayout
-        android:layout_centerInParent="true"
         android:id="@+id/user_preferences"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:orientation="vertical">
 
 
         <TextView
-            android:textSize="25sp"
-            android:layout_gravity="bottom|center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="What kind of bars do you prefer?" />
+            android:layout_gravity="bottom|center"
+            android:text="What kind of bars do you prefer?"
+            android:textSize="25sp" />
 
-
-        <CheckBox
+        <com.rey.material.widget.Switch
             android:id="@+id/beer_pref"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Beer Bar" />
+
+        <!--<CheckBox-->
+            <!--android:id="@+id/beer_pref"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Beer Bar" />-->
 
         <CheckBox
             android:id="@+id/lounge_pref"
@@ -43,31 +48,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Beach Bar" />
+
         <CheckBox
             android:id="@+id/gayBar_pref"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Gay Bars" />
+
         <CheckBox
             android:id="@+id/hookah_pref"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hookah" />
+
         <CheckBox
             android:id="@+id/hotel_pref"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hotel Bars" />
+
         <CheckBox
             android:id="@+id/karaoke_pref"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Karaoke" />
+
         <CheckBox
             android:id="@+id/pub_pref"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pubs" />
+
         <CheckBox
             android:id="@+id/cocktail_pref"
             android:layout_width="wrap_content"
