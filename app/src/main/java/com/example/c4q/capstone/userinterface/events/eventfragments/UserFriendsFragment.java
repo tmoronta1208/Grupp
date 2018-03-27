@@ -33,8 +33,6 @@ public class UserFriendsFragment extends Fragment {
     LinearLayoutManager linearLayoutManager;
     List<PublicUser> friendsUserList = CurrentUser.getInstance().getUserFriendsList();
 
-
-
     public UserFriendsFragment() {
         // Required empty public constructor
     }

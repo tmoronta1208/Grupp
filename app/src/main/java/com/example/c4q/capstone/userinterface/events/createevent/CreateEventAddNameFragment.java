@@ -215,12 +215,12 @@ public class CreateEventAddNameFragment extends Fragment {
     }
 
     public void loadEventFragment() {
-       /* Intent intent = new Intent(CreateEventAddNameFragment.this.getActivity(), EventActivity.class);
+        Intent intent = new Intent(CreateEventAddNameFragment.this.getActivity(), EventActivity.class);
         intent.putExtra("eventID", eventID);
         intent.putExtra("eventType", "new");
         startActivity(intent);
         createEventPTSingleton.destroyInstance();
-        getActivity().finish();*/
+        getActivity().finish();
     }
 
 }
