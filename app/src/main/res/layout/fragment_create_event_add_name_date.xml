@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:clickable="true"
-    android:background="@color/colorPrimary"
+    android:background="@android:color/white"
     tools:context="com.example.c4q.capstone.userinterface.events.createevent.CreateEventActivity"
     >
 
@@ -41,12 +41,13 @@
                 >
                 <DatePicker
                     android:id="@+id/date_picker"
-                    android:layout_width="300dp"
-                    android:layout_height="400dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginVertical="@dimen/layout_item_margin"
                     android:datePickerMode="calendar"
                     android:visibility="gone"
+                    android:background="@color/floatingmenucolor"
                     android:calendarViewShown="true"
                     />
 
@@ -64,10 +65,11 @@
             <Button
                 android:id="@+id/close_button"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryShade"
+                android:layout_height="30dp"
+                android:background="@drawable/eventbutton"
                 android:layout_gravity="center"
                 android:text="ok"
+                android:textSize="16sp"
                 android:visibility="gone"
                 />
 
@@ -105,12 +107,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/layout_item_margin"
-            android:background="@color/colorPrimaryShade"
+            android:background="@drawable/eventbutton"
             android:gravity="center"
             android:textAllCaps="true"
             android:text="@string/pick_a_date"
             android:padding="@dimen/layout_item_margin"
-            android:textColor="@color/colorPrimary"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:textSize="16sp"
             />
@@ -120,19 +121,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/layout_item_margin"
-            android:background="@color/colorPrimaryShade"
+            android:background="@drawable/eventbutton"
             android:gravity="center"
             android:textAllCaps="true"
             android:text="@string/pick_a_time"
             android:padding="@dimen/layout_item_margin"
-            android:textColor="@color/colorPrimary"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:textSize="16sp"
             />
         <Button
             android:id="@+id/create_event_button"
             android:layout_width="42dp"
-            android:layout_height="42dp"
+            android:layout_height="wrap_content"
             android:layout_margin="@dimen/layout_item_margin"
             android:padding="30dp"
             android:layout_gravity="end"
