@@ -73,8 +73,6 @@ public class LoginActivity extends AppCompatActivity {
          * */
 
         getUserData();
-        Intent intent = new Intent(LoginActivity.this, OnBoardActivity.class);
-        startActivity(intent);
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
                 new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build());
@@ -111,8 +109,8 @@ public class LoginActivity extends AppCompatActivity {
                  * */
 
                 //   if (userNotInDB()) {
-                Intent editProfileIntent = new Intent(LoginActivity.this, UserProfileActivity.class);
-                startActivity(editProfileIntent);
+                Intent onBoardIntent = new Intent(LoginActivity.this, OnBoardActivity.class);
+                startActivity(onBoardIntent);
                 Log.d(" LOGIN", "set up profile");
 
             } else {

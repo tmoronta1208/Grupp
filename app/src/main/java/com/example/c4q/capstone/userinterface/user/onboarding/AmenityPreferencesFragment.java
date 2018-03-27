@@ -1,6 +1,7 @@
 package com.example.c4q.capstone.userinterface.user.onboarding;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,8 +12,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
+import com.example.c4q.capstone.LoginActivity;
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.network.barzz.BarzzNetworkCall;
+import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -97,7 +100,7 @@ public class AmenityPreferencesFragment extends Fragment {
                     if (a.isChecked()) {
                         Log.d("Item Checked", prefs.get(a));
                         selectedPrefs.add(prefs.get(a));
-                        BarzzNetworkCall.start("10001");
+                      //  BarzzNetworkCall.start("10001");
                         Log.d("selctedPref size: ", selectedPrefs.toString());
                     }
 
@@ -117,6 +120,8 @@ public class AmenityPreferencesFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 preferencesDB.child(currentUserID).child(PREFERENCES).child(AMENITY_PREFS).setValue(selectedPrefs);
+                Intent intent = new Intent(getActivity(), UserProfileActivity.class);
+                startActivity(intent);
             }
         });
 

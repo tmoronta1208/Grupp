@@ -107,7 +107,7 @@ public class BarPreferencesFragment extends Fragment {
                     if (a.isChecked()) {
                         Log.d("Item Checked", prefs.get(a));
                         selectedPrefs.add(prefs.get(a));
-                        BarzzNetworkCall.start("10001");
+                     //   BarzzNetworkCall.start("10001");
                         Log.d("selctedPref size: ", selectedPrefs.toString());
                     }
 
