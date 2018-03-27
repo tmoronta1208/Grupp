@@ -38,11 +38,13 @@ public class CurrentUserPost {
     public String newEventKey(){
         return userPostUtility.getNewEventKey();
     }
+
     public String postNewEvent(String key, Events event){
         userPostUtility.addEventToDb(key, event);
         userPostUtility.addEventToUserEvents(key);
         return newEventKey;
     }
+
     public void postNewBarPreferences(List<String> barPrefs){
         userPostUtility.updateBarPrefs(barPrefs);
     }
