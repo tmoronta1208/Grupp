@@ -30,5 +30,6 @@ public class Constants {
     public static final String USER_SEARCH = "user_search";
     public static final String VENUES = "venues";
     public static final String VENUE_ADDRESS = "venue_address";
+    public static final String PREFERENCES = "preferences";
 
 }

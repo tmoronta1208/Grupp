@@ -21,6 +21,11 @@ import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.events.createevent.CreateEventAddNameFragment;
 import com.example.c4q.capstone.userinterface.user.SettingsActivity;
 import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
+<<<<<<< Updated upstream
+=======
+//import com.example.c4q.capstone.userinterface.user.onboarding.OnBoardActivity;
+import com.example.c4q.capstone.userinterface.user.onboarding.OnBoardActivity;
+>>>>>>> Stashed changes
 import com.example.c4q.capstone.utils.Constants;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -87,8 +92,22 @@ public class LoginActivity extends AppCompatActivity {
                         //  .setTheme(R.style.MySuperAppTheme) <-- Set theme
                         .build(),
                 RC_SIGN_IN);
+<<<<<<< Updated upstream
 
 
+=======
+        /*Deletes Firebase Authentication as well as all social identity providers (MG)*/
+//        AuthUI.getInstance()
+//                .signOut(this)
+//                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        // ...
+//                    }
+//                });
+
+      //  setNavDrawerLayout();
+//        setToolbar();
+>>>>>>> Stashed changes
     }
 
 

@@ -18,6 +18,7 @@ tools:context="com.example.c4q.capstone.userinterface.user.onboarding.CreateProf
         android:layout_height="wrap_content"
         android:hint="First Name" />
 
+<<<<<<< Updated upstream
     <EditText
         android:id="@+id/edit_profile_lastname"
         android:layout_width="match_parent"
@@ -131,6 +132,134 @@ tools:context="com.example.c4q.capstone.userinterface.user.onboarding.CreateProf
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="20 mi" />
+=======
+        <EditText
+            android:id="@+id/edit_profile_firstname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="First Name" />
+
+        <EditText
+            android:id="@+id/edit_profile_lastname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Last Name" />
+
+        <EditText
+            android:id="@+id/edit_profile_zip_code"
+            android:layout_width="match_parent"
+            android:inputType="number"
+            android:layout_height="wrap_content"
+            android:hint="Zip Code" />
+
+        <TextView
+            android:id="@+id/edit_profile_age_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Age" />
+
+        <RadioGroup
+            android:id="@+id/radio_group_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/age_choice_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="21 or over" />
+
+            <RadioButton
+                android:id="@+id/age_choice_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="18 to 20" />
+
+            <RadioButton
+                android:id="@+id/age_choice_three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="17 or younger" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/edit_profile_budget_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Budget" />
+
+        <RadioGroup
+            android:id="@+id/radio_group_budget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/budget_choice_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$" />
+
+            <RadioButton
+                android:id="@+id/budget_choice_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$$" />
+
+            <RadioButton
+                android:id="@+id/budget_choice_three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$$$" />
+
+            <RadioButton
+                android:id="@+id/budget_choice_four"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$$$$" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/edit_profile_radius_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Radius" />
+
+        <RadioGroup
+            android:id="@+id/radio_group_radius"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/radius_choice_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5 mi" />
+
+            <RadioButton
+                android:id="@+id/radius_choice_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10 mi" />
+
+            <RadioButton
+                android:id="@+id/radius_choice_three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15 mi" />
+
+            <RadioButton
+                android:id="@+id/radius_choice_four"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20 mi" />
+
+            <RadioButton
+                android:id="@+id/radius_choice_five"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="25 mi" />
+        </RadioGroup>
+>>>>>>> Stashed changes
 
         <RadioButton
             android:id="@+id/radius_choice_five"

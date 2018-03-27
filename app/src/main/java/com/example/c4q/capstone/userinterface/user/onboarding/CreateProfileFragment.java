@@ -8,23 +8,31 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+<<<<<<< Updated upstream
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+=======
+>>>>>>> Stashed changes
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.c4q.capstone.R;
+<<<<<<< Updated upstream
 import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
 import com.example.c4q.capstone.database.privateuserdata.PrivateUserLocation;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.PreferencesFragment;
+=======
+>>>>>>> Stashed changes
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -37,12 +45,14 @@ import static com.example.c4q.capstone.utils.Constants.PRIVATE_LOCATION;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class CreateProfileFragment extends Fragment {
     View rootView;
+<<<<<<< Updated upstream
 
     private static final String TAG = "CreateProfileActivity";
 
@@ -61,23 +71,25 @@ public class CreateProfileFragment extends Fragment {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference publicUserReference, privateUserReference, privateUserLocationReference;
     private FirebaseUser currentUser;
+=======
+    private CheckBox clubCheckBox, loungeCheckBox, beerCheckBox, karaokeCheckBox, hookahPrefCheckBox,
+            gayPrefCheckBox, beachCheckBox, hotelCheckbox, pubCheckbox, cocktailCheckbox, brunchPref,
+            outdoorPref, rooftopPref, danceFloorPref, fullMenuPref, videoGamePref, dartPref, poolTablePref;
+    public static HashMap<CheckBox, String> prefs = new HashMap<>();
+    public static List<String> selectedPrefs = new ArrayList<>();
+>>>>>>> Stashed changes
 
     public CreateProfileFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * @Tati this is the CreateProfile fragment, basically a copy and paste of @Ashley's EditProfileCode.
-     * I've indicated when and where the fragment gets swapped with a todo.
-     * Theres a lot of code on this page. You can make it nicer,
-     * if youd like :)
-     */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         rootView = inflater.inflate(com.example.c4q.capstone.R.layout.fragment_create_profile, container, false);
+<<<<<<< Updated upstream
 
         saveBtn = rootView.findViewById(R.id.edit_profile_save_button);
 
@@ -145,10 +157,84 @@ public class CreateProfileFragment extends Fragment {
         });
 
         locationManagerLogic();
+=======
+//
+//        //Bar Preferences
+//        clubCheckBox = rootView.findViewById(R.id.club_pref);
+//        loungeCheckBox = rootView.findViewById(R.id.lounge_pref);
+//        beerCheckBox = rootView.findViewById(R.id.beer_pref);
+//        karaokeCheckBox = rootView.findViewById(R.id.karaoke_pref);
+//        hookahPrefCheckBox = rootView.findViewById(R.id.hookah_pref);
+//        gayPrefCheckBox = rootView.findViewById(R.id.gayBar_pref);
+//        beachCheckBox = rootView.findViewById(R.id.beach_pref);
+//        hotelCheckbox = rootView.findViewById(R.id.hotel_pref);
+//        pubCheckbox = rootView.findViewById(R.id.pub_pref);
+//        cocktailCheckbox = rootView.findViewById(R.id.cocktail_pref);
+//
+//        //Amenity Preferences
+//        brunchPref = rootView.findViewById(R.id.brunch_pref);
+//        outdoorPref = rootView.findViewById(R.id.outdoor_pref);
+//        rooftopPref = rootView.findViewById(R.id.rooftop_pref);
+//        danceFloorPref = rootView.findViewById(R.id.dance_floor_pref);
+//        fullMenuPref = rootView.findViewById(R.id.fullmenu_pref);
+//        videoGamePref = rootView.findViewById(R.id.video_games_pref);
+//        dartPref = rootView.findViewById(R.id.darts_pref);
+//        poolTablePref = rootView.findViewById(R.id.pooltable_pref);
+
+//
+//        //Added all Checkboxes to a map with the checkbox as the key and type keyword as the value
+//        prefs.put(clubCheckBox, "club");
+//        prefs.put(loungeCheckBox, "lounge");
+//        prefs.put(beerCheckBox, "beer");
+//        prefs.put(karaokeCheckBox, "karaoke");
+//        prefs.put(hookahPrefCheckBox, "hookah");
+//        prefs.put(gayPrefCheckBox, "gay");
+//        prefs.put(beachCheckBox, "beach");
+//        prefs.put(hotelCheckbox, "hotel");
+//        prefs.put(pubCheckbox, "pub");
+//        prefs.put(cocktailCheckbox, "cocktail");
+//
+//        prefs.put(brunchPref, "brunch");
+//        prefs.put(outdoorPref, "outdoor");
+//        prefs.put(rooftopPref, "rooftop");
+//        prefs.put(danceFloorPref, "dance+floor");
+//        prefs.put(videoGamePref, "video+games");
+//        prefs.put(fullMenuPref, "full+menu");
+//        prefs.put(dartPref, "darts");
+//        prefs.put(poolTablePref, "pool+table");
+
+
+//        // Foreach - added an onClick listener to each checkbox in the map
+//
+//        for (final CheckBox a : prefs.keySet()) {
+//
+//            a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                @Override
+//                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//
+//                    if (!a.isChecked()) {
+//                        selectedPrefs.remove(prefs.get(a));
+//                        //selectedPrefs.add(null);
+//                        Log.d("selctedPref size: ", selectedPrefs.toString());
+//
+//                    }
+//                    if (a.isChecked()) {
+//                        Log.d("Item Checked", prefs.get(a));
+//                        selectedPrefs.add(prefs.get(a));
+//                        //BarzzNetworkCall.start("10001");
+//                        Log.d("selctedPref size: ", selectedPrefs.toString());
+//                    }
+//
+//                }
+//            });
+//
+//        }
+>>>>>>> Stashed changes
 
         return rootView;
     }
 
+<<<<<<< Updated upstream
     public void locationManagerLogic() {
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(CreateProfileFragment.this.getActivity().LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(CreateProfileFragment.this.getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -295,5 +381,84 @@ public class CreateProfileFragment extends Fragment {
             }
         });
     }
+=======
+
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        if (mAuthListener != null) {
+//            mAuth.removeAuthStateListener(mAuthListener);
+//        }
+//    }
+//
+//    public void radioGroupSelection() {
+//        ageGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                ageChoice = group.findViewById(checkedId);
+//                switch (checkedId) {
+//                    case R.id.age_choice_one:
+//                        over18 = true;
+//                        over21 = true;
+//                        break;
+//                    case R.id.age_choice_two:
+//                        over18 = true;
+//                        over21 = false;
+//                        break;
+//                    case R.id.age_choice_three:
+//                        over18 = false;
+//                        over21 = false;
+//                        break;
+//                }
+//            }
+//        });
+//
+//        budgetGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                budgetChoice = group.findViewById(checkedId);
+//                switch (checkedId) {
+//                    case R.id.budget_choice_one:
+//                        budgetString = "$";
+//                        break;
+//                    case R.id.budget_choice_two:
+//                        budgetString = "$$";
+//                        break;
+//                    case R.id.budget_choice_three:
+//                        budgetString = "$$$";
+//                        break;
+//                    case R.id.budget_choice_four:
+//                        budgetString = "$$$$";
+//                        break;
+//
+//                }
+//            }
+//        });
+//
+//        radiusGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                radiusChoice = group.findViewById(checkedId);
+//                switch (checkedId) {
+//                    case R.id.radius_choice_one:
+//                        radius = 5;
+//                        break;
+//                    case R.id.radius_choice_two:
+//                        radius = 10;
+//                        break;
+//                    case R.id.radius_choice_three:
+//                        radius = 15;
+//                        break;
+//                    case R.id.radius_choice_four:
+//                        radius = 20;
+//                        break;
+//                    case R.id.radius_choice_five:
+//                        radius = 25;
+//                        break;
+//                }
+//            }
+//        });
+//    }
+>>>>>>> Stashed changes
 
 }
