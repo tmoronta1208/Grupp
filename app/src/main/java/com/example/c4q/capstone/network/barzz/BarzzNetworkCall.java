@@ -3,11 +3,8 @@ package com.example.c4q.capstone.network.barzz;
 import android.util.Log;
 
 import com.example.c4q.capstone.network.barzz.barzzmodel.BarzzModel;
-import com.example.c4q.capstone.userinterface.user.userprofilefragments.PreferencesFragment;
+import com.example.c4q.capstone.userinterface.user.onboarding.PreferencesFragment;
 import com.example.c4q.capstone.utils.Constants;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;

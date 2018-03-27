@@ -1,4 +1,4 @@
-package com.example.c4q.capstone.userinterface.user.userprofilefragments;
+package com.example.c4q.capstone.userinterface.user.onboarding;
 
 
 import android.os.Bundle;

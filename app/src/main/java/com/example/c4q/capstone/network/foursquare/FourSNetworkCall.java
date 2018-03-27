@@ -2,10 +2,8 @@ package com.example.c4q.capstone.network.foursquare;
 
 import android.util.Log;
 
-import com.example.c4q.capstone.network.barzz.BarzzService;
-import com.example.c4q.capstone.network.barzz.barzzmodel.BarzzModel;
 import com.example.c4q.capstone.network.foursquare.foursquaremodel.FourSquareModel;
-import com.example.c4q.capstone.userinterface.user.userprofilefragments.PreferencesFragment;
+import com.example.c4q.capstone.userinterface.user.onboarding.PreferencesFragment;
 import com.example.c4q.capstone.utils.Constants;
 
 import retrofit2.Call;
