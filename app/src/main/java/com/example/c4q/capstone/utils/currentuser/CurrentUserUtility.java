@@ -16,8 +16,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static com.example.c4q.capstone.utils.Constants.EVENTS;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
@@ -50,6 +52,7 @@ public class CurrentUserUtility {
     private List<Events> userEventsList = new ArrayList<>();
     private List<String> userFriendIds = new ArrayList<>();
     private List<PublicUser> userFriendsPublicUserList = new ArrayList<>();
+    HashMap<String, Events> eventsMap = new HashMap<>();
 
     private static final String TAG = "CURRENT USER UTILITY: ";
     CurrentUserListener currentUserListener;
@@ -317,12 +320,57 @@ public class CurrentUserUtility {
                     for (final String eventID : userEventIDs) {
                         if (dataSnapshot.child(eventID).getValue(Events.class) != null){
                             Events event = dataSnapshot.child(eventID).getValue(Events.class);
-                            userEventsList.add(event);
+                           if (event != null){
+                               eventsMap.put(event.getEvent_id(), event);
+                               userEventsList = new ArrayList<>();
+                               for (String s :eventsMap.keySet()){
+                                   userEventsList.add(eventsMap.get(s));
+                               }
+                               //userEventsList.add(event);
+                               listener.getUserEvents(userEventsList);
+                           }
+
                         }
 
                     }
                     Log.d(TAG, "get current user events called :" + userEventsList.size());
-                    listener.getUserEvents(userEventsList);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void getRealTimeCurrentUserEvents(final RealTimeEventsListener listener) {
+        Log.d(TAG, "get current user events called :");
+
+
+        eventsReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userEventsList = new ArrayList<>();
+                if (userHasEvents && userEventIDs.size() != 0){
+                    for (final String eventID : userEventIDs) {
+                        if (dataSnapshot.child(eventID).getValue(Events.class) != null){
+                            Events event = dataSnapshot.child(eventID).getValue(Events.class);
+                            if (event != null){
+                                eventsMap.put(event.getEvent_id(), event);
+                                userEventsList = new ArrayList<>();
+                                for (String s :eventsMap.keySet()){
+                                    userEventsList.add(eventsMap.get(s));
+                                }
+                                //userEventsList.add(event);
+                                listener.getRealTimeEvents(userEventsList);
+                                Log.d(TAG, "get realtime events called :" + userEventsList.size());
+                            }
+
+                        }
+
+                    }
                 }
             }
 

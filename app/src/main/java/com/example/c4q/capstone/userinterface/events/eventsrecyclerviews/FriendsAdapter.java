@@ -9,6 +9,7 @@ import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews.ContactListViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ import java.util.List;
  */
 
 public class FriendsAdapter extends RecyclerView.Adapter<ContactListViewHolder> {
-    List<PublicUser> friendsList;
+    List<PublicUser> friendsList = new ArrayList<>();
     View.OnClickListener listener;
 
     public FriendsAdapter(List<PublicUser> friendsList, View.OnClickListener listener) {
@@ -41,6 +42,9 @@ public class FriendsAdapter extends RecyclerView.Adapter<ContactListViewHolder> 
 
     @Override
     public int getItemCount() {
-        return friendsList.size();
+        if (friendsList != null){
+            return friendsList.size();
+        } return 0;
+
     }
 }
