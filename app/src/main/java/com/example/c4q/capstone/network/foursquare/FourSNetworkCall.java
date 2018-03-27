@@ -2,15 +2,17 @@ package com.example.c4q.capstone.network.foursquare;
 
 import android.util.Log;
 
-import com.example.c4q.capstone.network.barzz.BarzzService;
-import com.example.c4q.capstone.network.barzz.barzzmodel.BarzzModel;
 import com.example.c4q.capstone.network.foursquare.foursquaremodel.FourSquareModel;
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.PreferencesFragment;
 =======
 import com.example.c4q.capstone.userinterface.user.onboarding.BarPreferencesFragment;
 import com.example.c4q.capstone.userinterface.user.onboarding.CreateProfileFragment;
 >>>>>>> Stashed changes
+=======
+import com.example.c4q.capstone.userinterface.user.onboarding.BarPreferencesFragment;
+>>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
 import com.example.c4q.capstone.utils.Constants;
 
 import retrofit2.Call;
@@ -37,6 +39,7 @@ public class FourSNetworkCall {
 
         final FourSService fourSService = retrofit.create(FourSService.class);
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
         for (int i = 0; i < PreferencesFragment.selectedPrefs.size(); i++) {
 
@@ -48,6 +51,12 @@ public class FourSNetworkCall {
 
             Call<FourSquareModel> call = fourSService.getVenues(CreateProfileFragment.selectedPrefs.get(i));
 >>>>>>> Stashed changes
+=======
+        for (int i = 0; i < BarPreferencesFragment.selectedPrefs.size(); i++) {
+
+
+            Call<FourSquareModel> call = fourSService.getVenues(BarPreferencesFragment.selectedPrefs.get(i));
+>>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
 
             call.enqueue(new Callback<FourSquareModel>() {
                 @Override

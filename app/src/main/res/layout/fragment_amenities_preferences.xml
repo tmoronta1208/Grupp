@@ -64,6 +64,7 @@
             android:id="@+id/pooltable_pref"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+<<<<<<< HEAD
             android:text="Pool Tables" />
 
         <CheckBox
@@ -73,6 +74,9 @@
             android:text="Bottle Service" />
 
 
+=======
+            android:text="Rooftop" />
+>>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
     </LinearLayout>
 
 </FrameLayout>

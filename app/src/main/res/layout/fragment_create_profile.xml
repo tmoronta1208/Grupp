@@ -1,132 +1,246 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-tools:context="com.example.c4q.capstone.userinterface.user.onboarding.CreateProfileFragment">
-
-<LinearLayout
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    tools:context="com.example.c4q.capstone.userinterface.user.onboarding.CreateProfileFragment">
 
-    <EditText
-        android:id="@+id/edit_profile_firstname"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="First Name" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
     <EditText
         android:id="@+id/edit_profile_lastname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Last Name" />
+=======
+        <android.support.v7.widget.CardView
+>>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
 
-    <EditText
-        android:id="@+id/edit_profile_zip_code"
-        android:layout_width="match_parent"
-        android:inputType="number"
-        android:layout_height="wrap_content"
-        android:hint="Zip Code" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="50dp"
+            card_view:cardCornerRadius="5dp"
+            card_view:cardElevation="6dp"
+            card_view:cardMaxElevation="10dp"
+            card_view:cardUseCompatPadding="true">
 
-    <TextView
-        android:id="@+id/edit_profile_age_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Age" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-    <RadioGroup
-        android:id="@+id/radio_group_age"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/edit_profile_firstname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="First Name" />
 
-        <RadioButton
-            android:id="@+id/age_choice_one"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="21 or over" />
+                <EditText
+                    android:id="@+id/edit_profile_lastname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Last Name" />
 
-        <RadioButton
-            android:id="@+id/age_choice_two"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="18 to 20" />
+                <EditText
+                    android:id="@+id/edit_profile_zip_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Zip Code"
+                    android:inputType="number" />
 
-        <RadioButton
-            android:id="@+id/age_choice_three"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="17 or younger" />
-    </RadioGroup>
+            </LinearLayout>
 
-    <TextView
-        android:id="@+id/edit_profile_budget_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Budget" />
 
-    <RadioGroup
-        android:id="@+id/radio_group_budget"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        </android.support.v7.widget.CardView>
 
-        <RadioButton
-            android:id="@+id/budget_choice_one"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="$" />
 
-        <RadioButton
-            android:id="@+id/budget_choice_two"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="$$" />
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            card_view:cardCornerRadius="5dp"
+            card_view:cardElevation="6dp"
+            card_view:cardMaxElevation="10dp"
+            card_view:cardUseCompatPadding="true">
 
-        <RadioButton
-            android:id="@+id/budget_choice_three"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="$$$" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <RadioButton
-            android:id="@+id/budget_choice_four"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="$$$$" />
-    </RadioGroup>
 
-    <TextView
-        android:id="@+id/edit_profile_radius_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Radius" />
+                <TextView
+                    android:id="@+id/edit_profile_age_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Age" />
 
-    <RadioGroup
-        android:id="@+id/radio_group_radius"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
 
-        <RadioButton
-            android:id="@+id/radius_choice_one"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="5 mi" />
+                <RadioGroup
+                    android:id="@+id/radio_group_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-        <RadioButton
-            android:id="@+id/radius_choice_two"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="10 mi" />
+                    <RadioButton
+                        android:id="@+id/age_choice_one"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="21 or over" />
 
-        <RadioButton
-            android:id="@+id/radius_choice_three"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="15 mi" />
+                    <RadioButton
+                        android:id="@+id/age_choice_two"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="18 to 20" />
 
+                    <RadioButton
+                        android:id="@+id/age_choice_three"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="17 or younger" />
+                </RadioGroup>
+
+
+                />
+
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            card_view:cardCornerRadius="5dp"
+            card_view:cardElevation="6dp"
+            card_view:cardMaxElevation="10dp"
+            card_view:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/edit_profile_budget_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Budget" />
+
+                <RadioGroup
+                    android:id="@+id/radio_group_budget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/budget_choice_one"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$" />
+
+                    <RadioButton
+                        android:id="@+id/budget_choice_three"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$$$" />
+
+                    <RadioButton
+                        android:id="@+id/budget_choice_four"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$$$$" />
+
+                    <RadioButton
+                        android:id="@+id/budget_choice_two"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$$" />
+                </RadioGroup>
+
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/cardview_default_elevation"
+            card_view:cardCornerRadius="5dp"
+            card_view:cardElevation="6dp"
+            card_view:cardMaxElevation="10dp"
+            card_view:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/edit_profile_radius_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Radius" />
+
+                <RadioGroup
+                    android:id="@+id/radio_group_radius"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/radius_choice_one"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5 mi" />
+
+                    <RadioButton
+                        android:id="@+id/radius_choice_two"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10 mi" />
+
+                    <RadioButton
+                        android:id="@+id/radius_choice_three"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="15 mi" />
+
+                    <RadioButton
+                        android:id="@+id/radius_choice_four"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20 mi" />
+
+                    <RadioButton
+                        android:id="@+id/radius_choice_five"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="25 mi" />
+                </RadioGroup>
+
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+<<<<<<< HEAD
         <RadioButton
             android:id="@+id/radius_choice_four"
             android:layout_width="wrap_content"
@@ -260,19 +374,14 @@ tools:context="com.example.c4q.capstone.userinterface.user.onboarding.CreateProf
                 android:text="25 mi" />
         </RadioGroup>
 >>>>>>> Stashed changes
+=======
+>>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
 
-        <RadioButton
-            android:id="@+id/radius_choice_five"
+        <Button
+            android:id="@+id/edit_profile_save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="25 mi" />
-    </RadioGroup>
-
-    <Button
-        android:id="@+id/edit_profile_save_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:text="Save" />
-</LinearLayout>
+            android:layout_gravity="end"
+            android:text="Save" />
+    </LinearLayout>
 </ScrollView>

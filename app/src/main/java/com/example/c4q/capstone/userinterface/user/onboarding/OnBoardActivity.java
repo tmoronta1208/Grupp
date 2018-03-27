@@ -1,20 +1,44 @@
 package com.example.c4q.capstone.userinterface.user.onboarding;
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 >>>>>>> Stashed changes
+=======
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+>>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+<<<<<<< HEAD
 <<<<<<< Updated upstream
+=======
+import android.util.Log;
+import android.widget.Toast;
+>>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
+import com.example.c4q.capstone.database.privateuserdata.PrivateUserLocation;
+import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.example.c4q.capstone.database.publicuserdata.PublicUserPreferences;
+import com.example.c4q.capstone.database.publicuserdata.UserSearch;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
+import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 
 public class OnBoardActivity extends AppCompatActivity {
+<<<<<<< HEAD
     CreateProfileFragment createProfileFragment;
 =======
 import android.util.Log;
@@ -67,10 +91,31 @@ public class OnBoardActivity extends AppCompatActivity {
     private FragmentStatePagerAdapter pagerAdapter;
     Button saveToDbButton;
 >>>>>>> Stashed changes
+=======
+
+    private static final int NUM_PAGES = 3;
+    private static final String TAG = "";
+    private ViewPager viewPager;
+    private FragmentStatePagerAdapter pagerAdapter;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private String currentUserID, firstNameString, lastNameString, zipCodeSting, budgetString;
+    PublicUserPreferences publicUserPreferences;
+
+    private DatabaseReference rootRef, publicUserReference, privateUserReference, privateUserLocationReference, searchUserReference;
+    private FirebaseUser currentUser;
+    private UserSearch userSearch;
+    private PublicUser publicUser;
+    private PrivateUser privateUser;
+    private PrivateUserLocation privateUserLocation;
+    private String currentUserEmail;
+
+>>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+<<<<<<< HEAD
 <<<<<<< Updated upstream
         setContentView(R.layout.activity_on_board);
         loadCreatProfilFragment();
@@ -94,6 +139,41 @@ public class OnBoardActivity extends AppCompatActivity {
 
     }
 
+=======
+        setContentView(R.layout.activity_view_pager2);
+
+        viewPager = findViewById(R.id.onboarding_pager);
+        pagerAdapter = new ViewPagerActivityAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(pagerAdapter);
+
+        mAuth = FirebaseAuth.getInstance();
+        rootRef = FirebaseDatabase.getInstance().getReference();
+        publicUserReference = rootRef.child(PUBLIC_USER);
+        privateUserReference = rootRef.child(PRIVATE_USER);
+        privateUserLocationReference = rootRef.child(PRIVATE_USER);
+        searchUserReference = rootRef.child(PUBLIC_USER);
+
+        currentUser = mAuth.getCurrentUser();
+        currentUserID = currentUser.getUid();
+        currentUserEmail = currentUser.getEmail();
+
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (currentUser != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + currentUser.getUid());
+                    Toast.makeText(OnBoardActivity.this, "Successfully signed in with: " + currentUser.getEmail(), Toast.LENGTH_SHORT).show();
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                    Toast.makeText(OnBoardActivity.this, "Successfully signed out.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+    }
+>>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -103,6 +183,10 @@ public class OnBoardActivity extends AppCompatActivity {
         } else {
             viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
     }
 
     private class ViewPagerActivityAdapter extends FragmentStatePagerAdapter {
@@ -127,24 +211,39 @@ public class OnBoardActivity extends AppCompatActivity {
                     break;
             }
             return fragment;
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
 
-    /** @Tati this is the onboard activity, it holds all the fragments for onboarding. It starts with the Create Profile
-     * Fragment (copy and paste of the EditProfileActvity) when you click next on each fragment, you should call
-     * getActivity().getFragmentManager to replace the current fragment with the next.
-     */
+        }
 
-    public void loadCreatProfilFragment(){
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.onboard_main_fragment_container,createProfileFragment);
-        fragmentTransaction.commit();
+        @Override
+        public int getCount() {
+            return NUM_PAGES;
+        }
     }
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 
 
 
 >>>>>>> Stashed changes
+=======
+//
+//
+//    /** @Tati this is the onboard activity, it holds all the fragments for onboarding. It starts with the Create Profile
+//     * Fragment (copy and paste of the EditProfileActvity) when you click next on each fragment, you should call
+//     * getActivity().getFragmentManager to replace the current fragment with the next.
+//     */
+//
+//    public void loadCreatProfilFragment(){
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.replace(R.id.onboard_main_fragment_container,createProfileFragment);
+//        fragmentTransaction.commit();
+//    }
+>>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
 
 }

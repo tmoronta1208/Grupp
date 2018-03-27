@@ -1,4 +1,4 @@
-package com.example.c4q.capstone.userinterface.user.userprofilefragments;
+package com.example.c4q.capstone.userinterface.user.onboarding;
 
 
 import android.os.Bundle;
@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static com.example.c4q.capstone.utils.Constants.PREFERENCES;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
@@ -32,7 +33,7 @@ import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PreferencesFragment extends Fragment {
+public class BarPreferencesFragment extends Fragment {
     private View view;
     private CheckBox clubCheckBox;
     private CheckBox loungeCheckBox;
@@ -46,6 +47,7 @@ public class PreferencesFragment extends Fragment {
     private CheckBox cocktailCheckbox;
 <<<<<<< Updated upstream:app/src/main/java/com/example/c4q/capstone/userinterface/user/userprofilefragments/PreferencesFragment.java
     HashMap<CheckBox, String> prefs = new HashMap<>();
+<<<<<<< HEAD:app/src/main/java/com/example/c4q/capstone/userinterface/user/userprofilefragments/PreferencesFragment.java
     public static ArrayList<String> selectedPrefs = new ArrayList<>();
 =======
     private FirebaseAuth mAuth;
@@ -61,8 +63,11 @@ public class PreferencesFragment extends Fragment {
     public static HashMap<CheckBox, String> prefs = new HashMap<>();
     public static List<String> selectedPrefs = new ArrayList<>();
 >>>>>>> Stashed changes:app/src/main/java/com/example/c4q/capstone/userinterface/user/onboarding/BarPreferencesFragment.java
+=======
+    public static List<String> selectedPrefs = new ArrayList<>();
+>>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387:app/src/main/java/com/example/c4q/capstone/userinterface/user/onboarding/BarPreferencesFragment.java
 
-    public PreferencesFragment() {
+    public BarPreferencesFragment() {
         // Required empty public constructor
     }
 
@@ -130,24 +135,6 @@ public class PreferencesFragment extends Fragment {
                 }
             });
 
-//            a.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//
-//                    if (a.isChecked()) {
-//                        Log.d("Item Checked", prefs.get(a));
-//                        selectedPrefs.add(prefs.get(a));
-//                        // BarzzNetworkCall.start("10001");
-//                        Log.d("selctedPref size: ", selectedPrefs.toString());
-//                    }
-//                    if (!a.isChecked()) {
-//                        selectedPrefs.remove(a);
-//                    }
-////                        Log.d("selctedPref size: ", selectedPrefs.toString());
-//
-//                }
-//
-//            });
         }
 
         saveToDbButton.setOnClickListener(new View.OnClickListener() {

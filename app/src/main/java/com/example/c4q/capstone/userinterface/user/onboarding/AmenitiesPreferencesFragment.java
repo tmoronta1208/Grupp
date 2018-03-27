@@ -6,7 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+<<<<<<< HEAD
 import android.widget.CheckBox;
+=======
+>>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
 
 import com.example.c4q.capstone.R;
 
@@ -15,8 +18,11 @@ import com.example.c4q.capstone.R;
  */
 public class AmenitiesPreferencesFragment extends Fragment {
 
+<<<<<<< HEAD
     CheckBox brunchPref, outdoorPref, rooftopPref, danceFloorPref, fullMenuPref, videoGamePref, dartPref, poolTablePref;
 
+=======
+>>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
     View rootView;
 
 
@@ -32,6 +38,7 @@ public class AmenitiesPreferencesFragment extends Fragment {
 
         rootView = inflater.inflate(R.layout.fragment_amenities_preferences, container, false);
 
+<<<<<<< HEAD
 
 //        brunchPref = rootView.findViewById(R.id.brunch_pref);
 //        outdoorPref = rootView.findViewById(R.id.outdoor_pref);
@@ -52,6 +59,8 @@ public class AmenitiesPreferencesFragment extends Fragment {
 //        BarPreferencesFragment.prefs.put(dartPref, "darts");
 //        BarPreferencesFragment.prefs.put(poolTablePref, "pool+table");
 
+=======
+>>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
         return rootView;
     }
 

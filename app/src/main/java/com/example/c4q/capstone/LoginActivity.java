@@ -18,14 +18,18 @@ import android.view.View;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.UserSearch;
 import com.example.c4q.capstone.userinterface.CurrentUser;
-import com.example.c4q.capstone.userinterface.events.createevent.CreateEventAddNameFragment;
+//import com.example.c4q.capstone.userinterface.events.createevent.CreateEventFragment;
 import com.example.c4q.capstone.userinterface.user.SettingsActivity;
 import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 //import com.example.c4q.capstone.userinterface.user.onboarding.OnBoardActivity;
 import com.example.c4q.capstone.userinterface.user.onboarding.OnBoardActivity;
 >>>>>>> Stashed changes
+=======
+import com.example.c4q.capstone.userinterface.user.onboarding.OnBoardActivity;
+>>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
 import com.example.c4q.capstone.utils.Constants;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -52,12 +56,16 @@ public class LoginActivity extends AppCompatActivity {
     private PublicUser publicUser;
     private UserSearch userSearch;
     CurrentUser currentUserInstance = CurrentUser.getInstance();
-    private String TAG = "login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = new Intent(LoginActivity.this, OnBoardActivity.class);
+        startActivity(intent);
+
+
         Transition explode = new Explode();
         TransitionManager tm = getContentTransitionManager();
         setContentTransitionManager(tm);
@@ -92,10 +100,13 @@ public class LoginActivity extends AppCompatActivity {
                         //  .setTheme(R.style.MySuperAppTheme) <-- Set theme
                         .build(),
                 RC_SIGN_IN);
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 
 
 =======
+=======
+>>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
         /*Deletes Firebase Authentication as well as all social identity providers (MG)*/
 //        AuthUI.getInstance()
 //                .signOut(this)
@@ -105,12 +116,15 @@ public class LoginActivity extends AppCompatActivity {
 //                    }
 //                });
 
+<<<<<<< HEAD
       //  setNavDrawerLayout();
 //        setToolbar();
 >>>>>>> Stashed changes
+=======
+        setNavDrawerLayout();
+//        setToolbar();
+>>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
     }
-
-
 
     /* takes user's credentials and controls what to do with it.
      i.e database stuff (MG)*/
@@ -125,6 +139,8 @@ public class LoginActivity extends AppCompatActivity {
                 // Successfully signed in
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 String userID = user.getUid();
+
+
                 /**
                  * if user is not in db, launches edit profile intent
                  * */
@@ -201,8 +217,8 @@ public class LoginActivity extends AppCompatActivity {
                                 //TODO start userProfile with notifications fragment loaded.
                                 break;
                             case R.id.create_new_event:
-                                Intent creatEvents = new Intent(LoginActivity.this, CreateEventAddNameFragment.class);
-                                startActivity(creatEvents);
+                                //Intent creatEvents = new Intent(LoginActivity.this, CreateEventFragment.class);
+                                //startActivity(creatEvents);
                                 //TODO start userProfile with upcomining events fragment loaded.
                                 break;
                             case R.id.my_groups_menu_item:
