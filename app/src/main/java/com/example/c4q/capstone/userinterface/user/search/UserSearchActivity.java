@@ -27,14 +27,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.c4q.capstone.utils.Constants.FRIENDS;
 import static com.example.c4q.capstone.utils.Constants.FRIEND_REQUEST;
 import static com.example.c4q.capstone.utils.Constants.NOT_FRIENDS;
 import static com.example.c4q.capstone.utils.Constants.PENDING;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
 import static com.example.c4q.capstone.utils.Constants.REQUEST_SENT;
 import static com.example.c4q.capstone.utils.Constants.REQUEST_TYPE;
-import static com.example.c4q.capstone.utils.Constants.SENT;
 import static com.example.c4q.capstone.utils.Constants.USER_SEARCH;
 
 public class UserSearchActivity extends AppCompatActivity {
@@ -83,94 +81,86 @@ public class UserSearchActivity extends AppCompatActivity {
 
                         viewHolder.setEmail(model.getEmail());
 
-                        final String requestFriend = getRef(position).getKey();
+                        final String requestedFriendID = getRef(position).getKey();
 
                         viewHolder.requestFriendBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
 
-                                /**
-                                 * sends friend requests
-                                 */
 
-                                if (currentUserID != requestFriend) {
+                                if (!currentUserID.equals(requestedFriendID)) {
+                                    /**
+                                     * sends friend requests
+                                     */
+                                    sendFriendRequest(requestedFriendID, viewHolder.requestFriendBtn);
 
-                                    HashMap<String, String> notificationData = new HashMap<>();
-                                    notificationData.put(REQUEST_TYPE, FRIEND_REQUEST);
-
-                                    Map<String, Object> requestMap = new HashMap<>();
-                                    requestMap.put(PRIVATE_USER + "/" + requestFriend + "/" + PENDING + "/" + currentUserID, notificationData);
-
-                                    rootRef.updateChildren(requestMap, new DatabaseReference.CompletionListener() {
-                                        @Override
-                                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                                            if (databaseError != null) {
-                                                Toast.makeText(UserSearchActivity.this, "Error: Request not sent", Toast.LENGTH_SHORT).show();
-                                            } else {
-
-                                                viewHolder.requestFriendBtn.setText("Pending");
-                                                currentState = REQUEST_SENT;
-                                                Log.d(TAG, "sendRequest: " + requestFriend + " " + currentState);
-
-                                            }
-                                        }
-                                    });
                                 }
 
-                                /**
-                                 * cancels sent friend requests
-                                 */
-
-                                if (currentUserID != requestFriend && viewHolder.requestFriendBtn.getText().equals("Pending")) {
-
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(UserSearchActivity.this);
-
-                                    builder.setTitle("Confirm");
-                                    builder.setMessage("Cancel Friend Request?");
-
-                                    builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            rootRef.child(PRIVATE_USER).child(requestFriend).child(PENDING).child(currentUserID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void v) {
-                                                    viewHolder.requestFriendBtn.setText("Add Friend");
-                                                    currentState = NOT_FRIENDS;
-                                                    Log.d(TAG, "sendRequest: " + requestFriend + " " + currentState);
-                                                }
-                                            });
-
-                                            dialog.dismiss();
-                                        }
-
-                                    });
-
-                                    builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                        }
-                                    });
-
-                                    AlertDialog alert = builder.create();
-                                    alert.show();
+                                if (!currentUserID.equals(requestedFriendID) && viewHolder.requestFriendBtn.getText().equals("Pending")) {
+                                    /**
+                                     * cancels sent friend requests
+                                     */
+                                    cancelFriendRequest(requestedFriendID, viewHolder.requestFriendBtn);
                                 }
                             }
                         });
-
-                        /**
-                         * Everything commented out below to prevent NullPointerException errors.
-                         * will uncomment as data is made available in database
-                         */
-
-//                        viewHolder.setFirst_name(model.getFirst_name());
-//                        viewHolder.setLast_name(model.getLast_name());
-//                        viewHolder.setUsername(model.getUsername());
                     }
                 };
 
         searchResultsList.setAdapter(firebaseRecyclerAdapter);
+    }
+
+    public void sendFriendRequest(final String requestedFriendID, final Button requestFriendBtn) {
+        HashMap<String, String> notificationData = new HashMap<>();
+        notificationData.put(REQUEST_TYPE, FRIEND_REQUEST);
+
+        Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put(PRIVATE_USER + "/" + requestedFriendID + "/" + PENDING + "/" + currentUserID, notificationData);
+
+        rootRef.updateChildren(requestMap, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                if (databaseError != null) {
+                    Toast.makeText(UserSearchActivity.this, "Error: Request not sent", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    requestFriendBtn.setText("Pending");
+                }
+            }
+        });
+    }
+
+    public void cancelFriendRequest(final String requestedFriendID, final Button requestFriendBtn) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(UserSearchActivity.this);
+
+        builder.setTitle("Confirm");
+        builder.setMessage("Cancel Friend Request?");
+
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                rootRef.child(PRIVATE_USER).child(requestedFriendID).child(PENDING).child(currentUserID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void v) {
+                        requestFriendBtn.setText("Add Friend");
+                    }
+                });
+
+                dialog.dismiss();
+            }
+
+        });
+
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
 }
