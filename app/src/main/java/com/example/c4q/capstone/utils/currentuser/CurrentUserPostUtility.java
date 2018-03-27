@@ -18,7 +18,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static com.example.c4q.capstone.utils.Constants.AMENITY_PREFS;
+import static com.example.c4q.capstone.utils.Constants.BAR_PREFS;
 import static com.example.c4q.capstone.utils.Constants.EVENTS;
+import static com.example.c4q.capstone.utils.Constants.PREFERENCES;
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 import static com.example.c4q.capstone.utils.Constants.USER_EVENTS;
 
@@ -40,7 +43,7 @@ public class CurrentUserPostUtility {
         firebaseDatabase = mFirebaseDatabase.getReference();
         userEventsReference = firebaseDatabase.child(USER_EVENTS);
         eventsReference = firebaseDatabase.child(EVENTS);
-        preferencesReference = firebaseDatabase.child(PUBLIC_USER).child(CurrentUser.getInstance().getUserID());
+        preferencesReference = firebaseDatabase.child(PUBLIC_USER).child(currentUser.getUserID()).child(PREFERENCES);
     }
 
     public String getNewEventKey(){
@@ -96,13 +99,13 @@ public class CurrentUserPostUtility {
 
     public void updateBarPrefs(List<String> barPrefs){
         Map<String, Object> userPrefs = new HashMap<>();
-        userPrefs.put("bar_preferences", barPrefs);
+        userPrefs.put(BAR_PREFS, barPrefs);
         preferencesReference.updateChildren(userPrefs);
     }
 
-    public void updateResPrefs(List<String> resPrefs){
+    public void updateAmenityPrefs(List<String> amenityPrefs){
         Map<String, Object> userPrefs = new HashMap<>();
-        userPrefs.put("restaurant_preferences", resPrefs);
+        userPrefs.put(AMENITY_PREFS, amenityPrefs);
         preferencesReference.updateChildren(userPrefs);
     }
 }

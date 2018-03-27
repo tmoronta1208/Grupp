@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.c4q.capstone.userinterface.user.onboarding.CreateProfileFragment">
+    tools:context="com.example.c4q.capstone.userinterface.user.onboarding.CreateProfileFragment"
+    >
 
     <ScrollView
         android:layout_centerInParent="true"

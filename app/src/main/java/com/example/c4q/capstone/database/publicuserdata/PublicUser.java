@@ -1,6 +1,8 @@
 package com.example.c4q.capstone.database.publicuserdata;
 
 
+import java.util.List;
+
 public class PublicUser {
     private String user_id;
     private String first_name;
@@ -11,6 +13,7 @@ public class PublicUser {
     private boolean over_18;
     private boolean over_21;
     private int radius;
+    private List<String> user_preferences;
 
     public PublicUser() {
     }
@@ -25,6 +28,14 @@ public class PublicUser {
         this.over_18 = over_18;
         this.over_21 = over_21;
         this.radius = radius;
+    }
+
+    public List<String> getUser_preferences() {
+        return user_preferences;
+    }
+
+    public void setUser_preferences(List<String> user_preferences) {
+        this.user_preferences = user_preferences;
     }
 
     public String getUser_id() {

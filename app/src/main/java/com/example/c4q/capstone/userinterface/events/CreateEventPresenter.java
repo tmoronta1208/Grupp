@@ -54,9 +54,12 @@ public class CreateEventPresenter {
     public void sendEventToFB(EventFragmentListener listener){
        key = setFinalizedEvent();
        currentUserPost.postNewEvent(key, newEvent);
+       Log.d(TAG, "event key : " + key);
+       listener.getEventIdKEy(key);
+    }
 
-        Log.d(TAG, "event key : " + key);
-        listener.getEventIdKEy(key);
+    public void makeNetworkCall(){
+        //TODO make networking method.
     }
 
     public void setEventName(String eventName){
