@@ -7,13 +7,14 @@ public class Constants {
     public static final String BARZZ_URL = "https://api.barzz.net/api/";
     public static final String EVENTS = "events";
     public static final String FRIENDS = "friends";
-    public static final String FRIEND_REQUESTS = "friend_requests";
+    public static final String FRIEND_REQUEST = "friend_request";
     public static final String FOUR_SQUARE_CLIENT_ID = "client_id=1VAPAUMKNRRWESSSF5QGTCE4OTJ43TMOYM1S0X1LHBFFGWGB";
     public static final String FOUR_SQUARE_CLIENT_SECRET = "client_secret=YL54NLBRUR41WMSNQGX1P33PICLW0V1VQUGKKJOH5NNLDKHM";
     public static final String FOUR_SQUARE_URL = "https://api.foursquare.com/v2/venues/";
     public static final String GROUPS = "groups";
     public static final String NOT_FRIENDS ="not_friends";
     public static final String NOTIFICATIONS = "notifications";
+    public static final String PENDING = "pending_requests";
     public static final String PREFERENCES = "preferences";
     public static final String PRIVATE_USER = "private_user";
     public static final String PRIVATE_LOCATION = "current_location";
