@@ -68,24 +68,19 @@ public class UserSearchActivity extends AppCompatActivity {
         searchResultsList.setLayoutManager(linearLayoutManager);
 
         currentState = NOT_FRIENDS;
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
         callFirebaseAdapter();
     }
 
+
     private void callFirebaseAdapter() {
+
         FirebaseRecyclerAdapter<User, UserSearchViewHolder> firebaseRecyclerAdapter =
                 new FirebaseRecyclerAdapter<User, UserSearchViewHolder>(
-                        User.class,
-                        R.layout.search_user_itemview,
-                        UserSearchViewHolder.class,
-                        searchUserDatabase
-                ) {
+                        User.class, R.layout.search_user_itemview, UserSearchViewHolder.class, searchUserDatabase) {
+
                     @Override
-                    protected void populateViewHolder(final UserSearchViewHolder viewHolder, User model, int position) {
+                    protected void populateViewHolder(final UserSearchViewHolder viewHolder, User model, final int position) {
+
                         viewHolder.setEmail(model.getEmail());
 
                         final String requestFriend = getRef(position).getKey();
@@ -94,8 +89,73 @@ public class UserSearchActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
 
+                                /**
+                                 * sends friend requests
+                                 */
 
-                                sendRequest(requestFriend, viewHolder.requestFriendBtn);
+                                if (currentUserID != requestFriend) {
+
+                                    HashMap<String, String> notificationData = new HashMap<>();
+                                    notificationData.put(REQUEST_TYPE, FRIEND_REQUEST);
+
+                                    Map<String, Object> requestMap = new HashMap<>();
+                                    requestMap.put(PRIVATE_USER + "/" + requestFriend + "/" + PENDING + "/" + currentUserID, notificationData);
+
+                                    rootRef.updateChildren(requestMap, new DatabaseReference.CompletionListener() {
+                                        @Override
+                                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                                            if (databaseError != null) {
+                                                Toast.makeText(UserSearchActivity.this, "Error: Request not sent", Toast.LENGTH_SHORT).show();
+                                            } else {
+
+                                                viewHolder.requestFriendBtn.setText("Pending");
+                                                currentState = REQUEST_SENT;
+                                                Log.d(TAG, "sendRequest: " + requestFriend + " " + currentState);
+
+                                            }
+                                        }
+                                    });
+                                }
+
+                                /**
+                                 * cancels sent friend requests
+                                 */
+
+                                if (currentUserID != requestFriend && viewHolder.requestFriendBtn.getText().equals("Pending")) {
+
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(UserSearchActivity.this);
+
+                                    builder.setTitle("Confirm");
+                                    builder.setMessage("Cancel Friend Request?");
+
+                                    builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            rootRef.child(PRIVATE_USER).child(requestFriend).child(PENDING).child(currentUserID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void v) {
+                                                    viewHolder.requestFriendBtn.setText("Add Friend");
+                                                    currentState = NOT_FRIENDS;
+                                                    Log.d(TAG, "sendRequest: " + requestFriend + " " + currentState);
+                                                }
+                                            });
+
+                                            dialog.dismiss();
+                                        }
+
+                                    });
+
+                                    builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+
+                                    AlertDialog alert = builder.create();
+                                    alert.show();
+                                }
                             }
                         });
 
@@ -111,87 +171,6 @@ public class UserSearchActivity extends AppCompatActivity {
                 };
 
         searchResultsList.setAdapter(firebaseRecyclerAdapter);
-    }
-
-    private void sendRequest(final String requestedID, final Button requestBtn) {
-
-        /**
-         * sends friend requests
-         */
-
-        if (currentState.equals(NOT_FRIENDS) && currentUserID != requestedID) {
-
-            HashMap<String, String> notificationData = new HashMap<>();
-            notificationData.put(REQUEST_TYPE, FRIEND_REQUEST);
-
-            Map<String, Object> requestMap = new HashMap<>();
-            requestMap.put(PRIVATE_USER + "/" + requestedID + "/" + PENDING + "/" + currentUserID, notificationData);
-
-            rootRef.updateChildren(requestMap, new DatabaseReference.CompletionListener() {
-                @Override
-                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                    if (databaseError != null) {
-                        Toast.makeText(UserSearchActivity.this, "Error: Request not sent", Toast.LENGTH_SHORT).show();
-                    } else {
-
-                        requestBtn.setText("Pending");
-                        currentState = REQUEST_SENT;
-                        Log.d(TAG, "sendRequest: " + requestedID + " " + currentState);
-
-
-                    }
-                }
-            });
-        }
-
-        /**
-         * cancels sent friend requests
-         */
-
-        if (currentState.equals(REQUEST_SENT) && currentUserID != requestedID) {
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-            builder.setTitle("Confirm");
-            builder.setMessage("Cancel Friend Request?");
-
-            builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-
-                public void onClick(DialogInterface dialog, int which) {
-                    rootRef.child(PRIVATE_USER).child(requestedID).child(PENDING).child(currentUserID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void v) {
-                            requestBtn.setText("Add Friend");
-                            currentState = NOT_FRIENDS;
-                        }
-                    });
-
-                    dialog.dismiss();
-                }
-
-            });
-
-            builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-
-            AlertDialog alert = builder.create();
-            alert.show();
-
-//                friendReqDatabase.child(currentUserID).child(requestedID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void v) {
-//
-//                    }
-//                });
-            Log.d(TAG, "sendRequest: " + requestedID + " " + currentState);
-
-        }
-
     }
 
 }

@@ -39,5 +39,4 @@ public class UserSearchViewHolder extends RecyclerView.ViewHolder {
         usernameTxt = view.findViewById(R.id.search_username);
         usernameTxt.setText(username);
     }
-
 }
