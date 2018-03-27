@@ -24,6 +24,8 @@ import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
 import com.example.c4q.capstone.database.privateuserdata.PrivateUserLocation;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +34,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.example.c4q.capstone.utils.Constants.BAR_PREFS;
+import static com.example.c4q.capstone.utils.Constants.PREFERENCES;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_LOCATION;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
@@ -50,6 +54,7 @@ public class CreateProfileFragment extends Fragment {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference publicUserReference, privateUserReference, privateUserLocationReference;
     private FirebaseUser currentUser;
+    private FloatingActionButton saveButton;
 
     public CreateProfileFragment() {
         // Required empty public constructor
@@ -61,7 +66,15 @@ public class CreateProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         rootView = inflater.inflate(com.example.c4q.capstone.R.layout.fragment_create_profile, container, false);
+        saveButton = rootView.findViewById(R.id.create_profile_save_button);
 
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                OnBoardActivity.viewPager.setCurrentItem(1);
+
+            }
+        });
 
         return rootView;
     }

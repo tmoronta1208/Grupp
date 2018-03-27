@@ -14,6 +14,7 @@ import android.widget.Switch;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.network.barzz.BarzzNetworkCall;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -34,7 +35,7 @@ public class BarPreferencesFragment extends Fragment {
     private CheckBox clubCheckBox, loungeCheckBox, karaokeCheckBox, hookahPrefCheckBox,
             gayPrefCheckBox, beachCheckBox, hotelCheckbox, pubCheckbox, cocktailCheckbox;
     Switch beerCheckBox;
-    private Button saveButton;
+    private FloatingActionButton saveButton;
     HashMap<CheckBox, String> prefs = new HashMap<>();
     public static ArrayList<String> selectedPrefs = new ArrayList<>();
 
@@ -107,7 +108,7 @@ public class BarPreferencesFragment extends Fragment {
                     if (a.isChecked()) {
                         Log.d("Item Checked", prefs.get(a));
                         selectedPrefs.add(prefs.get(a));
-                     //   BarzzNetworkCall.start("10001");
+                        //   BarzzNetworkCall.start("10001");
                         Log.d("selctedPref size: ", selectedPrefs.toString());
                     }
 
@@ -128,6 +129,8 @@ public class BarPreferencesFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 preferencesDB.child(currentUserID).child(PREFERENCES).child(BAR_PREFS).setValue(selectedPrefs);
+                OnBoardActivity.viewPager.setCurrentItem(2);
+
             }
         });
 
