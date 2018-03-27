@@ -7,6 +7,7 @@ import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.utils.currentuser.CurrentUserListener;
 import com.example.c4q.capstone.utils.currentuser.CurrentUserUtility;
+import com.example.c4q.capstone.utils.currentuser.RealTimeEventsListener;
 
 import java.util.List;
 
@@ -108,6 +109,10 @@ public class CurrentUser {
 
     public List<Events> getUserEventsList() {
         return userEventsList;
+    }
+
+    public void getRealTimeEvents(RealTimeEventsListener listener){
+        userUtility.getRealTimeCurrentUserEvents(listener);
     }
 
     private void setCurrentPublicUser(){

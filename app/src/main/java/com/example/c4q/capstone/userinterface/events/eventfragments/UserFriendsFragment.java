@@ -46,11 +46,15 @@ public class UserFriendsFragment extends Fragment {
             friendsUserList = new ArrayList<>();
         }
         recyclerView = (RecyclerView) rootView.findViewById(R.id.friends_recycler_view);
-        contactListAdapter = new ContactListAdapter(friendsUserList, getActivity() );
-        linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-        recyclerView.setAdapter(contactListAdapter);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        getFriendUsers();
+        if(friendsUserList != null){
+            contactListAdapter = new ContactListAdapter(friendsUserList, getActivity() );
+            linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+            recyclerView.setAdapter(contactListAdapter);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            getFriendUsers();
+        }
+
+
         return rootView;
     }
 
