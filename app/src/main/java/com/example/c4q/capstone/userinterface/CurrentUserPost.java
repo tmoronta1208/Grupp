@@ -3,6 +3,8 @@ package com.example.c4q.capstone.userinterface;
 import android.util.Log;
 
 import com.example.c4q.capstone.database.events.Events;
+import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+
 import com.example.c4q.capstone.utils.FBUserDataUtility;
 import com.example.c4q.capstone.utils.currentuser.CurrentUserPostUtility;
 import com.google.firebase.database.DataSnapshot;
@@ -42,6 +44,12 @@ public class CurrentUserPost {
         userPostUtility.addEventToUserEvents(newEventKey);
         return newEventKey;
     }
+    public void postNewBarPreferences(List<String> barPrefs){
+        userPostUtility.updateBarPrefs(barPrefs);
+    }
 
+    public void postNewResPreferences(List<String> resPrefs){
+        userPostUtility.updateResPrefs(resPrefs);
+    }
 
 }
