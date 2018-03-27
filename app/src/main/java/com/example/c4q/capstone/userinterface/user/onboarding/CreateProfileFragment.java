@@ -8,11 +8,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-<<<<<<< Updated upstream
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-=======
->>>>>>> Stashed changes
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,13 +24,10 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.c4q.capstone.R;
-<<<<<<< Updated upstream
 import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
 import com.example.c4q.capstone.database.privateuserdata.PrivateUserLocation;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.PreferencesFragment;
-=======
->>>>>>> Stashed changes
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -52,7 +47,6 @@ import java.util.List;
 
 public class CreateProfileFragment extends Fragment {
     View rootView;
-<<<<<<< Updated upstream
 
     private static final String TAG = "CreateProfileActivity";
 
@@ -71,13 +65,11 @@ public class CreateProfileFragment extends Fragment {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference publicUserReference, privateUserReference, privateUserLocationReference;
     private FirebaseUser currentUser;
-=======
     private CheckBox clubCheckBox, loungeCheckBox, beerCheckBox, karaokeCheckBox, hookahPrefCheckBox,
             gayPrefCheckBox, beachCheckBox, hotelCheckbox, pubCheckbox, cocktailCheckbox, brunchPref,
             outdoorPref, rooftopPref, danceFloorPref, fullMenuPref, videoGamePref, dartPref, poolTablePref;
     public static HashMap<CheckBox, String> prefs = new HashMap<>();
     public static List<String> selectedPrefs = new ArrayList<>();
->>>>>>> Stashed changes
 
     public CreateProfileFragment() {
         // Required empty public constructor
@@ -89,7 +81,6 @@ public class CreateProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         rootView = inflater.inflate(com.example.c4q.capstone.R.layout.fragment_create_profile, container, false);
-<<<<<<< Updated upstream
 
         saveBtn = rootView.findViewById(R.id.edit_profile_save_button);
 
@@ -157,7 +148,6 @@ public class CreateProfileFragment extends Fragment {
         });
 
         locationManagerLogic();
-=======
 //
 //        //Bar Preferences
 //        clubCheckBox = rootView.findViewById(R.id.club_pref);
@@ -229,12 +219,10 @@ public class CreateProfileFragment extends Fragment {
 //            });
 //
 //        }
->>>>>>> Stashed changes
 
         return rootView;
     }
 
-<<<<<<< Updated upstream
     public void locationManagerLogic() {
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(CreateProfileFragment.this.getActivity().LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(CreateProfileFragment.this.getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -381,7 +369,6 @@ public class CreateProfileFragment extends Fragment {
             }
         });
     }
-=======
 
 //    @Override
 //    public void onStop() {
@@ -459,6 +446,5 @@ public class CreateProfileFragment extends Fragment {
 //            }
 //        });
 //    }
->>>>>>> Stashed changes
 
 }
