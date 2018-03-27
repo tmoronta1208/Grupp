@@ -25,7 +25,6 @@ public class ExpandUX {
 
     /*click listener that toggles fragment visibility -AJ*/
     public void addUsersOnClickListener(final Button button){
-        //TODO consolide framelayouts
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

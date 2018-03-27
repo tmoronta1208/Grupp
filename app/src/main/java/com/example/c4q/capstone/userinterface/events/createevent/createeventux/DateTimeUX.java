@@ -64,12 +64,11 @@ public class DateTimeUX {
                     dateAndTime.setText(eventPresenter.dateTime);
                     timePicker.setVisibility(View.GONE);
                 } else if (datePicker.getVisibility() == View.VISIBLE) {
-                    eventPresenter.setEventDate(datePicker);
+                    /*eventPresenter.setEventDate(datePicker);
                     dateAndTime.setText(eventPresenter.dateTime);
-                    datePicker.setVisibility(View.GONE);
+                    datePicker.setVisibility(View.GONE);*/
                 }
                 closeButton.setVisibility(View.GONE);
-                //TODO add logic to grab choice data
             }
         });
 

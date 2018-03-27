@@ -67,8 +67,10 @@ public class CreateEventPresenter {
         validateEvent();
     }
 
-    public void setEventDate(DatePicker datePicker){
-        dateOfEvent = String.valueOf(datePicker.getMonth()) + "/" + String.valueOf(datePicker.getDayOfMonth());
+    public void setEventDate(String date){
+        dateOfEvent = date;
+        eventDateSet = true;
+        Log.d(TAG, "event date  set: " + dateOfEvent);
         createEventPTSingleton.setEventDate(dateOfEvent);
         setDateAndTime();
         eventDateSet = true;
@@ -127,12 +129,17 @@ public class CreateEventPresenter {
 
     public boolean validateEvent(){
         boolean validEvent = false;
-        if (eventTimeSet && eventNameSet && eventDateSet && eventGuestsSet &&eventNoteSet){
+        if (eventTimeSet && eventNameSet && eventDateSet){
             Log.d(TAG, "create event: event valid");
+
             validEvent = true;
 
         } else {
             Log.d(TAG, "create event: event not valid");
+            Log.d(TAG, "create event: event not valid: name set" + eventNameSet);
+            Log.d(TAG, "create event: event not valid: date set" + eventDateSet);
+            Log.d(TAG, "create event: event not valid: time set" + eventTimeSet);
+
         }
         return validEvent;
     }

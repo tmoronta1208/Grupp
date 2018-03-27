@@ -76,10 +76,10 @@ public class CreateEventAddNameFragment extends Fragment implements DatePickerDi
             }
         });
         setViews();
-        setCreateeventButton();
         setDatTimeClick();
         setCloseButton();
         setEnterNameEditText();
+        datePickerFragment.setEventPresnter(eventPresenter);
         return rootView;
     }
 
@@ -104,38 +104,9 @@ public class CreateEventAddNameFragment extends Fragment implements DatePickerDi
         eventName = (EditText) rootView.findViewById(R.id.event_name_edit_text);
         hiddenLayout = rootView.findViewById(R.id.hidden_linear_layout);
         visibleLayout = rootView.findViewById(R.id.visible_layout);
-
     }
 
-    public void setCreateeventButton() {
-        createEventButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "event button clicked");
 
-                if (!eventPresenter.validateEvent()) {
-                    Log.d(TAG, "create event: event not valid");
-                    //TODO alert user
-                } else {
-                    eventPresenter.sendEventToFB(new EventFragmentListener() {
-                        @Override
-                        public void swapFragments() {
-                            Log.d(TAG, "Swap fragments called");
-                            loadEventFragment();
-                        }
-
-                        @Override
-                        public void getEventIdKEy(String key) {
-                            eventID = key;
-                            loadEventFragment();
-                        }
-                    });
-                    Log.d(TAG, "create event: eventSent to firebase");
-
-                }
-            }
-        });
-    }
 
     public void setDatTimeClick() {
         addTime.setOnClickListener(new View.OnClickListener() {
@@ -151,15 +122,9 @@ public class CreateEventAddNameFragment extends Fragment implements DatePickerDi
         addDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-////                datePicker.setVisibility(View.VISIBLE);
-//                closeButton.setVisibility(View.VISIBLE);
-//                hiddenLayout.setVisibility(View.VISIBLE);
-//                visibleLayout.setVisibility(View.GONE);
-
                 datePickerFragment.show(getFragmentManager(),"datePicker");
             }
         });
-
     }
 
     public void setCloseButton() {
@@ -169,18 +134,17 @@ public class CreateEventAddNameFragment extends Fragment implements DatePickerDi
                 if (timePicker.getVisibility() == View.VISIBLE) {
 
                     eventPresenter.setEventTime(timePicker);
+                    eventPresenter.validateEvent();
                     dateAndTime.setText(eventPresenter.dateTime);
                     timePicker.setVisibility(View.GONE);
                     hiddenLayout.setVisibility(View.GONE);
                 } else if (datePicker.getVisibility() == View.VISIBLE) {
 
-                    eventPresenter.setEventDate(datePicker);
-                    dateAndTime.setText(dateString);
-                    datePicker.setVisibility(View.GONE);
-                    hiddenLayout.setVisibility(View.GONE);
                 }
                 visibleLayout.setVisibility(View.VISIBLE);
                 closeButton.setVisibility(View.GONE);
+                eventPresenter.validateEvent();
+
                 if (!eventPresenter.validateNameDone()) {
                     Log.d(TAG, "create event: event not valid");
                     //TODO alert user
@@ -199,9 +163,7 @@ public class CreateEventAddNameFragment extends Fragment implements DatePickerDi
                         }
                     });
                     Log.d(TAG, "create event: eventSent to firebase");
-
                 }
-                //TODO add logic to grab choice data
             }
         });
     }
@@ -233,5 +195,11 @@ public class CreateEventAddNameFragment extends Fragment implements DatePickerDi
 /*Set's time to the dateandtimetextview. method can be found in DatePickerFragment*/
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Log.d(TAG, "on date set");
+        String date = "Date: "+(month +1) + "/"+ dayOfMonth + "/" + year;
+        eventPresenter.setEventDate(date);
+        if (eventPresenter.validateEvent()){
+            loadEventFragment();
+        }
     }
 }
