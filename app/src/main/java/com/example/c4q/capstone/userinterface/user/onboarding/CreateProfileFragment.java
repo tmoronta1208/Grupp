@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
@@ -13,6 +14,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 >>>>>>> parent of aba0275... prefs update
+=======
+<<<<<<< Updated upstream
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+=======
+>>>>>>> Stashed changes
+>>>>>>> parent of 0ce6000... cleaned
 =======
 <<<<<<< Updated upstream
 import android.support.v4.app.FragmentManager;
@@ -42,7 +50,12 @@ import com.example.c4q.capstone.database.privateuserdata.PrivateUserLocation;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.PreferencesFragment;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> parent of aba0275... prefs update
+=======
+=======
+>>>>>>> Stashed changes
+>>>>>>> parent of 0ce6000... cleaned
 =======
 =======
 >>>>>>> Stashed changes
@@ -81,6 +94,10 @@ public class CreateProfileFragment extends Fragment {
     private FirebaseUser currentUser;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> parent of 0ce6000... cleaned
 =======
 =======
 >>>>>>> parent of 0ce6000... cleaned
@@ -90,11 +107,15 @@ public class CreateProfileFragment extends Fragment {
     public static HashMap<CheckBox, String> prefs = new HashMap<>();
     public static List<String> selectedPrefs = new ArrayList<>();
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
 =======
 >>>>>>> parent of aba0275... prefs update
+=======
+>>>>>>> Stashed changes
+>>>>>>> parent of 0ce6000... cleaned
 =======
 >>>>>>> Stashed changes
 >>>>>>> parent of 0ce6000... cleaned
@@ -186,6 +207,10 @@ public class CreateProfileFragment extends Fragment {
         locationManagerLogic();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> parent of 0ce6000... cleaned
 =======
 =======
 >>>>>>> parent of 0ce6000... cleaned
@@ -261,6 +286,7 @@ public class CreateProfileFragment extends Fragment {
 //
 //        }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 //        saveBtn = rootView.findViewById(R.id.edit_profile_save_button);
 //
@@ -334,6 +360,9 @@ public class CreateProfileFragment extends Fragment {
 =======
 >>>>>>> Stashed changes
 >>>>>>> parent of 0ce6000... cleaned
+=======
+>>>>>>> Stashed changes
+>>>>>>> parent of 0ce6000... cleaned
 
         return rootView;
     }
@@ -341,8 +370,12 @@ public class CreateProfileFragment extends Fragment {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> parent of aba0275... prefs update
+=======
+<<<<<<< Updated upstream
+>>>>>>> parent of 0ce6000... cleaned
 =======
 <<<<<<< Updated upstream
 >>>>>>> parent of 0ce6000... cleaned
@@ -566,6 +599,9 @@ public class CreateProfileFragment extends Fragment {
         });
     }
 =======
+<<<<<<< HEAD
+>>>>>>> parent of 0ce6000... cleaned
+=======
 >>>>>>> parent of 0ce6000... cleaned
 
 //    @Override
@@ -645,6 +681,7 @@ public class CreateProfileFragment extends Fragment {
 //        });
 //    }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         radiusGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -671,6 +708,9 @@ public class CreateProfileFragment extends Fragment {
         });
     }
 >>>>>>> parent of aba0275... prefs update
+=======
+>>>>>>> Stashed changes
+>>>>>>> parent of 0ce6000... cleaned
 =======
 >>>>>>> Stashed changes
 >>>>>>> parent of 0ce6000... cleaned
