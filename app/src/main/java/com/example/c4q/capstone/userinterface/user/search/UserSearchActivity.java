@@ -30,8 +30,7 @@ import java.util.Map;
 import static com.example.c4q.capstone.utils.Constants.FRIEND_REQUEST;
 import static com.example.c4q.capstone.utils.Constants.NOT_FRIENDS;
 import static com.example.c4q.capstone.utils.Constants.PENDING;
-import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
-import static com.example.c4q.capstone.utils.Constants.REQUEST_SENT;
+import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 import static com.example.c4q.capstone.utils.Constants.REQUEST_TYPE;
 import static com.example.c4q.capstone.utils.Constants.USER_SEARCH;
 
@@ -115,7 +114,7 @@ public class UserSearchActivity extends AppCompatActivity {
         notificationData.put(REQUEST_TYPE, FRIEND_REQUEST);
 
         Map<String, Object> requestMap = new HashMap<>();
-        requestMap.put(PRIVATE_USER + "/" + requestedFriendID + "/" + PENDING + "/" + currentUserID, notificationData);
+        requestMap.put(PUBLIC_USER + "/" + requestedFriendID + "/" + PENDING + "/" + currentUserID, notificationData);
 
         rootRef.updateChildren(requestMap, new DatabaseReference.CompletionListener() {
             @Override
@@ -139,7 +138,12 @@ public class UserSearchActivity extends AppCompatActivity {
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
-                rootRef.child(PRIVATE_USER).child(requestedFriendID).child(PENDING).child(currentUserID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                rootRef.child(PUBLIC_USER)
+                        .child(requestedFriendID)
+                        .child(PENDING)
+                        .child(currentUserID)
+                        .removeValue()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void v) {
                         requestFriendBtn.setText("Add Friend");
