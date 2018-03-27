@@ -38,10 +38,9 @@ public class CurrentUserPost {
     public String newEventKey(){
         return userPostUtility.getNewEventKey();
     }
-    public String postNewEvent(Events event){
-        newEventKey = newEventKey();
-        userPostUtility.addEventToDb(newEventKey, event);
-        userPostUtility.addEventToUserEvents(newEventKey);
+    public String postNewEvent(String key, Events event){
+        userPostUtility.addEventToDb(key, event);
+        userPostUtility.addEventToUserEvents(key);
         return newEventKey;
     }
     public void postNewBarPreferences(List<String> barPrefs){

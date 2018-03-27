@@ -44,6 +44,9 @@ public class UserFriendsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment_user_friends, container, false);
+        if (friendsUserList == null){
+            friendsUserList = new ArrayList<>();
+        }
         recyclerView = (RecyclerView) rootView.findViewById(R.id.friends_recycler_view);
         contactListAdapter = new ContactListAdapter(friendsUserList, getActivity() );
         linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
@@ -55,6 +58,9 @@ public class UserFriendsFragment extends Fragment {
 
     public void getFriendUsers(){
         friendsUserList = CurrentUser.getInstance().getUserFriendsList();
+        if (friendsUserList == null){
+            friendsUserList = new ArrayList<>();
+        }
         contactListAdapter.notifyDataSetChanged();
     }
 }

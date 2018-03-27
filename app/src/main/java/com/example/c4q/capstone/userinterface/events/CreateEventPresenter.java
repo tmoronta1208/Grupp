@@ -52,8 +52,9 @@ public class CreateEventPresenter {
     }
 
     public void sendEventToFB(EventFragmentListener listener){
-        setFinalizedEvent();
-        key = currentUserPost.postNewEvent(newEvent);
+       key = setFinalizedEvent();
+       currentUserPost.postNewEvent(key, newEvent);
+
         Log.d(TAG, "event key : " + key);
         listener.getEventIdKEy(key);
     }
@@ -129,14 +130,15 @@ public class CreateEventPresenter {
         if (eventTimeSet && eventNameSet && eventDateSet && eventGuestsSet &&eventNoteSet){
             Log.d(TAG, "create event: event valid");
             validEvent = true;
-            setFinalizedEvent();
+
         } else {
             Log.d(TAG, "create event: event not valid");
         }
         return validEvent;
     }
 
-    public void setFinalizedEvent(){
+    public String setFinalizedEvent(){
+        key = currentUserPost.newEventKey();
         newEvent.setEvent_id(createEventPTSingleton.getEventID());
         newEvent.setEvent_name(createEventPTSingleton.getEventName());
         newEvent.setEvent_note(createEventPTSingleton.getEventNote());
@@ -146,6 +148,8 @@ public class CreateEventPresenter {
         newEvent.setEvent_note(createEventPTSingleton.getEventNote());
         newEvent.setInvited_guests(createEventPTSingleton.getInvitedGuests());
         newEvent.setEvent_organizer(currentUser.getUserID());
+        newEvent.setEvent_id(key);
         Log.d(TAG, "event type" + createEventPTSingleton.getEventVenueType());
+        return key;
     }
 }

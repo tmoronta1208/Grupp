@@ -56,7 +56,6 @@ public class CurrentUser {
         Log.d(TAG, "getInstance: instance called");
         if (userInstance == null) userInstance = new CurrentUser();
             return userInstance;
-
     }
 
     public String getUserFullName() {
