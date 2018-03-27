@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
@@ -12,6 +13,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 >>>>>>> parent of aba0275... prefs update
+=======
+<<<<<<< Updated upstream
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+=======
+>>>>>>> Stashed changes
+>>>>>>> parent of 0ce6000... cleaned
 import android.util.Log;
 =======
 >>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
@@ -28,11 +36,17 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.c4q.capstone.R;
+<<<<<<< Updated upstream
 import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
 import com.example.c4q.capstone.database.privateuserdata.PrivateUserLocation;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.PreferencesFragment;
+<<<<<<< HEAD
 >>>>>>> parent of aba0275... prefs update
+=======
+=======
+>>>>>>> Stashed changes
+>>>>>>> parent of 0ce6000... cleaned
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -44,6 +58,7 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 public class CreateProfileFragment extends Fragment {
     View rootView;
+<<<<<<< Updated upstream
 
     private static final String TAG = "CreateProfileActivity";
 
@@ -65,16 +80,24 @@ public class CreateProfileFragment extends Fragment {
     private DatabaseReference publicUserReference, privateUserReference, privateUserLocationReference;
     private FirebaseUser currentUser;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> parent of 0ce6000... cleaned
     private CheckBox clubCheckBox, loungeCheckBox, beerCheckBox, karaokeCheckBox, hookahPrefCheckBox,
             gayPrefCheckBox, beachCheckBox, hotelCheckbox, pubCheckbox, cocktailCheckbox, brunchPref,
             outdoorPref, rooftopPref, danceFloorPref, fullMenuPref, videoGamePref, dartPref, poolTablePref;
     public static HashMap<CheckBox, String> prefs = new HashMap<>();
     public static List<String> selectedPrefs = new ArrayList<>();
+<<<<<<< HEAD
 =======
 
 >>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
 =======
 >>>>>>> parent of aba0275... prefs update
+=======
+>>>>>>> Stashed changes
+>>>>>>> parent of 0ce6000... cleaned
 
     public CreateProfileFragment() {
         // Required empty public constructor
@@ -92,6 +115,7 @@ public class CreateProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         rootView = inflater.inflate(com.example.c4q.capstone.R.layout.fragment_create_profile, container, false);
+<<<<<<< Updated upstream
 
 <<<<<<< HEAD
         saveBtn = rootView.findViewById(R.id.edit_profile_save_button);
@@ -161,6 +185,10 @@ public class CreateProfileFragment extends Fragment {
 
         locationManagerLogic();
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> parent of 0ce6000... cleaned
 //
 //        //Bar Preferences
 //        clubCheckBox = rootView.findViewById(R.id.club_pref);
@@ -232,6 +260,7 @@ public class CreateProfileFragment extends Fragment {
 //            });
 //
 //        }
+<<<<<<< HEAD
 =======
 //        saveBtn = rootView.findViewById(R.id.edit_profile_save_button);
 //
@@ -302,14 +331,21 @@ public class CreateProfileFragment extends Fragment {
 >>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
 =======
 >>>>>>> parent of aba0275... prefs update
+=======
+>>>>>>> Stashed changes
+>>>>>>> parent of 0ce6000... cleaned
 
         return rootView;
     }
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> parent of aba0275... prefs update
+=======
+<<<<<<< Updated upstream
+>>>>>>> parent of 0ce6000... cleaned
     public void locationManagerLogic() {
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(CreateProfileFragment.this.getActivity().LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(CreateProfileFragment.this.getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -421,89 +457,13 @@ public class CreateProfileFragment extends Fragment {
 //    }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 //    @Override
 //    public void onStart() {
 //        super.onStart();
 //        mAuth.addAuthStateListener(mAuthListener);
 //    }
 //
-//    @Override
-//    public void onStop() {
-//        super.onStop();
-//        if (mAuthListener != null) {
-//            mAuth.removeAuthStateListener(mAuthListener);
-//        }
-//    }
-//
-//    public void radioGroupSelection() {
-//        ageGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                ageChoice = group.findViewById(checkedId);
-//                switch (checkedId) {
-//                    case R.id.age_choice_one:
-//                        over18 = true;
-//                        over21 = true;
-//                        break;
-//                    case R.id.age_choice_two:
-//                        over18 = true;
-//                        over21 = false;
-//                        break;
-//                    case R.id.age_choice_three:
-//                        over18 = false;
-//                        over21 = false;
-//                        break;
-//                }
-//            }
-//        });
-//
-//        budgetGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                budgetChoice = group.findViewById(checkedId);
-//                switch (checkedId) {
-//                    case R.id.budget_choice_one:
-//                        budgetString = "$";
-//                        break;
-//                    case R.id.budget_choice_two:
-//                        budgetString = "$$";
-//                        break;
-//                    case R.id.budget_choice_three:
-//                        budgetString = "$$$";
-//                        break;
-//                    case R.id.budget_choice_four:
-//                        budgetString = "$$$$";
-//                        break;
-//
-//                }
-//            }
-//        });
-//
-//        radiusGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                radiusChoice = group.findViewById(checkedId);
-//                switch (checkedId) {
-//                    case R.id.radius_choice_one:
-//                        radius = 5;
-//                        break;
-//                    case R.id.radius_choice_two:
-//                        radius = 10;
-//                        break;
-//                    case R.id.radius_choice_three:
-//                        radius = 15;
-//                        break;
-//                    case R.id.radius_choice_four:
-//                        radius = 20;
-//                        break;
-//                    case R.id.radius_choice_five:
-//                        radius = 25;
-//                        break;
-//                }
-//            }
-//        });
-//    }
-
 //    @Override
 //    public void onStop() {
 //        super.onStop();
@@ -605,6 +565,114 @@ public class CreateProfileFragment extends Fragment {
             }
         });
     }
+=======
+>>>>>>> parent of 0ce6000... cleaned
+
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        if (mAuthListener != null) {
+//            mAuth.removeAuthStateListener(mAuthListener);
+//        }
+//    }
+//
+//    public void radioGroupSelection() {
+//        ageGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                ageChoice = group.findViewById(checkedId);
+//                switch (checkedId) {
+//                    case R.id.age_choice_one:
+//                        over18 = true;
+//                        over21 = true;
+//                        break;
+//                    case R.id.age_choice_two:
+//                        over18 = true;
+//                        over21 = false;
+//                        break;
+//                    case R.id.age_choice_three:
+//                        over18 = false;
+//                        over21 = false;
+//                        break;
+//                }
+//            }
+//        });
+//
+//        budgetGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                budgetChoice = group.findViewById(checkedId);
+//                switch (checkedId) {
+//                    case R.id.budget_choice_one:
+//                        budgetString = "$";
+//                        break;
+//                    case R.id.budget_choice_two:
+//                        budgetString = "$$";
+//                        break;
+//                    case R.id.budget_choice_three:
+//                        budgetString = "$$$";
+//                        break;
+//                    case R.id.budget_choice_four:
+//                        budgetString = "$$$$";
+//                        break;
+//
+//                }
+//            }
+//        });
+//
+//        radiusGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                radiusChoice = group.findViewById(checkedId);
+//                switch (checkedId) {
+//                    case R.id.radius_choice_one:
+//                        radius = 5;
+//                        break;
+//                    case R.id.radius_choice_two:
+//                        radius = 10;
+//                        break;
+//                    case R.id.radius_choice_three:
+//                        radius = 15;
+//                        break;
+//                    case R.id.radius_choice_four:
+//                        radius = 20;
+//                        break;
+//                    case R.id.radius_choice_five:
+//                        radius = 25;
+//                        break;
+//                }
+//            }
+//        });
+//    }
+<<<<<<< HEAD
+=======
+        radiusGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                radiusChoice = group.findViewById(checkedId);
+                switch (checkedId) {
+                    case R.id.radius_choice_one:
+                        radius = 5;
+                        break;
+                    case R.id.radius_choice_two:
+                        radius = 10;
+                        break;
+                    case R.id.radius_choice_three:
+                        radius = 15;
+                        break;
+                    case R.id.radius_choice_four:
+                        radius = 20;
+                        break;
+                    case R.id.radius_choice_five:
+                        radius = 25;
+                        break;
+                }
+            }
+        });
+    }
 >>>>>>> parent of aba0275... prefs update
+=======
+>>>>>>> Stashed changes
+>>>>>>> parent of 0ce6000... cleaned
 
 }
