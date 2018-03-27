@@ -1,7 +1,6 @@
 package com.example.c4q.capstone.userinterface.events.createevent;
 
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -149,7 +147,7 @@ public class CreateEventAddNameFragment extends Fragment implements DatePickerDi
                     Log.d(TAG, "create event: event not valid");
                     //TODO alert user
                 } else {
-                    eventPresenter.sendEventToFB(new EventFragmentListener() {
+                    eventPresenter.sendEventToFireBase(new EventFragmentListener() {
                         @Override
                         public void swapFragments() {
                             Log.d(TAG, "Swap fragments called");

@@ -34,7 +34,7 @@ public class DoneUX {
                     Log.d(TAG, "create event: event not valid");
                     //TODO alert user
                 } else{
-                    eventPresenter.sendEventToFB(eventFragmentListener);
+                    eventPresenter.sendEventToFireBase(eventFragmentListener);
                     Log.d(TAG, "create event: eventSent to firebase");
                     eventFragmentListener.swapFragments();
                     //TODO close create event frag, load event frag.
