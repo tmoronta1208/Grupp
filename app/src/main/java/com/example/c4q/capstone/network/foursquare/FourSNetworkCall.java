@@ -2,10 +2,8 @@ package com.example.c4q.capstone.network.foursquare;
 
 import android.util.Log;
 
-import com.example.c4q.capstone.network.barzz.BarzzService;
-import com.example.c4q.capstone.network.barzz.barzzmodel.BarzzModel;
 import com.example.c4q.capstone.network.foursquare.foursquaremodel.FourSquareModel;
-import com.example.c4q.capstone.userinterface.user.userprofilefragments.PreferencesFragment;
+import com.example.c4q.capstone.userinterface.user.onboarding.BarPreferencesFragment;
 import com.example.c4q.capstone.utils.Constants;
 
 import retrofit2.Call;
@@ -32,10 +30,10 @@ public class FourSNetworkCall {
 
         final FourSService fourSService = retrofit.create(FourSService.class);
 
-        for (int i = 0; i < PreferencesFragment.selectedPrefs.size(); i++) {
+        for (int i = 0; i < BarPreferencesFragment.selectedPrefs.size(); i++) {
 
 
-            Call<FourSquareModel> call = fourSService.getVenues(PreferencesFragment.selectedPrefs.get(i));
+            Call<FourSquareModel> call = fourSService.getVenues(BarPreferencesFragment.selectedPrefs.get(i));
 
             call.enqueue(new Callback<FourSquareModel>() {
                 @Override

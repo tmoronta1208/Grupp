@@ -1,42 +1,51 @@
-package com.example.c4q.capstone.userinterface.user.userprofilefragments;
+package com.example.c4q.capstone.userinterface.user.onboarding;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.network.barzz.BarzzNetworkCall;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.example.c4q.capstone.utils.Constants.BAR_PREFS;
+import static com.example.c4q.capstone.utils.Constants.PREFERENCES;
+import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PreferencesFragment extends Fragment {
+public class BarPreferencesFragment extends Fragment {
     private View view;
-    private CheckBox clubCheckBox;
-    private CheckBox loungeCheckBox;
-    private CheckBox beerCheckBox;
-    private CheckBox karaokeCheckBox;
-    private CheckBox hookahPrefCheckBox;
-    private CheckBox gayPrefCheckBox;
-    private CheckBox beachCheckBox;
-    private CheckBox hotelCheckbox;
-    private CheckBox pubCheckbox;
-    private CheckBox cocktailCheckbox;
+    private CheckBox clubCheckBox, loungeCheckBox, karaokeCheckBox, hookahPrefCheckBox,
+            gayPrefCheckBox, beachCheckBox, hotelCheckbox, pubCheckbox, cocktailCheckbox;
+    Switch beerCheckBox;
+    private Button saveButton;
     HashMap<CheckBox, String> prefs = new HashMap<>();
     public static ArrayList<String> selectedPrefs = new ArrayList<>();
 
-    public PreferencesFragment() {
+    private FirebaseDatabase firebaseDatabase;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private String currentUserID;
+    private DatabaseReference rootRef, preferencesDB;
+    private FirebaseUser currentUser;
+
+    public BarPreferencesFragment() {
         // Required empty public constructor
     }
 
@@ -45,12 +54,18 @@ public class PreferencesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_preferences, container, false);
+        view = inflater.inflate(R.layout.fragment_bar_preferences, container, false);
 
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        currentUserID = currentUser.getUid();
+
+        rootRef = FirebaseDatabase.getInstance().getReference();
+        preferencesDB = rootRef.child(PRIVATE_USER);
 
         clubCheckBox = view.findViewById(R.id.club_pref);
         loungeCheckBox = view.findViewById(R.id.lounge_pref);
-        beerCheckBox = view.findViewById(R.id.beer_pref);
+//        beerCheckBox = view.findViewById(R.id.beer_pref);
         karaokeCheckBox = view.findViewById(R.id.karaoke_pref);
         hookahPrefCheckBox = view.findViewById(R.id.hookah_pref);
         gayPrefCheckBox = view.findViewById(R.id.gayBar_pref);
@@ -59,12 +74,14 @@ public class PreferencesFragment extends Fragment {
         pubCheckbox = view.findViewById(R.id.pub_pref);
         cocktailCheckbox = view.findViewById(R.id.cocktail_pref);
 
+        saveButton = view.findViewById(R.id.bar_pref_save_button);
+
 
         //Added all Checkboxes to a map with the checkbox as the key and type keyword as the value
 
         prefs.put(clubCheckBox, "club");
         prefs.put(loungeCheckBox, "lounge");
-        prefs.put(beerCheckBox, "beer");
+        // prefs.put(beerCheckBox, "beer");
         prefs.put(karaokeCheckBox, "karaoke");
         prefs.put(hookahPrefCheckBox, "hookah");
         prefs.put(gayPrefCheckBox, "gay");
@@ -90,35 +107,30 @@ public class PreferencesFragment extends Fragment {
                     if (a.isChecked()) {
                         Log.d("Item Checked", prefs.get(a));
                         selectedPrefs.add(prefs.get(a));
-                        BarzzNetworkCall.start("10001");
+                     //   BarzzNetworkCall.start("10001");
                         Log.d("selctedPref size: ", selectedPrefs.toString());
                     }
 
                 }
             });
 
-//            a.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//
-//                    if (a.isChecked()) {
-//                        Log.d("Item Checked", prefs.get(a));
-//                        selectedPrefs.add(prefs.get(a));
-//                        // BarzzNetworkCall.start("10001");
-//                        Log.d("selctedPref size: ", selectedPrefs.toString());
-//                    }
-//                    if (!a.isChecked()) {
-//                        selectedPrefs.remove(a);
-//                    }
-////                        Log.d("selctedPref size: ", selectedPrefs.toString());
-//
-//                }
-//
-//            });
+
         }
 
-
+        saveToDatabase();
         return view;
+    }
+
+    public void saveToDatabase() {
+
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                preferencesDB.child(currentUserID).child(PREFERENCES).child(BAR_PREFS).setValue(selectedPrefs);
+            }
+        });
+
     }
 
 
