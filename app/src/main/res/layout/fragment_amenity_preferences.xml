@@ -41,7 +41,7 @@
                 android:text="Rooftop" />
 
             <CheckBox
-                android:id="@+id/dance_foor_pref"
+                android:id="@+id/dance_floor_pref"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Dance Floor " />
@@ -72,7 +72,7 @@
 
 
             <Button
-                android:id="@+id/bar_pref_save_button"
+                android:id="@+id/amenity_pref_save_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
