@@ -1,6 +1,7 @@
 package com.example.c4q.capstone.userinterface.user.onboarding;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 import android.content.Intent;
@@ -11,17 +12,22 @@ import android.support.v4.app.Fragment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 >>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
+=======
+>>>>>>> parent of aba0275... prefs update
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 import android.util.Log;
 import android.widget.Toast;
 >>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
+=======
+>>>>>>> parent of aba0275... prefs update
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
@@ -40,6 +46,7 @@ import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 public class OnBoardActivity extends AppCompatActivity {
 <<<<<<< HEAD
     CreateProfileFragment createProfileFragment;
+<<<<<<< HEAD
 =======
 import android.util.Log;
 import android.view.View;
@@ -111,10 +118,13 @@ public class OnBoardActivity extends AppCompatActivity {
     private String currentUserEmail;
 
 >>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
+=======
+>>>>>>> parent of aba0275... prefs update
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< Updated upstream
         setContentView(R.layout.activity_on_board);
@@ -215,6 +225,11 @@ public class OnBoardActivity extends AppCompatActivity {
 >>>>>>> Stashed changes
 =======
 >>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
+=======
+        setContentView(R.layout.activity_on_board);
+        loadCreatProfilFragment();
+    }
+>>>>>>> parent of aba0275... prefs update
 
         }
 
@@ -223,6 +238,7 @@ public class OnBoardActivity extends AppCompatActivity {
             return NUM_PAGES;
         }
     }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
@@ -245,5 +261,7 @@ public class OnBoardActivity extends AppCompatActivity {
 //        fragmentTransaction.commit();
 //    }
 >>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
+=======
+>>>>>>> parent of aba0275... prefs update
 
 }

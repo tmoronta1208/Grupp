@@ -22,6 +22,7 @@ import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.user.SettingsActivity;
 import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 //import com.example.c4q.capstone.userinterface.user.onboarding.OnBoardActivity;
@@ -30,6 +31,8 @@ import com.example.c4q.capstone.userinterface.user.onboarding.OnBoardActivity;
 =======
 import com.example.c4q.capstone.userinterface.user.onboarding.OnBoardActivity;
 >>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
+=======
+>>>>>>> parent of aba0275... prefs update
 import com.example.c4q.capstone.utils.Constants;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -101,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                         .build(),
                 RC_SIGN_IN);
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 
 
@@ -124,6 +128,10 @@ public class LoginActivity extends AppCompatActivity {
         setNavDrawerLayout();
 //        setToolbar();
 >>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
+=======
+
+
+>>>>>>> parent of aba0275... prefs update
     }
 
     /* takes user's credentials and controls what to do with it.

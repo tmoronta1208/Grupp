@@ -15,7 +15,10 @@
         android:padding="16dp">
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< Updated upstream
+=======
+>>>>>>> parent of aba0275... prefs update
     <EditText
         android:id="@+id/edit_profile_lastname"
         android:layout_width="match_parent"
@@ -246,6 +249,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="20 mi" />
+<<<<<<< HEAD
 =======
         <EditText
             android:id="@+id/edit_profile_firstname"
@@ -376,6 +380,8 @@
 >>>>>>> Stashed changes
 =======
 >>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
+=======
+>>>>>>> parent of aba0275... prefs update
 
         <Button
             android:id="@+id/edit_profile_save_button"

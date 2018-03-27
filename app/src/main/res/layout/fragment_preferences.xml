@@ -77,13 +77,6 @@
             android:text="Cocktail" />
 
 
-        <Button
-            android:id="@+id/pref_save_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:text="Save" />
-
     </LinearLayout>
 
 </ScrollView>

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.c4q.capstone.network.barzz.barzzmodel.BarzzModel;
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.PreferencesFragment;
 =======
@@ -13,6 +14,9 @@ import com.example.c4q.capstone.userinterface.user.onboarding.CreateProfileFragm
 =======
 import com.example.c4q.capstone.userinterface.user.onboarding.BarPreferencesFragment;
 >>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
+=======
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.PreferencesFragment;
+>>>>>>> parent of aba0275... prefs update
 import com.example.c4q.capstone.utils.Constants;
 
 import retrofit2.Call;
@@ -38,11 +42,15 @@ public class BarzzNetworkCall {
         final BarzzService barzzService = retrofit.create(BarzzService.class);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< Updated upstream
+=======
+>>>>>>> parent of aba0275... prefs update
         for (int i = 0; i < PreferencesFragment.selectedPrefs.size(); i++) {
 
 
             Call<BarzzModel> call = barzzService.getBarzz(zipcode, PreferencesFragment.selectedPrefs.get(i));
+<<<<<<< HEAD
 =======
         for (int i = 0; i < CreateProfileFragment.selectedPrefs.size(); i++) {
 
@@ -55,6 +63,8 @@ public class BarzzNetworkCall {
 
             Call<BarzzModel> call = barzzService.getBarzz(zipcode, BarPreferencesFragment.selectedPrefs.get(i));
 >>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
+=======
+>>>>>>> parent of aba0275... prefs update
 
             call.enqueue(new Callback<BarzzModel>() {
                 @Override

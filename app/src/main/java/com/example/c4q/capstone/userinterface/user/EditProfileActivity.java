@@ -21,10 +21,7 @@ import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
 import com.example.c4q.capstone.database.privateuserdata.PrivateUserLocation;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
-import com.example.c4q.capstone.database.publicuserdata.PublicUserPreferences;
 import com.example.c4q.capstone.database.publicuserdata.UserSearch;
-import com.example.c4q.capstone.userinterface.user.onboarding.BarPreferencesFragment;
-import com.example.c4q.capstone.userinterface.user.onboarding.OnBoardActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -60,7 +57,6 @@ public class EditProfileActivity extends AppCompatActivity {
     private PrivateUser privateUser;
     private PrivateUserLocation privateUserLocation;
     private String currentUserEmail;
-    private PublicUserPreferences publicUserPreferences;
 
 
     @Override
@@ -158,8 +154,6 @@ public class EditProfileActivity extends AppCompatActivity {
         lat = location.getLatitude();
         lng = location.getLongitude();*/
 
-       Intent intent = new Intent(EditProfileActivity.this, OnBoardActivity.class);
-       startActivity(intent);
     }
 
     private void saveToDatabase() {

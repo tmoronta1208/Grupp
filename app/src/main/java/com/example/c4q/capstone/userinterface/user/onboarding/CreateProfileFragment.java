@@ -4,9 +4,14 @@ package com.example.c4q.capstone.userinterface.user.onboarding;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+=======
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+>>>>>>> parent of aba0275... prefs update
 import android.util.Log;
 =======
 >>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
@@ -14,22 +19,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+<<<<<<< HEAD
 
+=======
+import android.widget.Toast;
+
+import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
+import com.example.c4q.capstone.database.privateuserdata.PrivateUserLocation;
+import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.PreferencesFragment;
+>>>>>>> parent of aba0275... prefs update
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
-
+/**
+ * A simple {@link Fragment} subclass.
+ */
 public class CreateProfileFragment extends Fragment {
     View rootView;
 
@@ -52,6 +64,7 @@ public class CreateProfileFragment extends Fragment {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference publicUserReference, privateUserReference, privateUserLocationReference;
     private FirebaseUser currentUser;
+<<<<<<< HEAD
     private CheckBox clubCheckBox, loungeCheckBox, beerCheckBox, karaokeCheckBox, hookahPrefCheckBox,
             gayPrefCheckBox, beachCheckBox, hotelCheckbox, pubCheckbox, cocktailCheckbox, brunchPref,
             outdoorPref, rooftopPref, danceFloorPref, fullMenuPref, videoGamePref, dartPref, poolTablePref;
@@ -60,11 +73,19 @@ public class CreateProfileFragment extends Fragment {
 =======
 
 >>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
+=======
+>>>>>>> parent of aba0275... prefs update
 
     public CreateProfileFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * @Tati this is the CreateProfile fragment, basically a copy and paste of @Ashley's EditProfileCode.
+     * I've indicated when and where the fragment gets swapped with a todo.
+     * Theres a lot of code on this page. You can make it nicer,
+     * if youd like :)
+     */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -139,6 +160,7 @@ public class CreateProfileFragment extends Fragment {
         });
 
         locationManagerLogic();
+<<<<<<< HEAD
 //
 //        //Bar Preferences
 //        clubCheckBox = rootView.findViewById(R.id.club_pref);
@@ -278,11 +300,16 @@ public class CreateProfileFragment extends Fragment {
 //
 //        locationManagerLogic();
 >>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387
+=======
+>>>>>>> parent of aba0275... prefs update
 
         return rootView;
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of aba0275... prefs update
     public void locationManagerLogic() {
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(CreateProfileFragment.this.getActivity().LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(CreateProfileFragment.this.getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -393,6 +420,7 @@ public class CreateProfileFragment extends Fragment {
 ////        fragmentTransaction.commit();
 //    }
 
+<<<<<<< HEAD
 //    @Override
 //    public void onStart() {
 //        super.onStart();
@@ -552,5 +580,31 @@ public class CreateProfileFragment extends Fragment {
 //            }
 //        });
 //    }
+=======
+        radiusGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                radiusChoice = group.findViewById(checkedId);
+                switch (checkedId) {
+                    case R.id.radius_choice_one:
+                        radius = 5;
+                        break;
+                    case R.id.radius_choice_two:
+                        radius = 10;
+                        break;
+                    case R.id.radius_choice_three:
+                        radius = 15;
+                        break;
+                    case R.id.radius_choice_four:
+                        radius = 20;
+                        break;
+                    case R.id.radius_choice_five:
+                        radius = 25;
+                        break;
+                }
+            }
+        });
+    }
+>>>>>>> parent of aba0275... prefs update
 
 }

@@ -9,26 +9,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
-import com.example.c4q.capstone.database.privateuserdata.PrivateUserLocation;
-import com.example.c4q.capstone.database.publicuserdata.PublicUserPreferences;
 import com.example.c4q.capstone.network.barzz.BarzzNetworkCall;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import static com.example.c4q.capstone.utils.Constants.PREFERENCES;
-import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,10 +34,10 @@ public class BarPreferencesFragment extends Fragment {
     private CheckBox hotelCheckbox;
     private CheckBox pubCheckbox;
     private CheckBox cocktailCheckbox;
-<<<<<<< Updated upstream:app/src/main/java/com/example/c4q/capstone/userinterface/user/userprofilefragments/PreferencesFragment.java
     HashMap<CheckBox, String> prefs = new HashMap<>();
 <<<<<<< HEAD:app/src/main/java/com/example/c4q/capstone/userinterface/user/userprofilefragments/PreferencesFragment.java
     public static ArrayList<String> selectedPrefs = new ArrayList<>();
+<<<<<<< HEAD:app/src/main/java/com/example/c4q/capstone/userinterface/user/onboarding/BarPreferencesFragment.java
 =======
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -66,6 +55,8 @@ public class BarPreferencesFragment extends Fragment {
 =======
     public static List<String> selectedPrefs = new ArrayList<>();
 >>>>>>> e78fbaa914bf5df5bdcd537990f9686e8c782387:app/src/main/java/com/example/c4q/capstone/userinterface/user/onboarding/BarPreferencesFragment.java
+=======
+>>>>>>> parent of aba0275... prefs update:app/src/main/java/com/example/c4q/capstone/userinterface/user/userprofilefragments/PreferencesFragment.java
 
     public BarPreferencesFragment() {
         // Required empty public constructor
@@ -77,13 +68,6 @@ public class BarPreferencesFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_preferences, container, false);
-
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
-        currentUserID = currentUser.getUid();
-        rootRef = FirebaseDatabase.getInstance().getReference();
-        preferencesDB = rootRef.child(PRIVATE_USER);
-        saveToDbButton = view.findViewById(R.id.pref_save_button);
 
 
         clubCheckBox = view.findViewById(R.id.club_pref);
@@ -137,25 +121,9 @@ public class BarPreferencesFragment extends Fragment {
 
         }
 
-        saveToDbButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                savePrefToDatabse();
-            }
-        });
-
 
         return view;
     }
 
 
-    public void savePrefToDatabse() {
-
-
-        preferencesDB.child(currentUserID).child(PREFERENCES).setValue(selectedPrefs);
-
-
-    }
 }
-
-
