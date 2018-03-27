@@ -35,9 +35,8 @@ public class FriendsAdapter extends RecyclerView.Adapter<ContactListViewHolder> 
     public void onBindViewHolder(ContactListViewHolder holder, int position) {
         PublicUser user = friendsList.get(position);
         holder.onBind(user);
-        holder.itemView.setTag(user.getFirst_name());
+        holder.itemView.setTag(user.getUser_id());
         holder.itemView.setOnClickListener(listener);
-
     }
 
     @Override

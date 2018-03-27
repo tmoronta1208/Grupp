@@ -11,16 +11,20 @@
         android:orientation="vertical"
         android:layout_weight="1.5"
         android:gravity="center"
-        android:background="@android:color/white">
+        android:padding="@dimen/layout_item_margin"
+        android:background="@color/colorPrimary">
     <TextView
         android:id="@+id/event_title_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Event Title"
+        android:layout_marginBottom="@dimen/layout_padding"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
         android:textSize="40sp"
         android:gravity="center"
         android:padding="@dimen/layout_item_margin"
+        android:textStyle="bold"
+        android:textColor="@color/light_cream"
          />
     <TextView
         android:id="@+id/event_organier_text_view"
@@ -31,6 +35,7 @@
         android:textSize="18sp"
         android:gravity="center"
         android:paddingBottom="@dimen/layout_item_margin"
+        android:textColor="@color/dark_gray"
         />
     <TextView
         android:id="@+id/event_date_text_view"
@@ -40,6 +45,7 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
         android:textSize="14sp"
         android:gravity="center"
+        android:textColor="@color/dark_gray"
         />
 
         <TextView
