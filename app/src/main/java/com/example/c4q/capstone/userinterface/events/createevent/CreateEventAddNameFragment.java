@@ -2,6 +2,7 @@ package com.example.c4q.capstone.userinterface.events.createevent;
 
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,12 +25,13 @@ import com.example.c4q.capstone.userinterface.events.CreateEventPresenter;
 import com.example.c4q.capstone.userinterface.events.EventActivity;
 import com.example.c4q.capstone.userinterface.events.EventFragmentListener;
 import com.example.c4q.capstone.userinterface.events.createevent.createeventux.EditTextUX;
+import com.example.c4q.capstone.userinterface.events.createevent.createeventux.calenderdialog.DatePickerFragment;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CreateEventAddNameFragment extends Fragment {
+public class CreateEventAddNameFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
     View rootView;
     private static String TAG = "CREATE_EVENT_FRAG: ";
     EditText eventName;
@@ -43,6 +45,9 @@ public class CreateEventAddNameFragment extends Fragment {
     String eventID;
     LinearLayout hiddenLayout;
     LinearLayout visibleLayout;
+    DatePickerFragment datePickerFragment = new DatePickerFragment();
+
+    private String dateString;
 
     public CreateEventAddNameFragment() {
         // Required empty public constructor
@@ -92,6 +97,7 @@ public class CreateEventAddNameFragment extends Fragment {
         addTime = (TextView) rootView.findViewById(R.id.add_time_text_view);
         dateAndTime = (TextView) rootView.findViewById(R.id.date_time_text_view);
         datePicker = (DatePicker) rootView.findViewById(R.id.date_picker);
+
         timePicker = (TimePicker) rootView.findViewById(R.id.time_picker);
         closeButton = (Button) rootView.findViewById(R.id.close_button);
         createEventButton = (Button) rootView.findViewById(R.id.create_event_button);
@@ -145,10 +151,12 @@ public class CreateEventAddNameFragment extends Fragment {
         addDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                datePicker.setVisibility(View.VISIBLE);
-                closeButton.setVisibility(View.VISIBLE);
-                hiddenLayout.setVisibility(View.VISIBLE);
-                visibleLayout.setVisibility(View.GONE);
+////                datePicker.setVisibility(View.VISIBLE);
+//                closeButton.setVisibility(View.VISIBLE);
+//                hiddenLayout.setVisibility(View.VISIBLE);
+//                visibleLayout.setVisibility(View.GONE);
+
+                datePickerFragment.show(getFragmentManager(),"datePicker");
             }
         });
 
@@ -167,7 +175,7 @@ public class CreateEventAddNameFragment extends Fragment {
                 } else if (datePicker.getVisibility() == View.VISIBLE) {
 
                     eventPresenter.setEventDate(datePicker);
-                    dateAndTime.setText(eventPresenter.dateTime);
+                    dateAndTime.setText(dateString);
                     datePicker.setVisibility(View.GONE);
                     hiddenLayout.setVisibility(View.GONE);
                 }
@@ -222,5 +230,8 @@ public class CreateEventAddNameFragment extends Fragment {
         createEventPTSingleton.destroyInstance();
         getActivity().finish();
     }
-
+/*Set's time to the dateandtimetextview. method can be found in DatePickerFragment*/
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+    }
 }

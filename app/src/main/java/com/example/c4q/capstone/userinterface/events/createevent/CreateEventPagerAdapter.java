@@ -29,14 +29,14 @@ public class CreateEventPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return CreateEventAddVenueFragment.newInstance(createEventPTSingleton);
+                return CreateEventInviteFragment.newInstance(createEventPTSingleton);
             case 1:
+                return CreateEventAddVenueFragment.newInstance(createEventPTSingleton);
+            case 2:
+                return CreateEventAddNoteFragment.newInstance(createEventPTSingleton);
+            case 3:
                 return CreateEventAddNameFragment.newInstance(createEventPTSingleton);
 
-            case 2:
-                return CreateEventInviteFragment.newInstance(createEventPTSingleton);
-            case 3:
-                return CreateEventAddNoteFragment.newInstance(createEventPTSingleton);
             default:
                 return null;
         }
