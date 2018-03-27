@@ -21,6 +21,7 @@ import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.events.createevent.CreateEventAddNameFragment;
 import com.example.c4q.capstone.userinterface.user.SettingsActivity;
 import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
+import com.example.c4q.capstone.userinterface.user.onboarding.OnBoardActivity;
 import com.example.c4q.capstone.utils.Constants;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -72,8 +73,8 @@ public class LoginActivity extends AppCompatActivity {
          * */
 
         getUserData();
-
-
+        Intent intent = new Intent(LoginActivity.this, OnBoardActivity.class);
+        startActivity(intent);
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
                 new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build());
@@ -90,7 +91,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
-
 
 
     /* takes user's credentials and controls what to do with it.
@@ -110,22 +110,22 @@ public class LoginActivity extends AppCompatActivity {
                  * if user is not in db, launches edit profile intent
                  * */
 
-             //   if (userNotInDB()) {
-                    Intent editProfileIntent = new Intent(LoginActivity.this, UserProfileActivity.class);
-                    startActivity(editProfileIntent);
-                    Log.d(" LOGIN", "set up profile");
+                //   if (userNotInDB()) {
+                Intent editProfileIntent = new Intent(LoginActivity.this, UserProfileActivity.class);
+                startActivity(editProfileIntent);
+                Log.d(" LOGIN", "set up profile");
 
-                } else {
-                    Log.d(" LOGIN", "go to profile");
-                    Intent userProfileIntent = new Intent(LoginActivity.this, UserProfileActivity.class);
-                    startActivity(userProfileIntent);
-                }
-                // ...
             } else {
-                // Sign in failed, check response for error code
-                // ...
+                Log.d(" LOGIN", "go to profile");
+                Intent userProfileIntent = new Intent(LoginActivity.this, UserProfileActivity.class);
+                startActivity(userProfileIntent);
+            }
+            // ...
+        } else {
+            // Sign in failed, check response for error code
+            // ...
 
-           // }
+            // }
         }
     }
 

@@ -20,15 +20,6 @@
             android:text="What kind of bars do you prefer?"
             android:textSize="25sp" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            app:lottie_fileName="thirsty.json"
-
-        app:lottie_loop="true"
-        app:lottie_autoPlay="true" />
 
 
         <CheckBox
