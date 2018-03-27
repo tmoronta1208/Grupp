@@ -2,8 +2,6 @@ package com.example.c4q.capstone.userinterface.user.onboarding;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,7 +43,7 @@ public class BarPreferencesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_preferences, container, false);
+        view = inflater.inflate(R.layout.fragment_bar_preferences, container, false);
 
 
         clubCheckBox = view.findViewById(R.id.club_pref);

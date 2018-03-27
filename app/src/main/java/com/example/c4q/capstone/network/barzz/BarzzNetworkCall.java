@@ -37,7 +37,8 @@ public class BarzzNetworkCall {
                 @Override
                 public void onResponse(Call<BarzzModel> call, Response<BarzzModel> response) {
 
-                    Log.d("SUCESSSS", response.body().getSuccess().getResults().get(0).getName());
+                    if(response != null){
+                    Log.d("SUCESSSS!", response.body().getSuccess().getResults().get(0).getName());}
 
 
                 }

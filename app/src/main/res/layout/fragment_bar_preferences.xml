@@ -73,29 +73,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cocktail" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="What kind of music do you like?" />
-
-
-        <CheckBox
-            android:id="@+id/country_music_pref"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Country Music" />
-
-        <CheckBox
-            android:id="@+id/reggae_music_pref"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Reggae Music" />
-
-        <CheckBox
-            android:id="@+id/jazz_music_pref"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Jazz" />
 
 
     </LinearLayout>

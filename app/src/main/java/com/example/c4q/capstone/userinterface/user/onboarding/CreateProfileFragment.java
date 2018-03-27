@@ -45,14 +45,6 @@ public class CreateProfileFragment extends Fragment {
 
     private static final String TAG = "CreateProfileActivity";
 
-    private String currentUserID, userEmail;
-    private boolean over18, over21, share_location;
-    private int radius;
-    private double lat, lng;
-
-    private Button saveBtn;
-
-
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -63,69 +55,12 @@ public class CreateProfileFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * @Tati this is the CreateProfile fragment, basically a copy and paste of @Ashley's EditProfileCode.
-     * I've indicated when and where the fragment gets swapped with a todo.
-     * Theres a lot of code on this page. You can make it nicer,
-     * if youd like :)
-     */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         rootView = inflater.inflate(com.example.c4q.capstone.R.layout.fragment_create_profile, container, false);
-
-        saveBtn = rootView.findViewById(R.id.edit_profile_save_button);
-
-        mAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-
-        currentUser = mAuth.getCurrentUser();
-        currentUserID = currentUser.getUid();
-
-
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (currentUser != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + currentUser.getUid());
-                    Toast.makeText(CreateProfileFragment.this.getActivity(), "Successfully signed in with: " + currentUser.getEmail(), Toast.LENGTH_SHORT).show();
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                    Toast.makeText(CreateProfileFragment.this.getActivity(), "Successfully signed out.", Toast.LENGTH_SHORT).show();
-                }
-            }
-        };
-
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                Log.d(TAG, "onDataChange: Added information to database: \n" +
-                        dataSnapshot.getValue());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        };
-
-        publicUserReference.addValueEventListener(valueEventListener);
-        privateUserReference.addValueEventListener(valueEventListener);
-        privateUserLocationReference.addValueEventListener(valueEventListener);
-
-        saveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveToDatabase();
-            }
-        });
 
 
         return rootView;
@@ -138,20 +73,20 @@ public class CreateProfileFragment extends Fragment {
     }
 
 
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
-    }
+//
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        mAuth.addAuthStateListener(mAuthListener);
+//    }
+//
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        if (mAuthListener != null) {
+//            mAuth.removeAuthStateListener(mAuthListener);
+//        }
+//    }
 
 //    public void radioGroupSelection() {
 //        ageGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
