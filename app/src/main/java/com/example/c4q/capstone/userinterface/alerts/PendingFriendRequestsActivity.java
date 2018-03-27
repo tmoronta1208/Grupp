@@ -123,8 +123,8 @@ public class PendingFriendRequestsActivity extends AppCompatActivity {
                     public void onSuccess(Void v) {
 
                         Map<String, Object> friendMap = new HashMap<>();
-                            friendMap.put(USER_FRIENDS + "/" + currentUserID + "/" + i, pendingUserFriendList);
-                            friendMap.put(USER_FRIENDS + "/" + pendingRequestID + "/" + i, currentUserFriendList);
+                            friendMap.put(USER_FRIENDS + "/" + currentUserID, pendingUserFriendList);
+                            friendMap.put(USER_FRIENDS + "/" + pendingRequestID, currentUserFriendList);
 
 
                         rootRef.updateChildren(friendMap, new DatabaseReference.CompletionListener() {
