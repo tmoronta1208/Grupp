@@ -33,10 +33,11 @@
         android:id="@+id/bar_choice_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/layout_padding"
         android:text="Bar"
+        android:layout_margin="@dimen/layout_item_margin"
+        android:textSize="16sp"
         android:layout_gravity="center"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/eventbutton"
         android:tag="bar"
         android:onClick="venueTypeButtonClick"
         />
@@ -45,10 +46,11 @@
         android:id="@+id/restaurant_choice_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/layout_padding"
+        android:layout_margin="@dimen/layout_item_margin"
         android:text="Restaurant"
+        android:textSize="16sp"
         android:layout_gravity="center"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/eventbutton"
         android:tag="restaurant"
         android:onClick="venueTypeButtonClick"/>
     </LinearLayout>

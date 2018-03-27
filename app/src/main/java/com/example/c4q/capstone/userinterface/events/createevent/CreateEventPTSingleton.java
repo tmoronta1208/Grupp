@@ -38,7 +38,7 @@ public class CreateEventPTSingleton {
         return createEventPTSingleton;
     }
     public static CreateEventPTSingleton getInstance(){
-        Log.d(TAG, "getInstance: new instance called");
+        Log.d(TAG, "getInstance: get instance called");
         if(createEventPTSingleton != null){
             createEventPTSingleton.setNewEvent(false);
             createEventPTSingleton.setInProgress(true);

@@ -2,6 +2,7 @@ package com.example.c4q.capstone.userinterface.events.createevent;
 
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,12 +25,13 @@ import com.example.c4q.capstone.userinterface.events.CreateEventPresenter;
 import com.example.c4q.capstone.userinterface.events.EventActivity;
 import com.example.c4q.capstone.userinterface.events.EventFragmentListener;
 import com.example.c4q.capstone.userinterface.events.createevent.createeventux.EditTextUX;
+import com.example.c4q.capstone.userinterface.events.createevent.createeventux.calenderdialog.DatePickerFragment;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CreateEventAddNameFragment extends Fragment {
+public class CreateEventAddNameFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
     View rootView;
     private static String TAG = "CREATE_EVENT_FRAG: ";
     EditText eventName;
@@ -43,6 +45,9 @@ public class CreateEventAddNameFragment extends Fragment {
     String eventID;
     LinearLayout hiddenLayout;
     LinearLayout visibleLayout;
+    DatePickerFragment datePickerFragment = new DatePickerFragment();
+
+    private String dateString;
 
     public CreateEventAddNameFragment() {
         // Required empty public constructor
@@ -71,10 +76,10 @@ public class CreateEventAddNameFragment extends Fragment {
             }
         });
         setViews();
-        setCreateeventButton();
         setDatTimeClick();
         setCloseButton();
         setEnterNameEditText();
+        datePickerFragment.setEventPresnter(eventPresenter);
         return rootView;
     }
 
@@ -92,44 +97,16 @@ public class CreateEventAddNameFragment extends Fragment {
         addTime = (TextView) rootView.findViewById(R.id.add_time_text_view);
         dateAndTime = (TextView) rootView.findViewById(R.id.date_time_text_view);
         datePicker = (DatePicker) rootView.findViewById(R.id.date_picker);
+
         timePicker = (TimePicker) rootView.findViewById(R.id.time_picker);
         closeButton = (Button) rootView.findViewById(R.id.close_button);
         createEventButton = (Button) rootView.findViewById(R.id.create_event_button);
         eventName = (EditText) rootView.findViewById(R.id.event_name_edit_text);
         hiddenLayout = rootView.findViewById(R.id.hidden_linear_layout);
         visibleLayout = rootView.findViewById(R.id.visible_layout);
-
     }
 
-    public void setCreateeventButton() {
-        createEventButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "event button clicked");
 
-                if (!eventPresenter.validateEvent()) {
-                    Log.d(TAG, "create event: event not valid");
-                    //TODO alert user
-                } else {
-                    eventPresenter.sendEventToFB(new EventFragmentListener() {
-                        @Override
-                        public void swapFragments() {
-                            Log.d(TAG, "Swap fragments called");
-                            loadEventFragment();
-                        }
-
-                        @Override
-                        public void getEventIdKEy(String key) {
-                            eventID = key;
-                            loadEventFragment();
-                        }
-                    });
-                    Log.d(TAG, "create event: eventSent to firebase");
-
-                }
-            }
-        });
-    }
 
     public void setDatTimeClick() {
         addTime.setOnClickListener(new View.OnClickListener() {
@@ -145,13 +122,9 @@ public class CreateEventAddNameFragment extends Fragment {
         addDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                datePicker.setVisibility(View.VISIBLE);
-                closeButton.setVisibility(View.VISIBLE);
-                hiddenLayout.setVisibility(View.VISIBLE);
-                visibleLayout.setVisibility(View.GONE);
+                datePickerFragment.show(getFragmentManager(),"datePicker");
             }
         });
-
     }
 
     public void setCloseButton() {
@@ -161,18 +134,17 @@ public class CreateEventAddNameFragment extends Fragment {
                 if (timePicker.getVisibility() == View.VISIBLE) {
 
                     eventPresenter.setEventTime(timePicker);
+                    eventPresenter.validateEvent();
                     dateAndTime.setText(eventPresenter.dateTime);
                     timePicker.setVisibility(View.GONE);
                     hiddenLayout.setVisibility(View.GONE);
                 } else if (datePicker.getVisibility() == View.VISIBLE) {
 
-                    eventPresenter.setEventDate(datePicker);
-                    dateAndTime.setText(eventPresenter.dateTime);
-                    datePicker.setVisibility(View.GONE);
-                    hiddenLayout.setVisibility(View.GONE);
                 }
                 visibleLayout.setVisibility(View.VISIBLE);
                 closeButton.setVisibility(View.GONE);
+                eventPresenter.validateEvent();
+
                 if (!eventPresenter.validateNameDone()) {
                     Log.d(TAG, "create event: event not valid");
                     //TODO alert user
@@ -191,9 +163,7 @@ public class CreateEventAddNameFragment extends Fragment {
                         }
                     });
                     Log.d(TAG, "create event: eventSent to firebase");
-
                 }
-                //TODO add logic to grab choice data
             }
         });
     }
@@ -222,5 +192,14 @@ public class CreateEventAddNameFragment extends Fragment {
         createEventPTSingleton.destroyInstance();
         getActivity().finish();
     }
-
+/*Set's time to the dateandtimetextview. method can be found in DatePickerFragment*/
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Log.d(TAG, "on date set");
+        String date = "Date: "+(month +1) + "/"+ dayOfMonth + "/" + year;
+        eventPresenter.setEventDate(date);
+        if (eventPresenter.validateEvent()){
+            loadEventFragment();
+        }
+    }
 }

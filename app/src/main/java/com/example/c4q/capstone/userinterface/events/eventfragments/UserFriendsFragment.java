@@ -33,8 +33,6 @@ public class UserFriendsFragment extends Fragment {
     LinearLayoutManager linearLayoutManager;
     List<PublicUser> friendsUserList = CurrentUser.getInstance().getUserFriendsList();
 
-
-
     public UserFriendsFragment() {
         // Required empty public constructor
     }
@@ -44,17 +42,27 @@ public class UserFriendsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment_user_friends, container, false);
+        if (friendsUserList == null){
+            friendsUserList = new ArrayList<>();
+        }
         recyclerView = (RecyclerView) rootView.findViewById(R.id.friends_recycler_view);
-        contactListAdapter = new ContactListAdapter(friendsUserList, getActivity() );
-        linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-        recyclerView.setAdapter(contactListAdapter);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        getFriendUsers();
+        if(friendsUserList != null){
+            contactListAdapter = new ContactListAdapter(friendsUserList, getActivity() );
+            linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+            recyclerView.setAdapter(contactListAdapter);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            getFriendUsers();
+        }
+
+
         return rootView;
     }
 
     public void getFriendUsers(){
         friendsUserList = CurrentUser.getInstance().getUserFriendsList();
+        if (friendsUserList == null){
+            friendsUserList = new ArrayList<>();
+        }
         contactListAdapter.notifyDataSetChanged();
     }
 }

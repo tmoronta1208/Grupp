@@ -52,8 +52,9 @@ public class CreateEventPresenter {
     }
 
     public void sendEventToFB(EventFragmentListener listener){
-        setFinalizedEvent();
-        key = currentUserPost.postNewEvent(newEvent);
+       key = setFinalizedEvent();
+       currentUserPost.postNewEvent(key, newEvent);
+
         Log.d(TAG, "event key : " + key);
         listener.getEventIdKEy(key);
     }
@@ -66,8 +67,10 @@ public class CreateEventPresenter {
         validateEvent();
     }
 
-    public void setEventDate(DatePicker datePicker){
-        dateOfEvent = String.valueOf(datePicker.getMonth()) + "/" + String.valueOf(datePicker.getDayOfMonth());
+    public void setEventDate(String date){
+        dateOfEvent = date;
+        eventDateSet = true;
+        Log.d(TAG, "event date  set: " + dateOfEvent);
         createEventPTSingleton.setEventDate(dateOfEvent);
         setDateAndTime();
         eventDateSet = true;
@@ -126,17 +129,23 @@ public class CreateEventPresenter {
 
     public boolean validateEvent(){
         boolean validEvent = false;
-        if (eventTimeSet && eventNameSet && eventDateSet && eventGuestsSet &&eventNoteSet){
+        if (eventTimeSet && eventNameSet && eventDateSet){
             Log.d(TAG, "create event: event valid");
+
             validEvent = true;
-            setFinalizedEvent();
+
         } else {
             Log.d(TAG, "create event: event not valid");
+            Log.d(TAG, "create event: event not valid: name set" + eventNameSet);
+            Log.d(TAG, "create event: event not valid: date set" + eventDateSet);
+            Log.d(TAG, "create event: event not valid: time set" + eventTimeSet);
+
         }
         return validEvent;
     }
 
-    public void setFinalizedEvent(){
+    public String setFinalizedEvent(){
+        key = currentUserPost.newEventKey();
         newEvent.setEvent_id(createEventPTSingleton.getEventID());
         newEvent.setEvent_name(createEventPTSingleton.getEventName());
         newEvent.setEvent_note(createEventPTSingleton.getEventNote());
@@ -146,6 +155,8 @@ public class CreateEventPresenter {
         newEvent.setEvent_note(createEventPTSingleton.getEventNote());
         newEvent.setInvited_guests(createEventPTSingleton.getInvitedGuests());
         newEvent.setEvent_organizer(currentUser.getUserID());
+        newEvent.setEvent_id(key);
         Log.d(TAG, "event type" + createEventPTSingleton.getEventVenueType());
+        return key;
     }
 }

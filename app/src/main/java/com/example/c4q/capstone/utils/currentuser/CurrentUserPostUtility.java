@@ -13,8 +13,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static com.example.c4q.capstone.utils.Constants.EVENTS;
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
@@ -56,6 +58,10 @@ public class CurrentUserPostUtility {
             userEventKeys = new ArrayList<>();
         }
         userEventKeys.add(key);
+        Set<String> eventKeys = new HashSet<>();
+        eventKeys.addAll(userEventKeys);
+        userEventKeys = new ArrayList<>();
+        userEventKeys.addAll(eventKeys);
         Map<String, Object> user_events = new HashMap<>();
         user_events.put(currentUser.getUserID(), userEventKeys);
         userEventsReference.updateChildren(user_events);
