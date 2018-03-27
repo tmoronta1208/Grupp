@@ -15,6 +15,7 @@ import android.widget.CompoundButton;
 import com.example.c4q.capstone.LoginActivity;
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.network.barzz.BarzzNetworkCall;
+import com.example.c4q.capstone.userinterface.CurrentUserPost;
 import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -120,6 +121,7 @@ public class AmenityPreferencesFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 preferencesDB.child(currentUserID).child(PREFERENCES).child(AMENITY_PREFS).setValue(selectedPrefs);
+                CurrentUserPost.getInstance().postNewAmenityPreferences(selectedPrefs);
                 Intent intent = new Intent(getActivity(), UserProfileActivity.class);
                 startActivity(intent);
             }
