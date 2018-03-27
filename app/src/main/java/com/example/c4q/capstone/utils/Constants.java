@@ -22,7 +22,7 @@ public class Constants {
     public static final String REQUEST_TYPE = "request_type";
     public static final String REQUEST_SENT ="req_sent";
     public static final String REQUEST_RECEIVED ="req_received";
-    public static final String RESTAURANT_PREFS ="restaurant_prefs";
+    public static final String AMENITY_PREFS ="amenity_preferences";
     public static final String SENT = "Request sent";
     public static final String USER_EVENTS = "user_events";
     public static final String USER_FRIENDS = "user_friends";

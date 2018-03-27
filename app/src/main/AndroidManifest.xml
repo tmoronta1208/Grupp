@@ -27,11 +27,11 @@
         <activity android:name=".userinterface.events.VenueVoteSwipeActivity" />
         <activity android:name=".userinterface.events.EventActivity" />
         <activity android:name=".userinterface.user.EditProfileActivity" />
+        <activity android:name=".userinterface.user.onboarding.OnBoardActivity" />
         <activity android:name=".TempUserActivity" />
         <activity android:name=".userinterface.user.search.UserSearchActivity" />
         <activity android:name=".userinterface.user.AddPersonActivity" />
         <activity android:name=".userinterface.events.createevent.CreateEventActivity" />
-        <activity android:name=".userinterface.user.onboarding.ViewPagerActivity"></activity>
     </application>
 
 </manifest>
