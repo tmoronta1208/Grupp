@@ -87,66 +87,10 @@ public class FBUserDataUtility {
      * this method get a list of Public User
      * untested/not working*/
 
-    public void getCurrentUserFriends(final FBUserFriendsListener userFriendsListener){
-
-
-            getUserFriendKeys(currentUserID, new FBUserFriendsListener() {
-                @Override
-                public void getUserFriendIds(List<String> userFriendIds) {
-                    userfriendsPublicUserList = new ArrayList<>();
-
-
-                    for(String userFriend : userFriendIds) {
-                        getPublicUser(userFriend, new FBUserDataListener() {
-                            @Override
-                            public void getUid(String userID) {
-
-                            }
-                            @Override
-                            public void getPublicUser(PublicUser publicUser) {
-                                userfriendsPublicUserList.add(publicUser);
-                                userFriendsListener.getUserFriends(userfriendsPublicUserList);
-                            }
-                        });
-
-                    }
-                }
-
-                @Override
-                public void getUserFriends(List<PublicUser> userFriendsList) {
-                }
-            });
-
-
-    }
 
     /**ajoxe:
      * this method gets user friend keys from the database */
-    public void getUserFriendKeys(final String userID, final  FBUserFriendsListener userFriendsListener){
 
-        ValueEventListener userListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<String> userFriendsList = new ArrayList<>();
-
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String friendKey = ds.getValue().toString();
-
-                    userFriendsList.add(friendKey);
-                    Log.d(TAG, "friend key" + friendKey);
-                }
-                Log.d(TAG, "getUserFriendKeys: user friends list size: " + userFriendsList.size());
-                userFriendsListener.getUserFriendIds(userFriendsList);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-                Log.w(TAG, "getFriendKeys:onCancelled", databaseError.toException());
-
-            }
-        };
-       userFriendsReference.child(userID).addValueEventListener(userListener);
-    }
 
 
     /**ajoxe:

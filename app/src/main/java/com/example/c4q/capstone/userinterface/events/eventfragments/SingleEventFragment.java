@@ -42,6 +42,7 @@ public class SingleEventFragment extends Fragment {
     String organizerFullName;
     UserFriendsFragment userFriendsFragment;
     FrameLayout frameLayout;
+    List<String> invitedFriendsList;
 
     public SingleEventFragment() {
         // Required empty public constructor
@@ -52,15 +53,14 @@ public class SingleEventFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_single_event, container, false);
         bundle = getArguments();
-
         if (bundle != null) {
            eventID = bundle.getString("eventID", null);
             eventType = bundle.getString("eventType", null);
         }
         eventPresenter = new EventPresenter();
+
         defineViews();
         getEventData();
-        loadUserFriendsFragment();
         showHideVote();
         setVoteClick();
         showHideMore();
@@ -137,6 +137,8 @@ public class SingleEventFragment extends Fragment {
                     eventName.setText(currentEvent.getEvent_name());
 
                     eventDate.setText("Date: " + currentEvent.getEvent_date());
+                    invitedFriendsList = event.getInvited_guests();
+                    loadUserFriendsFragment();
                 } else {
                     Log.d ("Event Fragment", "event is null");
                 }
@@ -157,8 +159,12 @@ public class SingleEventFragment extends Fragment {
     }
     /**method to load UserFreindsFragment below event data*/
     public void loadUserFriendsFragment(){
-        userFriendsFragment = new UserFriendsFragment();
-        ContactListFragment contactListFragment = new ContactListFragment();
+        ArrayList<String> invitedFriends = new ArrayList<>();
+        if(invitedFriendsList != null && invitedFriendsList.size() != 0){
+            invitedFriends.addAll(invitedFriendsList);
+            Log.d ("Event Fragment", "invited list array size:" + invitedFriendsList.size());
+        }
+        userFriendsFragment = UserFriendsFragment.newInstance(invitedFriends);
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.add(R.id.event_fragment_container, userFriendsFragment).commit();
     }
