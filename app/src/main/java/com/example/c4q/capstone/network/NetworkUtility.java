@@ -47,7 +47,7 @@ public class NetworkUtility {
                     List<Results> venueResults = response.body().getSuccess().getResults();
 
                     List<Venue> venue = new ArrayList<>();
-                    venueNetworkListener.getBarzList(venue);
+                    //venueNetworkListener.getBarzList(venue);
                 }
             }
 

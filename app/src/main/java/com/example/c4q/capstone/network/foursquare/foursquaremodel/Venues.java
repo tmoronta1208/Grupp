@@ -6,8 +6,6 @@ import java.util.List;
 
 public class Venues {
 
-
-
     @SerializedName("url")
     private String url;
     @SerializedName("categories")
@@ -20,8 +18,6 @@ public class Venues {
     private String name;
     @SerializedName("id")
     private String id;
-
-
 
     public String getUrl() {
         return url;

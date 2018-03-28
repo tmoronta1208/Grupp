@@ -43,13 +43,9 @@ public class VenueVoteUtility {
                 int radius = guest.getRadius();
                 radius = radius * 1609;
                 String userRadius = String.valueOf(radius);
+                Log.d(TAG, "user radius" + guest.getFirst_name() + " : " + userRadius);
 
                 NetworkUtility.getNetworkUtility().getFourSQList(zipCode, userRadius, preferences, new VenueNetworkListener() {
-                    @Override
-                    public void getBarzList(List<Venue> venueList) {
-
-                    }
-
                     @Override
                     public void getFourSList(List<Venue> fourSVenues) {
                         Log.d(TAG, "Venue Vote Listener called");
@@ -65,4 +61,6 @@ public class VenueVoteUtility {
 
 
     }
+
+
 }
