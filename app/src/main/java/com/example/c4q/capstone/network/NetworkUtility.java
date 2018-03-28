@@ -80,7 +80,9 @@ public class NetworkUtility {
                 Log.d("SUCESSSS", response.body().getResponse().getVenues().get(0).getName());
 
             List<Venue> venue = new ArrayList<>();
+
             venueNetworkListener.getFourSList(venue);
+
             }
 
             @Override
