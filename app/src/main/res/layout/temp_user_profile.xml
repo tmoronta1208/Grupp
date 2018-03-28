@@ -41,6 +41,13 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/user_name"
         android:layout_alignParentEnd="true" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/friendlist"
+        android:text="Friend List"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"/>
 
 </RelativeLayout>
 

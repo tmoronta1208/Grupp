@@ -9,19 +9,25 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.database.publicuserdata.FriendsList;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
+
 
 import static com.example.c4q.capstone.utils.Constants.PENDING;
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
@@ -30,13 +36,14 @@ import static com.example.c4q.capstone.utils.Constants.USER_FRIENDS;
 public class PendingFriendRequestsActivity extends AppCompatActivity {
     private static final String TAG = "PendingFriendRequests";
     List<String> currentUserFriendList = new ArrayList<>();
-    List<String> pendingUserFriendList = new ArrayList<>();
-    private RecyclerView pendingList;
+    ArrayList<String> pendingUserFriendList = new ArrayList<>();
+    private RecyclerView pendingListRecyclerView;
     private LinearLayoutManager linearLayoutManager;
     private DatabaseReference rootRef, pendingRequests;
     private FirebaseUser currentUser;
     private FirebaseAuth authentication;
     private String currentUserID;
+    private FriendsList friendsList;
 
 
     @Override
@@ -51,11 +58,11 @@ public class PendingFriendRequestsActivity extends AppCompatActivity {
         rootRef = FirebaseDatabase.getInstance().getReference();
         pendingRequests = rootRef.child(PUBLIC_USER).child(currentUserID).child(PENDING);
 
-        pendingList = findViewById(R.id.pending_requests_rv);
-        pendingList.setHasFixedSize(true);
+        pendingListRecyclerView = findViewById(R.id.pending_requests_rv);
+        pendingListRecyclerView.setHasFixedSize(true);
 
         linearLayoutManager = new LinearLayoutManager(this);
-        pendingList.setLayoutManager(linearLayoutManager);
+        pendingListRecyclerView.setLayoutManager(linearLayoutManager);
 
 
         callFirebaseAdapter();
@@ -90,7 +97,7 @@ public class PendingFriendRequestsActivity extends AppCompatActivity {
                     }
                 };
 
-        pendingList.setAdapter(firebaseRecyclerAdapter);
+        pendingListRecyclerView.setAdapter(firebaseRecyclerAdapter);
     }
 
     private void denyFriendRequest(String pendingRequestID) {
@@ -109,35 +116,51 @@ public class PendingFriendRequestsActivity extends AppCompatActivity {
     }
 
     private void acceptFriendRequest(final String pendingRequestID) {
-        currentUserFriendList.add(pendingRequestID);
-        pendingUserFriendList.add(currentUserID);
 
-        rootRef.child(PUBLIC_USER)
-                .child(currentUserID)
-                .child(PENDING)
-                .child(pendingRequestID)
-                .removeValue()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void v) {
-
-                        Map<String, Object> friendMap = new HashMap<>();
-                            friendMap.put(USER_FRIENDS + "/" + currentUserID, pendingUserFriendList);
-                            friendMap.put(USER_FRIENDS + "/" + pendingRequestID, currentUserFriendList);
-
-
-                        rootRef.updateChildren(friendMap, new DatabaseReference.CompletionListener() {
-                            @Override
-                            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                                if (databaseError != null) {
-                                    Toast.makeText(PendingFriendRequestsActivity.this, "Error: Request not sent", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(PendingFriendRequestsActivity.this, "Accepted Friend Request", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+        rootRef.child(USER_FRIENDS).child(pendingRequestID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                pendingUserFriendList.clear();
+                if(dataSnapshot != null){
+                    for(DataSnapshot ds: dataSnapshot.getChildren()){
+                        pendingUserFriendList.add(ds.getValue().toString());
                     }
-                });
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        //        rootRef.child(PUBLIC_USER)
+//                .child(currentUserID)
+//                .child(PENDING)
+//                .child(pendingRequestID)
+//                .removeValue()
+//                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void v) {
+        if (CurrentUser.getInstance().isUserHasFriends()) {
+            currentUserFriendList.addAll(CurrentUser.getInstance().getUserFriendIDList());
+        }
+        currentUserFriendList.add(pendingRequestID);
+        Set<String> userFriends = new HashSet<>();
+        userFriends.addAll(currentUserFriendList);
+        currentUserFriendList.clear();
+        currentUserFriendList.addAll(userFriends);
+
+        pendingUserFriendList.add(currentUserID);
+        Set<String> pendingFriends = new HashSet<>();
+        pendingFriends.addAll(pendingUserFriendList);
+        pendingUserFriendList.clear();
+        pendingUserFriendList.addAll(pendingFriends);
+
+        rootRef.child(USER_FRIENDS).child(currentUserID).setValue(currentUserFriendList);
+        rootRef.child(USER_FRIENDS).child(pendingRequestID).setValue(pendingUserFriendList);
     }
+
+//                });
+//    }
 
 }

@@ -8,6 +8,7 @@
     android:padding="8dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/user_icon_contactlist"
         android:layout_width="55dp"
         android:layout_height="75dp"
         android:src="@drawable/default_avatar"

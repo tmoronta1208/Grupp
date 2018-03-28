@@ -87,7 +87,6 @@ public class LoginActivity extends AppCompatActivity {
                         .build(),
                 RC_SIGN_IN);
 
-
     }
 
 
@@ -108,22 +107,23 @@ public class LoginActivity extends AppCompatActivity {
                  * if user is not in db, launches edit profile intent
                  * */
 
-                //   if (userNotInDB()) {
-                Intent onBoardIntent = new Intent(LoginActivity.this, OnBoardActivity.class);
-                startActivity(onBoardIntent);
-                Log.d(" LOGIN", "set up profile");
+                if (userNotInDB()) {
+                    Intent onBoardIntent = new Intent(LoginActivity.this, OnBoardActivity.class);
+                    startActivity(onBoardIntent);
+                    Log.d(" LOGIN", "set up profile");
 
+                } else {
+                    Log.d(" LOGIN", "go to profile");
+                    Intent userProfileIntent = new Intent(LoginActivity.this, UserProfileActivity.class);
+                    startActivity(userProfileIntent);
+                }
+                // ...
             } else {
-                Log.d(" LOGIN", "go to profile");
-                Intent userProfileIntent = new Intent(LoginActivity.this, UserProfileActivity.class);
-                startActivity(userProfileIntent);
-            }
-            // ...
-        } else {
-            // Sign in failed, check response for error code
-            // ...
+                // Sign in failed, check response for error code
+                // ...
 
-            // }
+                // }
+            }
         }
     }
 

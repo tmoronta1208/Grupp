@@ -17,8 +17,12 @@ import static android.content.ContentValues.TAG;
 public class ContactListViewHolder extends RecyclerView.ViewHolder {
     private TextView name,email;
 
+    ///////ashley
+    private View v;
+
     public ContactListViewHolder(View itemView) {
         super(itemView);
+        v = itemView; //AJ
 
         name = itemView.findViewById(R.id.name_contactlist);
         email = itemView.findViewById(R.id.email_contactlist);
@@ -30,7 +34,13 @@ public class ContactListViewHolder extends RecyclerView.ViewHolder {
 
         Log.d(TAG, "onBind: " + user.getLast_name());
         name.setText(user.getFirst_name() + " " + user.getLast_name());
-        email.setText(user.getEmail());
+//        email.setText(user.getEmail());
 
+    }
+
+    /////////Ashley/////////
+    public void getEmail(String emailTxt){
+        email = v.findViewById(R.id.email_contactlist);
+        email.setText(emailTxt);
     }
 }

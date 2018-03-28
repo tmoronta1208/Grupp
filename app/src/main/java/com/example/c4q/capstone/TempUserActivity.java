@@ -44,6 +44,7 @@ public class TempUserActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser firebaseUser;
     private String currentUserId;
+    private Button requests, friendlist;
     private DatabaseReference rootRef, userRef, iconRef;
 
 
@@ -58,7 +59,8 @@ public class TempUserActivity extends AppCompatActivity {
         rootRef = FirebaseDatabase.getInstance().getReference();
         userRef = rootRef.child(PUBLIC_USER).child(currentUserId);
         iconRef = rootRef.child(USER_ICON).child(currentUserId);
-Button button = findViewById(R.id.pending_req);
+        requests = findViewById(R.id.pending_req);
+        friendlist = findViewById(R.id.friendlist);
         profilePic = findViewById(R.id.circle_imageview);
         personName = findViewById(R.id.user_name);
 
@@ -68,12 +70,21 @@ Button button = findViewById(R.id.pending_req);
                 uploadImage();
             }
         });
-button.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        startActivity(new Intent(TempUserActivity.this, PendingFriendRequestsActivity.class));
-    }
-});
+
+        requests.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(TempUserActivity.this, PendingFriendRequestsActivity.class));
+            }
+        });
+
+//        friendlist.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(TempUserActivity.this,TempFriendListActivity.class));
+//            }
+//        });
+
         currentUserProfileData();
     }
 
@@ -93,12 +104,9 @@ button.setOnClickListener(new View.OnClickListener() {
                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                         if (databaseError == null) {
 
-                            String key = databaseReference.getKey();
-
                             StorageReference storage = FirebaseStorage.getInstance()
                                     .getReference(USER_ICON)
                                     .child(currentUserId)
-                                    .child(key)
                                     .child(uri.getLastPathSegment());
 
                             storage.putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {

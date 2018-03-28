@@ -22,6 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".TempFriendListActivity"/>
         <activity android:name=".userinterface.alerts.PendingFriendRequestsActivity"/>
         <activity android:name=".userinterface.user.UserProfileActivity" />
         <activity android:name=".userinterface.user.SettingsActivity" />
