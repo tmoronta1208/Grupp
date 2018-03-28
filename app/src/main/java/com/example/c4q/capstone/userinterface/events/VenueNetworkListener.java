@@ -1,5 +1,6 @@
 package com.example.c4q.capstone.userinterface.events;
 
+import com.example.c4q.capstone.database.events.Venue;
 import com.example.c4q.capstone.network.barzz.barzzmodel.Results;
 import com.example.c4q.capstone.network.foursquare.foursquaremodel.Venues;
 
@@ -10,5 +11,6 @@ import java.util.List;
  */
 
 public interface VenueNetworkListener {
-    void getBarzList(List<Results> venueList);
+    void getBarzList(List<Venue> venueList);
+    void getFourSList(List<Venue> fourSVenues);
 }

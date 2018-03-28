@@ -11,7 +11,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.userinterface.events.CreateEventPresenter;
 import com.example.c4q.capstone.userinterface.events.EventFragmentListener;
 
@@ -63,7 +62,7 @@ public class EditTextUX {
 
                             //TODO alert user
                         } else {
-                            eventPresenter.sendEventToFB(listener);
+                            eventPresenter.sendEventToFireBase(listener);
                         }
 
                     } else if(type.equals("addNote")) {

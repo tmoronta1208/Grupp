@@ -51,7 +51,7 @@ public class CreateEventPresenter {
         newEvent = new Events();
     }
 
-    public void sendEventToFB(EventFragmentListener listener){
+    public void sendEventToFireBase(EventFragmentListener listener){
        key = setFinalizedEvent();
        currentUserPost.postNewEvent(key, newEvent);
        Log.d(TAG, "event key : " + key);
@@ -76,8 +76,6 @@ public class CreateEventPresenter {
         Log.d(TAG, "event date  set: " + dateOfEvent);
         createEventPTSingleton.setEventDate(dateOfEvent);
         setDateAndTime();
-        eventDateSet = true;
-        Log.d(TAG, "event date : " + dateOfEvent);
         validateEvent();
 
     }

@@ -165,8 +165,10 @@ public class SingleEventFragment extends Fragment {
             Log.d ("Event Fragment", "invited list array size:" + invitedFriendsList.size());
         }
         userFriendsFragment = UserFriendsFragment.newInstance(invitedFriends);
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.add(R.id.event_fragment_container, userFriendsFragment).commit();
+        if (isAdded()) {
+            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+            transaction.add(R.id.event_fragment_container, userFriendsFragment).commit();
+        }
     }
 
 }

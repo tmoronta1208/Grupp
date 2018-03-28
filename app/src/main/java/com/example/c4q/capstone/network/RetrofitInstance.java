@@ -1,6 +1,7 @@
 package com.example.c4q.capstone.network;
 
 import com.example.c4q.capstone.network.barzz.BarzzService;
+import com.example.c4q.capstone.network.foursquare.FourSService;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -33,6 +34,10 @@ public class RetrofitInstance {
 
     public BarzzService getBarzzApi(){
         return getRetrofit().create(BarzzService.class);
+    }
+
+    public FourSService getFourSApi(){
+        return getRetrofit().create(FourSService.class);
     }
 
 }
