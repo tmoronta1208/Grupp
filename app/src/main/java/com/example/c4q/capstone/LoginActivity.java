@@ -87,7 +87,6 @@ public class LoginActivity extends AppCompatActivity {
                         .build(),
                 RC_SIGN_IN);
 
-
     }
 
 
