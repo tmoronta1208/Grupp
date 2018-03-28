@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static com.example.c4q.capstone.utils.Constants.BAR_PREFS;
 import static com.example.c4q.capstone.utils.Constants.PREFERENCES;
@@ -38,7 +39,7 @@ public class BarPreferencesFragment extends Fragment {
     Switch beerCheckBox;
     private FloatingActionButton saveButton;
     HashMap<CheckBox, String> prefs = new HashMap<>();
-    public static ArrayList<String> selectedPrefs = new ArrayList<>();
+    public static List<String> selectedPrefs = new ArrayList<>();
 
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth mAuth;

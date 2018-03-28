@@ -3,9 +3,12 @@ package com.example.c4q.capstone.network.barzz;
 import com.example.c4q.capstone.network.barzz.barzzmodel.BarzzModel;
 import com.example.c4q.capstone.utils.Constants;
 
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * Created by c4q on 3/17/18.
@@ -23,7 +26,7 @@ public interface BarzzService {
 
     @GET("search?" + Constants.BARZZ_KEY)
     Call<BarzzModel> getBarzz(@Query("zip") String zip,
-                              @Query("type") String beer);
+                              @Query("type") String type);
 
     @GET("search?" + Constants.BARZZ_KEY)
     Call<BarzzModel> getBarzz(@Query("zip") String zip,

@@ -66,12 +66,12 @@ public class NetworkUtility {
         });
     }
 
-    public void getFourSQList(String zipCode, List<String> preferences, final VenueNetworkListener venueNetworkListener) {
+    public void getFourSQList(String zipCode, List<String> preferences, final String query, String radius, final VenueNetworkListener venueNetworkListener) {
         String bars = "";
 
         Call<FourSquareModel> call = RetrofitInstance.getInstance()
                 .getFourSApi()
-                .getVenues(bars);
+                .getVenues(query,zipCode,radius );
 
         call.enqueue(new Callback<FourSquareModel>() {
             @Override

@@ -2,6 +2,7 @@ package com.example.c4q.capstone.database.events;
 
 
 public class Venue {
+
     private String venue_name;
     private String venue_phone;
     private String venue_type;
