@@ -2,13 +2,17 @@ package com.example.c4q.capstone.network;
 
 import android.util.Log;
 
+import com.example.c4q.capstone.database.events.Venue;
 import com.example.c4q.capstone.network.barzz.BarzzService;
 import com.example.c4q.capstone.network.barzz.barzzmodel.BarzzModel;
 import com.example.c4q.capstone.network.barzz.barzzmodel.Results;
+import com.example.c4q.capstone.network.foursquare.foursquaremodel.FourSquareModel;
+import com.example.c4q.capstone.network.foursquare.foursquaremodel.Venues;
 import com.example.c4q.capstone.userinterface.events.VenueNetworkListener;
 import com.example.c4q.capstone.userinterface.user.onboarding.BarPreferencesFragment;
 import com.example.c4q.capstone.utils.Constants;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -47,7 +51,9 @@ public class NetworkUtility {
                     Log.d("SUCESSSS!", response.body().getSuccess().getResults().get(0).getName());}
                 if(response != null) {
                     List<Results> venueResults = response.body().getSuccess().getResults();
-                    venueNetworkListener.getBarzList(venueResults);
+                    //TODO convert results to Venues
+                    List<Venue> venue = new ArrayList<>();
+                    venueNetworkListener.getBarzList(venue);
                 }
             }
 
@@ -58,7 +64,32 @@ public class NetworkUtility {
 
             }
         });
+    }
 
+    public void getFourSQList(String zipCode, List<String> preferences, final VenueNetworkListener venueNetworkListener) {
+        String bars = "";
+
+        Call<FourSquareModel> call = RetrofitInstance.getInstance()
+                .getFourSApi()
+                .getVenues(bars);
+
+        call.enqueue(new Callback<FourSquareModel>() {
+            @Override
+            public void onResponse(Call<FourSquareModel> call, Response<FourSquareModel> response) {
+
+                Log.d("SUCESSSS", response.body().getResponse().getVenues().get(0).getName());
+
+            List<Venue> venue = new ArrayList<>();
+            venueNetworkListener.getFourSList(venue);
+            }
+
+            @Override
+            public void onFailure(Call<FourSquareModel> call, Throwable t) {
+
+                t.printStackTrace();
+
+            }
+        });
     }
 
 }
