@@ -63,7 +63,14 @@ public class PendingFriendRequestsActivity extends AppCompatActivity {
 
         linearLayoutManager = new LinearLayoutManager(this);
         pendingListRecyclerView.setLayoutManager(linearLayoutManager);
-
+        /*rootRef.child(USER_FRIENDS)
+                .removeValue()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void v) {
+                        Toast.makeText(PendingFriendRequestsActivity.this, "Denied Friend Request", Toast.LENGTH_SHORT).show();
+                    }
+                });*/
 
         callFirebaseAdapter();
     }
@@ -120,11 +127,12 @@ public class PendingFriendRequestsActivity extends AppCompatActivity {
         rootRef.child(USER_FRIENDS).child(pendingRequestID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                pendingUserFriendList.clear();
+
                 if(dataSnapshot != null){
                     for(DataSnapshot ds: dataSnapshot.getChildren()){
                         pendingUserFriendList.add(ds.getValue().toString());
                     }
+
                 }
             }
             @Override
@@ -150,14 +158,14 @@ public class PendingFriendRequestsActivity extends AppCompatActivity {
         currentUserFriendList.clear();
         currentUserFriendList.addAll(userFriends);
 
-        pendingUserFriendList.add(currentUserID);
         Set<String> pendingFriends = new HashSet<>();
         pendingFriends.addAll(pendingUserFriendList);
         pendingUserFriendList.clear();
         pendingUserFriendList.addAll(pendingFriends);
-
-        rootRef.child(USER_FRIENDS).child(currentUserID).setValue(currentUserFriendList);
+        pendingUserFriendList.add(currentUserID);
         rootRef.child(USER_FRIENDS).child(pendingRequestID).setValue(pendingUserFriendList);
+        rootRef.child(USER_FRIENDS).child(currentUserID).setValue(currentUserFriendList);
+
     }
 
 //                });
