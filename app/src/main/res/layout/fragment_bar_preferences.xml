@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.c4q.capstone.userinterface.user.onboarding.BarPreferencesFragment">
+    tools:context="com.example.c4q.capstone.userinterface.user.onboarding.BarPreferencesFragment"
+    >
 
     <LinearLayout
         android:id="@+id/user_preferences"
