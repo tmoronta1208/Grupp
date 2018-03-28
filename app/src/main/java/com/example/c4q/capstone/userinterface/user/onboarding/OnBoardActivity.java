@@ -33,7 +33,7 @@ import github.chenupt.springindicator.viewpager.ScrollerViewPager;
 public class OnBoardActivity extends FragmentActivity {
     CreateProfileFragment createProfileFragment;
     private static final int NUM_PAGES = 3;
-    private ScrollerViewPager viewPager;
+    public static ScrollerViewPager viewPager;
     private FragmentStatePagerAdapter pagerAdapter;
     SpringIndicator springIndicator;
 
