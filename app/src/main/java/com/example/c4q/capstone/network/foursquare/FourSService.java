@@ -16,5 +16,5 @@ public interface FourSService {
 
     @GET("search?near=nyc&categoryId=4d4b7105d754a06376d81259"
             + Constants.FOUR_SQUARE_CLIENT_ID + Constants.FOUR_SQUARE_CLIENT_SECRET)
-    Call<FourSquareModel> getVenues(@Query("query") String bars);
+    Call<FourSquareModel> getVenues(@Query("query") String bars, @Query("near") String zipcode, @Query("radius") String radius);
 }
