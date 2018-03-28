@@ -8,9 +8,11 @@ import android.widget.TimePicker;
 import com.example.c4q.capstone.database.events.Events;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.CurrentUser;
+import com.example.c4q.capstone.userinterface.CurrentUserFriends;
 import com.example.c4q.capstone.userinterface.CurrentUserPost;
 import com.example.c4q.capstone.userinterface.events.createevent.CreateEventPTSingleton;
 import com.example.c4q.capstone.utils.FBUserDataUtility;
+import com.example.c4q.capstone.utils.currentuser.CurrentUserFriendsListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -56,10 +58,20 @@ public class CreateEventPresenter {
        currentUserPost.postNewEvent(key, newEvent);
        Log.d(TAG, "event key : " + key);
        listener.getEventIdKEy(key);
+        /*CurrentUserFriends currentUserFriends = new CurrentUserFriends(new CurrentUserFriendsListener() {
+            @Override
+            public void getFriendEventIds(List<String> eventIds) {
+                if (eventIds != null){
+                    Log.d(TAG, "friend event ids: " + eventIds.size());
+                }
+            }
+        });
+        currentUserFriends.setFriendEventIds(newEvent.getEvent_organizer());*/
+       makeNetworkCall(createEventPTSingleton.getInvitedFriendsUserList());
     }
 
-    public void makeNetworkCall(){
-        //TODO make networking method.
+    private void makeNetworkCall(List<PublicUser> eventGuests){
+        VenueVoteUtility.getVenueVoteUtility().getVoteListFromFourSquare(eventGuests);
     }
 
     public void setEventName(String eventName){
@@ -77,7 +89,6 @@ public class CreateEventPresenter {
         createEventPTSingleton.setEventDate(dateOfEvent);
         setDateAndTime();
         validateEvent();
-
     }
 
     public void setEventTime(TimePicker timePicker){
@@ -137,16 +148,14 @@ public class CreateEventPresenter {
 
         } else {
             Log.d(TAG, "create event: event not valid");
-            Log.d(TAG, "create event: event not valid: name set" + eventNameSet);
-            Log.d(TAG, "create event: event not valid: date set" + eventDateSet);
-            Log.d(TAG, "create event: event not valid: time set" + eventTimeSet);
-
         }
         return validEvent;
     }
 
     public String setFinalizedEvent(){
         key = currentUserPost.newEventKey();
+        List<String> confirmedGuest = new ArrayList<>();
+        confirmedGuest.add(currentUser.getUserID());
         newEvent.setEvent_id(createEventPTSingleton.getEventID());
         newEvent.setEvent_name(createEventPTSingleton.getEventName());
         newEvent.setEvent_note(createEventPTSingleton.getEventNote());
@@ -156,6 +165,12 @@ public class CreateEventPresenter {
         newEvent.setEvent_note(createEventPTSingleton.getEventNote());
         newEvent.setInvited_guests(createEventPTSingleton.getInvitedGuests());
         newEvent.setEvent_organizer(currentUser.getUserID());
+        newEvent.setConfirmed_guests(confirmedGuest);
+        if (createEventPTSingleton.getInvitedFriendsUserList() != null){
+            Log.d(TAG, "pub user list size: " + createEventPTSingleton.getInvitedFriendsUserList());
+        } else{
+            Log.d(TAG, "pub user list is null");
+        }
         newEvent.setEvent_id(key);
         Log.d(TAG, "event type" + createEventPTSingleton.getEventVenueType());
         return key;

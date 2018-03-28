@@ -58,6 +58,8 @@ public class ApiToVenueConverter {
         for (int i = 0; i < fourSquareModels.size(); i++) {
             Venue venue = new Venue();
             venue.setVenue_name(fourSquareModels.get(i).getName());
+            venue.setVenue_id(fourSquareModels.get(i).getId());
+            venue.setVenue_address(fourSquareModels.get(i).getLocation().getAddress());
             venueList.add(venue);
         }
 

@@ -2,7 +2,8 @@ package com.example.c4q.capstone.database.events;
 
 
 public class Venue {
-
+    private String venue_id;
+    private String venue_address;
     private String venue_name;
     private String venue_phone;
     private String venue_type;
@@ -28,6 +29,22 @@ public class Venue {
         this.rating_avg = rating_avg;
         this.rating_count = rating_count;
         this.reservations = reservations;
+    }
+
+    public String getVenue_address() {
+        return venue_address;
+    }
+
+    public void setVenue_address(String venue_address) {
+        this.venue_address = venue_address;
+    }
+
+    public String getVenue_id() {
+        return venue_id;
+    }
+
+    public void setVenue_id(String venue_id) {
+        this.venue_id = venue_id;
     }
 
     public String getVenue_name() {

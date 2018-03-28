@@ -66,7 +66,7 @@ public class CreateEventInviteFragment extends Fragment {
       setOnClick();
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.invite_recycler_view);
-        friendsAdapter = new FriendsAdapter(friendsUserList,listener);
+        friendsAdapter = new FriendsAdapter(friendsUserList,eventPresenter, getActivity().getApplicationContext());
         linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setAdapter(friendsAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);

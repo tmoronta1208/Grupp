@@ -21,6 +21,7 @@ import java.util.Set;
 import static com.example.c4q.capstone.utils.Constants.AMENITY_PREFS;
 import static com.example.c4q.capstone.utils.Constants.BAR_PREFS;
 import static com.example.c4q.capstone.utils.Constants.EVENTS;
+import static com.example.c4q.capstone.utils.Constants.EVENT_INVITATIONS;
 import static com.example.c4q.capstone.utils.Constants.PREFERENCES;
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 import static com.example.c4q.capstone.utils.Constants.USER_EVENTS;
@@ -35,7 +36,8 @@ public class CurrentUserPostUtility {
     private DatabaseReference userEventsReference;
     private DatabaseReference preferencesReference;
     private DatabaseReference eventsReference;
-    CurrentUser currentUser = CurrentUser.getInstance();
+    private DatabaseReference eventInvitesReference;
+    private CurrentUser currentUser = CurrentUser.getInstance();
     private static final String TAG = "PostUtility";
 
     public CurrentUserPostUtility(){
@@ -44,6 +46,7 @@ public class CurrentUserPostUtility {
         userEventsReference = firebaseDatabase.child(USER_EVENTS);
         eventsReference = firebaseDatabase.child(EVENTS);
         preferencesReference = firebaseDatabase.child(PUBLIC_USER).child(currentUser.getUserID()).child(PREFERENCES);
+        eventInvitesReference = firebaseDatabase.child(EVENT_INVITATIONS);
     }
 
     public String getNewEventKey(){
@@ -107,5 +110,17 @@ public class CurrentUserPostUtility {
         Map<String, Object> userPrefs = new HashMap<>();
         userPrefs.put(AMENITY_PREFS, amenityPrefs);
         preferencesReference.updateChildren(userPrefs);
+    }
+
+    public void updateEventInvitationsList(List<String> invitedGuest, String eventKey){
+        Map<String, Object> userInvites = new HashMap<>();
+        //userInvites.put();
+        eventInvitesReference.updateChildren(userInvites);
+    }
+
+    public void updateUserEventInvitations(String invitedGuest, String eventKey){
+        Map<String, Object> userInvites = new HashMap<>();
+        //userInvites.put();
+        eventInvitesReference.updateChildren(userInvites);
     }
 }
