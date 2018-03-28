@@ -2,6 +2,7 @@ package com.example.c4q.capstone.userinterface.events.createevent;
 
 import android.util.Log;
 
+import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.network.foursquare.foursquaremodel.Venues;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 
@@ -24,6 +25,7 @@ public class CreateEventPTSingleton {
     private List<Venues> venueVoteList;
     private boolean newEvent;
     private boolean inProgress;
+    private List<PublicUser> invitedFriendsUserList;
 
     private CreateEventPTSingleton(){
 
@@ -46,6 +48,14 @@ public class CreateEventPTSingleton {
             getNewInstance();
         }
         return createEventPTSingleton;
+    }
+
+    public List<PublicUser> getInvitedFriendsUserList() {
+        return invitedFriendsUserList;
+    }
+
+    public void setInvitedFriendsUserList(List<PublicUser> invitedFriendsUserList) {
+        this.invitedFriendsUserList = invitedFriendsUserList;
     }
 
     public void destroyInstance(){

@@ -47,4 +47,8 @@ public class CurrentUserPost {
         userPostUtility.updateAmenityPrefs(resPrefs);
     }
 
+    public void postEventInvitations(){
+
+    }
+
 }
