@@ -60,25 +60,24 @@ public class UserFriendsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        contactListAdapter = new ContactListAdapter(friendsUserList, getActivity());
         args = getArguments();
         if (args != null) {
             if (args.getStringArrayList("invitedFriends") != null) {
                 ArrayList<String> invitedFriends = args.getStringArrayList("invitedFriends");
+                Log.d ("UserFriends Fragment", "on create: invited list array size:" + invitedFriends.size());
+                friendsUserIDList = invitedFriends;
                 convertIdsToUsers(invitedFriends);
             }
         }
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        rootView = inflater.inflate(R.layout.fragment_user_friends, container, false);
-        noInvitedFriends = (TextView) rootView.findViewById(R.id.no_invites_text_view);
+        if (friendsUserIDList == null || friendsUserIDList.size() == 0) {
+            Log.d ("UserFriends Fragment", "on createview: invited list array is null");
 
-        if (friendsUserList == null || friendsUserIDList.size() == 0) {
-            noInvitedFriends.setVisibility(View.VISIBLE);
         } else {
-            recyclerView = (RecyclerView) rootView.findViewById(R.id.friends_recycler_view);
+
+            convertIdsToUsers(friendsUserIDList);
             if (friendsUserList != null) {
                 if (getActivity() != null) {
                     contactListAdapter = new ContactListAdapter(friendsUserList, getActivity());
@@ -88,17 +87,28 @@ public class UserFriendsFragment extends Fragment {
                 }
             }
         }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        rootView = inflater.inflate(R.layout.fragment_user_friends, container, false);
+        noInvitedFriends = (TextView) rootView.findViewById(R.id.no_invites_text_view);
+        //noInvitedFriends.setVisibility(View.VISIBLE);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.friends_recycler_view);
+
         return rootView;
     }
 
     public void getFriendUsers(ArrayList<String> invtedList) {
         newInstance(invtedList);
-        //convertIdsToUsers(invtedList);
+        convertIdsToUsers(invtedList);
 
     }
 
     public void convertIdsToUsers(ArrayList<String> invitedList){
         friendsUserIDList = invitedList;
+        Log.d ("UserFriends Fragment", "convertIdsTousers");
         if (friendsUserIDList != null) {
             if (friendsUserIDList.size() != 0) {
                 for (String s : friendsUserIDList) {
@@ -112,6 +122,14 @@ public class UserFriendsFragment extends Fragment {
                             friendsUserList.add(publicUser);
                         }
                     });
+                }
+                if (friendsUserList != null) {
+                    if (getActivity() != null) {
+                        contactListAdapter = new ContactListAdapter(friendsUserList, getActivity());
+                        linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+                        recyclerView.setAdapter(contactListAdapter);
+                        recyclerView.setLayoutManager(linearLayoutManager);
+                    }
                 }
             }
         }else {
