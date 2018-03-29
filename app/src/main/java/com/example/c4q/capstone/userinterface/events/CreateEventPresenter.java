@@ -97,12 +97,12 @@ public class CreateEventPresenter {
                             }
 
                             @Override
-                            public void getVenueDetailList(List<Venue> venueDetailList) {
+                            public void getVenueDetailList(HashMap<String, Venue> venueDetailMap) {
                                 Log.d(TAG, "venue detail listener called");
-                                if (venueDetailList != null){
-                                    if( venueDetailList.size() != 0){
-                                        Log.d(TAG, "venue detail list" + venueDetailList.size());
-                                        newEvent.setVenue_list(venueDetailList);
+                                if (venueDetailMap!= null){
+                                    if( venueDetailMap.size() != 0){
+                                        Log.d(TAG, "venue detail list" + venueDetailMap.size());
+                                        newEvent.setVenue_map(venueDetailMap);
                                         currentUserPost.postNewEvent(key, newEvent);
                                     }
                                 } else{

@@ -118,7 +118,7 @@ public class VenueVoteUtility {
     }
 
     public void getDetailedVenues(List<String> venueIds, final FourSquareDetailListener detailListener){
-        final List<Venue> venueList = new ArrayList<>();
+        final HashMap<String, Venue> venueDetailMap = new HashMap<>();
         final int callCount = venueIds.size();
         if (venueIds != null){
             if (venueIds.size() != 0){
@@ -127,15 +127,18 @@ public class VenueVoteUtility {
                         @Override
                         public void getVenueDetail(Venue venueDetail) {
                             Log.d(TAG, "venue detail listener called: " + venueDetail.getVenue_name());
-                            venueList.add(venueDetail);
-                            if (venueList.size() == callCount){
-                                detailListener.getVenueDetailList(venueList);
+                            venueDetailMap.put(venueDetail.getVenue_id(), venueDetail);
+                            if (venueDetailMap.size() == callCount){
+                                detailListener.getVenueDetailList(venueDetailMap);
                             }
                         }
+
                         @Override
-                        public void getVenueDetailList(List<Venue> venueDetailList) {
+                        public void getVenueDetailList(HashMap<String, Venue> venueDetailMap) {
 
                         }
+
+
                     });
                 }
 
