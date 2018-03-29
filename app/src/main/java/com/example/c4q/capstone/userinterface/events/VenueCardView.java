@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.database.events.Venue;
 import com.example.c4q.capstone.network.barzz.barzzmodel.Results;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Layout;
@@ -36,23 +37,24 @@ public class VenueCardView {
     @View(R.id.locationNameTxt)
     private TextView locationNameTxt;
 
-    private Results results;
+    //private Results results;
+    private Venue venue;
     private Context context;
     private SwipePlaceHolderView swipeView;
 
-    public VenueCardView(Context context, Results results, SwipePlaceHolderView swipeView) {
+    public VenueCardView(Context context, Venue venue, SwipePlaceHolderView swipeView) {
         this.context = context;
-     this.results = results;
-     Log.d("results testing:", " " + results.getBar_Image());
+     this.venue = venue;
+     Log.d("results testing:", " " + venue.getVenue_name());
         this.swipeView = swipeView;
     }
 
     @Resolve
     private void onResolved(){
 
-        Glide.with(context).load(results.getBar_Image()).into(profileImageView);
-        nameAgeTxt.setText(results.getName());
-        locationNameTxt.setText(results.getAddress());
+        Glide.with(context).load(venue.getVenue_photo_url()).into(profileImageView);
+        nameAgeTxt.setText(venue.getVenue_name());
+        locationNameTxt.setText(venue.getVenue_address());
 
     }
 
