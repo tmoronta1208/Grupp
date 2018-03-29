@@ -8,6 +8,7 @@ import android.widget.TimePicker;
 import com.example.c4q.capstone.database.events.Events;
 import com.example.c4q.capstone.database.events.Venue;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.example.c4q.capstone.network.FourSquareDetailListener;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.CurrentUserFriends;
 import com.example.c4q.capstone.userinterface.CurrentUserPost;
@@ -74,7 +75,7 @@ public class CreateEventPresenter {
     }
 
     private void makeNetworkCall(List<PublicUser> eventGuests){
-        VenueVoteUtility venueVoteUtility = new VenueVoteUtility();
+        final VenueVoteUtility venueVoteUtility = new VenueVoteUtility();
        venueVoteUtility.setVenueNetworkListener(new VenueNetworkListener() {
             @Override
             public void getFourSList(List<Venue> fourSVenues) {
@@ -86,17 +87,38 @@ public class CreateEventPresenter {
                 Log.d(TAG, "final venue list listener is called");
                 if (fourSquareVenueIds != null){
                     Log.d(TAG, "final venue list size" + fourSquareVenueIds.size());
-                    newEvent.setPotential_venues(fourSquareVenueIds);
-                    currentUserPost.postNewEvent(key, newEvent);
+                    if (fourSquareVenueIds.size() != 0){
+                        newEvent.setPotential_venues(fourSquareVenueIds);
+                        currentUserPost.postNewEvent(key, newEvent);
+                        venueVoteUtility.getDetailedVenues(fourSquareVenueIds, new FourSquareDetailListener() {
+                            @Override
+                            public void getVenueDetail(Venue venueDetail) {
+
+                            }
+
+                            @Override
+                            public void getVenueDetailList(List<Venue> venueDetailList) {
+                                Log.d(TAG, "venue detail listener called");
+                                if (venueDetailList != null){
+                                    if( venueDetailList.size() != 0){
+                                        Log.d(TAG, "venue detail list" + venueDetailList.size());
+                                        newEvent.setVenue_list(venueDetailList);
+                                        currentUserPost.postNewEvent(key, newEvent);
+                                    }
+                                } else{
+                                    Log.d(TAG, "final venue list is null");
+                                }
+                            }
+                        });
+                    }
                 } else{
                     Log.d(TAG, "final venue list is null");
                 }
 
             }
-        });
+
+       });
        venueVoteUtility.getVoteListFromFourSquare(eventGuests);
-
-
     }
 
     public void setEventName(String eventName){

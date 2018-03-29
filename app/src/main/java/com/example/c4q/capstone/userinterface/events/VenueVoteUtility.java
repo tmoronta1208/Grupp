@@ -75,6 +75,7 @@ public class VenueVoteUtility {
                     public void getFourSVenueIds(List<String> fourSquareVenueIds) {
 
                     }
+
                 });
             }
         }
@@ -110,18 +111,35 @@ public class VenueVoteUtility {
                 List<String> finalVenueIdList = new ArrayList<>();
                 finalVenueIdList.addAll(finalVenueIdSet);
                 venueNetworkListener.getFourSVenueIds(finalVenueIdList);
-
-                NetworkUtility.getNetworkUtility().getFourSquareDetail(finalVenueIdList.get(0), new FourSquareDetailListener() {
-                    @Override
-                    public void getVenueDetail(Venue venueDetail) {
-                        Log.d(TAG, "venue detail listener called" + venueDetail.getVenue_name());
-                    }
-                });
-
+                //getDetailedVenues(finalVenueIdList);
             }
         }
 
     }
 
+    public void getDetailedVenues(List<String> venueIds, final FourSquareDetailListener detailListener){
+        final List<Venue> venueList = new ArrayList<>();
+        final int callCount = venueIds.size();
+        if (venueIds != null){
+            if (venueIds.size() != 0){
+                for (String id: venueIds){
+                    NetworkUtility.getNetworkUtility().getFourSquareDetail(id, new FourSquareDetailListener() {
+                        @Override
+                        public void getVenueDetail(Venue venueDetail) {
+                            Log.d(TAG, "venue detail listener called: " + venueDetail.getVenue_name());
+                            venueList.add(venueDetail);
+                            if (venueList.size() == callCount){
+                                detailListener.getVenueDetailList(venueList);
+                            }
+                        }
+                        @Override
+                        public void getVenueDetailList(List<Venue> venueDetailList) {
 
+                        }
+                    });
+                }
+
+            }
+        }
+    }
 }

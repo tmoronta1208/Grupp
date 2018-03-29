@@ -13,4 +13,6 @@ import java.util.List;
 public interface VenueNetworkListener {
     void getFourSList(List<Venue> fourSVenues);
     void getFourSVenueIds(List<String> fourSquareVenueIds);
+
+
 }
