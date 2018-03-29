@@ -6,6 +6,7 @@ import android.widget.DatePicker;
 import android.widget.TimePicker;
 
 import com.example.c4q.capstone.database.events.Events;
+import com.example.c4q.capstone.database.events.Venue;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.CurrentUserFriends;
@@ -55,7 +56,7 @@ public class CreateEventPresenter {
 
     public void sendEventToFireBase(EventFragmentListener listener){
        key = setFinalizedEvent();
-       currentUserPost.postNewEvent(key, newEvent);
+
        Log.d(TAG, "event key : " + key);
        listener.getEventIdKEy(key);
         /*CurrentUserFriends currentUserFriends = new CurrentUserFriends(new CurrentUserFriendsListener() {
@@ -68,10 +69,34 @@ public class CreateEventPresenter {
         });
         currentUserFriends.setFriendEventIds(newEvent.getEvent_organizer());*/
        makeNetworkCall(createEventPTSingleton.getInvitedFriendsUserList());
+        Log.d(TAG, "post event called");
+       currentUserPost.postNewEvent(key, newEvent);
     }
 
     private void makeNetworkCall(List<PublicUser> eventGuests){
-        VenueVoteUtility.getVenueVoteUtility().getVoteListFromFourSquare(eventGuests);
+        VenueVoteUtility venueVoteUtility = new VenueVoteUtility();
+       venueVoteUtility.setVenueNetworkListener(new VenueNetworkListener() {
+            @Override
+            public void getFourSList(List<Venue> fourSVenues) {
+
+            }
+
+            @Override
+            public void getFourSVenueIds(List<String> fourSquareVenueIds) {
+                Log.d(TAG, "final venue list listener is called");
+                if (fourSquareVenueIds != null){
+                    Log.d(TAG, "final venue list size" + fourSquareVenueIds.size());
+                    newEvent.setPotential_venues(fourSquareVenueIds);
+                    currentUserPost.postNewEvent(key, newEvent);
+                } else{
+                    Log.d(TAG, "final venue list is null");
+                }
+
+            }
+        });
+       venueVoteUtility.getVoteListFromFourSquare(eventGuests);
+
+
     }
 
     public void setEventName(String eventName){
