@@ -143,7 +143,7 @@ public class CreateEventAddNameFragment extends Fragment implements DatePickerDi
                 closeButton.setVisibility(View.GONE);
                 eventPresenter.validateEvent();
 
-                if (!eventPresenter.validateNameDone()) {
+                if (!eventPresenter.validateEvent()) {
                     Log.d(TAG, "create event: event not valid");
                     //TODO alert user
                 } else {
