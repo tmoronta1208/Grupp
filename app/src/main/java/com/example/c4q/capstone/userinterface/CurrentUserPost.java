@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.example.c4q.capstone.database.events.Events;
 
+import com.example.c4q.capstone.database.events.UserEvent;
+import com.example.c4q.capstone.database.publicuserdata.UserIcon;
 import com.example.c4q.capstone.utils.currentuser.CurrentUserPostUtility;
 
 import java.util.List;
@@ -47,8 +49,20 @@ public class CurrentUserPost {
         userPostUtility.updateAmenityPrefs(resPrefs);
     }
 
-    public void postEventInvitations(){
+    public void postEventToUserEventList(String eventKey, String userId, UserEvent userEvent){
+        userPostUtility.addEventToUserEventsList(eventKey, userId, userEvent);
+    }
 
+    public void postEventToUserInvitations(String eventKey, String userId, UserEvent userEvent){
+        userPostUtility.addEventToEventInviteList(eventKey, userId, userEvent);
+    }
+
+    public void postProfilePictoPublicUser(UserIcon userIcon){
+        userPostUtility.updateProfilePic(userIcon);
+    }
+
+    public void postVenueVote(String eventKey, String venueKey, Boolean vote){
+        userPostUtility.updateVenueVote(eventKey,venueKey, vote);
     }
 
 }

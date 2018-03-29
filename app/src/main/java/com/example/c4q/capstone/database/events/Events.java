@@ -1,6 +1,7 @@
 package com.example.c4q.capstone.database.events;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Events {
@@ -17,6 +18,8 @@ public class Events {
     private List<String> invited_guests;
     private List<String> potential_venues;
     private List<String> top_three_venues;
+    private HashMap<String, Venue> venue_map;
+    private List<Venue> venue_list;
 
     public Events(){}
 
@@ -42,6 +45,22 @@ public class Events {
         this.invited_guests = invited_guests;
         this.potential_venues = potential_venues;
         this.top_three_venues = top_three_venues;
+    }
+
+    public HashMap<String, Venue> getVenue_map() {
+        return venue_map;
+    }
+
+    public void setVenue_map(HashMap<String, Venue> venue_map) {
+        this.venue_map = venue_map;
+    }
+
+    public List<Venue> getVenue_list() {
+        return venue_list;
+    }
+
+    public void setVenue_list(List<Venue> venue_list) {
+        this.venue_list = venue_list;
     }
 
     public boolean isCancelled() {

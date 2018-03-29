@@ -4,14 +4,18 @@ import android.util.Log;
 
 import com.example.c4q.capstone.database.events.Venue;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.example.c4q.capstone.network.FourSquareDetailListener;
 import com.example.c4q.capstone.network.NetworkUtility;
+import com.example.c4q.capstone.network.foursquare.foursquaremodel.Venues;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.utils.FBUserDataListener;
 import com.example.c4q.capstone.utils.FBUserDataUtility;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by amirahoxendine on 3/28/18.
@@ -19,17 +23,21 @@ import java.util.List;
 
 public class VenueVoteUtility {
     FBUserDataUtility userDataUtility = new FBUserDataUtility();
-    HashMap<String, List<Venue>> venueMap = new HashMap<>();
+    HashMap<String, HashMap<String, Venue>> venueMap = new HashMap<>();
+    Set<String> finalVenueIdSet = new HashSet<>();
     private static VenueVoteUtility venueVoteUtility;
     public static final String TAG = "Venue Vote Util";
+    VenueNetworkListener venueNetworkListener;
 
     public static VenueVoteUtility getVenueVoteUtility() {
         return new VenueVoteUtility();
     }
 
-    public static void setVenueVoteUtility(VenueVoteUtility venueVoteUtility) {
-        VenueVoteUtility.venueVoteUtility = venueVoteUtility;
+    public void setVenueNetworkListener(VenueNetworkListener networkListener){
+        this.venueNetworkListener = networkListener;
     }
+
+
 
     public void getVoteListFromFourSquare(List<PublicUser> eventGuests){
         if(eventGuests != null){
@@ -50,17 +58,91 @@ public class VenueVoteUtility {
                     public void getFourSList(List<Venue> fourSVenues) {
                         Log.d(TAG, "Venue Vote Listener called");
                         Log.d(TAG, "list size" + fourSVenues.size());
-                        venueMap.put(id, fourSVenues);
+                        Log.d(TAG, "user" + id);
+                        HashMap<String, Venue> listMap = new HashMap<>();
+                        for(Venue venue: fourSVenues){
+                            listMap.put(venue.getVenue_id(), venue);
+                        }
+
+                        venueMap.put(id, listMap);
                         if (venueMap.size() == callCount){
                             Log.d(TAG, "ready to compare lists");
+                            compareUserVenueLists();
                         }
                     }
+
+                    @Override
+                    public void getFourSVenueIds(List<String> fourSquareVenueIds) {
+
+                    }
+
                 });
             }
         }
+    }
 
+    public void compareUserVenueLists(){
+        //get keys for venue map
+        List<String> userId = new ArrayList<>();
+        userId.addAll(venueMap.keySet());
+        //get first list in map
+        HashMap<String, Venue> userVenueListMap = venueMap.get(userId.get(0));
+        //get ids from first list
+        List<String> userVenueIdsList = new ArrayList<>();
+        userVenueIdsList.addAll(userVenueListMap.keySet());
+
+        //add id from first list to set
+        finalVenueIdSet.addAll(userVenueIdsList);
+        //make a set for each list in venue map
+        int compareCount = userId.size();
+        for (String s: venueMap.keySet()){
+            HashMap<String, Venue> venueListMap = venueMap.get(s);
+            //get ids list
+            List<String> venueIds = new ArrayList<>();
+            venueIds.addAll(venueListMap.keySet());
+            Set<String> venueSet = new HashSet<>();
+            venueSet.addAll(venueIds);
+            finalVenueIdSet.retainAll(venueSet);
+            Log.d(TAG, "final set retain size: " + finalVenueIdSet.size());
+            compareCount --;
+            if (compareCount == 0){
+                Log.d(TAG, "comparison complete");
+                Log.d(TAG, "final set size: " + finalVenueIdSet.size());
+                List<String> finalVenueIdList = new ArrayList<>();
+                finalVenueIdList.addAll(finalVenueIdSet);
+                venueNetworkListener.getFourSVenueIds(finalVenueIdList);
+                //getDetailedVenues(finalVenueIdList);
+            }
+        }
 
     }
 
+    public void getDetailedVenues(List<String> venueIds, final FourSquareDetailListener detailListener){
+        final HashMap<String, Venue> venueDetailMap = new HashMap<>();
+        final int callCount = venueIds.size();
+        if (venueIds != null){
+            if (venueIds.size() != 0){
+                for (String id: venueIds){
+                    NetworkUtility.getNetworkUtility().getFourSquareDetail(id, new FourSquareDetailListener() {
+                        @Override
+                        public void getVenueDetail(Venue venueDetail) {
+                            Log.d(TAG, "venue detail listener called: " + venueDetail.getVenue_name());
+                            venueDetailMap.put(venueDetail.getVenue_id(), venueDetail);
+                            if (venueDetailMap.size() == callCount){
+                                detailListener.getVenueDetailList(venueDetailMap);
+                            }
+                        }
 
+                        @Override
+                        public void getVenueDetailList(HashMap<String, Venue> venueDetailMap) {
+
+                        }
+
+
+                    });
+                }
+
+            }
+        }
+    }
 }

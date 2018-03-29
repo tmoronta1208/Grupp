@@ -15,6 +15,7 @@ import android.widget.EditText;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller.ContactListAdapter;
 import com.example.c4q.capstone.utils.FBUserDataListener;
 import com.example.c4q.capstone.utils.FBUserDataUtility;
@@ -88,7 +89,7 @@ public class ContactListFragment extends Fragment {
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayout = new LinearLayoutManager(view.getContext());
-        contactListAdapter = new ContactListAdapter(friendsUserList,getContext());
+        contactListAdapter = new ContactListAdapter(friendsUserList,getActivity().getApplicationContext());
 
         /**ajoxe:
          * after modifying the adapter, set the list as friendsUserList
@@ -115,6 +116,7 @@ public class ContactListFragment extends Fragment {
         fbUserDataUtility.getListPublicUsers(new FBUserFriendsListener() {
             @Override
             public void getUserFriendIds(List<String> userFriendIds) {
+                friendKeys = new ArrayList<>();
                 friendKeys.addAll(userFriendIds);
                 Log.d("Contacts", "getListOfPublicUsers: friend keys size: " + friendKeys.size());
                 loadFriendsList(friendKeys);
@@ -145,6 +147,11 @@ public class ContactListFragment extends Fragment {
                 }
             });
         }
+    }
+
+    public void loadActualfriends(){
+        friendsUserList = CurrentUser.getInstance().getUserFriendsList();
+        contactListAdapter.notifyDataSetChanged();
     }
 
 }

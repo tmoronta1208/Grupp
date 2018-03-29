@@ -3,6 +3,7 @@ package com.example.c4q.capstone.userinterface;
 import android.util.Log;
 
 import com.example.c4q.capstone.database.events.Events;
+import com.example.c4q.capstone.database.events.UserEvent;
 import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.utils.currentuser.CurrentUserListener;
@@ -112,6 +113,7 @@ public class CurrentUser {
     }
 
     public void getRealTimeEvents(RealTimeEventsListener listener){
+        Log.d(TAG, "get real time events called: ");
         userUtility.getRealTimeCurrentUserEvents(listener);
     }
 
@@ -145,7 +147,7 @@ public class CurrentUser {
                 userHasPublicProfile =userUtility.userHasPublicProfile;
                 Log.d(TAG, "user has public profile: " + userHasPublicProfile);
                 if (currentPublicUser != null){
-                    userFullName = currentPrivateUser.getFirst_name() + " " + currentPrivateUser.getLast_name();
+                    userFullName = currentPublicUser.getFirst_name() + " " + currentPublicUser.getLast_name();
                     Log.d(TAG, "user full name: " + userFullName);
                 }
             }
@@ -154,7 +156,7 @@ public class CurrentUser {
             public void getUserFriends(List<PublicUser> publicUserList) {
                 userFriendsList = publicUserList;
                 if (userFriendsList != null){
-                    Log.d(TAG, "user friends list size: " + userFriendsList.size());
+                    Log.d(TAG, "get user friends: user friends list size: " + userFriendsList.size());
                 }
 
             }
@@ -162,7 +164,7 @@ public class CurrentUser {
             public void getUserEvents(List<Events> eventsList) {
                 userEventsList = eventsList;
                 if (userEventsList != null){
-                    Log.d(TAG, "user events list size: " + userEventsList.size());
+                    Log.d(TAG, "get user Events : user events list size: " + userEventsList.size());
                 }
             }
 
@@ -201,6 +203,11 @@ public class CurrentUser {
             @Override
             public void getUserEventIDs(List<String> eventIds) {
                 userEventIDList = eventIds;
+            }
+
+            @Override
+            public void getUserEventList(List<UserEvent> userEvents) {
+                //todo get user event list
             }
 
         };

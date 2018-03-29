@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.UserIcon;
+import com.example.c4q.capstone.userinterface.CurrentUserPost;
 import com.example.c4q.capstone.userinterface.alerts.PendingFriendRequestsActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -117,6 +118,7 @@ public class TempUserActivity extends AppCompatActivity {
                                         UserIcon test = new UserIcon(task.getResult().getMetadata().getDownloadUrl().toString());
 
                                         FirebaseDatabase.getInstance().getReference().child(USER_ICON).child(currentUserId).setValue(test);
+                                        CurrentUserPost.getInstance().postProfilePictoPublicUser(test);
                                     }
                                 }
                             });

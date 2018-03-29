@@ -1,6 +1,7 @@
 package com.example.c4q.capstone.utils.currentuser;
 
 import com.example.c4q.capstone.database.events.Events;
+import com.example.c4q.capstone.database.events.UserEvent;
 import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 
@@ -20,5 +21,6 @@ public interface CurrentUserListener {
     void setUser(Boolean userInDB, String id);
     void getUserFriendIDs(List<String> friendIds);
     void getUserEventIDs(List<String> eventIds);
+    void getUserEventList(List<UserEvent> userEvents);
 
 }

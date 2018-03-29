@@ -24,5 +24,6 @@
     <string name="add_contacts">Add Friends</string>
     <string name="edit_preferences">Edit Preferences</string>
     <string name="no_invited_guest">You have not invited any friends</string>
+    <string name="calculating">Searching Venues...</string>
 
 </resources>

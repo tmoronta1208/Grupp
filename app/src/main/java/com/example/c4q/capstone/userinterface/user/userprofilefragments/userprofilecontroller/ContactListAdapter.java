@@ -44,7 +44,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListViewHold
 
         // using a dummy list to make sure the contacts will show;
 
-        holder.onBind(userPublicList.get(position));
+        holder.onBind(userPublicList.get(position), context);
     }
 
     @Override

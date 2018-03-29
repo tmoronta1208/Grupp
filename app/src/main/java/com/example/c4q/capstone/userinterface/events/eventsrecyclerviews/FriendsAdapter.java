@@ -41,15 +41,19 @@ public class FriendsAdapter extends RecyclerView.Adapter<ContactListViewHolder> 
     @Override
     public void onBindViewHolder(ContactListViewHolder holder, int position) {
         final PublicUser user = friendsList.get(position);
-        holder.onBind(user);
+        holder.onBind(user, context);
         holder.itemView.setTag(user.getUser_id());
+        holder.onBind(user, context);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 v.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
                 List<String> friendId = CreateEventPTSingleton.getInstance().getInvitedGuests();
                 if (friendId != null){
-                    friendId.add(user.getUser_id());
+                    if(!friendId.contains(user.getUser_id())){
+                        friendId.add(user.getUser_id());
+                    }
                 } else{
                     friendId = new ArrayList<>();
                     friendId.add(user.getUser_id());

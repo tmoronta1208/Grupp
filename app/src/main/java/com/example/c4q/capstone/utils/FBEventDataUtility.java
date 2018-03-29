@@ -91,7 +91,7 @@ public class FBEventDataUtility {
                 // ...
             }
         };
-        eventReference.addValueEventListener(eventListener);
+        eventReference.addListenerForSingleValueEvent(eventListener);
     }
 
     /**

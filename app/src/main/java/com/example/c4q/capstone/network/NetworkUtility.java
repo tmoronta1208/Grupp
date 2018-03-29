@@ -104,4 +104,43 @@ public class NetworkUtility {
         });
     }
 
+    public void getFourSquareDetail(final String venueId, final FourSquareDetailListener detailListener) {
+
+        Call<FourSquareDetailCall> call = RetrofitInstance.getInstance()
+                .getFourSApi()
+                .getVenueDetail(venueId,"20180328" );
+
+        call.enqueue(new Callback<FourSquareDetailCall>() {
+            @Override
+            public void onResponse(Call<FourSquareDetailCall> call, Response<FourSquareDetailCall> response) {
+                if (response != null){
+                    if(response.body() != null){
+                        if (response.body().getResponse() != null){
+                            if (response.body().getResponse().getVenue() != null){
+                                Log.d("SUCESSSS", response.body().getResponse().getVenue().getName());
+
+                                FourSquareVenueDetail venueDetail = response.body().getResponse().getVenue();
+                                ApiToVenueConverter venueConverter = new ApiToVenueConverter();
+                                Venue venue = venueConverter.fourSDetailToVenue(venueDetail);
+                                detailListener.getVenueDetail(venue);
+                            } else{
+                                Log.d("NULL", "response.body().getResponse.getVenue() is null");
+                            }
+                        } else{ Log.d("NULL", "response.body().getResponse() is null");}
+                    } else {
+                        Log.d("NULL", "response.body() is null");
+                    }
+                } else {
+                    Log.d("RESPONSE:", "response is null");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<FourSquareDetailCall> call, Throwable t) {
+
+            }
+        });
+    }
+
 }

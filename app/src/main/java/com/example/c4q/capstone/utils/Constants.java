@@ -29,8 +29,11 @@ public class Constants {
     public static final String USER_FRIENDS = "user_friends";
     public static final String USER_ICON = "user_icon";
     public static final String USER_SEARCH = "user_search";
+    public static final String USER_EVENT_LIST ="user_event_list";
     public static final String EVENT_INVITATIONS = "event_invitations";
     public static final String VENUES = "venues";
     public static final String VENUE_ADDRESS = "venue_address";
+    public static final String VENUE_VOTE ="venue_vote";
+    public static final String VENUE_MAP ="venue_map";
 
 }

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.c4q.capstone.userinterface.events.eventfragments.UserFriendsFragment">
+    tools:context="com.example.c4q.capstone.userinterface.events.eventfragments.InvitedFriendsFragment">
     <TextView
         android:text="Invited Friends"
         android:layout_width="wrap_content"
