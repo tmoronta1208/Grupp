@@ -31,7 +31,7 @@
     <color name="salmon">#f87160</color>
     <color name="light_salmon">#fabc8d</color>
     <color name="cream">#eedfa2</color>
-    <color name="light_cream">#fff9e1</color>
+    <color name="light_cream">#91fff9e1</color>
     <color name="mustard">#e8af28</color>
     <color name="light_green">#b1deb4</color>
     <color name="colorPrimaryT">#57bad5</color>
@@ -39,6 +39,7 @@
     <color name="floatingmenucolor">#8AD3D3D3</color>
     <color name="fabuttoncolor">#57bad5</color>
     <color name="fabtext">#f87160</color>
+    <color name="white">#FAffffff</color>
 
 
     <color name="indicator_1">#55B3C2</color>
