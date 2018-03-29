@@ -71,7 +71,7 @@ public class ApiToVenueConverter {
         venue.setVenue_name(venueDetail.getName());
         venue.setVenue_id(venueDetail.getId());
         venue.setVenue_address(venueDetail.getLocation().getAddress());
-        venue.setVenue_photo_url(venueDetail.getBestPhoto().getPrefix() + venueDetail.getBestPhoto().getSuffix());
+        venue.setVenue_photo_url(venueDetail.getBestPhoto().getPrefix() +"500x500"+ venueDetail.getBestPhoto().getSuffix());
         venue.setVenue_url(venueDetail.getUrl());
         return venue;
     }

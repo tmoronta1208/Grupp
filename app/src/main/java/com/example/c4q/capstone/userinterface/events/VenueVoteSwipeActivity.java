@@ -94,9 +94,11 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
                     Log.d ("Event Fragment", "event: name" + event.getEvent_name());
                     currentEvent = event;
                     venueVoteList = new ArrayList<>();
-                    venueVoteList.addAll(currentEvent.getVenue_map().values());
-                    if (venueVoteList.size() != 0){
-                        loadSwipeView(venueVoteList);
+                    if(currentEvent.getVenue_map() !=null){
+                        venueVoteList.addAll(currentEvent.getVenue_map().values());
+                        if (venueVoteList.size() != 0){
+                            loadSwipeView(venueVoteList);
+                        }
                     }
 
                 } else {

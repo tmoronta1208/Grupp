@@ -19,6 +19,7 @@ import com.mindorks.placeholderview.annotations.swipe.SwipeIn;
 import com.mindorks.placeholderview.annotations.swipe.SwipeInState;
 import com.mindorks.placeholderview.annotations.swipe.SwipeOut;
 import com.mindorks.placeholderview.annotations.swipe.SwipeOutState;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by amirahoxendine on 3/18/18.
@@ -46,13 +47,17 @@ public class VenueCardView {
         this.context = context;
      this.venue = venue;
      Log.d("results testing:", " " + venue.getVenue_name());
+        Log.d("image testing:", " " + venue.getVenue_photo_url());
         this.swipeView = swipeView;
     }
 
     @Resolve
     private void onResolved(){
 
-        Glide.with(context).load(venue.getVenue_photo_url()).into(profileImageView);
+        //Glide.with(context).load(venue.getVenue_photo_url()).into(profileImageView);
+        Picasso.with(context)
+                .load(venue.getVenue_photo_url())
+                .into(profileImageView);
         nameAgeTxt.setText(venue.getVenue_name());
         locationNameTxt.setText(venue.getVenue_address());
 
