@@ -6,18 +6,31 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.events.Events;
 import com.example.c4q.capstone.database.events.Venue;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.network.barzz.barzzmodel.Results;
+import com.example.c4q.capstone.userinterface.CurrentUser;
+import com.example.c4q.capstone.userinterface.CurrentUserPost;
 import com.example.c4q.capstone.utils.DummyDataUtility;
 import com.mindorks.placeholderview.SwipeDecor;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
+import com.mindorks.placeholderview.annotations.Layout;
+import com.mindorks.placeholderview.annotations.Resolve;
+import com.mindorks.placeholderview.annotations.swipe.SwipeCancelState;
+import com.mindorks.placeholderview.annotations.swipe.SwipeIn;
+import com.mindorks.placeholderview.annotations.swipe.SwipeInState;
+import com.mindorks.placeholderview.annotations.swipe.SwipeOut;
+import com.mindorks.placeholderview.annotations.swipe.SwipeOutState;
 import com.mindorks.placeholderview.listeners.ItemRemovedListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class VenueVoteSwipeActivity extends AppCompatActivity {
@@ -28,6 +41,7 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
     EventPresenter eventPresenter = new EventPresenter();
     Events currentEvent;
     List<Venue> venueVoteList;
+    HashMap<String, Venue> venueHashMap;
     Intent intent;
     String eventID;
     String eventType = "notNew";
@@ -56,6 +70,9 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
             @Override
             public void onItemRemoved(int count) {
                 if(count == 0) {
+                    currentEvent.setVenue_map(venueHashMap);
+                    String id = currentEvent.getEvent_id();
+                    CurrentUserPost.getInstance().postNewEvent(id, currentEvent);
                     Intent eventIntent = new Intent(VenueVoteSwipeActivity.this, EventActivity.class);
                     eventIntent.putExtra("eventID", eventID);
                     eventIntent.putExtra("eventType", eventType);
@@ -64,7 +81,7 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
 
             }
         });
-
+        int voteCount = venueVoteList.size();
 
         for(Venue venue : venueVoteList){
             mSwipeView.addView(new VenueCardView(mContext, venue, mSwipeView));
@@ -95,6 +112,7 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
                     currentEvent = event;
                     venueVoteList = new ArrayList<>();
                     if(currentEvent.getVenue_map() !=null){
+                        venueHashMap = currentEvent.getVenue_map();
                         venueVoteList.addAll(currentEvent.getVenue_map().values());
                         if (venueVoteList.size() != 0){
                             loadSwipeView(venueVoteList);
@@ -116,5 +134,84 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Layout(R.layout.vote_swipe_card_view)
+    public class VenueCardView {
+
+
+
+        @com.mindorks.placeholderview.annotations.View(R.id.profileImageView)
+        private ImageView profileImageView;
+
+        @com.mindorks.placeholderview.annotations.View(R.id.nameAgeTxt)
+        private TextView nameAgeTxt;
+
+        @com.mindorks.placeholderview.annotations.View(R.id.locationNameTxt)
+        private TextView locationNameTxt;
+
+        //private Results results;
+        private Venue venue;
+        private Context context;
+        private SwipePlaceHolderView swipeView;
+        private String venueId;
+
+
+        public VenueCardView(Context context, Venue venue, SwipePlaceHolderView swipeView) {
+            this.context = context;
+            this.venue = venue;
+            Log.d("results testing:", " " + venue.getVenue_name());
+            Log.d("image testing:", " " + venue.getVenue_photo_url());
+            this.swipeView = swipeView;
+            venueId = venue.getVenue_id();
+
+        }
+
+        @Resolve
+        private void onResolved(){
+
+            //Glide.with(context).load(venue.getVenue_photo_url()).into(profileImageView);
+            Picasso.with(context)
+                    .load(venue.getVenue_photo_url())
+                    .into(profileImageView);
+            nameAgeTxt.setText(venue.getVenue_name());
+            locationNameTxt.setText(venue.getVenue_address());
+
+        }
+
+        @SwipeOut
+        private void onSwipedOut(){
+            Log.d("EVENT", "onSwipedOut");
+            HashMap<String, String> vote = new HashMap<>();
+            vote.put("nay", CurrentUser.getInstance().getUserID());
+            venue.setVenue_vote(vote);
+            venueHashMap.put(venueId, venue);
+            //swipeView.addView(this);
+
+        }
+
+        @SwipeCancelState
+        private void onSwipeCancelState(){
+            Log.d("EVENT", "onSwipeCancelState");
+        }
+
+        @SwipeIn
+        private void onSwipeIn(){
+            Log.d("EVENT", "onSwipedIn");
+            HashMap<String, String> vote = new HashMap<>();
+            vote.put("yay", CurrentUser.getInstance().getUserID());
+            venue.setVenue_vote(vote);
+            venueHashMap.put(venueId, venue);
+        }
+
+        @SwipeInState
+        private void onSwipeInState(){
+            Log.d("EVENT", "onSwipeInState");
+        }
+
+        @SwipeOutState
+        private void onSwipeOutState(){
+            Log.d("EVENT", "onSwipeOutState");
+        }
     }
 }

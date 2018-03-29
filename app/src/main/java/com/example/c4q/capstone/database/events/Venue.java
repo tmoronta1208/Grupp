@@ -1,6 +1,8 @@
 package com.example.c4q.capstone.database.events;
 
 
+import java.util.HashMap;
+
 public class Venue {
     private String venue_id;
     private String venue_url;
@@ -16,6 +18,7 @@ public class Venue {
     private float rating_avg;
     private int  rating_count;
     private boolean reservations;
+    private HashMap<String, String> venue_vote;
 
     public Venue() {
     }
@@ -31,6 +34,14 @@ public class Venue {
         this.rating_avg = rating_avg;
         this.rating_count = rating_count;
         this.reservations = reservations;
+    }
+
+    public HashMap<String, String> getVenue_vote() {
+        return venue_vote;
+    }
+
+    public void setVenue_vote(HashMap<String, String> venue_vote) {
+        this.venue_vote = venue_vote;
     }
 
     public String getVenue_url() {
