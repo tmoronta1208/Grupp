@@ -27,6 +27,8 @@ import static com.example.c4q.capstone.utils.Constants.PREFERENCES;
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 import static com.example.c4q.capstone.utils.Constants.USER_EVENTS;
 import static com.example.c4q.capstone.utils.Constants.USER_ICON;
+import static com.example.c4q.capstone.utils.Constants.VENUE_MAP;
+import static com.example.c4q.capstone.utils.Constants.VENUE_VOTE;
 
 /**
  * Created by amirahoxendine on 3/26/18.
@@ -39,19 +41,23 @@ public class CurrentUserPostUtility {
     private DatabaseReference preferencesReference;
     private DatabaseReference eventsReference;
     private DatabaseReference publicUserReference;
+    private DatabaseReference eventVenueVoteReference;
 
     private DatabaseReference eventInvitesReference;
     private CurrentUser currentUser = CurrentUser.getInstance();
     private static final String TAG = "PostUtility";
+    private String currentUserId;
 
     public CurrentUserPostUtility(){
+        currentUserId = currentUser.getUserID();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabase = mFirebaseDatabase.getReference();
         userEventsReference = firebaseDatabase.child(USER_EVENTS);
         eventsReference = firebaseDatabase.child(EVENTS);
-        preferencesReference = firebaseDatabase.child(PUBLIC_USER).child(currentUser.getUserID()).child(PREFERENCES);
+        preferencesReference = firebaseDatabase.child(PUBLIC_USER).child(currentUserId).child(PREFERENCES);
         eventInvitesReference = firebaseDatabase.child(EVENT_INVITATIONS);
         publicUserReference = firebaseDatabase.child(PUBLIC_USER);
+
     }
 
     public String getNewEventKey(){
@@ -74,7 +80,7 @@ public class CurrentUserPostUtility {
         userEventKeys = new ArrayList<>();
         userEventKeys.addAll(eventKeys);
         Map<String, Object> user_events = new HashMap<>();
-        user_events.put(currentUser.getUserID(), userEventKeys);
+        user_events.put(currentUserId, userEventKeys);
         userEventsReference.updateChildren(user_events);
     }
     public void getDummyUserKeys(){
@@ -118,7 +124,7 @@ public class CurrentUserPostUtility {
     }
     public void updateProfilePic(UserIcon userIcon){
 
-        publicUserReference.child(currentUser.getUserID()).child(USER_ICON).setValue(userIcon);
+        publicUserReference.child(currentUserId).child(USER_ICON).setValue(userIcon);
     }
 
     public void updateEventInvitationsList(List<String> invitedGuest, String eventKey){
@@ -127,9 +133,7 @@ public class CurrentUserPostUtility {
         eventInvitesReference.updateChildren(userInvites);
     }
 
-    public void updateUserEventInvitations(String invitedGuest, String eventKey){
-        Map<String, Object> userInvites = new HashMap<>();
-        //userInvites.put();
-        eventInvitesReference.updateChildren(userInvites);
+    public void updateVenueVote(String eventKey, String venueKey, Boolean vote){
+       eventsReference.child(eventKey).child(VENUE_MAP).child(venueKey).child(VENUE_VOTE).child(currentUserId).setValue(vote);
     }
 }

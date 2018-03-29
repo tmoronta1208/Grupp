@@ -19,7 +19,7 @@ public class Venue {
     private float rating_avg;
     private int  rating_count;
     private boolean reservations;
-    private HashMap<String, List<String>> venue_vote;
+    private HashMap<String, Boolean> venue_vote;
 
     public Venue() {
     }
@@ -37,11 +37,11 @@ public class Venue {
         this.reservations = reservations;
     }
 
-    public HashMap<String, List<String>> getVenue_vote() {
+    public HashMap<String, Boolean> getVenue_vote() {
         return venue_vote;
     }
 
-    public void setVenue_vote(HashMap<String, List<String>> venue_vote) {
+    public void setVenue_vote(HashMap<String, Boolean> venue_vote) {
         this.venue_vote = venue_vote;
     }
 

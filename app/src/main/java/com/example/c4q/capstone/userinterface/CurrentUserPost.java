@@ -54,7 +54,10 @@ public class CurrentUserPost {
 
     public void postProfilePictoPublicUser(UserIcon userIcon){
         userPostUtility.updateProfilePic(userIcon);
+    }
 
+    public void postVenueVote(String eventKey, String venueKey, Boolean vote){
+        userPostUtility.updateVenueVote(eventKey,venueKey, vote);
     }
 
 }

@@ -20,6 +20,7 @@ import com.example.c4q.capstone.utils.DummyDataUtility;
 import com.mindorks.placeholderview.SwipeDecor;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Layout;
+import com.mindorks.placeholderview.annotations.NonReusable;
 import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.swipe.SwipeCancelState;
 import com.mindorks.placeholderview.annotations.swipe.SwipeIn;
@@ -46,6 +47,7 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
     String eventID;
     String eventType = "notNew";
     HashMap<String, List<String>> vote = new HashMap<>();
+    public static final String TAG = "VenueSwipe";
 
 
     @Override
@@ -60,7 +62,8 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
         getEventData();
     }
 
-    public void loadSwipeView(List<Venue> venueVoteList){
+    public void loadSwipeView(final List<Venue> venueVoteList){
+
         mSwipeView.getBuilder()
                 .setDisplayViewCount(3)
                 .setSwipeDecor(new SwipeDecor()
@@ -71,6 +74,7 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
         mSwipeView.addItemRemoveListener(new ItemRemovedListener() {
             @Override
             public void onItemRemoved(int count) {
+                Log.d(TAG,"item removed");
                 if(count == 0) {
                     currentEvent.setVenue_map(venueHashMap);
                     String id = currentEvent.getEvent_id();
@@ -81,13 +85,12 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
                     startActivity(eventIntent);
                     finish();
                 }
-
             }
         });
-        int voteCount = venueVoteList.size();
+
 
         for(Venue venue : venueVoteList){
-            mSwipeView.addView(new VenueCardView(mContext, venue, mSwipeView));
+            mSwipeView.addView(new VenueCardView(mContext, venue, mSwipeView, eventID));
         }
 
         findViewById(R.id.rejectBtn).setOnClickListener(new View.OnClickListener() {
@@ -138,7 +141,7 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
         });
 
     }
-
+    @NonReusable
     @Layout(R.layout.vote_swipe_card_view)
     public class VenueCardView {
 
@@ -158,45 +161,23 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
         private Context context;
         private SwipePlaceHolderView swipeView;
         private String venueId;
-        List<String> nayList;
-        List<String> yayList;
         HashMap<String, List<String>> vote;
+        private String eventId;
 
 
-        public VenueCardView(Context context, Venue venue, SwipePlaceHolderView swipeView) {
+        public VenueCardView(Context context, Venue venue, SwipePlaceHolderView swipeView, String eventId) {
             this.context = context;
             this.venue = venue;
             Log.d("results testing:", " " + venue.getVenue_name());
             Log.d("image testing:", " " + venue.getVenue_photo_url());
             this.swipeView = swipeView;
+            this.eventId = eventId;
             venueId = venue.getVenue_id();
-            if(venue.getVenue_vote() == null) {
-                vote = new HashMap<>();
-                venue.setVenue_vote(vote);
-            } else{
-                vote = venue.getVenue_vote();
-            }
-            if (vote.get("nay") == null){
-                nayList = new ArrayList<>();
-                vote.put("nay", nayList);
-            } else{
-                nayList = venue.getVenue_vote().get("nay");
-            }
-            if (vote.get("yay") == null){
-                yayList = new ArrayList<>();
-                vote.put("yay", yayList);
-            } else{
-                yayList = venue.getVenue_vote().get("nay");
-            }
-
-
-
         }
 
         @Resolve
         private void onResolved(){
 
-            //Glide.with(context).load(venue.getVenue_photo_url()).into(profileImageView);
             Picasso.with(context)
                     .load(venue.getVenue_photo_url())
                     .into(profileImageView);
@@ -208,11 +189,7 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
         @SwipeOut
         private void onSwipedOut(){
             Log.d("Venue Vote", "onSwipedOut");
-            nayList.add(CurrentUser.getInstance().getUserID());
-
-            venue.setVenue_vote(vote);
-            venueHashMap.put(venueId, venue);
-            //swipeView.addView(this);
+           CurrentUserPost.getInstance().postVenueVote(eventId, venueId, false);
         }
 
         @SwipeCancelState
@@ -223,9 +200,7 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
         @SwipeIn
         private void onSwipeIn(){
             Log.d("Venue vote", "onSwipedIn");
-            yayList.add(CurrentUser.getInstance().getUserID());
-            vote.put("yay", yayList);
-            venueHashMap.put(venueId, venue);
+            CurrentUserPost.getInstance().postVenueVote(eventId, venueId, true);
         }
 
         @SwipeInState
