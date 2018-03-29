@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Events {
     private boolean cancelled;
+    private boolean vote_complete;
     private String event_date;
     private String event_name;
     private String event_note;
@@ -45,6 +46,14 @@ public class Events {
         this.invited_guests = invited_guests;
         this.potential_venues = potential_venues;
         this.top_three_venues = top_three_venues;
+    }
+
+    public boolean vote_complete() {
+        return vote_complete;
+    }
+
+    public void setVote_complete(boolean vote_complete) {
+        this.vote_complete = vote_complete;
     }
 
     public HashMap<String, Venue> getVenue_map() {
