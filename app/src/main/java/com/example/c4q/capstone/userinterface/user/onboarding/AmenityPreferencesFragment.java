@@ -12,9 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
-import com.example.c4q.capstone.LoginActivity;
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.network.barzz.BarzzNetworkCall;
 import com.example.c4q.capstone.userinterface.CurrentUserPost;
 import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,7 +25,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import static com.example.c4q.capstone.utils.Constants.AMENITY_PREFS;
-import static com.example.c4q.capstone.utils.Constants.BAR_PREFS;
 import static com.example.c4q.capstone.utils.Constants.PREFERENCES;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
 

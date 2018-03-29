@@ -13,11 +13,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.c4q.capstone.LoginActivity;
+import com.example.c4q.capstone.DummyLoginActivity;
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
 import com.example.c4q.capstone.userinterface.CurrentUser;
-import com.example.c4q.capstone.userinterface.events.EventActivity;
 import com.example.c4q.capstone.userinterface.events.VenueVoteSwipeActivity;
 import com.example.c4q.capstone.userinterface.events.createevent.CreateEventActivity;
 import com.example.c4q.capstone.userinterface.user.SettingsActivity;
@@ -102,7 +101,7 @@ public class NavDrawerPresenter {
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 // ...
-                                                Intent signOutIntent = new Intent(context, LoginActivity.class);
+                                                Intent signOutIntent = new Intent(context, DummyLoginActivity.class);
                                                 signOutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                 activity.startActivity(signOutIntent);
                                             }
