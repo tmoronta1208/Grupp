@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -124,7 +125,7 @@ public class PendingFriendRequestsActivity extends AppCompatActivity {
 
     private void acceptFriendRequest(final String pendingRequestID) {
 
-        rootRef.child(USER_FRIENDS).child(pendingRequestID).addValueEventListener(new ValueEventListener() {
+        rootRef.child(USER_FRIENDS).child(pendingRequestID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -132,7 +133,14 @@ public class PendingFriendRequestsActivity extends AppCompatActivity {
                     for(DataSnapshot ds: dataSnapshot.getChildren()){
                         pendingUserFriendList.add(ds.getValue().toString());
                     }
-
+                    /*Set<String> pendingFriends = new HashSet<>();
+                    pendingFriends.addAll(pendingUserFriendList);
+                    pendingUserFriendList.clear();
+                    pendingUserFriendList.addAll(pendingFriends);*/
+                    if(!pendingUserFriendList.contains(currentUserID)){
+                        pendingUserFriendList.add(currentUserID);
+                        rootRef.child(USER_FRIENDS).child(pendingRequestID).setValue(pendingUserFriendList);
+                    }
                 }
             }
             @Override
@@ -157,14 +165,15 @@ public class PendingFriendRequestsActivity extends AppCompatActivity {
         userFriends.addAll(currentUserFriendList);
         currentUserFriendList.clear();
         currentUserFriendList.addAll(userFriends);
+        rootRef.child(USER_FRIENDS).child(currentUserID).setValue(currentUserFriendList);
 
-        Set<String> pendingFriends = new HashSet<>();
+        /*Set<String> pendingFriends = new HashSet<>();
         pendingFriends.addAll(pendingUserFriendList);
         pendingUserFriendList.clear();
         pendingUserFriendList.addAll(pendingFriends);
         pendingUserFriendList.add(currentUserID);
-        rootRef.child(USER_FRIENDS).child(pendingRequestID).setValue(pendingUserFriendList);
-        rootRef.child(USER_FRIENDS).child(currentUserID).setValue(currentUserFriendList);
+
+        ;*/
 
     }
 

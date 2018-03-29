@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 
 public class CreateEventPagerAdapter extends FragmentPagerAdapter {
-    private static int NUM_ITEMS = 4;
+    private static int NUM_ITEMS = 3;
     private CreateEventPTSingleton createEventPTSingleton;
 
     public CreateEventPagerAdapter(FragmentManager fragmentManager, CreateEventPTSingleton eventPTSingleton) {
@@ -33,9 +33,10 @@ public class CreateEventPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return CreateEventAddVenueFragment.newInstance(createEventPTSingleton);
             case 2:
-                return CreateEventAddNoteFragment.newInstance(createEventPTSingleton);
-            case 3:
                 return CreateEventAddNameFragment.newInstance(createEventPTSingleton);
+            case 3:
+                return CreateEventAddNoteFragment.newInstance(createEventPTSingleton);
+
 
             default:
                 return null;

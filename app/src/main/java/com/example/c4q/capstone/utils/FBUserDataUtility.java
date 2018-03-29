@@ -80,7 +80,7 @@ public class FBUserDataUtility {
                 // ...
             }
         };
-        publicUserReference.addValueEventListener(userListener);
+        publicUserReference.addListenerForSingleValueEvent(userListener);
     }
 
     /**ajoxe:
@@ -136,7 +136,7 @@ public class FBUserDataUtility {
                 // ...
             }
         };
-        publicUserReference.addValueEventListener(userListener);
+        publicUserReference.addListenerForSingleValueEvent(userListener);
     }
 
 }

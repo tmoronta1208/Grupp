@@ -3,6 +3,7 @@ package com.example.c4q.capstone.utils.currentuser;
 import android.util.Log;
 
 import com.example.c4q.capstone.database.events.Events;
+import com.example.c4q.capstone.database.publicuserdata.UserIcon;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.utils.FBUserDataUtility;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +26,7 @@ import static com.example.c4q.capstone.utils.Constants.EVENT_INVITATIONS;
 import static com.example.c4q.capstone.utils.Constants.PREFERENCES;
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 import static com.example.c4q.capstone.utils.Constants.USER_EVENTS;
+import static com.example.c4q.capstone.utils.Constants.USER_ICON;
 
 /**
  * Created by amirahoxendine on 3/26/18.
@@ -36,6 +38,8 @@ public class CurrentUserPostUtility {
     private DatabaseReference userEventsReference;
     private DatabaseReference preferencesReference;
     private DatabaseReference eventsReference;
+    private DatabaseReference publicUserReference;
+
     private DatabaseReference eventInvitesReference;
     private CurrentUser currentUser = CurrentUser.getInstance();
     private static final String TAG = "PostUtility";
@@ -47,6 +51,7 @@ public class CurrentUserPostUtility {
         eventsReference = firebaseDatabase.child(EVENTS);
         preferencesReference = firebaseDatabase.child(PUBLIC_USER).child(currentUser.getUserID()).child(PREFERENCES);
         eventInvitesReference = firebaseDatabase.child(EVENT_INVITATIONS);
+        publicUserReference = firebaseDatabase.child(PUBLIC_USER);
     }
 
     public String getNewEventKey(){
@@ -110,6 +115,10 @@ public class CurrentUserPostUtility {
         Map<String, Object> userPrefs = new HashMap<>();
         userPrefs.put(AMENITY_PREFS, amenityPrefs);
         preferencesReference.updateChildren(userPrefs);
+    }
+    public void updateProfilePic(UserIcon userIcon){
+
+        publicUserReference.child(currentUser.getUserID()).child(USER_ICON).setValue(userIcon);
     }
 
     public void updateEventInvitationsList(List<String> invitedGuest, String eventKey){

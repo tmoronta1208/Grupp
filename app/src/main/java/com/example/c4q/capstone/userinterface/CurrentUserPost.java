@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.c4q.capstone.database.events.Events;
 
+import com.example.c4q.capstone.database.publicuserdata.UserIcon;
 import com.example.c4q.capstone.utils.currentuser.CurrentUserPostUtility;
 
 import java.util.List;
@@ -48,6 +49,11 @@ public class CurrentUserPost {
     }
 
     public void postEventInvitations(){
+
+    }
+
+    public void postProfilePictoPublicUser(UserIcon userIcon){
+        userPostUtility.updateProfilePic(userIcon);
 
     }
 
