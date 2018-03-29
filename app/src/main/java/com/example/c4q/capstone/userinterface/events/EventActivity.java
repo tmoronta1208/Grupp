@@ -19,6 +19,7 @@ import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.events.Events;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.events.eventfragments.InvitedFriendsFragment;
+import com.example.c4q.capstone.userinterface.events.eventfragments.VenueFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,7 @@ public class EventActivity extends AppCompatActivity {
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     InvitedFriendsFragment invitedFriendsFragment;
+    VenueFragment venueFragment;
 
 
     /**
@@ -150,7 +152,8 @@ public class EventActivity extends AppCompatActivity {
 
                     eventDate.setText("Date: " + currentEvent.getEvent_date());
                     invitedFriendsList = event.getInvited_guests();
-                    loadUserFriendsFragment();
+                    //loadUserFriendsFragment();
+                    loadVenueFragment(eventID);
                     if(currentEvent.getVenue_map() != null){
                         progressBar.setVisibility(View.GONE);
                         countVenues.setText("You have " + currentEvent.getVenue_map().size() + " venues to vote on!");
@@ -169,11 +172,6 @@ public class EventActivity extends AppCompatActivity {
                 organizerFullName = name;
                 eventOrganizer.setText("Creator: " + organizerFullName);
             }
-
-            @Override
-            public void getUser(PublicUser publicUser) {
-
-            }
         });
 
     }
@@ -187,6 +185,13 @@ public class EventActivity extends AppCompatActivity {
             invitedFriendsFragment.getFriendUsers(invitedFriends);
         }
 
+
+    }
+
+    public void loadVenueFragment(String eventID){
+        venueFragment = VenueFragment.newInstance(eventID);
+        fragmentManager.beginTransaction().replace(R.id.event_fragment_container, venueFragment)
+                .addToBackStack("next").commit();
 
     }
 }

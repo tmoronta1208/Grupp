@@ -133,10 +133,6 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
             public void getUserFullName(String name) {
             }
 
-            @Override
-            public void getUser(PublicUser publicUser) {
-
-            }
         });
 
     }

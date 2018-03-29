@@ -23,14 +23,14 @@
             android:layout_height="wrap_content"
             android:text="venue name"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-            android:textSize="24sp"/>
+            android:textSize="20sp"/>
         <TextView
             android:id="@+id/venue_address_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="venue address"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
-            android:textSize="18sp"/>
+            android:textSize="14sp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:text="#"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
-            android:textSize="18sp"/>
+            android:textSize="14sp"/>
 
     </LinearLayout>
 

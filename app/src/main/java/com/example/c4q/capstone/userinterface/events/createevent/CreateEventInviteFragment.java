@@ -19,6 +19,7 @@ import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.events.CreateEventPresenter;
 import com.example.c4q.capstone.userinterface.events.eventsrecyclerviews.FriendsAdapter;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller.ContactListAdapter;
+import com.example.c4q.capstone.utils.SimpleDividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -70,6 +71,7 @@ public class CreateEventInviteFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setAdapter(friendsAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
         getFriendUsers();
         return rootView;
     }

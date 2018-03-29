@@ -11,5 +11,4 @@ public interface EventDataListener {
     void getEvent(Events event);
 
     void getUserFullName(String name);
-    void getUser(PublicUser publicUser);
 }
