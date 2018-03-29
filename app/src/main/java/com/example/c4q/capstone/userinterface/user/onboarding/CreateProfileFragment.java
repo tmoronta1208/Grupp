@@ -8,6 +8,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -29,6 +30,7 @@ import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.UserSearch;
 import com.example.c4q.capstone.userinterface.user.EditProfileActivity;
 import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -56,7 +58,7 @@ public class CreateProfileFragment extends Fragment {
     private int radius;
     private double lat, lng;
 
-    private Button saveBtn;
+    private FloatingActionButton saveBtn;
     private EditText firstName, lastName, zipCode;
     private RadioGroup ageGroup, budgetGroup, radiusGroup;
     private RadioButton ageChoice, budgetChoice, radiusChoice;
@@ -100,6 +102,7 @@ public class CreateProfileFragment extends Fragment {
         privateUserReference = rootRef.child(PRIVATE_USER);
         privateUserLocationReference = rootRef.child(PRIVATE_USER);
         searchUserReference = rootRef.child(USER_SEARCH);
+        saveBtn = rootView.findViewById(R.id.create_profile_save_button);
 
         currentUser = mAuth.getCurrentUser();
         currentUserID = currentUser.getUid();

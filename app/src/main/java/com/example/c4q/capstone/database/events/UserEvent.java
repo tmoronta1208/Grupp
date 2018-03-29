@@ -8,7 +8,7 @@ import java.util.List;
  * short event model for user events list
  */
 
-public class UserEvents {
+public class UserEvent {
     private String event_id;
     private String event_date;
     private String event_name;

@@ -3,8 +3,10 @@ package com.example.c4q.capstone.utils.currentuser;
 import android.util.Log;
 
 import com.example.c4q.capstone.database.events.Events;
+import com.example.c4q.capstone.database.events.UserEvent;
 import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.example.c4q.capstone.userinterface.user.search.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -22,8 +24,10 @@ import java.util.Map;
 import java.util.Set;
 
 import static com.example.c4q.capstone.utils.Constants.EVENTS;
+import static com.example.c4q.capstone.utils.Constants.EVENT_INVITATIONS;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
+import static com.example.c4q.capstone.utils.Constants.USER_EVENT_LIST;
 import static com.example.c4q.capstone.utils.Constants.USER_FRIENDS;
 
 /**
@@ -39,6 +43,8 @@ public class CurrentUserUtility {
     private DatabaseReference privateUserReference;
     private DatabaseReference userFriendsReference;
     private DatabaseReference userEventsReference;
+    private DatabaseReference userEventsListReference;
+    private DatabaseReference eventInviteListReference;
     private DatabaseReference eventsReference;
     private static FirebaseUser currentUser;
 
@@ -66,6 +72,8 @@ public class CurrentUserUtility {
         privateUserReference = firebaseDatabase.child(PRIVATE_USER);
         userFriendsReference = firebaseDatabase.child(USER_FRIENDS);
         userEventsReference = firebaseDatabase.child("user_events");
+        userEventsListReference = firebaseDatabase.child(USER_EVENT_LIST);
+        eventInviteListReference = firebaseDatabase.child(EVENT_INVITATIONS);
         eventsReference = firebaseDatabase.child(EVENTS);
     }
 
@@ -402,6 +410,73 @@ public class CurrentUserUtility {
         userFriendsMap.put(currentUserID, friendID);
         firebaseDatabase.child(USER_FRIENDS).updateChildren(userFriendsMap);
         Log.w(TAG, "add friends" + friendID);
+    }
+
+    /*public void getSingleUserEventList(String userID){
+        userEventsListReference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot != null){
+                    List<UserEvent> userEventList = new ArrayList<>();
+
+                    for (DataSnapshot ds : dataSnapshot.getChildren()){
+                        userEventList.add(ds.getValue(UserEvent.class));
+                    }
+                    currentUserListener.getUserEventList(userEventList);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }*/
+
+    public void getSingleUserEventList(String userID, final UserEventListener userEventListener){
+        userEventsListReference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot != null){
+                   Map<String, UserEvent> userEventHashMap= new HashMap<>();
+
+                    for (DataSnapshot ds : dataSnapshot.getChildren()){
+                        UserEvent userEvent = ds.getValue(UserEvent.class);
+                        userEventHashMap.put(userEvent.getEvent_id(), userEvent);
+                    }
+                    userEventListener.getUserEventList(userEventHashMap);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void getSingleEventInviteList(String userID, final UserEventListener userEventListener){
+        eventInviteListReference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot != null){
+                    Map<String, UserEvent> eventInviteHashMap = new HashMap<>();
+
+                    for (DataSnapshot ds : dataSnapshot.getChildren()){
+                        UserEvent userEvent = ds.getValue(UserEvent.class);
+                        eventInviteHashMap.put(userEvent.getEvent_id(), userEvent);
+
+                    }
+                    userEventListener.getUserEventList(eventInviteHashMap);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }

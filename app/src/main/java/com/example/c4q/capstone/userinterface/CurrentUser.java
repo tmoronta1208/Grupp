@@ -3,6 +3,7 @@ package com.example.c4q.capstone.userinterface;
 import android.util.Log;
 
 import com.example.c4q.capstone.database.events.Events;
+import com.example.c4q.capstone.database.events.UserEvent;
 import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.utils.currentuser.CurrentUserListener;
@@ -146,7 +147,7 @@ public class CurrentUser {
                 userHasPublicProfile =userUtility.userHasPublicProfile;
                 Log.d(TAG, "user has public profile: " + userHasPublicProfile);
                 if (currentPublicUser != null){
-                    userFullName = currentPrivateUser.getFirst_name() + " " + currentPrivateUser.getLast_name();
+                    userFullName = currentPublicUser.getFirst_name() + " " + currentPublicUser.getLast_name();
                     Log.d(TAG, "user full name: " + userFullName);
                 }
             }
@@ -202,6 +203,11 @@ public class CurrentUser {
             @Override
             public void getUserEventIDs(List<String> eventIds) {
                 userEventIDList = eventIds;
+            }
+
+            @Override
+            public void getUserEventList(List<UserEvent> userEvents) {
+                //todo get user event list
             }
 
         };

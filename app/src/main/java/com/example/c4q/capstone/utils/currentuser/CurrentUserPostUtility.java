@@ -3,6 +3,7 @@ package com.example.c4q.capstone.utils.currentuser;
 import android.util.Log;
 
 import com.example.c4q.capstone.database.events.Events;
+import com.example.c4q.capstone.database.events.UserEvent;
 import com.example.c4q.capstone.database.publicuserdata.UserIcon;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.utils.FBUserDataUtility;
@@ -26,6 +27,7 @@ import static com.example.c4q.capstone.utils.Constants.EVENT_INVITATIONS;
 import static com.example.c4q.capstone.utils.Constants.PREFERENCES;
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 import static com.example.c4q.capstone.utils.Constants.USER_EVENTS;
+import static com.example.c4q.capstone.utils.Constants.USER_EVENT_LIST;
 import static com.example.c4q.capstone.utils.Constants.USER_ICON;
 import static com.example.c4q.capstone.utils.Constants.VENUE_MAP;
 import static com.example.c4q.capstone.utils.Constants.VENUE_VOTE;
@@ -42,6 +44,8 @@ public class CurrentUserPostUtility {
     private DatabaseReference eventsReference;
     private DatabaseReference publicUserReference;
     private DatabaseReference eventVenueVoteReference;
+    private DatabaseReference userEventListReference;
+
 
     private DatabaseReference eventInvitesReference;
     private CurrentUser currentUser = CurrentUser.getInstance();
@@ -57,6 +61,8 @@ public class CurrentUserPostUtility {
         preferencesReference = firebaseDatabase.child(PUBLIC_USER).child(currentUserId).child(PREFERENCES);
         eventInvitesReference = firebaseDatabase.child(EVENT_INVITATIONS);
         publicUserReference = firebaseDatabase.child(PUBLIC_USER);
+        userEventListReference = firebaseDatabase.child(USER_EVENT_LIST);
+
 
     }
 
@@ -82,6 +88,42 @@ public class CurrentUserPostUtility {
         Map<String, Object> user_events = new HashMap<>();
         user_events.put(currentUserId, userEventKeys);
         userEventsReference.updateChildren(user_events);
+    }
+
+    public void addEventToUserEventsList(final String eventKey, final String userId, final UserEvent userEvent){
+        CurrentUserUtility currentUserUtility = new CurrentUserUtility();
+        //get map, add event to map, update child node.
+        currentUserUtility.getSingleUserEventList(userId, new UserEventListener() {
+            @Override
+            public void getUserEventList(Map<String, UserEvent> userEventMap) {
+                if (userEventMap != null){
+                    Map<String, Object> eventMap = new HashMap<>();
+                    eventMap.putAll(userEventMap);
+                    eventMap.put(eventKey, userEvent);
+                    userEventListReference.child(userId).updateChildren(eventMap);
+
+                }
+
+            }
+
+        });
+    }
+
+    public void addEventToEventInviteList(final String eventKey, final String userId, final UserEvent userEvent){
+        CurrentUserUtility currentUserUtility = new CurrentUserUtility();
+        //get map, add event to map, update child node.
+        currentUserUtility.getSingleEventInviteList(userId, new UserEventListener() {
+            @Override
+            public void getUserEventList(Map<String, UserEvent> userEventMap) {
+                if (userEventMap != null){
+                    Map<String, Object> eventMap = new HashMap<>();
+                    eventMap.putAll(userEventMap);
+                    eventMap.put(eventKey, userEvent);
+                    eventInvitesReference.child(userId).updateChildren(eventMap);
+                }
+            }
+
+        });
     }
     public void getDummyUserKeys(){
 

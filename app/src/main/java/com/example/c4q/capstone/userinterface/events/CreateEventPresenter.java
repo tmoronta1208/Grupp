@@ -2,33 +2,20 @@ package com.example.c4q.capstone.userinterface.events;
 
 import android.os.Build;
 import android.util.Log;
-import android.widget.DatePicker;
 import android.widget.TimePicker;
 
 import com.example.c4q.capstone.database.events.Events;
+import com.example.c4q.capstone.database.events.UserEvent;
 import com.example.c4q.capstone.database.events.Venue;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.network.FourSquareDetailListener;
 import com.example.c4q.capstone.userinterface.CurrentUser;
-import com.example.c4q.capstone.userinterface.CurrentUserFriends;
 import com.example.c4q.capstone.userinterface.CurrentUserPost;
 import com.example.c4q.capstone.userinterface.events.createevent.CreateEventPTSingleton;
-import com.example.c4q.capstone.utils.FBUserDataUtility;
-import com.example.c4q.capstone.utils.currentuser.CurrentUserFriendsListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 
 /**
  * Created by amirahoxendine on 3/19/18.
@@ -60,18 +47,22 @@ public class CreateEventPresenter {
 
        Log.d(TAG, "event key : " + key);
        listener.getEventIdKEy(key);
-        /*CurrentUserFriends currentUserFriends = new CurrentUserFriends(new CurrentUserFriendsListener() {
-            @Override
-            public void getFriendEventIds(List<String> eventIds) {
-                if (eventIds != null){
-                    Log.d(TAG, "friend event ids: " + eventIds.size());
-                }
-            }
-        });
-        currentUserFriends.setFriendEventIds(newEvent.getEvent_organizer());*/
        makeNetworkCall(createEventPTSingleton.getInvitedFriendsUserList());
         Log.d(TAG, "post event called");
        currentUserPost.postNewEvent(key, newEvent);
+       UserEvent userEvent = creatUserEventFromEvent(newEvent);
+       currentUserPost.postEventToUserEventList(key, currentUser.getUserID(),userEvent);
+       sendInvites(userEvent, newEvent);
+    }
+
+    public void sendInvites(UserEvent userEvent, Events events){
+        List<String> invitedGuests = new ArrayList<>();
+        invitedGuests.addAll(events.getInvited_guests());
+        invitedGuests.remove(currentUser.getUserID());
+        for (String guest: invitedGuests){
+            currentUserPost.postEventToUserInvitations(key, guest,userEvent);
+        }
+
     }
 
     private void makeNetworkCall(List<PublicUser> eventGuests){
@@ -202,6 +193,10 @@ public class CreateEventPresenter {
     public String setFinalizedEvent(){
         key = currentUserPost.newEventKey();
         List<String> confirmedGuest = new ArrayList<>();
+        List<String> invitedGuest = new ArrayList<>();
+        invitedGuest.addAll(createEventPTSingleton.getInvitedGuests());
+        invitedGuest.add(currentUser.getUserID());
+
         confirmedGuest.add(currentUser.getUserID());
         newEvent.setEvent_id(createEventPTSingleton.getEventID());
         newEvent.setEvent_name(createEventPTSingleton.getEventName());
@@ -210,7 +205,7 @@ public class CreateEventPresenter {
         newEvent.setEvent_date(createEventPTSingleton.getEventDate());
         newEvent.setVenue_type(createEventPTSingleton.getEventVenueType());
         newEvent.setEvent_note(createEventPTSingleton.getEventNote());
-        newEvent.setInvited_guests(createEventPTSingleton.getInvitedGuests());
+        newEvent.setInvited_guests(invitedGuest);
         newEvent.setEvent_organizer(currentUser.getUserID());
         newEvent.setConfirmed_guests(confirmedGuest);
         if (createEventPTSingleton.getInvitedFriendsUserList() != null){
@@ -221,5 +216,18 @@ public class CreateEventPresenter {
         newEvent.setEvent_id(key);
         Log.d(TAG, "event type" + createEventPTSingleton.getEventVenueType());
         return key;
+    }
+
+    public UserEvent creatUserEventFromEvent(Events event){
+        UserEvent userEvent = new UserEvent();
+        userEvent.setEvent_date(event.getEvent_date());
+        userEvent.setEvent_id(event.getEvent_id());
+        userEvent.setEvent_date(event.getEvent_date());
+        userEvent.setEvent_time(userEvent.getEvent_time());
+        userEvent.setEvent_organizer(event.getEvent_organizer());
+        userEvent.setEvent_note(event.getEvent_note());
+        userEvent.setEvent_name(event.getEvent_name());
+        userEvent.setFinal_venue(event.getFinal_venue());
+        return userEvent;
     }
 }
