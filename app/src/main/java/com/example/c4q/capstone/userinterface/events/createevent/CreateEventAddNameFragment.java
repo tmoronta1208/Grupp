@@ -194,7 +194,7 @@ public class CreateEventAddNameFragment extends Fragment implements DatePickerDi
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Log.d(TAG, "on date set");
-        String date = "Date: "+(month +1) + "/"+ dayOfMonth + "/" + year;
+        String date = (month +1) + "/"+ dayOfMonth + "/" + year;
         eventPresenter.setEventDate(date);
         if (eventPresenter.validateEvent()){
             loadEventFragment();

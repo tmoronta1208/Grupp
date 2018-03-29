@@ -25,6 +25,7 @@ import com.example.c4q.capstone.utils.FBUserDataUtility;
 import com.example.c4q.capstone.utils.FBUserFriendsListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -62,26 +63,8 @@ public class UserFriendsFragment extends Fragment {
         args = getArguments();
         if (args != null) {
             if (args.getStringArrayList("invitedFriends") != null) {
-                friendsUserIDList = args.getStringArrayList("invitedFriends");
-                if (friendsUserIDList != null) {
-                    listIsNull = false;
-                    if (friendsUserIDList.size() != 0) {
-                        for (String s : friendsUserIDList) {
-                            userDataUtility.getPublicUser(s, new FBUserDataListener() {
-                                @Override
-                                public void getUid(String userID) {
-                                }
-
-                                @Override
-                                public void getPublicUser(PublicUser publicUser) {
-                                    friendsUserList.add(publicUser);
-                                }
-                            });
-                        }
-                    }
-                }else {
-                    listIsNull = true;
-                }
+                ArrayList<String> invitedFriends = args.getStringArrayList("invitedFriends");
+                convertIdsToUsers(invitedFriends);
             }
         }
     }
@@ -92,7 +75,7 @@ public class UserFriendsFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_user_friends, container, false);
         noInvitedFriends = (TextView) rootView.findViewById(R.id.no_invites_text_view);
 
-        if (listIsNull || friendsUserIDList.size() == 0) {
+        if (friendsUserList == null || friendsUserIDList.size() == 0) {
             noInvitedFriends.setVisibility(View.VISIBLE);
         } else {
             recyclerView = (RecyclerView) rootView.findViewById(R.id.friends_recycler_view);
@@ -108,11 +91,31 @@ public class UserFriendsFragment extends Fragment {
         return rootView;
     }
 
-    public void getFriendUsers() {
-      /*  friendsUserList = CurrentUser.getInstance().getUserFriendsList();
-        if (friendsUserList == null){
-            friendsUserList = new ArrayList<>();
+    public void getFriendUsers(ArrayList<String> invtedList) {
+        newInstance(invtedList);
+        //convertIdsToUsers(invtedList);
+
+    }
+
+    public void convertIdsToUsers(ArrayList<String> invitedList){
+        friendsUserIDList = invitedList;
+        if (friendsUserIDList != null) {
+            if (friendsUserIDList.size() != 0) {
+                for (String s : friendsUserIDList) {
+                    userDataUtility.getPublicUser(s, new FBUserDataListener() {
+                        @Override
+                        public void getUid(String userID) {
+                        }
+
+                        @Override
+                        public void getPublicUser(PublicUser publicUser) {
+                            friendsUserList.add(publicUser);
+                        }
+                    });
+                }
+            }
+        }else {
+
         }
-        contactListAdapter.notifyDataSetChanged();*/
     }
 }

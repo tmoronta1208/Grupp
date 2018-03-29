@@ -45,6 +45,8 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
     Intent intent;
     String eventID;
     String eventType = "notNew";
+    HashMap<String, List<String>> vote = new HashMap<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +79,7 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
                     eventIntent.putExtra("eventID", eventID);
                     eventIntent.putExtra("eventType", eventType);
                     startActivity(eventIntent);
+                    finish();
                 }
 
             }
@@ -155,6 +158,9 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
         private Context context;
         private SwipePlaceHolderView swipeView;
         private String venueId;
+        List<String> nayList;
+        List<String> yayList;
+        HashMap<String, List<String>> vote;
 
 
         public VenueCardView(Context context, Venue venue, SwipePlaceHolderView swipeView) {
@@ -164,6 +170,26 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
             Log.d("image testing:", " " + venue.getVenue_photo_url());
             this.swipeView = swipeView;
             venueId = venue.getVenue_id();
+            if(venue.getVenue_vote() == null) {
+                vote = new HashMap<>();
+                venue.setVenue_vote(vote);
+            } else{
+                vote = venue.getVenue_vote();
+            }
+            if (vote.get("nay") == null){
+                nayList = new ArrayList<>();
+                vote.put("nay", nayList);
+            } else{
+                nayList = venue.getVenue_vote().get("nay");
+            }
+            if (vote.get("yay") == null){
+                yayList = new ArrayList<>();
+                vote.put("yay", yayList);
+            } else{
+                yayList = venue.getVenue_vote().get("nay");
+            }
+
+
 
         }
 
@@ -181,13 +207,12 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
 
         @SwipeOut
         private void onSwipedOut(){
-            Log.d("EVENT", "onSwipedOut");
-            HashMap<String, String> vote = new HashMap<>();
-            vote.put("nay", CurrentUser.getInstance().getUserID());
+            Log.d("Venue Vote", "onSwipedOut");
+            nayList.add(CurrentUser.getInstance().getUserID());
+
             venue.setVenue_vote(vote);
             venueHashMap.put(venueId, venue);
             //swipeView.addView(this);
-
         }
 
         @SwipeCancelState
@@ -197,10 +222,9 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
 
         @SwipeIn
         private void onSwipeIn(){
-            Log.d("EVENT", "onSwipedIn");
-            HashMap<String, String> vote = new HashMap<>();
-            vote.put("yay", CurrentUser.getInstance().getUserID());
-            venue.setVenue_vote(vote);
+            Log.d("Venue vote", "onSwipedIn");
+            yayList.add(CurrentUser.getInstance().getUserID());
+            vote.put("yay", yayList);
             venueHashMap.put(venueId, venue);
         }
 
