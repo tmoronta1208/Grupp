@@ -26,6 +26,7 @@ public class Constants {
     public static final String AMENITY_PREFS ="amenity_preferences";
     public static final String SENT = "Request sent";
     public static final String USER_EVENTS = "user_events";
+    public static final String USER_EVENTS_LIST = "user_event_list";
     public static final String USER_FRIENDS = "user_friends";
     public static final String USER_ICON = "user_icon";
     public static final String USER_SEARCH = "user_search";
