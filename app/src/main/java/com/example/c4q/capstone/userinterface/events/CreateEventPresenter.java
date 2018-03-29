@@ -206,10 +206,6 @@ public class CreateEventPresenter {
     public String setFinalizedEvent(){
         key = currentUserPost.newEventKey();
         List<String> confirmedGuest = new ArrayList<>();
-        /*List<String> invitedGuest = new ArrayList<>();
-        invitedGuest.addAll(createEventPTSingleton.getInvitedGuests());
-        invitedGuest.add(currentUser.getUserID());*/
-
         confirmedGuest.add(currentUser.getUserID());
         newEvent.setEvent_id(createEventPTSingleton.getEventID());
         newEvent.setEvent_name(createEventPTSingleton.getEventName());

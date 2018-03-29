@@ -81,11 +81,14 @@ public class CurrentUserUtility {
         this.currentUserListener = currentUserListener;
         currentUserExists = setCurrentUserID();
         if (currentUserExists) {
-            /**
-             * this needs to be called after sign in
-             */
+            getCurrentPrivateUser();
+            getCurrentPublicUser();
             getCurrentUserFriendIDs();
             getCurrentUserEventIds();
+            getCurrentUserEventInviteMap();
+            getCurrentUserEventMap();
+            getCurrentUserFriends();
+            getCurrentUserEvents();
         }
     }
 
@@ -107,7 +110,7 @@ public class CurrentUserUtility {
      * this method gets current private user (Private user object from db) user from the datatbase
      */
 
-    public void getCurrentPrivateUser(final CurrentUserListener listener) {
+    public void getCurrentPrivateUser() {
         ValueEventListener privateUserListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -116,7 +119,7 @@ public class CurrentUserUtility {
                     if (user != null) {
                         userHasPrivateProfile = true;
                         Log.d(TAG, "getPrivateUser: user first name: " + user.getFirst_name());
-                        listener.getPrivateUser(user);
+                        currentUserListener.getPrivateUser(user);
                     } else {
                         userHasPrivateProfile = false;
                     }
@@ -140,7 +143,7 @@ public class CurrentUserUtility {
      * this method gets current private user (Private user object from db) user from the datatbase
      */
 
-    public void getCurrentPublicUser(final CurrentUserListener listener) {
+    public void getCurrentPublicUser() {
             ValueEventListener publicUserListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -149,7 +152,7 @@ public class CurrentUserUtility {
                         if (user != null) {
                             userHasPublicProfile = true;
                             Log.d(TAG, "getPublicUser: user first name: " + user.getFirst_name());
-                            listener.getPublicUser(user);
+                            currentUserListener.getPublicUser(user);
                         } else{
                             userHasPublicProfile = false;
                         }
@@ -227,7 +230,7 @@ public class CurrentUserUtility {
      * ajoxe:
      * this method gets current users friends as public user objects
      */
-    public void getCurrentUserFriends(final CurrentUserListener listener) {
+    public void getCurrentUserFriends() {
         Log.d(TAG, "get current user friends called :");
 
         publicUserReference.addValueEventListener(new ValueEventListener() {
@@ -242,7 +245,7 @@ public class CurrentUserUtility {
                         }
                     }
                     Log.d(TAG, "get current user friends called : list size = " + userFriendsPublicUserList.size());
-                    listener.getUserFriends(userFriendsPublicUserList);
+                    currentUserListener.getUserFriends(userFriendsPublicUserList);
                 }
             }
             @Override
@@ -316,7 +319,7 @@ public class CurrentUserUtility {
      * this method gets current users events as objects
      */
 
-    public void getCurrentUserEvents(final CurrentUserListener listener) {
+    public void getCurrentUserEvents() {
         Log.d(TAG, "get current user events called :");
 
 
@@ -335,7 +338,7 @@ public class CurrentUserUtility {
                                    userEventsList.add(eventsMap.get(s));
                                }
                                //userEventsList.add(event);
-                               listener.getUserEvents(userEventsList);
+                               currentUserListener.getUserEvents(userEventsList);
                            }
 
                         }
@@ -389,40 +392,19 @@ public class CurrentUserUtility {
         });
     }
 
-    /**
-     * ajoxe:
-     * add methods : not complete
-     */
-    public void addUserFriends(final List<String> userFriendsList) {
-        Map<String, Object> userFriendsMap = new HashMap<>();
-        userFriendsMap.put(currentUserID, userFriendsList);
-        firebaseDatabase.child(USER_FRIENDS).updateChildren(userFriendsMap);
-        Log.w(TAG, "addUserFriends: " + userFriendsList.size());
-    }
 
-    /**
-     * ajoxe:
-     * this method adds a single friend to users friend list.
-     * Not tested
-     */
-    public void addSingleUserFriend(final String friendID) {
-        Map<String, Object> userFriendsMap = new HashMap<>();
-        userFriendsMap.put(currentUserID, friendID);
-        firebaseDatabase.child(USER_FRIENDS).updateChildren(userFriendsMap);
-        Log.w(TAG, "add friends" + friendID);
-    }
-
-    /*public void getSingleUserEventList(String userID){
-        userEventsListReference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+    public void getCurrentUserEventMap(){
+        userEventsListReference.child(currentUserID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot != null){
-                    List<UserEvent> userEventList = new ArrayList<>();
+                    Map<String, UserEvent> userEventHashMap= new HashMap<>();
 
                     for (DataSnapshot ds : dataSnapshot.getChildren()){
-                        userEventList.add(ds.getValue(UserEvent.class));
+                        UserEvent userEvent = ds.getValue(UserEvent.class);
+                        userEventHashMap.put(userEvent.getEvent_id(), userEvent);
                     }
-                    currentUserListener.getUserEventList(userEventList);
+                    currentUserListener.getUserEventList(userEventHashMap);
                 }
             }
 
@@ -431,8 +413,30 @@ public class CurrentUserUtility {
 
             }
         });
+    }
 
-    }*/
+    public void getCurrentUserEventInviteMap(){
+        eventInviteListReference.child(currentUserID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot != null){
+                    Map<String, UserEvent> eventInviteHashMap = new HashMap<>();
+
+                    for (DataSnapshot ds : dataSnapshot.getChildren()){
+                        UserEvent userEvent = ds.getValue(UserEvent.class);
+                        eventInviteHashMap.put(userEvent.getEvent_id(), userEvent);
+
+                    }
+                    currentUserListener.getUserEventList(eventInviteHashMap);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     public void getSingleUserEventList(String userID, final UserEventListener userEventListener){
         userEventsListReference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {

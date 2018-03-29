@@ -11,6 +11,7 @@ import com.example.c4q.capstone.utils.currentuser.CurrentUserUtility;
 import com.example.c4q.capstone.utils.currentuser.RealTimeEventsListener;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by amirahoxendine on 3/23/18.
@@ -29,6 +30,8 @@ public class CurrentUser {
     private  List<PublicUser> userFriendsList;
     private  List<Events> userEventsList;
     private  List<String> userFriendIDList;
+    private Map<String, UserEvent> currentUserEventMap;
+    private Map<String, UserEvent> currentUserEventInviteMap;
     private  List<String> userEventIDList;
     private boolean currentUserExists;
     private boolean userHasFriends;
@@ -49,8 +52,8 @@ public class CurrentUser {
     private void createUser(Boolean userExists){
         Log.d(TAG, "create user called");
         if(userExists){
-            setCurrentPrivateUser();
-            setCurrentPublicUser();
+            //setCurrentPrivateUser();
+           // setCurrentPublicUser();
         }
     }
 
@@ -117,21 +120,6 @@ public class CurrentUser {
         userUtility.getRealTimeCurrentUserEvents(listener);
     }
 
-    private void setCurrentPublicUser(){
-        userUtility.getCurrentPublicUser(userListener);
-    }
-
-    private void setCurrentPrivateUser() {
-        userUtility.getCurrentPrivateUser(userListener);
-
-    }
-
-    private void setUserFriendsList(){
-        userUtility.getCurrentUserFriends(userListener);
-    }
-    private void setUserEventsList(){
-        userUtility.getCurrentUserEvents(userListener);
-    }
     private void setUserListener(){
         userListener = new CurrentUserListener() {
             @Override
@@ -173,7 +161,7 @@ public class CurrentUser {
                 userHasFriends = hasFriends;
                 Log.d(TAG, "user has friends: " + userHasFriends);
                 if (userHasFriends){
-                    setUserFriendsList();
+                    //setUserFriendsList();
                 }
             }
 
@@ -182,14 +170,14 @@ public class CurrentUser {
                 userHasEvents = hasEvents;
                 Log.d(TAG, "user has events: " + userHasEvents);
                 if(userHasEvents){
-                    setUserEventsList();
+                    //setUserEventsList();
                 }
             }
 
             @Override
             public void setUser(Boolean userInDB, String id) {
-                createUser(userInDB);
                 currentUserExists = userInDB;
+                createUser(userInDB);
                 Log.d(TAG, "user in database: " + currentUserExists);
                 userID = id;
                 Log.d(TAG, "user id: " + userID);
@@ -198,16 +186,33 @@ public class CurrentUser {
             @Override
             public void getUserFriendIDs(List<String> friendIds) {
                 userFriendIDList = friendIds;
+                if (userFriendIDList != null){
+                    Log.d(TAG, "user friend id list size : " + userFriendIDList.size());
+                }
             }
 
             @Override
             public void getUserEventIDs(List<String> eventIds) {
                 userEventIDList = eventIds;
+                if (userEventIDList != null){
+                    Log.d(TAG, "user events id list size : " + userEventIDList.size());
+                }
             }
 
             @Override
-            public void getUserEventList(List<UserEvent> userEvents) {
-                //todo get user event list
+            public void getUserEventList(Map<String, UserEvent> userEventMap) {
+                currentUserEventMap = userEventMap;
+                if (currentUserEventMap != null){
+                    Log.d(TAG, "user events size : " + currentUserEventMap.size());
+                }
+            }
+
+            @Override
+            public void eventInviteList(Map<String, UserEvent> userEventMap) {
+                currentUserEventInviteMap = userEventMap;
+                if (currentUserEventInviteMap != null){
+                    Log.d(TAG, "user invites : " + currentUserEventInviteMap.size());
+                }
             }
 
         };
