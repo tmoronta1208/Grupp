@@ -43,25 +43,28 @@ public class CreateEventPresenter {
     }
 
     public void sendEventToFireBase(EventFragmentListener listener){
-       key = setFinalizedEvent();
+        if(validateEvent()){
+            key = setFinalizedEvent();
+            Log.d(TAG, "event key : " + key);
+            listener.getEventIdKEy(key);
+            makeNetworkCall(createEventPTSingleton.getInvitedFriendsUserList());
+            Log.d(TAG, "post event called");
+            currentUserPost.postNewEvent(key, newEvent);
+            UserEvent userEvent = creatUserEventFromEvent(newEvent);
+            currentUserPost.postEventToUserEventList(key, currentUser.getUserID(),userEvent);
+            sendInvites(userEvent, newEvent);
+        }
 
-       Log.d(TAG, "event key : " + key);
-       listener.getEventIdKEy(key);
-       makeNetworkCall(createEventPTSingleton.getInvitedFriendsUserList());
-        Log.d(TAG, "post event called");
-       currentUserPost.postNewEvent(key, newEvent);
-       UserEvent userEvent = creatUserEventFromEvent(newEvent);
-       currentUserPost.postEventToUserEventList(key, currentUser.getUserID(),userEvent);
-       sendInvites(userEvent, newEvent);
     }
 
     public void sendInvites(UserEvent userEvent, Events events){
-        List<String> invitedGuests = new ArrayList<>();
-        invitedGuests.addAll(events.getInvited_guests());
-        invitedGuests.remove(currentUser.getUserID());
-        for (String guest: invitedGuests){
-            currentUserPost.postEventToUserInvitations(key, guest,userEvent);
-        }
+
+            List<String> invitedGuests = new ArrayList<>();
+            invitedGuests.addAll(events.getInvited_guests());
+            invitedGuests.remove(currentUser.getUserID());
+            for (String guest: invitedGuests){
+                currentUserPost.postEventToUserInvitations(key, guest,userEvent);
+            }
 
     }
 
@@ -159,7 +162,6 @@ public class CreateEventPresenter {
     public void setEventGuests(List<String> invitedGuests){
         createEventPTSingleton.setInvitedGuests(invitedGuests);
         eventGuestsSet = true;
-        friendsDone = true;
         Log.d(TAG, "invite size" + invitedGuests.size());
         validateEvent();
     }
@@ -167,7 +169,7 @@ public class CreateEventPresenter {
         return friendsDone;
     }
     public boolean validateNameDone(){
-        return eventTimeSet && eventDateSet && eventNameSet;
+        return eventTimeSet && eventDateSet && eventNameSet && eventGuestsSet;
     }
 
     public void setEventNote(String note){
@@ -179,13 +181,24 @@ public class CreateEventPresenter {
 
     public boolean validateEvent(){
         boolean validEvent = false;
-        if (eventTimeSet && eventNameSet && eventDateSet){
-            Log.d(TAG, "create event: event valid");
+        if (createEventPTSingleton.getInvitedFriendsUserList() != null
+                && createEventPTSingleton.getInvitedFriendsUserList().size() != 0 ){
+            eventGuestsSet = true;
+        }
+        if (eventTimeSet && eventNameSet && eventDateSet && eventGuestsSet){
+            Log.d(TAG, "create event: event valid - event guests set" + eventGuestsSet);
+            Log.d(TAG, "create event: event valid - event date set" + eventDateSet);
+            Log.d(TAG, "create event: event valid - event time set" + eventTimeSet);
+            Log.d(TAG, "create event: event valid - event name set" + eventNameSet);
 
             validEvent = true;
 
         } else {
             Log.d(TAG, "create event: event not valid");
+            Log.d(TAG, "create event: event not valid - event guests set" + eventGuestsSet);
+            Log.d(TAG, "create event: event not valid - event date set" + eventDateSet);
+            Log.d(TAG, "create event: event  not valid - event time set" + eventTimeSet);
+            Log.d(TAG, "create event: event not  valid - event name set" + eventNameSet);
         }
         return validEvent;
     }
@@ -193,9 +206,9 @@ public class CreateEventPresenter {
     public String setFinalizedEvent(){
         key = currentUserPost.newEventKey();
         List<String> confirmedGuest = new ArrayList<>();
-        List<String> invitedGuest = new ArrayList<>();
+        /*List<String> invitedGuest = new ArrayList<>();
         invitedGuest.addAll(createEventPTSingleton.getInvitedGuests());
-        invitedGuest.add(currentUser.getUserID());
+        invitedGuest.add(currentUser.getUserID());*/
 
         confirmedGuest.add(currentUser.getUserID());
         newEvent.setEvent_id(createEventPTSingleton.getEventID());
@@ -205,7 +218,7 @@ public class CreateEventPresenter {
         newEvent.setEvent_date(createEventPTSingleton.getEventDate());
         newEvent.setVenue_type(createEventPTSingleton.getEventVenueType());
         newEvent.setEvent_note(createEventPTSingleton.getEventNote());
-        newEvent.setInvited_guests(invitedGuest);
+        newEvent.setInvited_guests(createEventPTSingleton.getInvitedGuests());
         newEvent.setEvent_organizer(currentUser.getUserID());
         newEvent.setConfirmed_guests(confirmedGuest);
         if (createEventPTSingleton.getInvitedFriendsUserList() != null){

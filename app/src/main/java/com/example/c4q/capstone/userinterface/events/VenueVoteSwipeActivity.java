@@ -78,7 +78,6 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
                 if(count == 0) {
                     currentEvent.setVenue_map(venueHashMap);
                     String id = currentEvent.getEvent_id();
-                    CurrentUserPost.getInstance().postNewEvent(id, currentEvent);
                     Intent eventIntent = new Intent(VenueVoteSwipeActivity.this, EventActivity.class);
                     eventIntent.putExtra("eventID", eventID);
                     eventIntent.putExtra("eventType", eventType);
