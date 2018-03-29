@@ -47,10 +47,10 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mfirebaseAuth = FirebaseAuth.getInstance();
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth.AuthStateListener mAuthListner;
-    private PublicUser publicUser;
-    private String currentUserID;
-    private DatabaseReference publicUserDatabaseReference, searchUserReference;
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+//    private PublicUser publicUser;
+//    private String currentUserID;
+//    private DatabaseReference publicUserDatabaseReference, searchUserReference;
+//    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
 
     @Override
@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         emailLogInButton = findViewById(R.id.btn_login);
 
 
-        publicUserDatabaseReference = firebaseDatabase.getReference().child(Constants.PUBLIC_USER);
+//        publicUserDatabaseReference = firebaseDatabase.getReference().child(Constants.PUBLIC_USER);
 //        getUserData();
 
 
