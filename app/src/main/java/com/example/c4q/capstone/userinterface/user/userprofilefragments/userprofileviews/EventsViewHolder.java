@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.database.events.Events;
 
 
 /**
@@ -15,6 +14,7 @@ import com.example.c4q.capstone.database.events.Events;
 
 public class EventsViewHolder extends RecyclerView.ViewHolder {
     private TextView event_name;
+    private Context eventContext;
 
     public EventsViewHolder(View itemView) {
         super(itemView);
@@ -23,5 +23,10 @@ public class EventsViewHolder extends RecyclerView.ViewHolder {
     public void setEvent_name(String name) {
         event_name = itemView.findViewById(R.id.event_name);
         event_name.setText(name);
+    }
+
+    public Context getEventContext() {
+        eventContext = itemView.getContext();
+        return eventContext;
     }
 }
