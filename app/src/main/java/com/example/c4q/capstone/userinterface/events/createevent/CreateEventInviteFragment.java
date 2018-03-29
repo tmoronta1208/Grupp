@@ -5,13 +5,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
@@ -33,7 +31,7 @@ public class CreateEventInviteFragment extends Fragment {
 
     View rootView;
     FrameLayout inviteGuestsContainer;
-    private CreateEventPTSingleton createEventPTSingleton;
+    private NewEventBuilder newEventBuilder;
     CreateEventPresenter eventPresenter;
     RecyclerView recyclerView;
     ContactListAdapter contactListAdapter;
@@ -48,7 +46,7 @@ public class CreateEventInviteFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static CreateEventInviteFragment newInstance(CreateEventPTSingleton eventPTSingleton) {
+    public static CreateEventInviteFragment newInstance(NewEventBuilder eventPTSingleton) {
         CreateEventInviteFragment fragment = new CreateEventInviteFragment();
         fragment.loadEventSingleton(eventPTSingleton);
         return fragment;
@@ -57,7 +55,7 @@ public class CreateEventInviteFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        eventPresenter = new CreateEventPresenter(CreateEventPTSingleton.getInstance());
+        eventPresenter = new CreateEventPresenter(NewEventBuilder.getInstance());
     }
 
     @Override
@@ -78,12 +76,13 @@ public class CreateEventInviteFragment extends Fragment {
 
     public void getFriendUsers(){
         friendsUserList = CurrentUser.getInstance().getUserFriendsList();
+        Log.d("invite frag", "user list" + friendsUserList.size());
         friendsAdapter.notifyDataSetChanged();
     }
 
-    public void loadEventSingleton(CreateEventPTSingleton eventPTSingleton){
-        createEventPTSingleton = eventPTSingleton;
-        eventPresenter = new CreateEventPresenter(createEventPTSingleton);
+    public void loadEventSingleton(NewEventBuilder eventPTSingleton){
+        newEventBuilder = eventPTSingleton;
+        eventPresenter = new CreateEventPresenter(newEventBuilder);
     }
     private void setOnClick(){
         listener = new View.OnClickListener() {
@@ -93,7 +92,7 @@ public class CreateEventInviteFragment extends Fragment {
                 friendIdInvite.add(v.getTag().toString());
                 List<String> friendId = new ArrayList<>();
                 friendId.addAll(friendIdInvite);
-                createEventPTSingleton.setInvitedGuests(friendId);
+                newEventBuilder.setInvitedGuests(friendId);
                 eventPresenter.setEventGuests(friendId);
             }
         };

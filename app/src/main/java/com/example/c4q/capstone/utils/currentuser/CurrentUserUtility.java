@@ -87,8 +87,8 @@ public class CurrentUserUtility {
             getCurrentUserEventIds();
             getCurrentUserEventInviteMap();
             getCurrentUserEventMap();
-            getCurrentUserFriends();
-            getCurrentUserEvents();
+            //getCurrentUserFriends();
+            //getCurrentUserEvents();
         }
     }
 
@@ -193,6 +193,7 @@ public class CurrentUserUtility {
                     Log.d(TAG, "getCurrentUserFriendIds: user has friends:" + userHasFriends);
                     currentUserListener.userHasFriends(userHasFriends);
                     currentUserListener.getUserFriendIDs(userFriendIds);
+                    getCurrentUserFriends();
                 }
 
                 @Override
@@ -280,6 +281,7 @@ public class CurrentUserUtility {
                 Log.d(TAG, "getCurrentUserEventIds: user has events: " + userHasEvents);
                 currentUserListener.userHasEvents(userHasEvents);
                 currentUserListener.getUserEventIDs(userEventIDs);
+                getCurrentUserEvents();
             }
 
             @Override

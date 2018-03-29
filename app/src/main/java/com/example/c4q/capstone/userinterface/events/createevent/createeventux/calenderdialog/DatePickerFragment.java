@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.userinterface.events.CreateEventPresenter;
-import com.example.c4q.capstone.userinterface.events.createevent.CreateEventPTSingleton;
 
 import java.util.Calendar;
 

@@ -4,6 +4,7 @@ import android.os.Build;
 import android.util.Log;
 import android.widget.TimePicker;
 
+import com.example.c4q.capstone.database.events.EventGuest;
 import com.example.c4q.capstone.database.events.Events;
 import com.example.c4q.capstone.database.events.UserEvent;
 import com.example.c4q.capstone.database.events.Venue;
@@ -11,7 +12,8 @@ import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.network.FourSquareDetailListener;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.CurrentUserPost;
-import com.example.c4q.capstone.userinterface.events.createevent.CreateEventPTSingleton;
+import com.example.c4q.capstone.userinterface.events.createevent.NewEventBuilder;
+import com.example.c4q.capstone.userinterface.events.createevent.NewEventConverter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,12 +35,13 @@ public class CreateEventPresenter {
     public String timeOfEvent;
     public String dateTime = "";
     private static String TAG = "CREATE_EVENT_PRES: ";
-    List<String> dummyUsers;
-    CreateEventPTSingleton createEventPTSingleton;
+    NewEventBuilder newEventBuilder;
+    NewEventConverter newEventConverter = new NewEventConverter();
     String key;
+    HashMap<String, EventGuest> eventGuestHashMap;
 
-    public CreateEventPresenter(CreateEventPTSingleton eventPTSingleton){
-        createEventPTSingleton = eventPTSingleton;
+    public CreateEventPresenter(NewEventBuilder eventPTSingleton){
+        newEventBuilder = eventPTSingleton;
         newEvent = new Events();
     }
 
@@ -47,25 +50,24 @@ public class CreateEventPresenter {
             key = setFinalizedEvent();
             Log.d(TAG, "event key : " + key);
             listener.getEventIdKEy(key);
-            makeNetworkCall(createEventPTSingleton.getInvitedFriendsUserList());
+            makeNetworkCall(newEventBuilder.getInvitedFriendsUserList());
             Log.d(TAG, "post event called");
+
             currentUserPost.postNewEvent(key, newEvent);
-            UserEvent userEvent = creatUserEventFromEvent(newEvent);
+            //UserEvent userEvent = creatUserEventFromEvent(newEvent);
+            UserEvent userEvent = newEventConverter.creatUserEventFromEvent(newEvent);
             currentUserPost.postEventToUserEventList(key, currentUser.getUserID(),userEvent);
             sendInvites(userEvent, newEvent);
         }
-
     }
 
     public void sendInvites(UserEvent userEvent, Events events){
-
             List<String> invitedGuests = new ArrayList<>();
             invitedGuests.addAll(events.getInvited_guests());
             invitedGuests.remove(currentUser.getUserID());
             for (String guest: invitedGuests){
                 currentUserPost.postEventToUserInvitations(key, guest,userEvent);
             }
-
     }
 
     private void makeNetworkCall(List<PublicUser> eventGuests){
@@ -116,7 +118,7 @@ public class CreateEventPresenter {
     }
 
     public void setEventName(String eventName){
-        createEventPTSingleton.setEventName(eventName);
+        newEventBuilder.setEventName(eventName);
         eventNameSet = true;
         Log.d(TAG, "event name : " + eventName);
         eventNameSet = true;
@@ -127,7 +129,7 @@ public class CreateEventPresenter {
         dateOfEvent = date;
         eventDateSet = true;
         Log.d(TAG, "event date  set: " + dateOfEvent);
-        createEventPTSingleton.setEventDate(dateOfEvent);
+        newEventBuilder.setEventDate(dateOfEvent);
         setDateAndTime();
         validateEvent();
     }
@@ -139,7 +141,7 @@ public class CreateEventPresenter {
         } else {
             timeOfEvent = String.valueOf(timePicker.getHour()) + ":" + String.valueOf(timePicker.getMinute());
         }
-        createEventPTSingleton.setEventTime(timeOfEvent);
+        newEventBuilder.setEventTime(timeOfEvent);
         setDateAndTime();
         eventTimeSet = true;
         validateEvent();
@@ -150,17 +152,17 @@ public class CreateEventPresenter {
     public void setDateAndTime(){
         dateTime = "";
         StringBuilder sb = new StringBuilder(dateTime);
-        if (createEventPTSingleton.getEventDate() != null) {
-            sb.append("Date: ").append(createEventPTSingleton.getEventDate()).append(" ");
+        if (newEventBuilder.getEventDate() != null) {
+            sb.append("Date: ").append(newEventBuilder.getEventDate()).append(" ");
         }
-        if (createEventPTSingleton.getEventTime() != null){
-            sb.append("Time: ").append(createEventPTSingleton.getEventTime());
+        if (newEventBuilder.getEventTime() != null){
+            sb.append("Time: ").append(newEventBuilder.getEventTime());
         }
         dateTime = sb.toString();
     }
 
     public void setEventGuests(List<String> invitedGuests){
-        createEventPTSingleton.setInvitedGuests(invitedGuests);
+        newEventBuilder.setInvitedGuests(invitedGuests);
         eventGuestsSet = true;
         Log.d(TAG, "invite size" + invitedGuests.size());
         validateEvent();
@@ -173,7 +175,7 @@ public class CreateEventPresenter {
     }
 
     public void setEventNote(String note){
-        createEventPTSingleton.setEventNote(note);
+        newEventBuilder.setEventNote(note);
         Log.d(TAG, "event type" + note);
         eventNoteSet = true;
         validateEvent();
@@ -181,8 +183,8 @@ public class CreateEventPresenter {
 
     public boolean validateEvent(){
         boolean validEvent = false;
-        if (createEventPTSingleton.getInvitedFriendsUserList() != null
-                && createEventPTSingleton.getInvitedFriendsUserList().size() != 0 ){
+        if (newEventBuilder.getInvitedFriendsUserList() != null
+                && newEventBuilder.getInvitedFriendsUserList().size() != 0 ){
             eventGuestsSet = true;
         }
         if (eventTimeSet && eventNameSet && eventDateSet && eventGuestsSet){
@@ -207,23 +209,30 @@ public class CreateEventPresenter {
         key = currentUserPost.newEventKey();
         List<String> confirmedGuest = new ArrayList<>();
         confirmedGuest.add(currentUser.getUserID());
-        newEvent.setEvent_id(createEventPTSingleton.getEventID());
-        newEvent.setEvent_name(createEventPTSingleton.getEventName());
-        newEvent.setEvent_note(createEventPTSingleton.getEventNote());
-        newEvent.setEvent_time(createEventPTSingleton.getEventTime());
-        newEvent.setEvent_date(createEventPTSingleton.getEventDate());
-        newEvent.setVenue_type(createEventPTSingleton.getEventVenueType());
-        newEvent.setEvent_note(createEventPTSingleton.getEventNote());
-        newEvent.setInvited_guests(createEventPTSingleton.getInvitedGuests());
+        newEvent.setEvent_id(newEventBuilder.getEventID());
+        newEvent.setEvent_name(newEventBuilder.getEventName());
+        newEvent.setEvent_note(newEventBuilder.getEventNote());
+        newEvent.setEvent_time(newEventBuilder.getEventTime());
+        newEvent.setEvent_date(newEventBuilder.getEventDate());
+        newEvent.setVenue_type(newEventBuilder.getEventVenueType());
+        newEvent.setEvent_note(newEventBuilder.getEventNote());
+        newEvent.setInvited_guests(newEventBuilder.getInvitedGuests());
         newEvent.setEvent_organizer(currentUser.getUserID());
         newEvent.setConfirmed_guests(confirmedGuest);
-        if (createEventPTSingleton.getInvitedFriendsUserList() != null){
-            Log.d(TAG, "pub user list size: " + createEventPTSingleton.getInvitedFriendsUserList());
+        if (newEventBuilder.getInvitedFriendsUserList() != null){
+            Log.d(TAG, "pub user list size: " + newEventBuilder.getInvitedFriendsUserList());
+            eventGuestHashMap = new HashMap<>();
+            eventGuestHashMap = newEventConverter.guestMapFromPubUser(newEventBuilder.getInvitedFriendsUserList(), false);
+            EventGuest currentUserGuest = newEventConverter.eventGuestFromPUblicUser(CurrentUser.getInstance().getCurrentPublicUser(), true);
+            eventGuestHashMap.put(currentUser.getUserID(),currentUserGuest);
+            newEventBuilder.setEventGuestMap(eventGuestHashMap);
+
         } else{
             Log.d(TAG, "pub user list is null");
         }
+        newEvent.setEvent_guest_map(eventGuestHashMap);
         newEvent.setEvent_id(key);
-        Log.d(TAG, "event type" + createEventPTSingleton.getEventVenueType());
+        Log.d(TAG, "event type" + newEventBuilder.getEventVenueType());
         return key;
     }
 

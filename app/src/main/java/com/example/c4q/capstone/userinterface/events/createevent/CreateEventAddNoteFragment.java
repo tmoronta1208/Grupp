@@ -23,7 +23,7 @@ import com.example.c4q.capstone.userinterface.events.createevent.createeventux.E
  * A simple {@link Fragment} subclass.
  */
 public class CreateEventAddNoteFragment extends Fragment {
-    CreateEventPTSingleton createEventPTSingleton;
+    NewEventBuilder newEventBuilder;
     CreateEventPresenter eventPresenter;
     EditTextUX editTextUX;
     EditText addNote;
@@ -34,16 +34,16 @@ public class CreateEventAddNoteFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static CreateEventAddNoteFragment newInstance(CreateEventPTSingleton createEventPTSingleton) {
+    public static CreateEventAddNoteFragment newInstance(NewEventBuilder newEventBuilder) {
         CreateEventAddNoteFragment fragment = new CreateEventAddNoteFragment();
-        fragment.loadeEventSingleton(createEventPTSingleton);
+        fragment.loadeEventSingleton(newEventBuilder);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        eventPresenter = new CreateEventPresenter(CreateEventPTSingleton.getInstance());
+        eventPresenter = new CreateEventPresenter(NewEventBuilder.getInstance());
     }
 
 
@@ -74,13 +74,13 @@ public class CreateEventAddNoteFragment extends Fragment {
         intent.putExtra("eventID", eventID);
         intent.putExtra("eventType", "new");
         startActivity(intent);
-        createEventPTSingleton.destroyInstance();
+        newEventBuilder.destroyInstance();
         getActivity().finish();
     }
 
-    public void loadeEventSingleton(CreateEventPTSingleton eventPTSingleton){
-        createEventPTSingleton = eventPTSingleton;
-        eventPresenter = new CreateEventPresenter(createEventPTSingleton);
+    public void loadeEventSingleton(NewEventBuilder eventPTSingleton){
+        newEventBuilder = eventPTSingleton;
+        eventPresenter = new CreateEventPresenter(newEventBuilder);
     }
 
     public void setETActionListener(final EditText editText){
