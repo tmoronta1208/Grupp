@@ -2,18 +2,12 @@ package com.example.c4q.capstone.userinterface.events;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.SupportActivity;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -24,16 +18,14 @@ import android.widget.TextView;
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.events.Events;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
-import com.example.c4q.capstone.userinterface.events.eventfragments.SingleEventFragment;
-import com.example.c4q.capstone.userinterface.events.eventfragments.UserFriendsFragment;
-import com.example.c4q.capstone.userinterface.navdrawer.NavDrawerPresenter;
+import com.example.c4q.capstone.userinterface.events.eventfragments.InvitedFriendsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class EventActivity extends AppCompatActivity {
 
-    SingleEventFragment singleEventFragment = new SingleEventFragment();
+
     Intent intent;
 
     String eventID;
@@ -50,7 +42,7 @@ public class EventActivity extends AppCompatActivity {
     List<String> invitedFriendsList;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
-    UserFriendsFragment userFriendsFragment;
+    InvitedFriendsFragment invitedFriendsFragment;
 
 
     /**
@@ -72,10 +64,10 @@ public class EventActivity extends AppCompatActivity {
         intent = getIntent();
         eventID = intent.getStringExtra("eventID");
         eventType = intent.getStringExtra("eventType");
-        userFriendsFragment = new UserFriendsFragment();
+        invitedFriendsFragment = new InvitedFriendsFragment();
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.event_fragment_container, userFriendsFragment);
+        fragmentTransaction.replace(R.id.event_fragment_container, invitedFriendsFragment);
         fragmentTransaction.commit();
 
         defineViews();
@@ -192,7 +184,7 @@ public class EventActivity extends AppCompatActivity {
         if(invitedFriendsList != null && invitedFriendsList.size() != 0){
             invitedFriends.addAll(invitedFriendsList);
             Log.d ("Event Fragment", "invited list array size:" + invitedFriendsList.size());
-            userFriendsFragment.getFriendUsers(invitedFriends);
+            invitedFriendsFragment.getFriendUsers(invitedFriends);
         }
 
 

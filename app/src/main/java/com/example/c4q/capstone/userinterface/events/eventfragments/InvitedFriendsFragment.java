@@ -13,25 +13,16 @@ import android.widget.TextView;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
-import com.example.c4q.capstone.userinterface.CurrentUser;
-import com.example.c4q.capstone.userinterface.events.CreateEventPresenter;
-import com.example.c4q.capstone.userinterface.events.EventPresenter;
-import com.example.c4q.capstone.userinterface.events.createevent.CreateEventAddNameFragment;
-import com.example.c4q.capstone.userinterface.events.createevent.CreateEventPTSingleton;
-import com.example.c4q.capstone.userinterface.events.eventsrecyclerviews.FriendsAdapter;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller.ContactListAdapter;
 import com.example.c4q.capstone.utils.FBUserDataListener;
 import com.example.c4q.capstone.utils.FBUserDataUtility;
-import com.example.c4q.capstone.utils.FBUserFriendsListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UserFriendsFragment extends Fragment {
+public class InvitedFriendsFragment extends Fragment {
     View rootView;
     RecyclerView recyclerView;
     ContactListAdapter contactListAdapter;
@@ -44,13 +35,13 @@ public class UserFriendsFragment extends Fragment {
     Boolean listIsNull;
     TextView noInvitedFriends;
 
-    public UserFriendsFragment() {
+    public InvitedFriendsFragment() {
         // Required empty public constructor
     }
 
-    public static UserFriendsFragment newInstance(ArrayList<String> invitedFriends) {
+    public static InvitedFriendsFragment newInstance(ArrayList<String> invitedFriends) {
         Log.d ("UserFriends Fragment", "invited list array size:" + invitedFriends.size());
-        UserFriendsFragment fragment = new UserFriendsFragment();
+        InvitedFriendsFragment fragment = new InvitedFriendsFragment();
         Bundle userFragBundle = new Bundle();
         userFragBundle.putStringArrayList("invitedFriends", invitedFriends);
         fragment.setArguments(userFragBundle);
@@ -107,7 +98,8 @@ public class UserFriendsFragment extends Fragment {
     }
 
     public void convertIdsToUsers(ArrayList<String> invitedList){
-        friendsUserIDList = invitedList;
+        friendsUserIDList = new ArrayList<>();
+        friendsUserIDList.addAll(invitedList);
         Log.d ("UserFriends Fragment", "convertIdsTousers");
         if (friendsUserIDList != null) {
             if (friendsUserIDList.size() != 0) {
