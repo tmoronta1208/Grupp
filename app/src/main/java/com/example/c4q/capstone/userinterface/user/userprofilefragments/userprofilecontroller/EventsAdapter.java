@@ -1,62 +1,34 @@
 package com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller;
 
-import android.content.Context;
-import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.events.Events;
-import com.example.c4q.capstone.userinterface.events.EventActivity;
-import com.example.c4q.capstone.userinterface.events.createevent.CreateEventAddNameFragment;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews.EventsViewHolder;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.Query;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by melg on 3/18/18.
  */
 
-public class EventsAdapter extends RecyclerView.Adapter<EventsViewHolder> {
-    List<Events> eventsList = new ArrayList<>();
-    Context context;
+public class EventsAdapter extends FirebaseRecyclerAdapter<Events,EventsViewHolder> {
 
-       /*constructor to take in list and context from retrofit call*/
+    /**
+     * @param modelClass      Firebase will marshall the data at a location into
+     *                        an instance of a class that you provide
+     * @param modelLayout     This is the layout used to represent a single item in the list.
+     *                        You will be responsible for populating an instance of the corresponding
+     *                        view with the data from an instance of modelClass.
+     * @param viewHolderClass The class that hold references to all sub-views in an instance modelLayout.
+     * @param ref             The Firebase location to watch for data changes. Can also be a slice of a location,
+     *                        using some combination of {@code limit()}, {@code startAt()}, and {@code endAt()}.
+     */
 
-        public EventsAdapter(List<Events> eventsList, Context context){
-            this.context = context;
-            this.eventsList = eventsList;
-
-
+    public EventsAdapter(Class<Events> modelClass, int modelLayout, Class<EventsViewHolder> viewHolderClass, Query ref) {
+        super(modelClass, modelLayout, viewHolderClass, ref);
     }
 
     @Override
-    public EventsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.events_item_view, parent, false);
-        return new EventsViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(EventsViewHolder holder, int position) {
-            final Events event = eventsList.get(position);
-        holder.onBind(eventsList.get(position));
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String eventID = event.getEvent_id();
-                Intent intent = new Intent(context, EventActivity.class);
-                intent.putExtra("eventID", eventID);
-                intent.putExtra("eventType", "notNew");
-                context.startActivity(intent);
-            }
-        });
-    }
-
-    @Override
-    public int getItemCount() {
-        return eventsList.size();
+    protected void populateViewHolder(EventsViewHolder viewHolder, Events model, int position) {
+        viewHolder.setEvent_name(model.getEvent_name());
     }
 }

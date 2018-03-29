@@ -14,20 +14,14 @@ import com.example.c4q.capstone.database.events.Events;
  */
 
 public class EventsViewHolder extends RecyclerView.ViewHolder {
-    private TextView eventName;
-    private View linearLayout;
-    private Context context;
+    private TextView event_name;
 
     public EventsViewHolder(View itemView) {
         super(itemView);
-
-        eventName = itemView.findViewById(R.id.event_name);
-        linearLayout = itemView.findViewById(R.id.linearlayout);
-        context = itemView.getContext();
     }
 
-    public void onBind(Events event) {
-
-        eventName.setText(event.getEvent_name());
+    public void setEvent_name(String name) {
+        event_name = itemView.findViewById(R.id.event_name);
+        event_name.setText(name);
     }
 }
