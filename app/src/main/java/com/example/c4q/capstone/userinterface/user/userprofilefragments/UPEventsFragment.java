@@ -101,14 +101,14 @@ public class UPEventsFragment extends Fragment {
             });
         }*/
 
-        CurrentUser.getInstance().getRealTimeEvents(new RealTimeEventsListener() {
+        /*CurrentUser.getInstance().getRealTimeEvents(new RealTimeEventsListener() {
             @Override
             public void getRealTimeEvents(List<Events> eventList) {
                 listOfEvents.clear();
                 listOfEvents.addAll(eventList);
                 eventsAdapter.notifyDataSetChanged();
             }
-        });
+        });*/
     }
 
 }

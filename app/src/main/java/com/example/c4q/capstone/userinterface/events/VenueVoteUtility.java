@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.c4q.capstone.database.events.Venue;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.example.c4q.capstone.network.FourSquareDetailListener;
 import com.example.c4q.capstone.network.NetworkUtility;
 import com.example.c4q.capstone.network.foursquare.foursquaremodel.Venues;
 import com.example.c4q.capstone.userinterface.CurrentUser;
@@ -110,7 +111,13 @@ public class VenueVoteUtility {
                 finalVenueIdList.addAll(finalVenueIdSet);
                 venueNetworkListener.getFourSVenueIds(finalVenueIdList);
 
-                //venueNetworkListener.getFourSList();
+                NetworkUtility.getNetworkUtility().getFourSquareDetail(finalVenueIdList.get(0), new FourSquareDetailListener() {
+                    @Override
+                    public void getVenueDetail(Venue venueDetail) {
+                        Log.d(TAG, "venue detail listener called" + venueDetail.getVenue_name());
+                    }
+                });
+
             }
         }
 

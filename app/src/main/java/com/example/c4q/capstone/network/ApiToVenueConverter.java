@@ -56,32 +56,25 @@ public class ApiToVenueConverter {
         List<Venue> venueList = new ArrayList<>();
 
         for (int i = 0; i < fourSquareModels.size(); i++) {
-            Venue venue = new Venue();
-            venue.setVenue_name(fourSquareModels.get(i).getName());
-            venue.setVenue_id(fourSquareModels.get(i).getId());
-            venue.setVenue_address(fourSquareModels.get(i).getLocation().getAddress());
+                Venue venue = new Venue();
+                venue.setVenue_name(fourSquareModels.get(i).getName());
+                venue.setVenue_id(fourSquareModels.get(i).getId());
+                venue.setVenue_address(fourSquareModels.get(i).getLocation().getAddress());
             venueList.add(venue);
         }
-
-
-            /*venueList.get(i).setVenue_name(fourSquareModels.get(i).getResponse().getVenues().get(i).getName());
-            venueList.get(i).setVenue_phone(fourSquareModels.get(i).getResponse().getVenues().get(i).getContact().getFormattedPhone());
-            venueList.get(i).setVenue_type(fourSquareModels.get(i).getResponse().getVenues().get(i).getCategories().get(i).getName());*/
-
-//Need to do another service call in order to get the details below
-
-//           venueList.get(i).setHours();
-//           venueList.get(i).setPayment_options();
-//           venueList.get(i).setPrice_range(fourSquareModels.get(i).getResponse().getVenues().get(i).getName());
-//           venueList.get(i).setCover_charge(fourSquareModels.get(i).getResponse().getVenues().get(i).getName());
-//           venueList.get(i).setRating_avg(fourSquareModels.get(i).getResponse().getVenues().get(i).getName());
-//           venueList.get(i).setRating_count(fourSquareModels.get(i).getResponse().getVenues().get(i).getName());
-//           venueList.get(i).setReservations(fourSquareModels.get(i).getResponse().getVenues().get(i).getName());
-
 
         return venueList;
     }
 
+    public Venue fourSDetailToVenue(FourSquareVenueDetail venueDetail){
+        Venue venue = new Venue();
+        venue.setVenue_name(venueDetail.getName());
+        venue.setVenue_id(venueDetail.getId());
+        venue.setVenue_address(venueDetail.getLocation().getAddress());
+        venue.setVenue_photo_url(venueDetail.getBestPhoto().getPrefix() + venueDetail.getBestPhoto().getSuffix());
+        venue.setVenue_url(venueDetail.getUrl());
+        return venue;
+    }
 
 
 
