@@ -23,7 +23,7 @@ public class CurrentUser {
     private CurrentUserListener userListener;
     private CurrentUserUtility userUtility   = new CurrentUserUtility();
 
-    private  String userID;
+    public static final String userID = CurrentUserUtility.setCurrentUserID();
     private  String userFullName;
     private  PrivateUser currentPrivateUser;
     private  PublicUser currentPublicUser;
@@ -179,7 +179,7 @@ public class CurrentUser {
                 currentUserExists = userInDB;
                 createUser(userInDB);
                 Log.d(TAG, "user in database: " + currentUserExists);
-                userID = id;
+
                 Log.d(TAG, "user id: " + userID);
             }
 

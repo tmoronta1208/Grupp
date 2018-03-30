@@ -49,7 +49,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
 
-    private CurrentUser currentUserInstance = CurrentUser.getInstance();
+
 
 
     @Override

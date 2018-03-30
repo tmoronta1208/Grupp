@@ -30,6 +30,8 @@ public class VenueViewHolder extends RecyclerView.ViewHolder {
         venueAddress.setText(venue.getVenue_address());
         if (venue.getVenue_vote() != null){
             venueVoteCount.setText(String.valueOf(venue.getVote_count()));
+        } else {
+            venueVoteCount.setText("not voted yet");
         }
         if (venue.getVenue_photo_url() != null){
             Picasso.with(context)

@@ -26,8 +26,6 @@ import java.util.List;
 
 public class CreateEventPresenter {
     private Events newEvent;
-    CurrentUser currentUser = CurrentUser.getInstance();
-    CurrentUserPost currentUserPost = CurrentUserPost.getInstance();
     private boolean eventNameSet, eventDateSet, eventTimeSet, eventGuestsSet, eventNoteSet;
     private boolean nameDone, friendsDone;
     public String dateOfEvent;
@@ -38,6 +36,7 @@ public class CreateEventPresenter {
     NewEventConverter newEventConverter = new NewEventConverter();
     String key;
     HashMap<String, EventGuest> eventGuestHashMap;
+    String currentUserID = CurrentUser.userID;
 
     public CreateEventPresenter(NewEventBuilder eventPTSingleton){
         newEventBuilder = eventPTSingleton;
@@ -52,10 +51,10 @@ public class CreateEventPresenter {
             makeNetworkCall(newEventBuilder.getInvitedFriendsUserList());
             Log.d(TAG, "post event called");
 
-            currentUserPost.postNewEvent(key, newEvent);
+            CurrentUserPost.getInstance().postNewEvent(key, newEvent);
             //UserEvent userEvent = creatUserEventFromEvent(newEvent);
             UserEvent userEvent = newEventConverter.creatUserEventFromEvent(newEvent);
-            currentUserPost.postEventToUserEventList(key, currentUser.getUserID(),userEvent);
+            CurrentUserPost.getInstance().postEventToUserEventList(key, currentUserID,userEvent);
             sendInvites(userEvent, newEvent);
         }
     }
@@ -63,9 +62,9 @@ public class CreateEventPresenter {
     public void sendInvites(UserEvent userEvent, Events events){
             List<String> invitedGuests = new ArrayList<>();
             invitedGuests.addAll(events.getInvited_guests());
-            invitedGuests.remove(currentUser.getUserID());
+            invitedGuests.remove(currentUserID);
             for (String guest: invitedGuests){
-                currentUserPost.postEventToUserInvitations(key, guest,userEvent);
+                CurrentUserPost.getInstance().postEventToUserInvitations(key, guest,userEvent);
             }
     }
 
@@ -84,7 +83,7 @@ public class CreateEventPresenter {
                     Log.d(TAG, "final venue list size" + fourSquareVenueIds.size());
                     if (fourSquareVenueIds.size() != 0){
                         newEvent.setPotential_venues(fourSquareVenueIds);
-                        currentUserPost.postNewEvent(key, newEvent);
+                        CurrentUserPost.getInstance().postNewEvent(key, newEvent);
                         venueNetworkUtility.getDetailedVenues(fourSquareVenueIds, new FourSquareDetailListener() {
                             @Override
                             public void getVenueDetail(Venue venueDetail) {
@@ -98,7 +97,7 @@ public class CreateEventPresenter {
                                     if( venueDetailMap.size() != 0){
                                         Log.d(TAG, "venue detail list" + venueDetailMap.size());
                                         newEvent.setVenue_map(venueDetailMap);
-                                        currentUserPost.postNewEvent(key, newEvent);
+                                        CurrentUserPost.getInstance().postNewEvent(key, newEvent);
                                     }
                                 } else{
                                     Log.d(TAG, "final venue list is null");
@@ -205,9 +204,9 @@ public class CreateEventPresenter {
     }
 
     public String setFinalizedEvent(){
-        key = currentUserPost.newEventKey();
+        key = CurrentUserPost.getInstance().newEventKey();
         List<String> confirmedGuest = new ArrayList<>();
-        confirmedGuest.add(currentUser.getUserID());
+        confirmedGuest.add(currentUserID);
         newEvent.setEvent_id(newEventBuilder.getEventID());
         newEvent.setEvent_name(newEventBuilder.getEventName());
         newEvent.setEvent_note(newEventBuilder.getEventNote());
@@ -216,14 +215,14 @@ public class CreateEventPresenter {
         newEvent.setVenue_type(newEventBuilder.getEventVenueType());
         newEvent.setEvent_note(newEventBuilder.getEventNote());
         newEvent.setInvited_guests(newEventBuilder.getInvitedGuests());
-        newEvent.setEvent_organizer(currentUser.getUserID());
+        newEvent.setEvent_organizer(currentUserID);
         newEvent.setConfirmed_guests(confirmedGuest);
         if (newEventBuilder.getInvitedFriendsUserList() != null){
             Log.d(TAG, "pub user list size: " + newEventBuilder.getInvitedFriendsUserList());
             eventGuestHashMap = new HashMap<>();
             eventGuestHashMap = newEventConverter.guestMapFromPubUser(newEventBuilder.getInvitedFriendsUserList(), false);
             EventGuest currentUserGuest = newEventConverter.eventGuestFromPUblicUser(CurrentUser.getInstance().getCurrentPublicUser(), true);
-            eventGuestHashMap.put(currentUser.getUserID(),currentUserGuest);
+            eventGuestHashMap.put(currentUserID,currentUserGuest);
             newEventBuilder.setEventGuestMap(eventGuestHashMap);
 
         } else{

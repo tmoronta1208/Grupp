@@ -34,4 +34,9 @@ public class EventPresenter {
         eventDataUtility.getEventFromDB(eventKey, listener);
     }
 
+    public void getSingleValueEventFromDB(String key, final EventDataListener listener) {
+        eventKey = key;
+        eventDataUtility.getSingleValueEventFromDB(eventKey, listener);
+    }
+
 }

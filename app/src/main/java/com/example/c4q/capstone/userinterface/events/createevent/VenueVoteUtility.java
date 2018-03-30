@@ -35,7 +35,7 @@ public class VenueVoteUtility {
         List<EventGuest> guestList = new ArrayList<>();
         guestList.addAll(event.getEvent_guest_map().values());
         for (EventGuest guest : guestList) {
-            if (!guest.hasVoted()) {
+            if (!guest.isVoted()) {
                 return false;
             }
         }
@@ -44,21 +44,26 @@ public class VenueVoteUtility {
 
     private int countVenueVote(Venue venue) {
         yayCount = 0;
-        for (String user : venue.getVenue_vote().keySet()) {
-            if (venue.getVenue_vote().get(user)) {
-                yayCount++;
+        if(venue.getVenue_vote() != null){
+            for (String user : venue.getVenue_vote().keySet()) {
+                if (venue.getVenue_vote().get(user)) {
+                    yayCount++;
+                }
             }
         }
+
         return yayCount;
     }
 
     private HashMap<String, Venue> mapVenueIds(){
+        venueIdMap = new HashMap<>();
         for (Venue venue : event.getVenue_map().values()) {
             venueIdMap.put(venue.getVenue_id(), venue);
         }
         return venueIdMap;
     }
     private HashMap<String, Integer> mapVenueVotes(){
+        venueVoteCountMap = new HashMap<>();
         for (Venue venue : event.getVenue_map().values()) {
             venueVoteCountMap.put(venue.getVenue_id(), countVenueVote(venue));
         }
@@ -73,7 +78,7 @@ public class VenueVoteUtility {
 
     private List<String>orderVenuesByVote() {
        orderedVenueIdList = new ArrayList<>();
-        for (int i = venueIDList.size(); i>0; i--){
+        for (int i = venueIDList.size()-1; i > 0; i--){
             int highestVote = venueVoteCountMap.get(venueIDList.get(i));
             String topVenueId = venueIDList.get(i);
             for (int k = 0; k<i; k++){

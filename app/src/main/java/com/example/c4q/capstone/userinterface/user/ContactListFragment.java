@@ -121,11 +121,6 @@ public class ContactListFragment extends Fragment {
                 Log.d("Contacts", "getListOfPublicUsers: friend keys size: " + friendKeys.size());
                 loadFriendsList(friendKeys);
             }
-
-            @Override
-            public void getUserFriends(List<PublicUser> userFriendsList) {
-
-            }
         });
     }
 

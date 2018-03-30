@@ -24,7 +24,7 @@ public class VenueNetworkUtility {
     HashMap<String, HashMap<String, Venue>> venueMap = new HashMap<>();
     Set<String> finalVenueIdSet = new HashSet<>();
     private static VenueNetworkUtility venueNetworkUtility;
-    public static final String TAG = "Venue Vote Util";
+    public static final String TAG = "Venue Netwk Util";
     VenueNetworkListener venueNetworkListener;
 
     public static VenueNetworkUtility getVenueNetworkUtility() {
@@ -54,7 +54,7 @@ public class VenueNetworkUtility {
                 NetworkUtility.getNetworkUtility().getFourSQList(zipCode, userRadius, preferences, new VenueNetworkListener() {
                     @Override
                     public void getFourSList(List<Venue> fourSVenues) {
-                        Log.d(TAG, "Venue Vote Listener called");
+                        Log.d(TAG, "Venue Network Listener called");
                         Log.d(TAG, "list size" + fourSVenues.size());
                         Log.d(TAG, "user" + id);
                         HashMap<String, Venue> listMap = new HashMap<>();

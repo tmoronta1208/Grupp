@@ -45,7 +45,7 @@ public class EventActivity extends AppCompatActivity {
     FragmentTransaction fragmentTransaction;
     InvitedFriendsFragment invitedFriendsFragment;
     VenueFragment venueFragment;
-
+    Boolean newInstanceCalled = false;
 
     /**
      * ajoxe: Nav Drawer
@@ -67,6 +67,7 @@ public class EventActivity extends AppCompatActivity {
         eventID = intent.getStringExtra("eventID");
         eventType = intent.getStringExtra("eventType");
         invitedFriendsFragment = new InvitedFriendsFragment();
+        //venueFragment = new VenueFragment();
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.event_fragment_container, invitedFriendsFragment);
@@ -150,10 +151,16 @@ public class EventActivity extends AppCompatActivity {
 
                     eventName.setText(currentEvent.getEvent_name());
 
-                    eventDate.setText("Date: " + currentEvent.getEvent_date());
+                    eventDate.setText(currentEvent.getEvent_date());
                     invitedFriendsList = event.getInvited_guests();
+                    organizerFullName = currentEvent.getEvent_guest_map().get(currentEvent.getEvent_organizer()).getUser_firstname();
+                    eventOrganizer.setText("Creator: " + organizerFullName);
                     //loadUserFriendsFragment();
-                    loadVenueFragment(eventID);
+                    if(!newInstanceCalled){
+                        loadVenueFragment(eventID);
+                        newInstanceCalled = true;
+                    }
+
                     if(currentEvent.getVenue_map() != null){
                         progressBar.setVisibility(View.GONE);
                         countVenues.setText("You have " + currentEvent.getVenue_map().size() + " venues to vote on!");
@@ -165,12 +172,6 @@ public class EventActivity extends AppCompatActivity {
                 } else {
                     Log.d ("Event Fragment", "event is null");
                 }
-            }
-
-            @Override
-            public void getUserFullName(String name) {
-                organizerFullName = name;
-                eventOrganizer.setText("Creator: " + organizerFullName);
             }
         });
 
@@ -190,8 +191,7 @@ public class EventActivity extends AppCompatActivity {
 
     public void loadVenueFragment(String eventID){
         venueFragment = VenueFragment.newInstance(eventID);
-        fragmentManager.beginTransaction().replace(R.id.event_fragment_container, venueFragment)
-                .addToBackStack("next").commit();
+        fragmentManager.beginTransaction().replace(R.id.event_fragment_container, venueFragment).commit();
 
     }
 }

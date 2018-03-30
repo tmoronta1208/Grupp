@@ -48,6 +48,7 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
     String eventType = "notNew";
     HashMap<String, List<String>> vote = new HashMap<>();
     public static final String TAG = "VenueSwipe";
+    boolean loadedSwipe = false;
 
 
     @Override
@@ -109,7 +110,7 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
     }
 
     public void getEventData(){
-        eventPresenter.getEventFromDB(eventID, new EventDataListener() {
+        eventPresenter.getSingleValueEventFromDB(eventID, new EventDataListener() {
             @Override
             public void getEvent(Events event) {
                 if(event != null){
@@ -120,17 +121,17 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
                         venueHashMap = currentEvent.getVenue_map();
                         venueVoteList.addAll(currentEvent.getVenue_map().values());
                         if (venueVoteList.size() != 0){
-                            loadSwipeView(venueVoteList);
+                            if(!loadedSwipe){
+                                loadSwipeView(venueVoteList);
+                                loadedSwipe = true;
+                            }
+
                         }
                     }
 
                 } else {
                     Log.d ("Event Fragment", "event is null");
                 }
-            }
-
-            @Override
-            public void getUserFullName(String name) {
             }
 
         });

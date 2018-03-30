@@ -2,6 +2,7 @@ package com.example.c4q.capstone.userinterface.events.eventsrecyclerviews;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueViewHolder> {
 
     public VenueAdapter(List<Venue> venueList, Context context) {
         this.venueList = venueList;
+        Log.d ("Venue Fragment", "get venue adapter called " + venueList.size());
         this.context = context;
     }
 
@@ -40,4 +42,5 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueViewHolder> {
     public int getItemCount() {
         return venueList.size();
     }
+
 }

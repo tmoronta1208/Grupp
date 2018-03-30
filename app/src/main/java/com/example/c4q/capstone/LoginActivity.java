@@ -34,7 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import static com.example.c4q.capstone.utils.FBUserDataUtility.currentUser;
+
 
 /**
  * Created by melg on 3/28/18.

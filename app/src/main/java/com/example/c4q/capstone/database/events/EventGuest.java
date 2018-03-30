@@ -60,7 +60,7 @@ public class EventGuest {
         this.user_icon = user_icon;
     }
 
-    public boolean hasVoted() {
+    public boolean isVoted() {
         return voted;
     }
 

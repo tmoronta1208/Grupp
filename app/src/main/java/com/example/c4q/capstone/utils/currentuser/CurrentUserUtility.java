@@ -37,7 +37,7 @@ import static com.example.c4q.capstone.utils.Constants.USER_FRIENDS;
 
 public class CurrentUserUtility {
     private FirebaseDatabase mFirebaseDatabase;
-    private FirebaseAuth mAuth;
+    private static FirebaseAuth mAuth;
     private DatabaseReference firebaseDatabase;
     private DatabaseReference publicUserReference;
     private DatabaseReference privateUserReference;
@@ -48,8 +48,8 @@ public class CurrentUserUtility {
     private DatabaseReference eventsReference;
     private static FirebaseUser currentUser;
 
-    public String currentUserID;
-    public boolean currentUserExists;
+    public static String currentUserID;
+    private static boolean currentUserExists;
     public boolean userHasFriends;
     public boolean userHasEvents;
     public boolean userHasPrivateProfile;
@@ -65,7 +65,7 @@ public class CurrentUserUtility {
 
     public CurrentUserUtility() {
         Log.d(TAG, "constructor called");
-
+        setCurrentUserID();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabase = mFirebaseDatabase.getReference();
         publicUserReference = firebaseDatabase.child(PUBLIC_USER);
@@ -79,8 +79,9 @@ public class CurrentUserUtility {
 
     public void setListener(CurrentUserListener currentUserListener){
         this.currentUserListener = currentUserListener;
-        currentUserExists = setCurrentUserID();
+
         if (currentUserExists) {
+            currentUserListener.setUser(true, currentUserID);
             getCurrentPrivateUser();
             getCurrentPublicUser();
             getCurrentUserFriendIDs();
@@ -89,19 +90,23 @@ public class CurrentUserUtility {
             getCurrentUserEventMap();
             //getCurrentUserFriends();
             //getCurrentUserEvents();
+        } else{
+            currentUserListener.setUser(false, null);
         }
     }
 
-    private boolean setCurrentUserID() {
+    public static  String setCurrentUserID() {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             currentUserID = currentUser.getUid();
-            currentUserListener.setUser(true, currentUserID);
-            return true;
+            currentUserExists = true;
+            return currentUserID;
+
         } else {
-            currentUserListener.setUser(false, null);
-            return false;
+            //currentUserListener.setUser(false, null);
+            currentUserExists = false;
+            return currentUserID;
         }
     }
 
@@ -135,7 +140,7 @@ public class CurrentUserUtility {
                 // ...
             }
         };
-        privateUserReference.addValueEventListener(privateUserListener);
+        privateUserReference.addListenerForSingleValueEvent(privateUserListener);
     }
 
     /**
@@ -167,7 +172,7 @@ public class CurrentUserUtility {
                     // ...
                 }
             };
-            publicUserReference.addValueEventListener(publicUserListener);
+            publicUserReference.addListenerForSingleValueEvent(publicUserListener);
     }
 
     /**
@@ -234,7 +239,7 @@ public class CurrentUserUtility {
     public void getCurrentUserFriends() {
         Log.d(TAG, "get current user friends called :");
 
-        publicUserReference.addValueEventListener(new ValueEventListener() {
+        publicUserReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userFriendsPublicUserList = new ArrayList<>();
@@ -325,7 +330,7 @@ public class CurrentUserUtility {
         Log.d(TAG, "get current user events called :");
 
 
-        eventsReference.addValueEventListener(new ValueEventListener() {
+        eventsReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userEventsList = new ArrayList<>();
@@ -362,7 +367,7 @@ public class CurrentUserUtility {
         Log.d(TAG, "get current user events called :");
 
 
-        eventsReference.addValueEventListener(new ValueEventListener() {
+        eventsReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userEventsList = new ArrayList<>();
