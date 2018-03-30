@@ -16,13 +16,13 @@ public class VenueVoteUtility {
     public Events event;
     public boolean vote_complete;
     public Venue topVenue;
-    public HashMap<Venue, Integer> venueVoteMap;
+    public HashMap<String, HashMap<Venue, Integer>> venueVoteMap;
     int yayCount;
 
     public VenueVoteUtility(Events event){
         this.event = event;
         vote_complete = checkVoteComplete();
-        venueVoteMap = countAllVenueVotes();
+        venueVoteMap = mapVenueVotes();
         topVenue = hightestVotedVenue();
 
     }
@@ -44,20 +44,22 @@ public class VenueVoteUtility {
                 yayCount++;
             }
         }
-        //calculate votes
         return yayCount;
     }
 
-    public HashMap<Venue, Integer> countAllVenueVotes(){
+    public HashMap<String, HashMap<Venue, Integer>> mapVenueVotes(){
         for (Venue venue: event.getVenue_map().values()){
             int yayVotes = countVenueVote(venue);
-            venueVoteMap.put(venue, yayVotes);
+            HashMap<Venue, Integer> venueVote = new HashMap<>();
+            venueVote.put(venue, yayVotes);
+            venueVoteMap.put(venue.getVenue_id(), venueVote);
         }
         return venueVoteMap;
     }
 
     public Venue hightestVotedVenue(){
         Venue venue = new Venue();
+        //count votes for venue, map venue and votes, sort
 
         return venue;
     }
