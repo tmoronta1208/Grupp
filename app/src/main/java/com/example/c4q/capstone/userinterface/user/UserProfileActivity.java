@@ -131,7 +131,7 @@ public class UserProfileActivity extends AppCompatActivity {
                         String eventName = userEventMap.get(s).getEvent_name();
                         String userName = userEventMap.get(s).getEvent_organizer_full_name();
                         String title = userName;
-                        String desc= userName + "You're invited to " + eventName+ "!";
+                        String desc= "You're invited to " + eventName+ "!";
                         new InviteNotifications(title, desc, getApplicationContext(), userEventMap.get(s).getEvent_id());
                     }
                 }else{
