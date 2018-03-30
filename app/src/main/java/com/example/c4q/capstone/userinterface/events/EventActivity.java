@@ -19,6 +19,7 @@ import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.events.Events;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.events.eventfragments.InvitedFriendsFragment;
+import com.example.c4q.capstone.userinterface.events.eventfragments.VenueFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,8 @@ public class EventActivity extends AppCompatActivity {
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     InvitedFriendsFragment invitedFriendsFragment;
-
+    VenueFragment venueFragment;
+    Boolean newInstanceCalled = false;
 
     /**
      * ajoxe: Nav Drawer
@@ -65,6 +67,7 @@ public class EventActivity extends AppCompatActivity {
         eventID = intent.getStringExtra("eventID");
         eventType = intent.getStringExtra("eventType");
         invitedFriendsFragment = new InvitedFriendsFragment();
+        //venueFragment = new VenueFragment();
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.event_fragment_container, invitedFriendsFragment);
@@ -148,9 +151,16 @@ public class EventActivity extends AppCompatActivity {
 
                     eventName.setText(currentEvent.getEvent_name());
 
-                    eventDate.setText("Date: " + currentEvent.getEvent_date());
+                    eventDate.setText(currentEvent.getEvent_date());
                     invitedFriendsList = event.getInvited_guests();
-                    loadUserFriendsFragment();
+                    organizerFullName = currentEvent.getEvent_guest_map().get(currentEvent.getEvent_organizer()).getUser_firstname();
+                    eventOrganizer.setText("Creator: " + organizerFullName);
+                    //loadUserFriendsFragment();
+                    if(!newInstanceCalled){
+                        loadVenueFragment(eventID);
+                        newInstanceCalled = true;
+                    }
+
                     if(currentEvent.getVenue_map() != null){
                         progressBar.setVisibility(View.GONE);
                         countVenues.setText("You have " + currentEvent.getVenue_map().size() + " venues to vote on!");
@@ -162,17 +172,6 @@ public class EventActivity extends AppCompatActivity {
                 } else {
                     Log.d ("Event Fragment", "event is null");
                 }
-            }
-
-            @Override
-            public void getUserFullName(String name) {
-                organizerFullName = name;
-                eventOrganizer.setText("Creator: " + organizerFullName);
-            }
-
-            @Override
-            public void getUser(PublicUser publicUser) {
-
             }
         });
 
@@ -187,6 +186,12 @@ public class EventActivity extends AppCompatActivity {
             invitedFriendsFragment.getFriendUsers(invitedFriends);
         }
 
+
+    }
+
+    public void loadVenueFragment(String eventID){
+        venueFragment = VenueFragment.newInstance(eventID);
+        fragmentManager.beginTransaction().replace(R.id.event_fragment_container, venueFragment).commit();
 
     }
 }

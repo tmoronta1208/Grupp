@@ -16,6 +16,7 @@ import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller.ContactListAdapter;
 import com.example.c4q.capstone.utils.FBUserDataListener;
 import com.example.c4q.capstone.utils.FBUserDataUtility;
+import com.example.c4q.capstone.utils.SimpleDividerItemDecoration;
 
 import java.util.ArrayList;
 
@@ -121,6 +122,7 @@ public class InvitedFriendsFragment extends Fragment {
                         linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
                         recyclerView.setAdapter(contactListAdapter);
                         recyclerView.setLayoutManager(linearLayoutManager);
+                        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
                     }
                 }
             }

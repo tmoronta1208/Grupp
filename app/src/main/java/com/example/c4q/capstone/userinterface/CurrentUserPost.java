@@ -65,4 +65,7 @@ public class CurrentUserPost {
         userPostUtility.updateVenueVote(eventKey,venueKey, vote);
     }
 
+    public void postVenueVoteCount(String eventKey, String venueKey, int voteCount){
+        userPostUtility.updateVenueVoteCount(eventKey,venueKey, voteCount);
+    }
 }

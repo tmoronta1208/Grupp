@@ -20,6 +20,7 @@ public class Venue {
     private int  rating_count;
     private boolean reservations;
     private HashMap<String, Boolean> venue_vote;
+    private int vote_count;
 
     public Venue() {
     }
@@ -37,8 +38,18 @@ public class Venue {
         this.reservations = reservations;
     }
 
+
+
     public HashMap<String, Boolean> getVenue_vote() {
         return venue_vote;
+    }
+
+    public int getVote_count() {
+        return vote_count;
+    }
+
+    public void setVote_count(int vote_count) {
+        this.vote_count = vote_count;
     }
 
     public void setVenue_vote(HashMap<String, Boolean> venue_vote) {

@@ -10,5 +10,4 @@ import java.util.List;
 
 public interface FBUserFriendsListener {
     void getUserFriendIds(List<String> userFriendIds);
-    void getUserFriends(List<PublicUser> userFriendsList);
 }

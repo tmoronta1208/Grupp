@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Events {
     private boolean cancelled;
+    private boolean vote_complete;
     private String event_date;
     private String event_name;
     private String event_note;
@@ -14,12 +15,15 @@ public class Events {
     private String venue_type;
     private String event_time;
     private String final_venue;
+    private HashMap<String, EventGuest> event_guest_map;
     private List<String> confirmed_guests;
     private List<String> invited_guests;
     private List<String> potential_venues;
     private List<String> top_three_venues;
     private HashMap<String, Venue> venue_map;
     private List<Venue> venue_list;
+    private String top_venue_photo;
+
 
     public Events(){}
 
@@ -45,6 +49,34 @@ public class Events {
         this.invited_guests = invited_guests;
         this.potential_venues = potential_venues;
         this.top_three_venues = top_three_venues;
+    }
+
+    public String getTop_venue_photo() {
+        return top_venue_photo;
+    }
+
+    public void setTop_venue_photo(String top_venue_photo) {
+        this.top_venue_photo = top_venue_photo;
+    }
+
+    public boolean isVote_complete() {
+        return vote_complete;
+    }
+
+    public HashMap<String, EventGuest> getEvent_guest_map() {
+        return event_guest_map;
+    }
+
+    public void setEvent_guest_map(HashMap<String, EventGuest> event_guest_map) {
+        this.event_guest_map = event_guest_map;
+    }
+
+    public boolean vote_complete() {
+        return vote_complete;
+    }
+
+    public void setVote_complete(boolean vote_complete) {
+        this.vote_complete = vote_complete;
     }
 
     public HashMap<String, Venue> getVenue_map() {

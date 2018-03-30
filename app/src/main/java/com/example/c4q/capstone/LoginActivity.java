@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
 import com.example.c4q.capstone.utils.Constants;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -33,7 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import static com.example.c4q.capstone.utils.FBUserDataUtility.currentUser;
+
 
 /**
  * Created by melg on 3/28/18.
@@ -47,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mfirebaseAuth = FirebaseAuth.getInstance();
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth.AuthStateListener mAuthListner;
+
 //    private PublicUser publicUser;
 //    private String currentUserID;
 //    private DatabaseReference publicUserDatabaseReference, searchUserReference;
@@ -64,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        CurrentUser.getInstance();
 
         // button views
         signInButton = findViewById(R.id.google_button);

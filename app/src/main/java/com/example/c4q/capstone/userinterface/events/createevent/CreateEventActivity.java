@@ -6,21 +6,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 
-import com.ToxicBakery.viewpager.transforms.FlipVerticalTransformer;
-import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.userinterface.CurrentUserPost;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CreateEventActivity extends AppCompatActivity {
     public ViewPager vpPager;
     FragmentPagerAdapter adapterViewPager;
-    CreateEventPTSingleton eventSingleton = CreateEventPTSingleton.getNewInstance();
+    NewEventBuilder eventSingleton = NewEventBuilder.getNewInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

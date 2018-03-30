@@ -3,7 +3,6 @@ package com.example.c4q.capstone.userinterface.events.createevent;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +19,7 @@ public class CreateEventAddVenueFragment extends Fragment {
 
     View rootView;
     Button barButton, restaurantButton;
-    CreateEventPTSingleton createEventPTSingleton;
+    NewEventBuilder newEventBuilder;
     CreateEventPresenter eventPresenter;
 
 
@@ -29,16 +28,16 @@ public class CreateEventAddVenueFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static CreateEventAddVenueFragment newInstance(CreateEventPTSingleton createEventPTSingleton) {
+    public static CreateEventAddVenueFragment newInstance(NewEventBuilder newEventBuilder) {
         CreateEventAddVenueFragment fragment = new CreateEventAddVenueFragment();
-        fragment.loadEventSingleton(createEventPTSingleton);
+        fragment.loadEventSingleton(newEventBuilder);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        eventPresenter = new CreateEventPresenter(CreateEventPTSingleton.getInstance());
+        eventPresenter = new CreateEventPresenter(NewEventBuilder.getInstance());
     }
 
 
@@ -55,9 +54,9 @@ public class CreateEventAddVenueFragment extends Fragment {
         return rootView;
     }
 
-    public void loadEventSingleton(CreateEventPTSingleton eventPTSingleton){
-        createEventPTSingleton = eventPTSingleton;
-        eventPresenter = new CreateEventPresenter(createEventPTSingleton);
+    public void loadEventSingleton(NewEventBuilder eventPTSingleton){
+        newEventBuilder = eventPTSingleton;
+        eventPresenter = new CreateEventPresenter(newEventBuilder);
     }
 
     @Override
@@ -73,9 +72,9 @@ public class CreateEventAddVenueFragment extends Fragment {
             @Override
             public void onClick(View v) {
             if (v.getTag().toString().equals("bar")) {
-                createEventPTSingleton.setEventVenueType("bar");
+                newEventBuilder.setEventVenueType("bar");
             } else {
-                createEventPTSingleton.setEventVenueType("restaurant");
+                newEventBuilder.setEventVenueType("restaurant");
             }
             v.setBackgroundColor(getResources().getColor(R.color.colorAccent));
             }
