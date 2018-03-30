@@ -7,12 +7,13 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_grupp_icon_500dp"
+        android:icon="@drawable/ic_grupp_icon_24"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_grupp_icon_24"
         android:supportsRtl="true"
         android:theme="@style/GruppTheme">
         <activity
@@ -23,6 +24,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".userinterface.user.NotificationView"
+            android:label="Details of notification"
+            android:parentActivityName=".userinterface.user.UserProfileActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".userinterface.user.UserProfileActivity"/>
         </activity>
         <activity android:name=".TempFriendListActivity"/>
         <activity android:name=".userinterface.alerts.PendingFriendRequestsActivity"/>

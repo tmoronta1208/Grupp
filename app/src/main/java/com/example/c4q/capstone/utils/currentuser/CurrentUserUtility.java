@@ -477,7 +477,7 @@ public class CurrentUserUtility {
                     for (DataSnapshot ds : dataSnapshot.getChildren()){
                         UserEvent userEvent = ds.getValue(UserEvent.class);
                         eventInviteHashMap.put(userEvent.getEvent_id(), userEvent);
-
+                        Log.d("curr user util", "event invites called");
                     }
                     userEventListener.getUserEventList(eventInviteHashMap);
                 }

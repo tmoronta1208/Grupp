@@ -62,7 +62,7 @@ public class CreateEventPresenter {
     public void sendInvites(UserEvent userEvent, Events events){
             List<String> invitedGuests = new ArrayList<>();
             invitedGuests.addAll(events.getInvited_guests());
-            invitedGuests.remove(currentUserID);
+            invitedGuests.add(currentUserID);
             for (String guest: invitedGuests){
                 CurrentUserPost.getInstance().postEventToUserInvitations(key, guest,userEvent);
             }

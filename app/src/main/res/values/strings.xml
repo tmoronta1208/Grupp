@@ -25,5 +25,7 @@
     <string name="edit_preferences">Edit Preferences</string>
     <string name="no_invited_guest">You have not invited any friends</string>
     <string name="calculating">Searching Venues...</string>
+    <string name="event_channel_name">Events Notification</string>
+    <string name="channel_description">Events Notifications</string>
 
 </resources>

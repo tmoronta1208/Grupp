@@ -57,6 +57,14 @@ public class CurrentUser {
         }
     }
 
+    public Map<String, UserEvent> getCurrentUserEventMap() {
+        return currentUserEventMap;
+    }
+
+    public Map<String, UserEvent> getCurrentUserEventInviteMap() {
+        return currentUserEventInviteMap;
+    }
+
     public static CurrentUser getInstance(){
         Log.d(TAG, "getInstance: instance called");
         if (userInstance == null) userInstance = new CurrentUser();
