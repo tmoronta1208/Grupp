@@ -2,6 +2,7 @@ package com.example.c4q.capstone.utils.currentuser;
 
 import android.util.Log;
 
+import com.example.c4q.capstone.database.events.EventGuest;
 import com.example.c4q.capstone.database.events.Events;
 import com.example.c4q.capstone.database.events.UserEvent;
 import com.example.c4q.capstone.database.publicuserdata.UserIcon;
@@ -23,6 +24,7 @@ import java.util.Set;
 import static com.example.c4q.capstone.utils.Constants.AMENITY_PREFS;
 import static com.example.c4q.capstone.utils.Constants.BAR_PREFS;
 import static com.example.c4q.capstone.utils.Constants.EVENTS;
+import static com.example.c4q.capstone.utils.Constants.EVENT_GUEST_MAP;
 import static com.example.c4q.capstone.utils.Constants.EVENT_INVITATIONS;
 import static com.example.c4q.capstone.utils.Constants.PREFERENCES;
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
@@ -44,7 +46,7 @@ public class CurrentUserPostUtility {
     private DatabaseReference preferencesReference;
     private DatabaseReference eventsReference;
     private DatabaseReference publicUserReference;
-    private DatabaseReference eventVenueVoteReference;
+    private DatabaseReference eventGuestReference;
     private DatabaseReference userEventListReference;
 
 
@@ -62,6 +64,7 @@ public class CurrentUserPostUtility {
         eventInvitesReference = firebaseDatabase.child(EVENT_INVITATIONS);
         publicUserReference = firebaseDatabase.child(PUBLIC_USER);
         userEventListReference = firebaseDatabase.child(USER_EVENT_LIST);
+        //eventGuestReference = firebaseDatabase.child(E);
     }
 
     public String getNewEventKey(){
@@ -146,5 +149,8 @@ public class CurrentUserPostUtility {
 
     public void updateVenueVoteCount(String eventKey, String venueKey, int voteCount){
         eventsReference.child(eventKey).child(VENUE_MAP).child(venueKey).child(VENUE_VOTE_COUNT).setValue(voteCount);
+    }
+    public void updateEventGuest(String eventKey, String userId, EventGuest eventGuest){
+        eventsReference.child(eventKey).child(EVENT_GUEST_MAP).child(userId).setValue(eventGuest);
     }
 }

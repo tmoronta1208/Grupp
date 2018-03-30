@@ -20,12 +20,12 @@
             android:id="@+id/event_title_text_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_weight="2.5"
             tools:text="@string/app_name"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-            android:textSize="40sp"
+            android:textSize="50sp"
             android:gravity="center"
-            android:padding="@dimen/layout_item_margin"
+            android:padding="@dimen/layout_padding"
             android:textStyle="bold"
             android:textColor="@color/light_cream"
             />
@@ -33,23 +33,22 @@
             android:id="@+id/event_organier_text_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight=".5"
+            android:layout_weight="1"
             tools:text="@tools:sample/full_names"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:gravity="center"
-            android:paddingBottom="@dimen/layout_item_margin"
-            android:textColor="@color/dark_gray"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryVeryDark"
             />
         <TextView
             android:id="@+id/event_date_text_view"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight=".5"
+            android:layout_height="wrap_content"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
             android:textSize="14sp"
             android:gravity="center"
-            android:textColor="@color/dark_gray"
+            android:textColor="@color/colorPrimaryVeryDark"
             />
 
         <ProgressBar
@@ -58,24 +57,28 @@
             android:layout_height="wrap_content"
             />
 
+        <Button
+            android:id="@+id/vote_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="vote"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="@dimen/layout_padding"
+            android:layout_marginRight="@dimen/layout_padding"
+            android:textStyle="bold"
+            android:background="@drawable/button"
+            android:textColor="@color/colorPrimaryVeryDark"
+            android:visibility="gone"
+            />
         <TextView
             android:id="@+id/venues_result_number_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="@dimen/layout_padding"
+            android:layout_marginBottom="@dimen/layout_item_margin"
             tools:text="@string/calculating"
+            android:textColor="@color/colorPrimaryVeryDark"
             android:padding="@dimen/layout_padding"
-            />
-
-        <Button
-            android:id="@+id/vote_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="vote"
-            android:textStyle="bold"
-            android:background="@drawable/button"
-            android:textColor="@color/colorPrimary"
+            android:visibility="gone"
             />
 
     </LinearLayout>

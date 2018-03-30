@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.events.Events;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.events.eventfragments.InvitedFriendsFragment;
 import com.example.c4q.capstone.userinterface.events.eventfragments.VenueFragment;
 
@@ -66,6 +67,7 @@ public class EventActivity extends AppCompatActivity {
         intent = getIntent();
         eventID = intent.getStringExtra("eventID");
         eventType = intent.getStringExtra("eventType");
+
         invitedFriendsFragment = new InvitedFriendsFragment();
         //venueFragment = new VenueFragment();
         fragmentManager = getSupportFragmentManager();
@@ -93,9 +95,22 @@ public class EventActivity extends AppCompatActivity {
     }
 
     public void showHideVote(){
-        if(eventType.equals("new")){
+        if(currentEvent == null){
+            voteButton.setVisibility(View.GONE);
+            countVenues.setVisibility(View.GONE);
+        }
+    }
+    public void showHideVote(Events event){
+        boolean voted = currentEvent.getEvent_guest_map().get(CurrentUser.userID).isVoted();
+        if(currentEvent.getEvent_guest_map().get(CurrentUser.userID).isVoted()){
+            voteButton.setVisibility(View.GONE);
+            countVenues.setVisibility(View.GONE);
+            Log.d ("show hide vote", "user voted" + voted);
+        } else{
             voteButton.setVisibility(View.VISIBLE);
             countVenues.setVisibility(View.VISIBLE);
+            countVenues.setText("You have " + currentEvent.getVenue_map().size() + " venues to vote on!");
+            Log.d ("show hide vote", "user did not vote" + voted);
         }
     }
 
@@ -106,6 +121,7 @@ public class EventActivity extends AppCompatActivity {
                 Intent voteIntent = new Intent(EventActivity.this, VenueVoteSwipeActivity.class);
                 voteIntent.putExtra("eventID", eventID);
                 startActivity(voteIntent);
+                finish();
             }
         });
     }
@@ -122,7 +138,8 @@ public class EventActivity extends AppCompatActivity {
                         voteButton.setVisibility(View.VISIBLE);
                         countVenues.setVisibility(View.VISIBLE);
                     }
-                    eventName.setTextSize(40);
+                    eventName.setTextSize(50);
+                    eventOrganizer.setVisibility(View.VISIBLE);
                     eventOrganizer.setTextSize(18);
 
                 } else if(frameLayout.getVisibility() == View.GONE){
@@ -133,7 +150,7 @@ public class EventActivity extends AppCompatActivity {
                         countVenues.setVisibility(View.GONE);
                     }
                     eventName.setTextSize(28);
-                    eventOrganizer.setTextSize(16);
+                    eventOrganizer.setVisibility(View.GONE);
                 }
             }
         });
@@ -149,12 +166,14 @@ public class EventActivity extends AppCompatActivity {
                 if(currentEvent != null){
                     Log.d ("Event Fragment", "event: name" + event.getEvent_name());
 
+
+
                     eventName.setText(currentEvent.getEvent_name());
 
                     eventDate.setText(currentEvent.getEvent_date());
                     invitedFriendsList = event.getInvited_guests();
                     organizerFullName = currentEvent.getEvent_guest_map().get(currentEvent.getEvent_organizer()).getUser_firstname();
-                    eventOrganizer.setText("Creator: " + organizerFullName);
+                    eventOrganizer.setText("Created By " + organizerFullName);
                     //loadUserFriendsFragment();
                     if(!newInstanceCalled){
                         loadVenueFragment(eventID);
@@ -163,8 +182,9 @@ public class EventActivity extends AppCompatActivity {
 
                     if(currentEvent.getVenue_map() != null){
                         progressBar.setVisibility(View.GONE);
-                        countVenues.setText("You have " + currentEvent.getVenue_map().size() + " venues to vote on!");
-                        voteButton.setVisibility(View.VISIBLE);
+                        boolean voted = currentEvent.getEvent_guest_map().get(CurrentUser.userID).isVoted();
+                        Log.d ("get event data", "user voted" + voted);
+                        showHideVote(currentEvent);
                     } else{
                         progressBar.setVisibility(View.GONE);
                         countVenues.setText("Sorry, no matching venues");

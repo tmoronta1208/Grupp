@@ -158,7 +158,7 @@ public class VenueFragment extends Fragment {
 
         venueAddress.setText(venue.getVenue_address());
         if (venue.getVenue_vote() != null){
-            venueVoteCount.setText("Top Venue! " + String.valueOf(venue.getVote_count()));
+            venueVoteCount.setText(String.valueOf(venue.getVote_count())+ "  **Top Venue!** ");
         } else {
             venueVoteCount.setText("not voted yet");
         }

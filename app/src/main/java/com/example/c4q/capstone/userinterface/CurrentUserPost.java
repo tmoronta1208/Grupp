@@ -2,6 +2,7 @@ package com.example.c4q.capstone.userinterface;
 
 import android.util.Log;
 
+import com.example.c4q.capstone.database.events.EventGuest;
 import com.example.c4q.capstone.database.events.Events;
 
 import com.example.c4q.capstone.database.events.UserEvent;
@@ -67,5 +68,8 @@ public class CurrentUserPost {
 
     public void postVenueVoteCount(String eventKey, String venueKey, int voteCount){
         userPostUtility.updateVenueVoteCount(eventKey,venueKey, voteCount);
+    }
+    public void updateEventGuest(String eventKey, String userId, EventGuest eventGuest){
+        userPostUtility.updateEventGuest(eventKey,userId, eventGuest);
     }
 }
