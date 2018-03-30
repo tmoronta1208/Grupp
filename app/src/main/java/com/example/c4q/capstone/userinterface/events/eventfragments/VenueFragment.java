@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.events.Events;
@@ -42,6 +44,8 @@ public class VenueFragment extends Fragment {
     LinearLayoutManager linearLayoutManager;
     VenueVoteUtility venueVoteUtility;
     Context context;
+    TextView venueName, venueAddress, venueVoteCount;
+    ImageView venuePhoto;
 
     String voteCount;
     private HashMap<String, Venue> venueIdMap;
@@ -88,6 +92,10 @@ public class VenueFragment extends Fragment {
         venueRecyclerView.setAdapter(venueAdapter);
         venueRecyclerView.setLayoutManager(linearLayoutManager);
         venueRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
+        venueName = (TextView) rootView.findViewById(R.id.venue_name_textview);
+        venueAddress = (TextView) rootView.findViewById(R.id.venue_address_textview);
+        venueVoteCount = (TextView) rootView.findViewById(R.id.venue_vote_textview);
+        venuePhoto = (ImageView) rootView.findViewById(R.id.venue_photo_image_view);
         return rootView;
     }
 
@@ -110,18 +118,19 @@ public class VenueFragment extends Fragment {
                         if(currentEvent.getVenue_map() != null){
                             if(!dataLoaded){
                                 Log.d ("Venue Fragment", "get venue map called");
-                                venueList = new ArrayList<>();
-                                venueList.addAll(currentEvent.getVenue_map().values());
-                                Log.d ("Venue Fragment", "get venue map called: list size " + venueList.size());
-                                venueAdapter.notifyDataSetChanged();
-                                venueAdapter = new VenueAdapter(venueList, context);
-                                venueRecyclerView.setAdapter(venueAdapter);
+
                                 venueVoteUtility = new VenueVoteUtility(currentEvent);
                                 venueIdMap = venueVoteUtility.venueIdMap;
                                 venueVoteCountMap = venueVoteUtility.venueVoteCountMap;
                                 orderedVenueIdList = venueVoteUtility.orderedVenueIdList;
+                                venueList = new ArrayList<>();
+                                venueList = venueVoteUtility.orderedVenueList;
                                 topVenue = venueVoteUtility.topVenue;
                                 setVenueVoteCount();
+                                Log.d ("Venue Fragment", "get venue map called: list size " + venueList.size());
+                                venueAdapter.notifyDataSetChanged();
+                                venueAdapter = new VenueAdapter(venueList, context);
+                                venueRecyclerView.setAdapter(venueAdapter);
                                 venueAdapter.notifyDataSetChanged();
                                 dataLoaded = true;
                             }
