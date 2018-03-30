@@ -17,35 +17,39 @@
         android:supportsRtl="true"
         android:theme="@style/GruppTheme">
         <activity
-            android:screenOrientation="portrait"
-            android:name=".LoginActivity">
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".userinterface.user.NotificationView"
+        <activity
+            android:name=".userinterface.user.NotificationView"
             android:label="Details of notification"
             android:parentActivityName=".userinterface.user.UserProfileActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".userinterface.user.UserProfileActivity"/>
+                android:value=".userinterface.user.UserProfileActivity" />
         </activity>
-        <activity android:name=".TempFriendListActivity"/>
-        <activity android:name=".userinterface.alerts.PendingFriendRequestsActivity"/>
+        <activity android:name=".TempFriendListActivity" />
+        <activity android:name=".userinterface.alerts.PendingFriendRequestsActivity" />
         <activity android:name=".userinterface.user.UserProfileActivity" />
         <activity android:name=".userinterface.user.SettingsActivity" />
         <activity android:name=".userinterface.events.VenueVoteSwipeActivity" />
-        <activity android:name=".userinterface.events.EventActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".userinterface.events.EventActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".userinterface.user.EditProfileActivity" />
         <activity android:name=".userinterface.user.onboarding.OnBoardActivity" />
         <activity android:name=".TempUserActivity" />
         <activity android:name=".userinterface.user.search.UserSearchActivity" />
         <activity android:name=".userinterface.user.AddPersonActivity" />
-        <activity android:name=".userinterface.events.createevent.CreateEventActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".userinterface.events.createevent.CreateEventActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".userinterface.events.EventInviteActivity"></activity>
     </application>
 
 </manifest>

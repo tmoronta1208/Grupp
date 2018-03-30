@@ -130,8 +130,8 @@ public class UserProfileActivity extends AppCompatActivity {
                     for (String s: userEventMap.keySet()){
                         String eventName = userEventMap.get(s).getEvent_name();
                         String userName = userEventMap.get(s).getEvent_organizer_full_name();
-                        String title = "You're invited!";
-                        String desc= userName + " has invited you to a new Event! " + eventName;
+                        String title = userName;
+                        String desc= userName + "You're invited to " + eventName+ "!";
                         new InviteNotifications(title, desc, getApplicationContext(), userEventMap.get(s).getEvent_id());
                     }
                 }else{

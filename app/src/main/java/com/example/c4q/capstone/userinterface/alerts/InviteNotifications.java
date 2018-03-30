@@ -6,6 +6,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -40,12 +42,14 @@ public class InviteNotifications {
     }
 
     public void initNot(String title, String description) {
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Notification notification = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_grupp_icon_24)
                 .setContentTitle(title)
                 .setContentText(description)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
+                .setSound(alarmSound)
                 .build();
         notificationManager.notify(NOTIFICATION_ID, notification);
     }
