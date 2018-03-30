@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="140dp"
     android:orientation="horizontal"
     android:padding="@dimen/layout_padding">
     <ImageView
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:text="venue name"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-            android:textSize="20sp"/>
+            android:textSize="16sp"/>
         <TextView
             android:id="@+id/venue_address_textview"
             android:layout_width="match_parent"
@@ -35,8 +35,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="vote count:"
+            android:textStyle="bold"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
-            android:textSize="18sp"/>
+            android:textSize="14sp"/>
         <TextView
             android:id="@+id/venue_vote_textview"
             android:layout_width="match_parent"

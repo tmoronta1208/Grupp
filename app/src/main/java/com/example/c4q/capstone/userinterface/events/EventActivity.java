@@ -132,7 +132,7 @@ public class EventActivity extends AppCompatActivity {
                         voteButton.setVisibility(View.GONE);
                         countVenues.setVisibility(View.GONE);
                     }
-                    eventName.setTextSize(32);
+                    eventName.setTextSize(28);
                     eventOrganizer.setTextSize(16);
                 }
             }

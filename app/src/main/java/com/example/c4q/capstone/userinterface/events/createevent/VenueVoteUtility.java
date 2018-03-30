@@ -103,7 +103,7 @@ public class VenueVoteUtility {
         }
         //
         // orderedVenueList.set(i, venueIdMap.get(topVenueId));
-        topVenue = venueIdMap.get(orderedVenueIdList.get(0));
+        topVenue = orderedVenueList.get(0);
        return orderedVenueIdList;
     }
 }

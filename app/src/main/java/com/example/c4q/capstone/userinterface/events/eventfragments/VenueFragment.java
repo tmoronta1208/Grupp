@@ -24,6 +24,7 @@ import com.example.c4q.capstone.userinterface.events.EventPresenter;
 import com.example.c4q.capstone.userinterface.events.createevent.VenueVoteUtility;
 import com.example.c4q.capstone.userinterface.events.eventsrecyclerviews.VenueAdapter;
 import com.example.c4q.capstone.utils.SimpleDividerItemDecoration;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -126,6 +127,7 @@ public class VenueFragment extends Fragment {
                                 venueList = new ArrayList<>();
                                 venueList = venueVoteUtility.orderedVenueList;
                                 topVenue = venueVoteUtility.topVenue;
+                                setTopVenueView(topVenue);
                                 setVenueVoteCount();
                                 Log.d ("Venue Fragment", "get venue map called: list size " + venueList.size());
                                 venueAdapter.notifyDataSetChanged();
@@ -147,6 +149,24 @@ public class VenueFragment extends Fragment {
             });
         }
 
+    }
+    public void setTopVenueView(Venue venue){
+        venueName.setText(venue.getVenue_name());
+        if(getActivity() != null){
+            venueName.setTextColor(getActivity().getResources().getColor(R.color.colorPrimary));
+        }
+
+        venueAddress.setText(venue.getVenue_address());
+        if (venue.getVenue_vote() != null){
+            venueVoteCount.setText("Top Venue! " + String.valueOf(venue.getVote_count()));
+        } else {
+            venueVoteCount.setText("not voted yet");
+        }
+        if (venue.getVenue_photo_url() != null){
+            Picasso.with(context)
+                    .load(venue.getVenue_photo_url())
+                    .into(venuePhoto);
+        }
     }
     public void setVenueVoteCount(){
         for (Venue venue : venueList){
