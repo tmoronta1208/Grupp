@@ -6,9 +6,7 @@ import com.example.c4q.capstone.database.events.Venue;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.network.FourSquareDetailListener;
 import com.example.c4q.capstone.network.NetworkUtility;
-import com.example.c4q.capstone.network.foursquare.foursquaremodel.Venues;
 import com.example.c4q.capstone.userinterface.CurrentUser;
-import com.example.c4q.capstone.utils.FBUserDataListener;
 import com.example.c4q.capstone.utils.FBUserDataUtility;
 
 import java.util.ArrayList;
@@ -21,16 +19,16 @@ import java.util.Set;
  * Created by amirahoxendine on 3/28/18.
  */
 
-public class VenueVoteUtility {
+public class VenueNetworkUtility {
     FBUserDataUtility userDataUtility = new FBUserDataUtility();
     HashMap<String, HashMap<String, Venue>> venueMap = new HashMap<>();
     Set<String> finalVenueIdSet = new HashSet<>();
-    private static VenueVoteUtility venueVoteUtility;
+    private static VenueNetworkUtility venueNetworkUtility;
     public static final String TAG = "Venue Vote Util";
     VenueNetworkListener venueNetworkListener;
 
-    public static VenueVoteUtility getVenueVoteUtility() {
-        return new VenueVoteUtility();
+    public static VenueNetworkUtility getVenueNetworkUtility() {
+        return new VenueNetworkUtility();
     }
 
     public void setVenueNetworkListener(VenueNetworkListener networkListener){

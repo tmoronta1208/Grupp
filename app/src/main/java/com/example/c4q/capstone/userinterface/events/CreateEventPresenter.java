@@ -28,7 +28,6 @@ public class CreateEventPresenter {
     private Events newEvent;
     CurrentUser currentUser = CurrentUser.getInstance();
     CurrentUserPost currentUserPost = CurrentUserPost.getInstance();
-    private static List<String> invitedGuests = new ArrayList<>();
     private boolean eventNameSet, eventDateSet, eventTimeSet, eventGuestsSet, eventNoteSet;
     private boolean nameDone, friendsDone;
     public String dateOfEvent;
@@ -71,8 +70,8 @@ public class CreateEventPresenter {
     }
 
     private void makeNetworkCall(List<PublicUser> eventGuests){
-        final VenueVoteUtility venueVoteUtility = new VenueVoteUtility();
-       venueVoteUtility.setVenueNetworkListener(new VenueNetworkListener() {
+        final VenueNetworkUtility venueNetworkUtility = new VenueNetworkUtility();
+       venueNetworkUtility.setVenueNetworkListener(new VenueNetworkListener() {
             @Override
             public void getFourSList(List<Venue> fourSVenues) {
 
@@ -86,7 +85,7 @@ public class CreateEventPresenter {
                     if (fourSquareVenueIds.size() != 0){
                         newEvent.setPotential_venues(fourSquareVenueIds);
                         currentUserPost.postNewEvent(key, newEvent);
-                        venueVoteUtility.getDetailedVenues(fourSquareVenueIds, new FourSquareDetailListener() {
+                        venueNetworkUtility.getDetailedVenues(fourSquareVenueIds, new FourSquareDetailListener() {
                             @Override
                             public void getVenueDetail(Venue venueDetail) {
 
@@ -114,7 +113,7 @@ public class CreateEventPresenter {
             }
 
        });
-       venueVoteUtility.getVoteListFromFourSquare(eventGuests);
+       venueNetworkUtility.getVoteListFromFourSquare(eventGuests);
     }
 
     public void setEventName(String eventName){
@@ -234,18 +233,5 @@ public class CreateEventPresenter {
         newEvent.setEvent_id(key);
         Log.d(TAG, "event type" + newEventBuilder.getEventVenueType());
         return key;
-    }
-
-    public UserEvent creatUserEventFromEvent(Events event){
-        UserEvent userEvent = new UserEvent();
-        userEvent.setEvent_date(event.getEvent_date());
-        userEvent.setEvent_id(event.getEvent_id());
-        userEvent.setEvent_date(event.getEvent_date());
-        userEvent.setEvent_time(userEvent.getEvent_time());
-        userEvent.setEvent_organizer(event.getEvent_organizer());
-        userEvent.setEvent_note(event.getEvent_note());
-        userEvent.setEvent_name(event.getEvent_name());
-        userEvent.setFinal_venue(event.getFinal_venue());
-        return userEvent;
     }
 }
