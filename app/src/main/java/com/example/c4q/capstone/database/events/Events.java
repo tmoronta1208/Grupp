@@ -22,6 +22,8 @@ public class Events {
     private List<String> top_three_venues;
     private HashMap<String, Venue> venue_map;
     private List<Venue> venue_list;
+    private String top_venue_photo;
+
 
     public Events(){}
 
@@ -47,6 +49,14 @@ public class Events {
         this.invited_guests = invited_guests;
         this.potential_venues = potential_venues;
         this.top_three_venues = top_three_venues;
+    }
+
+    public String getTop_venue_photo() {
+        return top_venue_photo;
+    }
+
+    public void setTop_venue_photo(String top_venue_photo) {
+        this.top_venue_photo = top_venue_photo;
     }
 
     public boolean isVote_complete() {

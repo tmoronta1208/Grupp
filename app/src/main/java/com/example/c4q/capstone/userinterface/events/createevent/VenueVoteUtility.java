@@ -51,7 +51,6 @@ public class VenueVoteUtility {
                 }
             }
         }
-
         return yayCount;
     }
 
