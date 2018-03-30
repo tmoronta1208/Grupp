@@ -29,10 +29,8 @@ public class VenueViewHolder extends RecyclerView.ViewHolder {
         venueName.setText(venue.getVenue_name());
         venueAddress.setText(venue.getVenue_address());
         if (venue.getVenue_vote() != null){
-            //vote count logic , calculate and convert
-           // venueVoteCount.setText();
+            venueVoteCount.setText(String.valueOf(venue.getVote_count()));
         }
-
         if (venue.getVenue_photo_url() != null){
             Picasso.with(context)
                     .load(venue.getVenue_photo_url())

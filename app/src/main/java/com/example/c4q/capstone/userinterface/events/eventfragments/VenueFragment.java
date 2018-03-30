@@ -18,10 +18,12 @@ import com.example.c4q.capstone.database.events.Venue;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.events.EventDataListener;
 import com.example.c4q.capstone.userinterface.events.EventPresenter;
+import com.example.c4q.capstone.userinterface.events.createevent.VenueVoteUtility;
 import com.example.c4q.capstone.userinterface.events.eventsrecyclerviews.VenueAdapter;
 import com.example.c4q.capstone.utils.SimpleDividerItemDecoration;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -37,6 +39,13 @@ public class VenueFragment extends Fragment {
     Bundle args;
     EventPresenter eventPresenter = new EventPresenter();
     LinearLayoutManager linearLayoutManager;
+    VenueVoteUtility venueVoteUtility;
+
+    String voteCount;
+    private HashMap<String, Venue> venueIdMap;
+    private HashMap<String, Integer> venueVoteCountMap;
+    private List<String> orderedVenueIdList;
+    private Venue topVenue;
 
     public VenueFragment() {
         // Required empty public constructor
@@ -89,7 +98,12 @@ public class VenueFragment extends Fragment {
 
                     if(currentEvent.getVenue_map() != null){
                        venueList.addAll(currentEvent.getVenue_map().values());
-
+                       venueVoteUtility = new VenueVoteUtility(currentEvent);
+                       venueIdMap = venueVoteUtility.venueIdMap;
+                       venueVoteCountMap = venueVoteUtility.venueVoteCountMap;
+                       orderedVenueIdList = venueVoteUtility.orderedVenueIdList;
+                       topVenue = venueVoteUtility.topVenue;
+                       setVenueVoteCount();//TODO  need to update db
                     } else{
 
                     }
@@ -104,5 +118,12 @@ public class VenueFragment extends Fragment {
             }
         });
 
+    }
+
+    public void setVenueVoteCount(){
+        for (Venue venue : venueList){
+            int vote = venueVoteCountMap.get(venue.getVenue_id());
+            venue.setVote_count(vote);
+        }
     }
 }

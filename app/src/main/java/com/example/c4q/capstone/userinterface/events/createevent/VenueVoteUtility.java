@@ -31,7 +31,7 @@ public class VenueVoteUtility {
         orderedVenueIdList = orderVenuesByVote();
     }
 
-    public boolean checkVoteComplete() {
+    private boolean checkVoteComplete() {
         List<EventGuest> guestList = new ArrayList<>();
         guestList.addAll(event.getEvent_guest_map().values());
         for (EventGuest guest : guestList) {
@@ -42,7 +42,7 @@ public class VenueVoteUtility {
         return true;
     }
 
-    public int countVenueVote(Venue venue) {
+    private int countVenueVote(Venue venue) {
         yayCount = 0;
         for (String user : venue.getVenue_vote().keySet()) {
             if (venue.getVenue_vote().get(user)) {
@@ -52,45 +52,41 @@ public class VenueVoteUtility {
         return yayCount;
     }
 
-
-
-    public HashMap<String, Venue> mapVenueIds(){
+    private HashMap<String, Venue> mapVenueIds(){
         for (Venue venue : event.getVenue_map().values()) {
             venueIdMap.put(venue.getVenue_id(), venue);
         }
         return venueIdMap;
     }
-    public HashMap<String, Integer> mapVenueVotes(){
+    private HashMap<String, Integer> mapVenueVotes(){
         for (Venue venue : event.getVenue_map().values()) {
             venueVoteCountMap.put(venue.getVenue_id(), countVenueVote(venue));
         }
         return venueVoteCountMap;
     }
 
-    public List<String> venueIdsToList(){
+    private List<String> venueIdsToList(){
         venueIDList = new ArrayList<>();
-        for(String venueId: venueIdMap.keySet()){
-            venueIDList.add(venueId);
-        }
+        venueIDList.addAll(venueIdMap.keySet());
         return venueIDList;
     }
 
-    public List<String>orderVenuesByVote() {
+    private List<String>orderVenuesByVote() {
        orderedVenueIdList = new ArrayList<>();
         for (int i = venueIDList.size(); i>0; i--){
-            int higestVote = venueVoteCountMap.get(venueIDList.get(i));
+            int highestVote = venueVoteCountMap.get(venueIDList.get(i));
             String topVenueId = venueIDList.get(i);
-
             for (int k = 0; k<i; k++){
                 int currentVote = venueVoteCountMap.get(venueIDList.get(k));
                 String currentVenueId = venueIDList.get(k);
-                if(currentVote > higestVote){
-                    higestVote = currentVote;
+                if(currentVote > highestVote){
+                    highestVote = currentVote;
                     topVenueId = currentVenueId;
                 }
             }
             orderedVenueIdList.add(topVenueId);
         }
+        topVenue = venueIdMap.get(orderedVenueIdList.get(0));
        return orderedVenueIdList;
     }
 }
