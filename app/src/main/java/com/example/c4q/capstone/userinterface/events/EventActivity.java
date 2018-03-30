@@ -134,10 +134,7 @@ public class EventActivity extends AppCompatActivity {
                 if (frameLayout.getVisibility() == View.VISIBLE){
                     Log.d ("Event Fragment", "frame is visible");
                     frameLayout.setVisibility(View.GONE);
-                    if(voteButton.getVisibility() == View.GONE && eventType.equals("new")){
-                        voteButton.setVisibility(View.VISIBLE);
-                        countVenues.setVisibility(View.VISIBLE);
-                    }
+                    showHideVote(currentEvent);
                     eventName.setTextSize(50);
                     eventOrganizer.setVisibility(View.VISIBLE);
                     eventOrganizer.setTextSize(18);
