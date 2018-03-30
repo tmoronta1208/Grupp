@@ -79,12 +79,12 @@ public class TempUserActivity extends AppCompatActivity {
             }
         });
 
-//        friendlist.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(TempUserActivity.this,TempFriendListActivity.class));
-//            }
-//        });
+        friendlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(TempUserActivity.this, TempFriendListActivity.class));
+            }
+        });
 
         currentUserProfileData();
     }

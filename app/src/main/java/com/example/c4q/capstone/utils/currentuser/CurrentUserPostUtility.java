@@ -31,6 +31,7 @@ import static com.example.c4q.capstone.utils.Constants.USER_EVENT_LIST;
 import static com.example.c4q.capstone.utils.Constants.USER_ICON;
 import static com.example.c4q.capstone.utils.Constants.VENUE_MAP;
 import static com.example.c4q.capstone.utils.Constants.VENUE_VOTE;
+import static com.example.c4q.capstone.utils.Constants.VENUE_VOTE_COUNT;
 
 /**
  * Created by amirahoxendine on 3/26/18.
@@ -48,12 +49,11 @@ public class CurrentUserPostUtility {
 
 
     private DatabaseReference eventInvitesReference;
-    private CurrentUser currentUser = CurrentUser.getInstance();
     private static final String TAG = "PostUtility";
-    private String currentUserId;
+    private String currentUserId = CurrentUser.userID;
 
     public CurrentUserPostUtility(){
-        currentUserId = currentUser.getUserID();
+
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabase = mFirebaseDatabase.getReference();
         userEventsReference = firebaseDatabase.child(USER_EVENTS);
@@ -62,8 +62,6 @@ public class CurrentUserPostUtility {
         eventInvitesReference = firebaseDatabase.child(EVENT_INVITATIONS);
         publicUserReference = firebaseDatabase.child(PUBLIC_USER);
         userEventListReference = firebaseDatabase.child(USER_EVENT_LIST);
-
-
     }
 
     public String getNewEventKey(){
@@ -76,7 +74,7 @@ public class CurrentUserPostUtility {
     }
 
     public void addEventToUserEvents(String key){
-        List<String> userEventKeys = currentUser.getUserEventIDList();
+        List<String> userEventKeys = CurrentUser.getInstance().getUserEventIDList();
         if (userEventKeys == null){
             userEventKeys = new ArrayList<>();
         }
@@ -125,33 +123,6 @@ public class CurrentUserPostUtility {
 
         });
     }
-    public void getDummyUserKeys(){
-
-        ValueEventListener userListener = new ValueEventListener() {
-            List<String> dummyUsers = new ArrayList<>();
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String dummyKey = ds.getKey();
-                    dummyUsers.add(dummyKey);
-                }
-
-                Log.d(TAG, "dummy user list" + dummyUsers.size());
-                //myRef.child("events").child(key).setValue(newEvent);
-                Log.d(TAG, "final dummy user list" + dummyUsers.size());
-                FBUserDataUtility fbUserDataUtility = new FBUserDataUtility();
-                fbUserDataUtility.addUserFriends(dummyUsers);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                // ...
-            }
-        };
-        firebaseDatabase.child(PUBLIC_USER).addValueEventListener(userListener);
-    }
 
     public void updateBarPrefs(List<String> barPrefs){
         Map<String, Object> userPrefs = new HashMap<>();
@@ -169,13 +140,11 @@ public class CurrentUserPostUtility {
         publicUserReference.child(currentUserId).child(USER_ICON).setValue(userIcon);
     }
 
-    public void updateEventInvitationsList(List<String> invitedGuest, String eventKey){
-        Map<String, Object> userInvites = new HashMap<>();
-        //userInvites.put();
-        eventInvitesReference.updateChildren(userInvites);
-    }
-
     public void updateVenueVote(String eventKey, String venueKey, Boolean vote){
        eventsReference.child(eventKey).child(VENUE_MAP).child(venueKey).child(VENUE_VOTE).child(currentUserId).setValue(vote);
+    }
+
+    public void updateVenueVoteCount(String eventKey, String venueKey, int voteCount){
+        eventsReference.child(eventKey).child(VENUE_MAP).child(venueKey).child(VENUE_VOTE_COUNT).setValue(voteCount);
     }
 }

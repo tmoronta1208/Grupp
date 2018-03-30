@@ -12,7 +12,6 @@ import com.example.c4q.capstone.TempUserActivity;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.UserIcon;
 import com.example.c4q.capstone.network.foursquare.foursquaremodel.Contact;
-import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 

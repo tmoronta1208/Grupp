@@ -16,6 +16,15 @@ public class UserEvent {
     private String event_organizer;
     private String event_time;
     private String final_venue;
+    private String event_photo;
+
+    public String getEvent_photo() {
+        return event_photo;
+    }
+
+    public void setEvent_photo(String event_photo) {
+        this.event_photo = event_photo;
+    }
 
     public String getEvent_id() {
         return event_id;

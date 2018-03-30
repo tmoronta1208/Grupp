@@ -9,7 +9,4 @@ import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 
 public interface EventDataListener {
     void getEvent(Events event);
-
-    void getUserFullName(String name);
-    void getUser(PublicUser publicUser);
 }

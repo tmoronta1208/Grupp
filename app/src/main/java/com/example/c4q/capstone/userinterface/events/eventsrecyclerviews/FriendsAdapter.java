@@ -9,9 +9,8 @@ import android.view.ViewGroup;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
-import com.example.c4q.capstone.network.foursquare.foursquaremodel.Contact;
 import com.example.c4q.capstone.userinterface.events.CreateEventPresenter;
-import com.example.c4q.capstone.userinterface.events.createevent.CreateEventPTSingleton;
+import com.example.c4q.capstone.userinterface.events.createevent.NewEventBuilder;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews.ContactListViewHolder;
 
 import java.util.ArrayList;
@@ -49,7 +48,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<ContactListViewHolder> 
             public void onClick(View v) {
 
                 v.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
-                List<String> friendId = CreateEventPTSingleton.getInstance().getInvitedGuests();
+                List<String> friendId = NewEventBuilder.getInstance().getInvitedGuests();
                 if (friendId != null){
                     if(!friendId.contains(user.getUser_id())){
                         friendId.add(user.getUser_id());
@@ -59,9 +58,9 @@ public class FriendsAdapter extends RecyclerView.Adapter<ContactListViewHolder> 
                     friendId.add(user.getUser_id());
                 }
 
-                CreateEventPTSingleton.getInstance().setInvitedGuests(friendId);
+                NewEventBuilder.getInstance().setInvitedGuests(friendId);
                 eventPresenter.setEventGuests(friendId);
-                List<PublicUser> invitedFriendUser = CreateEventPTSingleton.getInstance().getInvitedFriendsUserList();
+                List<PublicUser> invitedFriendUser = NewEventBuilder.getInstance().getInvitedFriendsUserList();
                 if (invitedFriendUser != null){
                     invitedFriendUser.add(user);
                     Log.d("invite adapter", "pub user list size: " + invitedFriendUser.size());
@@ -70,7 +69,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<ContactListViewHolder> 
                     invitedFriendUser.add(user);
                     Log.d("invite adapter", "pub user list size: " + invitedFriendUser.size());
                 }
-                CreateEventPTSingleton.getInstance().setInvitedFriendsUserList(invitedFriendUser);
+                NewEventBuilder.getInstance().setInvitedFriendsUserList(invitedFriendUser);
             }
         });
     }

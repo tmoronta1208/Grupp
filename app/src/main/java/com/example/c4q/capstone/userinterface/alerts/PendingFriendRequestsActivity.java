@@ -9,14 +9,13 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.database.publicuserdata.FriendsList;
+import com.example.c4q.capstone.database.publicuserdata.UserFriends;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +23,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -44,7 +42,7 @@ public class PendingFriendRequestsActivity extends AppCompatActivity {
     private FirebaseUser currentUser;
     private FirebaseAuth authentication;
     private String currentUserID;
-    private FriendsList friendsList;
+    private UserFriends userFriends;
 
 
     @Override

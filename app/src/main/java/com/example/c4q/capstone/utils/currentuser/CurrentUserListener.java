@@ -6,6 +6,7 @@ import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by amirahoxendine on 3/23/18.
@@ -21,6 +22,7 @@ public interface CurrentUserListener {
     void setUser(Boolean userInDB, String id);
     void getUserFriendIDs(List<String> friendIds);
     void getUserEventIDs(List<String> eventIds);
-    void getUserEventList(List<UserEvent> userEvents);
+    void getUserEventList(Map<String, UserEvent> userEventMap);
+    void eventInviteList(Map<String, UserEvent> userEventMap);
 
 }

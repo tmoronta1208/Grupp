@@ -39,7 +39,7 @@ public class CreateEventAddNameFragment extends Fragment implements DatePickerDi
     Button closeButton, createEventButton;
     EditTextUX editTextUX;
     CreateEventPresenter eventPresenter;
-    private CreateEventPTSingleton createEventPTSingleton;
+    private NewEventBuilder newEventBuilder;
     String eventID;
     LinearLayout hiddenLayout;
     LinearLayout visibleLayout;
@@ -51,7 +51,7 @@ public class CreateEventAddNameFragment extends Fragment implements DatePickerDi
         // Required empty public constructor
     }
 
-    public static CreateEventAddNameFragment newInstance(CreateEventPTSingleton eventPTSingleton) {
+    public static CreateEventAddNameFragment newInstance(NewEventBuilder eventPTSingleton) {
         CreateEventAddNameFragment fragment = new CreateEventAddNameFragment();
         fragment.loadeEventSingleton(eventPTSingleton);
         return fragment;
@@ -60,7 +60,7 @@ public class CreateEventAddNameFragment extends Fragment implements DatePickerDi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        eventPresenter = new CreateEventPresenter(CreateEventPTSingleton.getInstance());
+        eventPresenter = new CreateEventPresenter(NewEventBuilder.getInstance());
     }
 
     @Override
@@ -81,9 +81,9 @@ public class CreateEventAddNameFragment extends Fragment implements DatePickerDi
         return rootView;
     }
 
-    public void loadeEventSingleton(CreateEventPTSingleton eventPTSingleton) {
-        createEventPTSingleton = eventPTSingleton;
-        eventPresenter = new CreateEventPresenter(createEventPTSingleton);
+    public void loadeEventSingleton(NewEventBuilder eventPTSingleton) {
+        newEventBuilder = eventPTSingleton;
+        eventPresenter = new CreateEventPresenter(newEventBuilder);
     }
 
     /**
@@ -187,7 +187,7 @@ public class CreateEventAddNameFragment extends Fragment implements DatePickerDi
         intent.putExtra("eventID", eventID);
         intent.putExtra("eventType", "new");
         startActivity(intent);
-        createEventPTSingleton.destroyInstance();
+        newEventBuilder.destroyInstance();
         getActivity().finish();
     }
 /*Set's time to the dateandtimetextview. method can be found in DatePickerFragment*/

@@ -5,6 +5,7 @@ public class Constants {
     public static final String BAR_PREFS ="bar_prefs";
     public static final String BARZZ_KEY = "&user_key=96b42918912ec3f1d85660e18356617c";
     public static final String BARZZ_URL = "https://api.barzz.net/api/";
+    public static final String DEFAULT_ICON = "https://firebasestorage.googleapis.com/v0/b/grupp-154a6.appspot.com/o/user_icon%2FProfile_avatar_placeholder_large.png?alt=media&token=8962db25-1e14-42e3-9e80-2b8a1ac2cfd5";
     public static final String EVENTS = "events";
     public static final String FRIENDS = "friends";
     public static final String FRIEND_REQUEST = "friend_request";
@@ -36,5 +37,6 @@ public class Constants {
     public static final String VENUE_ADDRESS = "venue_address";
     public static final String VENUE_VOTE ="venue_vote";
     public static final String VENUE_MAP ="venue_map";
+    public static final String VENUE_VOTE_COUNT ="vote_count";
 
 }

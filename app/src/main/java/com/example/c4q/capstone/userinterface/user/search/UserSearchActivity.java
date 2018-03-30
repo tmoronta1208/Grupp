@@ -8,7 +8,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -67,7 +66,6 @@ public class UserSearchActivity extends AppCompatActivity {
         currentState = NOT_FRIENDS;
         callFirebaseAdapter();
     }
-
 
     private void callFirebaseAdapter() {
 

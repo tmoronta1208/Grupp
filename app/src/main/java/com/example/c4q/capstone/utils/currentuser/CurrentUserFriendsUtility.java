@@ -28,7 +28,6 @@ public class CurrentUserFriendsUtility {
     private DatabaseReference firebaseDatabase;
     private DatabaseReference userEventsReference;
     private DatabaseReference eventInvitesReference;
-    private CurrentUser currentUser = CurrentUser.getInstance();
     private static final String TAG = "FriendsUtility";
     private CurrentUserFriendsListener userFriendsListener;
 

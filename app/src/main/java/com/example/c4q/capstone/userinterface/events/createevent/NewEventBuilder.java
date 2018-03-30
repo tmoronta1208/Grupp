@@ -2,19 +2,21 @@ package com.example.c4q.capstone.userinterface.events.createevent;
 
 import android.util.Log;
 
+import com.example.c4q.capstone.database.events.EventGuest;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.network.foursquare.foursquaremodel.Venues;
-import com.example.c4q.capstone.userinterface.CurrentUser;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by amirahoxendine on 3/24/18.
  */
 
-public class CreateEventPTSingleton {
-    private static CreateEventPTSingleton createEventPTSingleton;
-    private static final String TAG = "CreateEventPTSingleton";
+public class NewEventBuilder {
+    private static NewEventBuilder newEventBuilder;
+    private static final String TAG = "NewEventBuilder";
     private String eventName;
     private String eventDate;
     private String eventTime;
@@ -23,31 +25,49 @@ public class CreateEventPTSingleton {
     private String eventID;
     private List<String> invitedGuests;
     private List<Venues> venueVoteList;
+    private boolean vote_complete;
     private boolean newEvent;
     private boolean inProgress;
     private List<PublicUser> invitedFriendsUserList;
+    private HashMap<String, EventGuest> eventGuestMap;
 
-    private CreateEventPTSingleton(){
+    private NewEventBuilder(){
 
 
     }
 
-    public static CreateEventPTSingleton getNewInstance(){
+    public static NewEventBuilder getNewInstance(){
         Log.d(TAG, "getNewInstance: new instance called");
-        createEventPTSingleton = new CreateEventPTSingleton();
-        createEventPTSingleton.setNewEvent(true);
-        createEventPTSingleton.setInProgress(true);
-        return createEventPTSingleton;
+        newEventBuilder = new NewEventBuilder();
+        newEventBuilder.setNewEvent(true);
+        newEventBuilder.setInProgress(true);
+        return newEventBuilder;
     }
-    public static CreateEventPTSingleton getInstance(){
+    public static NewEventBuilder getInstance(){
         Log.d(TAG, "getInstance: get instance called");
-        if(createEventPTSingleton != null){
-            createEventPTSingleton.setNewEvent(false);
-            createEventPTSingleton.setInProgress(true);
+        if(newEventBuilder != null){
+            newEventBuilder.setNewEvent(false);
+            newEventBuilder.setInProgress(true);
         } else {
             getNewInstance();
         }
-        return createEventPTSingleton;
+        return newEventBuilder;
+    }
+
+    public boolean isVote_complete() {
+        return vote_complete;
+    }
+
+    public void setVote_complete(boolean vote_complete) {
+        this.vote_complete = vote_complete;
+    }
+
+    public Map<String, EventGuest> getEventGuestMap() {
+        return eventGuestMap;
+    }
+
+    public void setEventGuestMap(HashMap<String, EventGuest> eventGuestMap) {
+        this.eventGuestMap = eventGuestMap;
     }
 
     public List<PublicUser> getInvitedFriendsUserList() {
@@ -59,7 +79,7 @@ public class CreateEventPTSingleton {
     }
 
     public void destroyInstance(){
-        createEventPTSingleton = null;
+        newEventBuilder = null;
     }
 
     public String getEventTime() {
