@@ -16,51 +16,81 @@ public class VenueVoteUtility {
     public Events event;
     public boolean vote_complete;
     public Venue topVenue;
-    public HashMap<String, HashMap<Venue, Integer>> venueVoteMap;
-    int yayCount;
+    public HashMap<String, Venue> venueIdMap;
+    public HashMap<String, Integer> venueVoteCountMap;
+    public List<String> venueIDList;
+    public List<String> orderedVenueIdList;
+    public int yayCount;
 
-    public VenueVoteUtility(Events event){
+    public VenueVoteUtility(Events event) {
         this.event = event;
         vote_complete = checkVoteComplete();
-        venueVoteMap = mapVenueVotes();
-        topVenue = hightestVotedVenue();
-
+        venueVoteCountMap = mapVenueVotes();
+        venueIdMap = mapVenueIds();
+        venueIDList = venueIdsToList();
+        orderedVenueIdList = orderVenuesByVote();
     }
-    public boolean checkVoteComplete(){
+
+    public boolean checkVoteComplete() {
         List<EventGuest> guestList = new ArrayList<>();
         guestList.addAll(event.getEvent_guest_map().values());
-        for (EventGuest guest: guestList){
-            if (!guest.hasVoted()){
+        for (EventGuest guest : guestList) {
+            if (!guest.hasVoted()) {
                 return false;
             }
         }
         return true;
     }
 
-    public int countVenueVote(Venue venue){
+    public int countVenueVote(Venue venue) {
         yayCount = 0;
-        for(String user: venue.getVenue_vote().keySet()){
-            if (venue.getVenue_vote().get(user)){
+        for (String user : venue.getVenue_vote().keySet()) {
+            if (venue.getVenue_vote().get(user)) {
                 yayCount++;
             }
         }
         return yayCount;
     }
 
-    public HashMap<String, HashMap<Venue, Integer>> mapVenueVotes(){
-        for (Venue venue: event.getVenue_map().values()){
-            int yayVotes = countVenueVote(venue);
-            HashMap<Venue, Integer> venueVote = new HashMap<>();
-            venueVote.put(venue, yayVotes);
-            venueVoteMap.put(venue.getVenue_id(), venueVote);
+
+
+    public HashMap<String, Venue> mapVenueIds(){
+        for (Venue venue : event.getVenue_map().values()) {
+            venueIdMap.put(venue.getVenue_id(), venue);
         }
-        return venueVoteMap;
+        return venueIdMap;
+    }
+    public HashMap<String, Integer> mapVenueVotes(){
+        for (Venue venue : event.getVenue_map().values()) {
+            venueVoteCountMap.put(venue.getVenue_id(), countVenueVote(venue));
+        }
+        return venueVoteCountMap;
     }
 
-    public Venue hightestVotedVenue(){
-        Venue venue = new Venue();
-        //count votes for venue, map venue and votes, sort
+    public List<String> venueIdsToList(){
+        venueIDList = new ArrayList<>();
+        for(String venueId: venueIdMap.keySet()){
+            venueIDList.add(venueId);
+        }
+        return venueIDList;
+    }
 
-        return venue;
+    public List<String>orderVenuesByVote() {
+       orderedVenueIdList = new ArrayList<>();
+        for (int i = venueIDList.size(); i>0; i--){
+            int higestVote = venueVoteCountMap.get(venueIDList.get(i));
+            String topVenueId = venueIDList.get(i);
+
+            for (int k = 0; k<i; k++){
+                int currentVote = venueVoteCountMap.get(venueIDList.get(k));
+                String currentVenueId = venueIDList.get(k);
+                if(currentVote > higestVote){
+                    higestVote = currentVote;
+                    topVenueId = currentVenueId;
+                }
+            }
+            orderedVenueIdList.add(topVenueId);
+        }
+       return orderedVenueIdList;
     }
 }
