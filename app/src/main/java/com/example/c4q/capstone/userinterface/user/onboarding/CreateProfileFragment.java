@@ -29,6 +29,7 @@ import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.UserSearch;
 import com.example.c4q.capstone.userinterface.user.EditProfileActivity;
 import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -56,7 +57,7 @@ public class CreateProfileFragment extends Fragment {
     private int radius;
     private double lat, lng;
 
-    private Button saveBtn;
+    private FloatingActionButton saveBtn;
     private EditText firstName, lastName, zipCode;
     private RadioGroup ageGroup, budgetGroup, radiusGroup;
     private RadioButton ageChoice, budgetChoice, radiusChoice;
@@ -83,7 +84,7 @@ public class CreateProfileFragment extends Fragment {
 
         rootView = inflater.inflate(com.example.c4q.capstone.R.layout.fragment_create_profile, container, false);
 
-        saveBtn = rootView.findViewById(R.id.edit_profile_save_button);
+        saveBtn = rootView.findViewById(R.id.create_profile_save_button);
 
         ageGroup = rootView.findViewById(R.id.radio_group_age);
         budgetGroup = rootView.findViewById(R.id.radio_group_budget);
@@ -148,6 +149,8 @@ public class CreateProfileFragment extends Fragment {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                OnBoardActivity.viewPager.setCurrentItem(2);
+
                 saveToDatabase();
             }
         });
