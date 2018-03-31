@@ -25,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.example.c4q.capstone.utils.Constants.USER_CONTACTS;
 import static com.example.c4q.capstone.utils.Constants.USER_SEARCH;
@@ -73,7 +74,7 @@ public class UserSearchActivity extends AppCompatActivity {
                 UserSearch.class, R.layout.add_contact_itemview, UserSearchViewHolder.class, searchUserRef) {
 
             @Override
-            protected void populateViewHolder(final UserSearchViewHolder viewHolder, UserSearch model, int position) {
+            protected void populateViewHolder(final UserSearchViewHolder viewHolder, final UserSearch model, int position) {
 
                 final String contactID = getRef(position).getKey();
 
@@ -82,7 +83,7 @@ public class UserSearchActivity extends AppCompatActivity {
                 final String last = model.getLast_name();
                 final String icon = model.getIcon_url();
                 final String zipCode = model.getZip_code();
-                final int radius = model.getRadius();
+                //final int radius = model.getRadius();
 
                 viewHolder.setEmail(email);
                 viewHolder.setFullName(first, last);
@@ -91,7 +92,8 @@ public class UserSearchActivity extends AppCompatActivity {
                 viewHolder.addContactButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        addToContactList(contactID, viewHolder.addContactButton, first, last, email, icon, radius, zipCode);
+                        String radiusString = "20";
+                        addToContactList(contactID, viewHolder.addContactButton, first, last, email, icon, radiusString, zipCode);
                     }
                 });
             }
@@ -100,14 +102,14 @@ public class UserSearchActivity extends AppCompatActivity {
         searchContactsRecyclerView.setAdapter(contactsListAdapter);
     }
 
-    public void addToContactList(String contactID, final Button addContactButton, String first, String last, String email, String url, int radius, String zipcode) {
+    public void addToContactList(String contactID, final Button addContactButton, String first, String last, String email, String url, String radius, String zipcode) {
         /**
          * TODO: Write logic to retrieve contacts list first, and then update the list with the new values.
          * TODO: also need to write logic to check if user is already in contact list
          */
         final PublicUserDetails publicUserDetails = new PublicUserDetails(first, last, email, url, contactID, radius, zipcode);
 
-        final HashMap<String, Object> user_contacts = new HashMap<>();
+        final Map<String, Object> user_contacts = new HashMap<>();
 
         final DatabaseReference userContactsRef = rootRef.child(USER_CONTACTS).child(currentUserID);
         userContactsRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -117,10 +119,12 @@ public class UserSearchActivity extends AppCompatActivity {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         PublicUserDetails pubUser = ds.getValue(PublicUserDetails.class);
                         if (pubUser != null) {
-                            user_contacts.put(pubUser.getUid(), pubUser);
+                            String userId = pubUser.getUid();
+                            user_contacts.put(userId, pubUser);
                         }
                     }
-                    user_contacts.put(publicUserDetails.getUid(), publicUserDetails);
+                    String currentUID = publicUserDetails.getUid();
+                    user_contacts.put(currentUID, publicUserDetails);
                     userContactsRef.updateChildren(user_contacts);
                     addContactButton.setVisibility(View.INVISIBLE);
                 }

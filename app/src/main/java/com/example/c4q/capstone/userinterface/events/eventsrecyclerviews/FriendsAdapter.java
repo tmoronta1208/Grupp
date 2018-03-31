@@ -47,7 +47,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<ContactListViewHolder> 
             @Override
             public void onClick(View v) {
 
-                v.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
+                v.setBackgroundColor(context.getResousetOnClick();rces().getColor(R.color.colorAccent));
                 List<String> friendId = NewEventBuilder.getInstance().getInvitedGuests();
                 if (friendId != null){
                     if(!friendId.contains(user.getUser_id())){

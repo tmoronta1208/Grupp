@@ -7,14 +7,16 @@ public class PublicUserDetails {
     private String email;
     private String icon_url;
     private String uid;
-    private int radius;
-    private int zip_code;
+    private String radius;
+    private String zip_code;
 
-    public PublicUserDetails(String first, String last, String email, String url, String contactID, int radius, String zipcode) {
+    public PublicUserDetails(){
 
     }
 
-    public PublicUserDetails(String first_name, String last_name, String email, String icon_url, String uid, int radius, int zip_code) {
+
+
+    public PublicUserDetails(String first_name, String last_name, String email, String icon_url, String uid, String radius, String zip_code) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
@@ -24,19 +26,19 @@ public class PublicUserDetails {
         this.zip_code = zip_code;
     }
 
-    public int getRadius() {
+    public String getRadius() {
         return radius;
     }
 
-    public void setRadius(int radius) {
+    public void setRadius(String radius) {
         this.radius = radius;
     }
 
-    public int getZip_code() {
+    public String getZip_code() {
         return zip_code;
     }
 
-    public void setZip_code(int zip_code) {
+    public void setZip_code(String zip_code) {
         this.zip_code = zip_code;
     }
 
