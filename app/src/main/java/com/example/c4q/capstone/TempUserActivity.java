@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.UserIcon;
 import com.example.c4q.capstone.userinterface.CurrentUserPost;
-import com.example.c4q.capstone.userinterface.alerts.PendingFriendRequestsActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -71,20 +70,6 @@ public class TempUserActivity extends AppCompatActivity {
                 uploadImage();
             }
         });
-
-        requests.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(TempUserActivity.this, PendingFriendRequestsActivity.class));
-            }
-        });
-
-//        friendlist.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(TempUserActivity.this,TempFriendListActivity.class));
-//            }
-//        });
 
         currentUserProfileData();
     }

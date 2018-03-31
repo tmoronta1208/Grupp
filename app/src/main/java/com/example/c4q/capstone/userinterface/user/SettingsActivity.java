@@ -16,7 +16,6 @@ import android.view.View;
 
 import com.example.c4q.capstone.*;
 import com.example.c4q.capstone.userinterface.events.EventActivity;
-import com.example.c4q.capstone.userinterface.navdrawer.NavDrawerPresenter;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,7 +27,6 @@ public class SettingsActivity extends AppCompatActivity {
      */
     NavigationView navigationView;
     private DrawerLayout navDrawerLayout;
-    NavDrawerPresenter navDrawerPresenter;
     SupportActivity activity;
     Context context;
     Toolbar toolbar;
@@ -40,26 +38,10 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         context = this;
         activity = this;
-        setNavDrawerLayout();
     }
 
-    /** Navigation Drawer Set up **/
-    public void setNavDrawerLayout() {
-        navDrawerLayout = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
-        navDrawerPresenter = new NavDrawerPresenter(activity, context);
-        navDrawerPresenter.setNavDrawerViews(navDrawerLayout, navigationView);
-        navDrawerPresenter.setNavigationViewMethods();
-        setToolbar();
-    }
 
-    public void setToolbar() {
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        actionbar = getSupportActionBar();
-        navDrawerPresenter.setToolbarViews(toolbar, actionbar);
-        navDrawerPresenter.setActionbar("My Settings");
-    }
+
 
     /*method that closes navigation drawer whenever item is selected - AJ*/
     @Override

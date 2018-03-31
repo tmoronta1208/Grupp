@@ -13,12 +13,19 @@ import android.widget.TextView;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
+import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller.ContactListAdapter;
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews.ContactListViewHolder;
 import com.example.c4q.capstone.utils.FBUserDataListener;
 import com.example.c4q.capstone.utils.FBUserDataUtility;
 import com.example.c4q.capstone.utils.SimpleDividerItemDecoration;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+
+import static com.example.c4q.capstone.utils.Constants.USER_CONTACTS;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,13 +42,15 @@ public class InvitedFriendsFragment extends Fragment {
     FBUserDataUtility userDataUtility = new FBUserDataUtility();
     Boolean listIsNull;
     TextView noInvitedFriends;
+    DatabaseReference contactsRef;
+
 
     public InvitedFriendsFragment() {
         // Required empty public constructor
     }
 
     public static InvitedFriendsFragment newInstance(ArrayList<String> invitedFriends) {
-        Log.d ("UserFriends Fragment", "invited list array size:" + invitedFriends.size());
+        Log.d("UserFriends Fragment", "invited list array size:" + invitedFriends.size());
         InvitedFriendsFragment fragment = new InvitedFriendsFragment();
         Bundle userFragBundle = new Bundle();
         userFragBundle.putStringArrayList("invitedFriends", invitedFriends);
@@ -52,12 +61,17 @@ public class InvitedFriendsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        contactListAdapter = new ContactListAdapter(friendsUserList, getActivity());
+
+        String currentUserId = CurrentUser.getInstance().getUserID();
+
+        contactsRef = FirebaseDatabase.getInstance().getReference().child(USER_CONTACTS).child(currentUserId).child("contacts");
+
+        contactListAdapter = new ContactListAdapter(PublicUserDetails.class, R.layout.contact_item_view, ContactListViewHolder.class, contactsRef);
         args = getArguments();
         if (args != null) {
             if (args.getStringArrayList("invitedFriends") != null) {
                 ArrayList<String> invitedFriends = args.getStringArrayList("invitedFriends");
-                Log.d ("UserFriends Fragment", "on create: invited list array size:" + invitedFriends.size());
+                Log.d("UserFriends Fragment", "on create: invited list array size:" + invitedFriends.size());
                 friendsUserIDList = invitedFriends;
                 convertIdsToUsers(invitedFriends);
             }
@@ -65,14 +79,14 @@ public class InvitedFriendsFragment extends Fragment {
 
 
         if (friendsUserIDList == null || friendsUserIDList.size() == 0) {
-            Log.d ("UserFriends Fragment", "on createview: invited list array is null");
+            Log.d("UserFriends Fragment", "on createview: invited list array is null");
 
         } else {
 
             convertIdsToUsers(friendsUserIDList);
             if (friendsUserList != null) {
                 if (getActivity() != null) {
-                    contactListAdapter = new ContactListAdapter(friendsUserList, getActivity());
+                    contactListAdapter = new ContactListAdapter(PublicUserDetails.class, R.layout.contact_item_view, ContactListViewHolder.class, contactsRef);
                     linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
                     recyclerView.setAdapter(contactListAdapter);
                     recyclerView.setLayoutManager(linearLayoutManager);
@@ -85,6 +99,8 @@ public class InvitedFriendsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment_user_friends, container, false);
+
+
         noInvitedFriends = (TextView) rootView.findViewById(R.id.no_invites_text_view);
         //noInvitedFriends.setVisibility(View.VISIBLE);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.friends_recycler_view);
@@ -98,10 +114,10 @@ public class InvitedFriendsFragment extends Fragment {
 
     }
 
-    public void convertIdsToUsers(ArrayList<String> invitedList){
+    public void convertIdsToUsers(ArrayList<String> invitedList) {
         friendsUserIDList = new ArrayList<>();
         friendsUserIDList.addAll(invitedList);
-        Log.d ("UserFriends Fragment", "convertIdsTousers");
+        Log.d("UserFriends Fragment", "convertIdsTousers");
         if (friendsUserIDList != null) {
             if (friendsUserIDList.size() != 0) {
                 for (String s : friendsUserIDList) {
@@ -118,7 +134,7 @@ public class InvitedFriendsFragment extends Fragment {
                 }
                 if (friendsUserList != null) {
                     if (getActivity() != null) {
-                        contactListAdapter = new ContactListAdapter(friendsUserList, getActivity());
+                        contactListAdapter = new ContactListAdapter(PublicUserDetails.class, R.layout.contact_item_view, ContactListViewHolder.class, contactsRef);
                         linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
                         recyclerView.setAdapter(contactListAdapter);
                         recyclerView.setLayoutManager(linearLayoutManager);
@@ -126,7 +142,7 @@ public class InvitedFriendsFragment extends Fragment {
                     }
                 }
             }
-        }else {
+        } else {
 
         }
     }
