@@ -1,5 +1,7 @@
 package com.example.c4q.capstone.userinterface.events.createevent;
 
+import android.util.Log;
+
 import com.example.c4q.capstone.database.events.EventGuest;
 import com.example.c4q.capstone.database.events.Events;
 import com.example.c4q.capstone.database.events.UserEvent;
@@ -33,6 +35,8 @@ public class NewEventConverter {
         userEvent.setEvent_name(event.getEvent_name());
         userEvent.setFinal_venue(event.getFinal_venue());
         userEvent.setEvent_organizer_full_name(CurrentUser.getInstance().getUserFullName());
+        userEvent.setEvent_organizer_icon(CurrentUser.getInstance().getCurrentPublicUser().getUser_icon());
+        Log.d("converter: full name", "user event" + userEvent.getEvent_organizer_full_name());
         return userEvent;
     }
 

@@ -69,7 +69,10 @@ public class CurrentUserPost {
     public void postVenueVoteCount(String eventKey, String venueKey, int voteCount){
         userPostUtility.updateVenueVoteCount(eventKey,venueKey, voteCount);
     }
-    public void updateEventGuest(String eventKey, String userId, EventGuest eventGuest){
+    public void postEventGuest(String eventKey, String userId, EventGuest eventGuest){
         userPostUtility.updateEventGuest(eventKey,userId, eventGuest);
+    }
+    public void removeEventInvite(String eventKey, String userId) {
+        userPostUtility.removeEventFromEventInviteList(eventKey, userId);
     }
 }

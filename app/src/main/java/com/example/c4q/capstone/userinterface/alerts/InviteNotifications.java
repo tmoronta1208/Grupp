@@ -13,7 +13,9 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.TempUserActivity;
 import com.example.c4q.capstone.userinterface.events.EventActivity;
+import com.example.c4q.capstone.userinterface.events.EventInviteActivity;
 import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
 
 /**
@@ -32,7 +34,7 @@ public class InviteNotifications {
     }
 
     public void initClass(String eventId) {
-        Intent intent = new Intent(context, EventActivity.class);
+        Intent intent = new Intent(context, EventInviteActivity.class);
         intent.putExtra("eventID", eventId);
         intent.putExtra("eventType", "notnew");
         int requestID = (int) System.currentTimeMillis();

@@ -127,8 +127,8 @@ public class VenueFragment extends Fragment {
                                 venueList = new ArrayList<>();
                                 venueList = venueVoteUtility.orderedVenueList;
                                 topVenue = venueVoteUtility.topVenue;
-                                setTopVenueView(topVenue);
                                 setVenueVoteCount();
+                                setTopVenueView(topVenue);
                                 Log.d ("Venue Fragment", "get venue map called: list size " + venueList.size());
                                 venueAdapter.notifyDataSetChanged();
                                 venueAdapter = new VenueAdapter(venueList, context);

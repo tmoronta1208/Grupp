@@ -126,6 +126,9 @@ public class CurrentUserPostUtility {
 
         });
     }
+    public void removeEventFromEventInviteList(final String eventKey, final String userId){
+                    eventInvitesReference.child(userId).child(eventKey).removeValue();
+    }
 
     public void updateBarPrefs(List<String> barPrefs){
         Map<String, Object> userPrefs = new HashMap<>();
