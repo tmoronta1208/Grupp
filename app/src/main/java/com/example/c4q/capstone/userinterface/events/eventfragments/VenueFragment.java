@@ -108,6 +108,8 @@ public class VenueFragment extends Fragment {
         venueRecyclerView = rootView.findViewById(R.id.venue_recycler_view);
        // venueAdapter = new VenueAdapter(venueList, context);
         linearLayoutManager = new LinearLayoutManager(context);
+        linearLayoutManager.setStackFromEnd(true);
+        linearLayoutManager.setReverseLayout(true);;
         //venueRecyclerView.setAdapter(venueAdapter);
         venueRecyclerView.setAdapter(firebaseRecyclerAdapter);
         venueRecyclerView.setLayoutManager(linearLayoutManager);
