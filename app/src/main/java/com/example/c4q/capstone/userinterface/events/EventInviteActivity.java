@@ -49,7 +49,7 @@ public class EventInviteActivity extends AppCompatActivity {
         linearLayout = new LinearLayoutManager(getApplicationContext());
         eventInviteRecyclerView.setLayoutManager(linearLayout);
         eventInviteRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getApplicationContext()));
-        rootRef = FirebaseDatabase.getInstance().getReference();
+
 
         callFireBaseAdapter();
     }

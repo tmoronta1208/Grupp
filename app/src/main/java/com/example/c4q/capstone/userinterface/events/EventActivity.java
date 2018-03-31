@@ -82,11 +82,11 @@ public class EventActivity extends AppCompatActivity {
         showHideMore();
     }
 
-    public void defineViews(){
+    public void defineViews() {
         eventName = (TextView) findViewById(R.id.event_title_text_view);
         eventOrganizer = (TextView) findViewById(R.id.event_organier_text_view);
         eventDate = (TextView) findViewById(R.id.event_date_text_view);
-        countVenues = (TextView)  findViewById(R.id.venues_result_number_tv);
+        countVenues = (TextView) findViewById(R.id.venues_result_number_tv);
         voteButton = (Button) findViewById(R.id.vote_button);
         voteButton.setVisibility(View.GONE);
         moreButton = (ImageButton) findViewById(R.id.more_button);
@@ -94,27 +94,28 @@ public class EventActivity extends AppCompatActivity {
         frameLayout = (FrameLayout) findViewById(R.id.event_fragment_container);
     }
 
-    public void showHideVote(){
-        if(currentEvent == null){
+    public void showHideVote() {
+        if (currentEvent == null) {
             voteButton.setVisibility(View.GONE);
             countVenues.setVisibility(View.GONE);
-        }
-    }
-    public void showHideVote(Events event){
-        boolean voted = currentEvent.getEvent_guest_map().get(CurrentUser.userID).isVoted();
-        if(currentEvent.getEvent_guest_map().get(CurrentUser.userID).isVoted()){
-            voteButton.setVisibility(View.GONE);
-            countVenues.setVisibility(View.GONE);
-            Log.d ("show hide vote", "user voted" + voted);
-        } else{
-            voteButton.setVisibility(View.VISIBLE);
-            countVenues.setVisibility(View.VISIBLE);
-            countVenues.setText("You have " + currentEvent.getVenue_map().size() + " venues to vote on!");
-            Log.d ("show hide vote", "user did not vote" + voted);
         }
     }
 
-    public void setVoteClick(){
+    public void showHideVote(Events event) {
+        boolean voted = currentEvent.getEvent_guest_map().get(CurrentUser.userID).isVoted();
+        if (currentEvent.getEvent_guest_map().get(CurrentUser.userID).isVoted()) {
+            voteButton.setVisibility(View.GONE);
+            countVenues.setVisibility(View.GONE);
+            Log.d("show hide vote", "user voted" + voted);
+        } else {
+            voteButton.setVisibility(View.VISIBLE);
+            countVenues.setVisibility(View.VISIBLE);
+            countVenues.setText("You have " + currentEvent.getVenue_map().size() + " venues to vote on!");
+            Log.d("show hide vote", "user did not vote" + voted);
+        }
+    }
+
+    public void setVoteClick() {
         voteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,23 +127,23 @@ public class EventActivity extends AppCompatActivity {
         });
     }
 
-    public void showHideMore(){
+    public void showHideMore() {
         moreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d ("Event Fragment", "more button clicked");
-                if (frameLayout.getVisibility() == View.VISIBLE){
-                    Log.d ("Event Fragment", "frame is visible");
+                Log.d("Event Fragment", "more button clicked");
+                if (frameLayout.getVisibility() == View.VISIBLE) {
+                    Log.d("Event Fragment", "frame is visible");
                     frameLayout.setVisibility(View.GONE);
                     showHideVote(currentEvent);
                     eventName.setTextSize(50);
                     eventOrganizer.setVisibility(View.VISIBLE);
                     eventOrganizer.setTextSize(18);
 
-                } else if(frameLayout.getVisibility() == View.GONE){
-                    Log.d ("Event Fragment", "frame is invisible");
+                } else if (frameLayout.getVisibility() == View.GONE) {
+                    Log.d("Event Fragment", "frame is invisible");
                     frameLayout.setVisibility(View.VISIBLE);
-                    if(voteButton.getVisibility() == View.VISIBLE){
+                    if (voteButton.getVisibility() == View.VISIBLE) {
                         voteButton.setVisibility(View.GONE);
                         countVenues.setVisibility(View.GONE);
                     }
@@ -153,16 +154,17 @@ public class EventActivity extends AppCompatActivity {
         });
     }
 
-    /**method to get event data ( based on event id from bundle ) from the database*/
+    /**
+     * method to get event data ( based on event id from bundle ) from the database
+     */
 
-    public void getEventData(){
+    public void getEventData() {
         eventPresenter.getEventFromDB(eventID, new EventDataListener() {
             @Override
             public void getEvent(Events event) {
                 currentEvent = event;
-                if(currentEvent != null){
-                    Log.d ("Event Fragment", "event: name" + event.getEvent_name());
-
+                if (currentEvent != null) {
+                    Log.d("Event Fragment", "event: name" + event.getEvent_name());
 
 
                     eventName.setText(currentEvent.getEvent_name());
@@ -172,41 +174,46 @@ public class EventActivity extends AppCompatActivity {
                     organizerFullName = currentEvent.getEvent_guest_map().get(currentEvent.getEvent_organizer()).getUser_firstname();
                     eventOrganizer.setText("Created By " + organizerFullName);
                     //loadUserFriendsFragment();
-                    if(!newInstanceCalled){
-                        loadVenueFragment(eventID);
-                        newInstanceCalled = true;
-                    }
 
-                    if(currentEvent.getVenue_map() != null){
+
+                    if (currentEvent.getVenue_map() != null) {
                         progressBar.setVisibility(View.GONE);
                         boolean voted = currentEvent.getEvent_guest_map().get(CurrentUser.userID).isVoted();
-                        Log.d ("get event data", "user voted" + voted);
+                        Log.d("get event data", "user voted" + voted);
                         showHideVote(currentEvent);
-                    } else{
+
+                        if (!newInstanceCalled) {
+                            loadVenueFragment(eventID);
+                            newInstanceCalled = true;
+                        }
+                    } else {
                         progressBar.setVisibility(View.GONE);
                         countVenues.setText("Sorry, no matching venues");
                     }
                 } else {
-                    Log.d ("Event Fragment", "event is null");
+                    Log.d("Event Fragment", "event is null");
                 }
             }
         });
 
     }
-    /**method to load UserFreindsFragment below event data*/
-    public void loadUserFriendsFragment(){
+
+    /**
+     * method to load UserFreindsFragment below event data
+     */
+    public void loadUserFriendsFragment() {
 
         ArrayList<String> invitedFriends = new ArrayList<>();
-        if(invitedFriendsList != null && invitedFriendsList.size() != 0){
+        if (invitedFriendsList != null && invitedFriendsList.size() != 0) {
             invitedFriends.addAll(invitedFriendsList);
-            Log.d ("Event Fragment", "invited list array size:" + invitedFriendsList.size());
+            Log.d("Event Fragment", "invited list array size:" + invitedFriendsList.size());
             invitedFriendsFragment.getFriendUsers(invitedFriends);
         }
 
 
     }
 
-    public void loadVenueFragment(String eventID){
+    public void loadVenueFragment(String eventID) {
         venueFragment = VenueFragment.newInstance(eventID);
         fragmentManager.beginTransaction().replace(R.id.event_fragment_container, venueFragment).commit();
 

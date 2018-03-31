@@ -71,7 +71,7 @@ public class FBEventDataUtility {
                 // ...
             }
         };
-        eventReference.addValueEventListener(eventListener);
+        eventReference.addListenerForSingleValueEvent(eventListener);
     }
     public void getSingleValueEventFromDB(String key, final EventDataListener listener) {
         eventKey = key;
