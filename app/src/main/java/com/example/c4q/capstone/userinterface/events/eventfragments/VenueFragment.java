@@ -11,21 +11,35 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.events.Events;
+import com.example.c4q.capstone.database.events.UserEvent;
 import com.example.c4q.capstone.database.events.Venue;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.CurrentUserPost;
 import com.example.c4q.capstone.userinterface.events.EventDataListener;
+import com.example.c4q.capstone.userinterface.events.EventInviteViewHolder;
 import com.example.c4q.capstone.userinterface.events.EventPresenter;
 import com.example.c4q.capstone.userinterface.events.createevent.VenueVoteUtility;
 import com.example.c4q.capstone.userinterface.events.eventsrecyclerviews.VenueAdapter;
+import com.example.c4q.capstone.userinterface.events.eventsrecyclerviews.VenueViewHolder;
 import com.example.c4q.capstone.utils.SimpleDividerItemDecoration;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import static com.example.c4q.capstone.utils.Constants.EVENTS;
+import static com.example.c4q.capstone.utils.Constants.EVENT_INVITATIONS;
+import static com.example.c4q.capstone.utils.Constants.VENUE_MAP;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,6 +56,10 @@ public class VenueFragment extends Fragment {
     LinearLayoutManager linearLayoutManager;
     VenueVoteUtility venueVoteUtility;
     Context context;
+    TextView venueName, venueAddress, venueVoteCount;
+    ImageView venuePhoto;
+    private DatabaseReference rootRef, eventsRef, venue_map;
+    private String currentUserID = CurrentUser.userID;
 
     String voteCount;
     private HashMap<String, Venue> venueIdMap;
@@ -49,6 +67,7 @@ public class VenueFragment extends Fragment {
     private List<String> orderedVenueIdList;
     private Venue topVenue;
     boolean dataLoaded = false;
+    FirebaseRecyclerAdapter<Venue, VenueViewHolder> firebaseRecyclerAdapter;
 
     public VenueFragment() {
         // Required empty public constructor
@@ -61,7 +80,8 @@ public class VenueFragment extends Fragment {
         fragment.setArguments(args);
         fragment.eventID = eventID;
         if (eventID !=null){
-            fragment.getEventData();
+            fragment.onCreate(args);
+            //fragment.loadFireBaseAdapter(eventID);
         }
         return fragment;
     }
@@ -69,10 +89,13 @@ public class VenueFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        rootRef = FirebaseDatabase.getInstance().getReference();
+        eventsRef = rootRef.child(EVENTS);
         args = getArguments();
         if (args != null){
             eventID = args.getString("eventID");
-            getEventData();
+            //getEventData();
+            loadFireBaseAdapter(eventID);
         }
 
     }
@@ -83,11 +106,22 @@ public class VenueFragment extends Fragment {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_venue, container, false);
         venueRecyclerView = rootView.findViewById(R.id.venue_recycler_view);
-        venueAdapter = new VenueAdapter(venueList, context);
+
         linearLayoutManager = new LinearLayoutManager(context);
-        venueRecyclerView.setAdapter(venueAdapter);
+        linearLayoutManager.setStackFromEnd(true);
+        linearLayoutManager.setReverseLayout(true);
+
+        venueRecyclerView.setAdapter(firebaseRecyclerAdapter);
         venueRecyclerView.setLayoutManager(linearLayoutManager);
         venueRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
+
+        venueName = (TextView) rootView.findViewById(R.id.venue_name_textview);
+        venueAddress = (TextView) rootView.findViewById(R.id.venue_address_textview);
+        venueVoteCount = (TextView) rootView.findViewById(R.id.venue_vote_textview);
+        venuePhoto = (ImageView) rootView.findViewById(R.id.venue_photo_image_view);
+
+
+
         return rootView;
     }
 
@@ -95,7 +129,26 @@ public class VenueFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         this.context = context;
-        getEventData();
+        //getEventData();
+    }
+
+    public void loadFireBaseAdapter(String eventID){
+        if (eventID != null){
+            venue_map = eventsRef.child(eventID).child(VENUE_MAP);
+            Log.d("venue frag", "event id" + eventID);
+            firebaseRecyclerAdapter =
+                    new FirebaseRecyclerAdapter<Venue, VenueViewHolder>(Venue.class, R.layout.venue_item_view, VenueViewHolder.class, venue_map.orderByChild("vote_count")) {
+
+                        @Override
+                        protected void populateViewHolder(VenueViewHolder viewHolder, Venue model, int position) {
+                            if (getActivity() != null){
+                                viewHolder.onBind(model, getActivity().getApplicationContext());
+                                getEventData();
+                            }
+                        }
+                    };
+        }
+
     }
 
     public void getEventData(){
@@ -110,20 +163,17 @@ public class VenueFragment extends Fragment {
                         if(currentEvent.getVenue_map() != null){
                             if(!dataLoaded){
                                 Log.d ("Venue Fragment", "get venue map called");
-                                venueList = new ArrayList<>();
-                                venueList.addAll(currentEvent.getVenue_map().values());
-                                Log.d ("Venue Fragment", "get venue map called: list size " + venueList.size());
-                                venueAdapter.notifyDataSetChanged();
-                                venueAdapter = new VenueAdapter(venueList, context);
-                                venueRecyclerView.setAdapter(venueAdapter);
+
                                 venueVoteUtility = new VenueVoteUtility(currentEvent);
                                 venueIdMap = venueVoteUtility.venueIdMap;
                                 venueVoteCountMap = venueVoteUtility.venueVoteCountMap;
                                 orderedVenueIdList = venueVoteUtility.orderedVenueIdList;
+                                venueList = new ArrayList<>();
+                                venueList = venueVoteUtility.orderedVenueList;
                                 topVenue = venueVoteUtility.topVenue;
                                 setVenueVoteCount();
-                                venueAdapter.notifyDataSetChanged();
-                                dataLoaded = true;
+                                setTopVenueView(topVenue);
+                                Log.d ("Venue Fragment", "get venue map called: list size " + venueList.size());
                             }
 
 
@@ -139,15 +189,31 @@ public class VenueFragment extends Fragment {
         }
 
     }
+    public void setTopVenueView(Venue venue){
+        venueName.setText(venue.getVenue_name());
+        if(getActivity() != null){
+            venueName.setTextColor(getActivity().getResources().getColor(R.color.colorPrimary));
+        }
+
+        venueAddress.setText(venue.getVenue_address());
+        if (venue.getVenue_vote() != null){
+            venueVoteCount.setText(String.valueOf(venue.getVote_count())+ "  **Top Venue!** ");
+        } else {
+            venueVoteCount.setText("not voted yet");
+        }
+        if (venue.getVenue_photo_url() != null){
+            Picasso.with(context)
+                    .load(venue.getVenue_photo_url())
+                    .into(venuePhoto);
+        }
+    }
     public void setVenueVoteCount(){
+        CurrentUserPost currentUserPost = CurrentUserPost.getInstance();
         for (Venue venue : venueList){
             int vote = venueVoteCountMap.get(venue.getVenue_id());
             venue.setVote_count(vote);
-            CurrentUserPost.getInstance().postVenueVoteCount(eventID, venue.getVenue_id(), vote);
+            currentUserPost.postVenueVoteCount(eventID, venue.getVenue_id(), vote);
         }
     }
 
-    public void reOrderList(){
-
-    }
 }

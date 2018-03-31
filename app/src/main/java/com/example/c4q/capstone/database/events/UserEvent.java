@@ -1,7 +1,6 @@
 package com.example.c4q.capstone.database.events;
 
-import java.util.HashMap;
-import java.util.List;
+import com.example.c4q.capstone.database.publicuserdata.UserIcon;
 
 /**
  * Created by amirahoxendine on 3/29/18.
@@ -14,9 +13,19 @@ public class UserEvent {
     private String event_name;
     private String event_note;
     private String event_organizer;
+    private String event_organizer_full_name;
+    private UserIcon event_organizer_icon;
     private String event_time;
     private String final_venue;
     private String event_photo;
+
+    public UserIcon getEvent_organizer_icon() {
+        return event_organizer_icon;
+    }
+
+    public void setEvent_organizer_icon(UserIcon event_organizer_icon) {
+        this.event_organizer_icon = event_organizer_icon;
+    }
 
     public String getEvent_photo() {
         return event_photo;
@@ -64,6 +73,14 @@ public class UserEvent {
 
     public void setEvent_organizer(String event_organizer) {
         this.event_organizer = event_organizer;
+    }
+
+    public String getEvent_organizer_full_name() {
+        return event_organizer_full_name;
+    }
+
+    public void setEvent_organizer_full_name(String event_organizer_full_name) {
+        this.event_organizer_full_name = event_organizer_full_name;
     }
 
     public String getEvent_time() {

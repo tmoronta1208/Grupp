@@ -106,6 +106,11 @@ public class VenueNetworkUtility {
             if (compareCount == 0){
                 Log.d(TAG, "comparison complete");
                 Log.d(TAG, "final set size: " + finalVenueIdSet.size());
+                for (String k: finalVenueIdSet){
+                    Log.d(TAG, "final set size: " + k);
+                }
+
+
                 List<String> finalVenueIdList = new ArrayList<>();
                 finalVenueIdList.addAll(finalVenueIdSet);
                 venueNetworkListener.getFourSVenueIds(finalVenueIdList);
