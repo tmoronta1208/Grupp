@@ -46,7 +46,6 @@ public class DummyLoginActivity extends AppCompatActivity {
     private DatabaseReference publicUserDatabaseReference, searchUserReference;
     private String currentUserID;
     private PublicUser publicUser;
-    private UserSearch userSearch;
     CurrentUser currentUserInstance = CurrentUser.getInstance();
     private String TAG = "login";
 

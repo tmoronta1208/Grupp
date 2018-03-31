@@ -33,7 +33,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import static com.example.c4q.capstone.utils.Constants.DEFAULT_ICON;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_LOCATION;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
@@ -49,7 +48,7 @@ public class CreateProfileFragment extends Fragment {
 
     private static final String TAG = "CreateProfileActivity";
 
-    private String currentUserID, firstNameString, lastNameString, zipCodeSting, budgetString;
+    private String currentUserID, firstNameString, lastNameString, zipCodeString, budgetString;
     private boolean over18, over21, share_location;
     private int radius;
     private double lat, lng;
@@ -190,17 +189,17 @@ public class CreateProfileFragment extends Fragment {
     private void saveToDatabase() {
         firstNameString = firstName.getText().toString().trim();
         lastNameString = lastName.getText().toString().trim();
-        zipCodeSting = zipCode.getText().toString();
+        zipCodeString = zipCode.getText().toString();
 
-        if (!firstNameString.equals("") && !lastNameString.equals("") && !zipCodeSting.equals("")) {
+        if (!firstNameString.equals("") && !lastNameString.equals("") && !zipCodeString.equals("")) {
 
-            publicUser = new PublicUser(currentUserID, firstNameString, lastNameString, zipCodeSting, budgetString, currentUserEmail, over18, over21, radius);
+            publicUser = new PublicUser(currentUserID, firstNameString, lastNameString, zipCodeString, budgetString, currentUserEmail, over18, over21, radius);
 
             privateUser = new PrivateUser(firstNameString, lastNameString, over18, over21, radius);
 
             privateUserLocation = new PrivateUserLocation(share_location, lat, lng);
 
-            userSearch = new UserSearch(firstNameString, lastNameString, currentUserEmail, iconUrl, currentUserID);
+            userSearch = new UserSearch(firstNameString, lastNameString, currentUserEmail, iconUrl, currentUserID, zipCodeString, radius);
 
             userIcon = new UserIcon(iconUrl);
 

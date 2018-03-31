@@ -39,6 +39,7 @@ public class UserSearchViewHolder extends RecyclerView.ViewHolder {
         Glide.with(getRequestContext()).load(url).into(icon);
     }
 
+
     public Context getRequestContext() {
         requestContext = itemView.getContext();
         return requestContext;
