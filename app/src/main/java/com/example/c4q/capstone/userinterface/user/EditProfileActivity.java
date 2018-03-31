@@ -21,7 +21,10 @@ import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
 import com.example.c4q.capstone.database.privateuserdata.PrivateUserLocation;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
+import com.example.c4q.capstone.database.publicuserdata.UserIcon;
 import com.example.c4q.capstone.database.publicuserdata.UserSearch;
+import com.example.c4q.capstone.userinterface.user.onboarding.CreateProfileFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,9 +33,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.example.c4q.capstone.utils.Constants.DEFAULT_ICON;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_LOCATION;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
+import static com.example.c4q.capstone.utils.Constants.USER_ICON;
 import static com.example.c4q.capstone.utils.Constants.USER_SEARCH;
 
 public class EditProfileActivity extends AppCompatActivity {
@@ -50,13 +55,15 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private DatabaseReference rootRef, publicUserReference, privateUserReference, privateUserLocationReference, searchUserReference;
+    private DatabaseReference rootRef, publicUserReference, privateUserReference, privateUserLocationReference, searchUserReference, userIconReference;
     private FirebaseUser currentUser;
     private UserSearch userSearch;
     private PublicUser publicUser;
     private PrivateUser privateUser;
+    private UserIcon userIcon;
+    private PublicUserDetails publicUserDetails;
     private PrivateUserLocation privateUserLocation;
-    private String currentUserEmail;
+    private String currentUserEmail, iconUrl;
 
 
     @Override
@@ -81,10 +88,12 @@ public class EditProfileActivity extends AppCompatActivity {
         privateUserReference = rootRef.child(PRIVATE_USER);
         privateUserLocationReference = rootRef.child(PRIVATE_USER);
         searchUserReference = rootRef.child(USER_SEARCH);
+        userIconReference = rootRef.child(USER_ICON);
 
         currentUser = mAuth.getCurrentUser();
         currentUserID = currentUser.getUid();
         currentUserEmail = currentUser.getEmail();
+
 
         radioGroupSelection();
 
@@ -110,6 +119,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 privateUserLocation = dataSnapshot.child(currentUserID).getValue(PrivateUserLocation.class);
                 publicUser = dataSnapshot.child(currentUserID).getValue(PublicUser.class);
                 userSearch = dataSnapshot.child(currentUserID).getValue(UserSearch.class);
+                userIcon = dataSnapshot.child(currentUserID).getValue(UserIcon.class);
 
                 Log.d(TAG, "onDataChange: Added information to database: \n" + dataSnapshot.getValue());
             }
@@ -163,10 +173,16 @@ public class EditProfileActivity extends AppCompatActivity {
 
         if (!firstNameString.equals("") && !lastNameString.equals("") && !zipCodeSting.equals("")) {
 
-            publicUser = new PublicUser(currentUserID,firstNameString, lastNameString, zipCodeSting, budgetString, currentUserEmail, over18, over21, radius);
+            publicUser = new PublicUser(currentUserID, firstNameString, lastNameString, zipCodeSting, budgetString, currentUserEmail, over18, over21, radius);
+
             privateUser = new PrivateUser(firstNameString, lastNameString, over18, over21, radius);
+
             privateUserLocation = new PrivateUserLocation(share_location, lat, lng);
-            userSearch = new UserSearch(currentUserEmail);
+
+            userSearch = new UserSearch(firstNameString, lastNameString, currentUserEmail, iconUrl, currentUserID);
+
+            //will cause a nullPointerException, to be fixed
+            userIcon = new UserIcon(iconUrl);
 
             /**
              * searchUserReference needs to be added at time of account creation
@@ -174,9 +190,11 @@ public class EditProfileActivity extends AppCompatActivity {
             searchUserReference.child(currentUserID).setValue(userSearch);
             publicUserReference.child(currentUserID).setValue(publicUser);
             privateUserReference.child(currentUserID).setValue(privateUser);
+            userIconReference.child(currentUserID).setValue(userIcon);
             privateUserLocationReference.child(currentUserID).child(PRIVATE_LOCATION).setValue(privateUserLocation);
 
             startActivity(new Intent(EditProfileActivity.this, UserProfileActivity.class));
+
         } else {
             firstName.setError("Required");
             lastName.setError("Required");

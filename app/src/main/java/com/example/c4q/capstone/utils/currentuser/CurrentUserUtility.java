@@ -198,7 +198,7 @@ public class CurrentUserUtility {
                     Log.d(TAG, "getCurrentUserFriendIds: user has friends:" + userHasFriends);
                     currentUserListener.userHasFriends(userHasFriends);
                     currentUserListener.getUserFriendIDs(userFriendIds);
-                    getCurrentUserFriends();
+//                    getCurrentUserFriends();
                 }
 
                 @Override

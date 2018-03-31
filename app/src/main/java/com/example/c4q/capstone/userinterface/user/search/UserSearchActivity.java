@@ -1,170 +1,161 @@
 package com.example.c4q.capstone.userinterface.user.search;
 
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
+import com.example.c4q.capstone.database.publicuserdata.UserContacts;
+import com.example.c4q.capstone.database.publicuserdata.UserSearch;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import static com.example.c4q.capstone.utils.Constants.FRIEND_REQUEST;
-import static com.example.c4q.capstone.utils.Constants.NOT_FRIENDS;
-import static com.example.c4q.capstone.utils.Constants.PENDING;
-import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
-import static com.example.c4q.capstone.utils.Constants.REQUEST_TYPE;
+import static com.example.c4q.capstone.utils.Constants.USER_CONTACTS;
 import static com.example.c4q.capstone.utils.Constants.USER_SEARCH;
 
 public class UserSearchActivity extends AppCompatActivity {
     private static final String TAG = "UserSearchActivity";
-    private RecyclerView searchResultsList;
+    private RecyclerView searchContactsRecyclerView;
     private FirebaseAuth authentication;
-    private DatabaseReference rootRef, searchUserDatabase;
+    private DatabaseReference rootRef, searchUserRef;
     private LinearLayoutManager linearLayoutManager;
     private FirebaseUser currentUser;
-    private String currentState, currentUserID, currentUserEmail;
-    private List<String> pendingFriendRequestsList = new ArrayList<>();
+    private String currentUserID;
+
+    private List<PublicUserDetails> currentUserContactList = new ArrayList<>();
+
+    /**
+     * TODO: create a searchable user interface
+     *
+     * At the moment the app can retrieve everyone in the user search node. want to be able to
+     *      search for specific users instead.
+     */
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_search);
 
-        rootRef = FirebaseDatabase.getInstance().getReference();
-
-        searchUserDatabase = rootRef.child(USER_SEARCH);
-
-        linearLayoutManager = new LinearLayoutManager(this);
-
         authentication = FirebaseAuth.getInstance();
         currentUser = authentication.getCurrentUser();
         currentUserID = currentUser.getUid();
-        currentUserEmail = currentUser.getEmail();
 
-        searchResultsList = findViewById(R.id.search_users_rv);
-        searchResultsList.setHasFixedSize(true);
-        searchResultsList.setLayoutManager(linearLayoutManager);
+        rootRef = FirebaseDatabase.getInstance().getReference();
+        searchUserRef = rootRef.child(USER_SEARCH);
 
-        currentState = NOT_FRIENDS;
-        callFirebaseAdapter();
+        searchContactsRecyclerView = findViewById(R.id.search_users_rv);
+        searchContactsRecyclerView.setHasFixedSize(true);
+
+        linearLayoutManager = new LinearLayoutManager(this);
+        searchContactsRecyclerView.setLayoutManager(linearLayoutManager);
+
+        getContactListAdapter();
+
     }
 
+    private void getContactListAdapter() {
 
-    private void callFirebaseAdapter() {
+        FirebaseRecyclerAdapter<UserSearch, UserSearchViewHolder> contactsListAdapter = new FirebaseRecyclerAdapter<UserSearch, UserSearchViewHolder>(
+                UserSearch.class, R.layout.add_contact_itemview, UserSearchViewHolder.class, searchUserRef) {
 
-        FirebaseRecyclerAdapter<User, UserSearchViewHolder> firebaseRecyclerAdapter =
-                new FirebaseRecyclerAdapter<User, UserSearchViewHolder>(
-                        User.class, R.layout.search_user_itemview, UserSearchViewHolder.class, searchUserDatabase) {
-
-                    @Override
-                    protected void populateViewHolder(final UserSearchViewHolder viewHolder, User model, final int position) {
-
-                        viewHolder.setEmail(model.getEmail());
-
-                        final String requestedFriendID = getRef(position).getKey();
-
-                        viewHolder.requestFriendBtn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-
-                                if (!currentUserID.equals(requestedFriendID)) {
-                                    /**
-                                     * sends friend requests
-                                     */
-                                    sendFriendRequest(requestedFriendID, viewHolder.requestFriendBtn);
-
-                                }
-
-                                if (!currentUserID.equals(requestedFriendID) && viewHolder.requestFriendBtn.getText().equals("Pending")) {
-                                    /**
-                                     * cancels sent friend requests
-                                     */
-                                    cancelFriendRequest(requestedFriendID, viewHolder.requestFriendBtn);
-                                }
-                            }
-                        });
-                    }
-                };
-
-        searchResultsList.setAdapter(firebaseRecyclerAdapter);
-    }
-
-    public void sendFriendRequest(final String requestedFriendID, final Button requestFriendBtn) {
-        HashMap<String, String> notificationData = new HashMap<>();
-        notificationData.put(REQUEST_TYPE, FRIEND_REQUEST);
-
-        Map<String, Object> requestMap = new HashMap<>();
-        requestMap.put(PUBLIC_USER + "/" + requestedFriendID + "/" + PENDING + "/" + currentUserID, notificationData);
-
-        rootRef.updateChildren(requestMap, new DatabaseReference.CompletionListener() {
             @Override
-            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                if (databaseError != null) {
-                    Toast.makeText(UserSearchActivity.this, "Error: Request not sent", Toast.LENGTH_SHORT).show();
-                } else {
+            protected void populateViewHolder(final UserSearchViewHolder viewHolder, UserSearch model, int position) {
 
-                    requestFriendBtn.setText("Pending");
-                }
-            }
-        });
-    }
+                final String contactID = getRef(position).getKey();
 
-    public void cancelFriendRequest(final String requestedFriendID, final Button requestFriendBtn) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(UserSearchActivity.this);
+                final String email = model.getEmail();
+                final String first = model.getFirst_name();
+                final String last = model.getLast_name();
+                final String icon = model.getIcon_url();
 
-        builder.setTitle("Confirm");
-        builder.setMessage("Cancel Friend Request?");
+                viewHolder.setEmail(email);
+                viewHolder.setFullName(first, last);
+                viewHolder.setIcon(icon);
 
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int which) {
-                rootRef.child(PUBLIC_USER)
-                        .child(requestedFriendID)
-                        .child(PENDING)
-                        .child(currentUserID)
-                        .removeValue()
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                viewHolder.addContactButton.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onSuccess(Void v) {
-                        requestFriendBtn.setText("Add Friend");
+                    public void onClick(View v) {
+                        addToContactList(contactID, viewHolder.addContactButton, first, last, email, icon);
                     }
                 });
-
-                dialog.dismiss();
             }
+        };
 
-        });
-
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        AlertDialog alert = builder.create();
-        alert.show();
+        searchContactsRecyclerView.setAdapter(contactsListAdapter);
     }
 
+    public void addToContactList(String contactID, final Button addContactButton, String first, String last, String email, String url) {
+        /**
+         * TODO: Write logic to retrieve contacts list first, and then update the list with the new values.
+         * TODO: also need to write logic to check if user is already in contact list
+         */
+        final PublicUserDetails publicUserDetails = new PublicUserDetails(first, last, email, url, contactID);
+
+        final HashMap<String, Object> user_contacts = new HashMap<>();
+
+        final DatabaseReference userContactsRef = rootRef.child(USER_CONTACTS).child(currentUserID);
+        userContactsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot != null){
+                    for (DataSnapshot ds : dataSnapshot.getChildren()){
+                        PublicUserDetails pubUser = ds.getValue(PublicUserDetails.class);
+                        if (pubUser != null){
+                            user_contacts.put(pubUser.getUid(), pubUser);
+                        }
+                    }
+                    user_contacts.put(publicUserDetails.getUid(), publicUserDetails);
+                    userContactsRef.updateChildren(user_contacts);
+                    addContactButton.setVisibility(View.INVISIBLE);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        //before we add new contacts, we need a map of contacts that are already there.
+
+
+        //currentUserContactList.add(publicUserDetails);
+
+        //UserContacts userContacts = new UserContacts(currentUserContactList);
+
+
+       // userContactsRef.setValue(userContacts);
+        //this updates the user's contacts.
+
+
+        /*userContactsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                addContactButton.setVisibility(View.INVISIBLE);
+                Log.d(TAG, "onDataChange: " + dataSnapshot.getValue());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });*/
+    }
 }

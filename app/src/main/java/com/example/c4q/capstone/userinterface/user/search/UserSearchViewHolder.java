@@ -1,40 +1,46 @@
 package com.example.c4q.capstone.userinterface.user.search;
 
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.c4q.capstone.R;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class UserSearchViewHolder extends RecyclerView.ViewHolder {
-    TextView usernameTxt, firstName, lastName, emailTxt;
-    Button requestFriendBtn;
+    CircleImageView icon;
+    TextView emailText, fullNameTxt;
+    Button addContactButton;
+    Context requestContext;
 
     public UserSearchViewHolder(View itemView) {
         super(itemView);
-        requestFriendBtn = itemView.findViewById(R.id.request_friend_btn);
-    }
-
-    public void setFirst_name(String first_name) {
-        firstName = itemView.findViewById(R.id.search_first_name);
-        firstName.setText(first_name);
-    }
-
-    public void setLast_name(String last_name) {
-        lastName = itemView.findViewById(R.id.search_last_name);
-        lastName.setText(last_name);
+        addContactButton = itemView.findViewById(R.id.add_contact_button);
     }
 
     public void setEmail(String email) {
-        emailTxt = itemView.findViewById(R.id.search_email);
-        emailTxt.setText(email);
+        emailText = itemView.findViewById(R.id.search_email);
+        emailText.setText(email);
     }
 
-    public void setUsername(String username) {
-        usernameTxt = itemView.findViewById(R.id.search_username);
-        usernameTxt.setText(username);
+    public void setFullName(String first, String last) {
+        fullNameTxt = itemView.findViewById(R.id.search_name);
+        fullNameTxt.setText(first+" "+last);
+    }
+
+    public void setIcon(String url) {
+        icon = itemView.findViewById(R.id.search_user_image);
+        Glide.with(getRequestContext()).load(url).into(icon);
+    }
+
+    public Context getRequestContext() {
+        requestContext = itemView.getContext();
+        return requestContext;
     }
 }
