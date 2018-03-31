@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.example.c4q.capstone.utils.Constants.BAR_PREFS;
+import static com.example.c4q.capstone.utils.Constants.BAR_AND_AMENITIES_PREFS;
 import static com.example.c4q.capstone.utils.Constants.PREFERENCES;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
 
@@ -34,9 +34,10 @@ import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
  */
 public class BarPreferencesFragment extends Fragment {
     private View view;
+    CheckBox brunch, outdoorSeating, rooftop, danceFloor, fullMenu, videoGames, darts, poolTables, beerCheckBox;
+    ;
     private CheckBox clubCheckBox, loungeCheckBox, karaokeCheckBox, hookahPrefCheckBox,
             gayPrefCheckBox, beachCheckBox, hotelCheckbox, pubCheckbox, cocktailCheckbox;
-    Switch beerCheckBox;
     private FloatingActionButton saveButton;
     HashMap<CheckBox, String> prefs = new HashMap<>();
     public static List<String> selectedPrefs = new ArrayList<>();
@@ -68,7 +69,7 @@ public class BarPreferencesFragment extends Fragment {
 
         clubCheckBox = view.findViewById(R.id.club_pref);
         loungeCheckBox = view.findViewById(R.id.lounge_pref);
-//        beerCheckBox = view.findViewById(R.id.beer_pref);
+        beerCheckBox = view.findViewById(R.id.beer_pref);
         karaokeCheckBox = view.findViewById(R.id.karaoke_pref);
         hookahPrefCheckBox = view.findViewById(R.id.hookah_pref);
         gayPrefCheckBox = view.findViewById(R.id.gayBar_pref);
@@ -77,6 +78,16 @@ public class BarPreferencesFragment extends Fragment {
         pubCheckbox = view.findViewById(R.id.pub_pref);
         cocktailCheckbox = view.findViewById(R.id.cocktail_pref);
 
+        brunch = view.findViewById(R.id.brunch_pref);
+        outdoorSeating = view.findViewById(R.id.outdoor_pref);
+        rooftop = view.findViewById(R.id.rooftop_pref);
+        danceFloor = view.findViewById(R.id.dance_floor_pref);
+        fullMenu = view.findViewById(R.id.full_menu_pref);
+        videoGames = view.findViewById(R.id.video_games_pref);
+        darts = view.findViewById(R.id.darts_pref);
+        poolTables = view.findViewById(R.id.pool_table_pref);
+
+
         saveButton = view.findViewById(R.id.bar_pref_save_button);
 
 
@@ -84,7 +95,7 @@ public class BarPreferencesFragment extends Fragment {
 
         prefs.put(clubCheckBox, "club");
         prefs.put(loungeCheckBox, "lounge");
-        // prefs.put(beerCheckBox, "beer");
+        prefs.put(beerCheckBox, "beer");
         prefs.put(karaokeCheckBox, "karaoke");
         prefs.put(hookahPrefCheckBox, "hookah");
         prefs.put(gayPrefCheckBox, "gay");
@@ -92,6 +103,15 @@ public class BarPreferencesFragment extends Fragment {
         prefs.put(hotelCheckbox, "hotel");
         prefs.put(pubCheckbox, "pub");
         prefs.put(cocktailCheckbox, "cocktail");
+
+        prefs.put(brunch, "brunch");
+        prefs.put(outdoorSeating, "outdoor+seating");
+        prefs.put(rooftop, "rooftop");
+        prefs.put(danceFloor, "dance+floor");
+        prefs.put(fullMenu, "full+menu");
+        prefs.put(videoGames, "video+games");
+        prefs.put(darts, "darts");
+        prefs.put(poolTables, "pool+tables");
 
         //Foreach - added an onClick listener to each checkbox in the map
 
@@ -130,7 +150,7 @@ public class BarPreferencesFragment extends Fragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                preferencesDB.child(currentUserID).child(PREFERENCES).child(BAR_PREFS).setValue(selectedPrefs);
+                preferencesDB.child(currentUserID).child(PREFERENCES).child(BAR_AND_AMENITIES_PREFS).setValue(selectedPrefs);
                 OnBoardActivity.viewPager.setCurrentItem(2);
 
             }

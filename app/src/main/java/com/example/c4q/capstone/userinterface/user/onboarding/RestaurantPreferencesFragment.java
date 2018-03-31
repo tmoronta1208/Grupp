@@ -31,7 +31,7 @@ import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AmenityPreferencesFragment extends Fragment {
+public class RestaurantPreferencesFragment extends Fragment {
     CheckBox brunch, outdoorSeating, rooftop, danceFloor, fullMenu, videoGames, darts, poolTables;
     Button saveButton;
     View rootView;
@@ -45,7 +45,7 @@ public class AmenityPreferencesFragment extends Fragment {
     private FirebaseUser currentUser;
 
 
-    public AmenityPreferencesFragment() {
+    public RestaurantPreferencesFragment() {
         // Required empty public constructor
     }
 

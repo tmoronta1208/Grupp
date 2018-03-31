@@ -39,7 +39,9 @@ public class FourSNetworkCall {
                 @Override
                 public void onResponse(Call<FourSquareModel> call, Response<FourSquareModel> response) {
 
-                    Log.d("SUCESSSS", response.body().getResponse().getVenues().get(0).getName());
+                    Log.d("SUCESSSS", response.body().getResponse().getVenues().get(0).getId());
+
+
 
 
                 }

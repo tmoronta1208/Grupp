@@ -1,31 +1,19 @@
 package com.example.c4q.capstone.userinterface.user.onboarding;
 
 
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Toolbar;
 
-import com.ToxicBakery.viewpager.transforms.CubeInTransformer;
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
-import com.ToxicBakery.viewpager.transforms.ForegroundToBackgroundTransformer;
-import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
 import com.example.c4q.capstone.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import github.chenupt.multiplemodel.viewpager.ModelPagerAdapter;
 import github.chenupt.multiplemodel.viewpager.PagerModelManager;
 import github.chenupt.springindicator.SpringIndicator;
 import github.chenupt.springindicator.viewpager.ScrollerViewPager;
@@ -47,7 +35,7 @@ public class OnBoardActivity extends FragmentActivity {
 
         PagerModelManager manager = new PagerModelManager();
 
-       // manager.addCommonFragment(BarPreferencesFragment.class, AmenityPreferencesFragment.class, getTitles());
+       // manager.addCommonFragment(BarPreferencesFragment.class, RestaurantPreferencesFragment.class, getTitles());
         ViewPagerActivityAdapter adapter =new ViewPagerActivityAdapter(getSupportFragmentManager());
         //ModelPagerAdapter adapter = new ModelPagerAdapter(getSupportFragmentManager(), manager);
         viewPager.setAdapter(adapter);
@@ -99,7 +87,7 @@ public class OnBoardActivity extends FragmentActivity {
                     fragment = new BarPreferencesFragment();
                     break;
                 case 2:
-                    fragment = new AmenityPreferencesFragment();
+                    fragment = new RestaurantPreferencesFragment();
                     break;
 
                 default:

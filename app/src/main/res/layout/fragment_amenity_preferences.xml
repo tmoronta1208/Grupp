@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.c4q.capstone.userinterface.user.onboarding.AmenityPreferencesFragment"
+    tools:context="com.example.c4q.capstone.userinterface.user.onboarding.RestaurantPreferencesFragment"
     >
 
 
@@ -17,57 +17,57 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="What kind of amenities do you prefer?"
+            android:text="What kind of restaurants do you prefer?"
             android:textSize="25sp" />
 
 
         <CheckBox
-            android:id="@+id/brunch_pref"
+            android:id="@+id/vegan_pref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vegan" />
+
+        <CheckBox
+            android:id="@+id/pescetarian_pref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pescetarians" />
+
+        <CheckBox
+            android:id="@+id/latin_food_pref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Latin Food" />
+
+        <CheckBox
+            android:id="@+id/asian_food"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Asian Food " />
+
+        <CheckBox
+            android:id="@+id/vegetarian_pref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vegetarian" />
+
+        <CheckBox
+            android:id="@+id/american_pref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="American Food" />
+
+        <CheckBox
+            android:id="@+id/brunch_food_pref"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Brunch" />
 
         <CheckBox
-            android:id="@+id/outdoor_pref"
+            android:id="@+id/breakfast_pref"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Outdoor Seating" />
-
-        <CheckBox
-            android:id="@+id/rooftop_pref"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rooftop" />
-
-        <CheckBox
-            android:id="@+id/dance_floor_pref"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Dance Floor " />
-
-        <CheckBox
-            android:id="@+id/full_menu_pref"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Full Menu" />
-
-        <CheckBox
-            android:id="@+id/video_games_pref"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Video Games" />
-
-        <CheckBox
-            android:id="@+id/darts_pref"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Darts" />
-
-        <CheckBox
-            android:id="@+id/pool_table_pref"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pool Tables" />
+            android:text="Breakfast" />
 
 
         <Button

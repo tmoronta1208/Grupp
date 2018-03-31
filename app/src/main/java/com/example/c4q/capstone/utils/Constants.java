@@ -2,7 +2,7 @@ package com.example.c4q.capstone.utils;
 
 
 public class Constants {
-    public static final String BAR_PREFS ="bar_prefs";
+    public static final String BAR_AND_AMENITIES_PREFS ="bar_and_amenities_prefs";
     public static final String BARZZ_KEY = "&user_key=96b42918912ec3f1d85660e18356617c";
     public static final String BARZZ_URL = "https://api.barzz.net/api/";
     public static final String EVENTS = "events";

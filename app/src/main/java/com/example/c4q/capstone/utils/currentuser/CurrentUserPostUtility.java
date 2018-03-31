@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static com.example.c4q.capstone.utils.Constants.AMENITY_PREFS;
-import static com.example.c4q.capstone.utils.Constants.BAR_PREFS;
+import static com.example.c4q.capstone.utils.Constants.BAR_AND_AMENITIES_PREFS;
 import static com.example.c4q.capstone.utils.Constants.EVENTS;
 import static com.example.c4q.capstone.utils.Constants.EVENT_GUEST_MAP;
 import static com.example.c4q.capstone.utils.Constants.EVENT_INVITATIONS;
@@ -132,7 +132,7 @@ public class CurrentUserPostUtility {
 
     public void updateBarPrefs(List<String> barPrefs){
         Map<String, Object> userPrefs = new HashMap<>();
-        userPrefs.put(BAR_PREFS, barPrefs);
+        userPrefs.put(BAR_AND_AMENITIES_PREFS, barPrefs);
         preferencesReference.updateChildren(userPrefs);
     }
 

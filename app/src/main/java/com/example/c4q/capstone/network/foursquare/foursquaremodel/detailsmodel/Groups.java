@@ -1,4 +1,4 @@
-package com.example.c4q.capstone.network.foursquare.foursquaremodel.model;
+package com.example.c4q.capstone.network.foursquare.foursquaremodel.detailsmodel;
 
 import com.google.gson.annotations.SerializedName;
 
