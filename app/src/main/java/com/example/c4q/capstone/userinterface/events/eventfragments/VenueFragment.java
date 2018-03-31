@@ -106,11 +106,11 @@ public class VenueFragment extends Fragment {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_venue, container, false);
         venueRecyclerView = rootView.findViewById(R.id.venue_recycler_view);
-       // venueAdapter = new VenueAdapter(venueList, context);
+
         linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setStackFromEnd(true);
-        linearLayoutManager.setReverseLayout(true);;
-        //venueRecyclerView.setAdapter(venueAdapter);
+        linearLayoutManager.setReverseLayout(true);
+
         venueRecyclerView.setAdapter(firebaseRecyclerAdapter);
         venueRecyclerView.setLayoutManager(linearLayoutManager);
         venueRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
@@ -174,11 +174,6 @@ public class VenueFragment extends Fragment {
                                 setVenueVoteCount();
                                 setTopVenueView(topVenue);
                                 Log.d ("Venue Fragment", "get venue map called: list size " + venueList.size());
-                               /* venueAdapter.notifyDataSetChanged();
-                                venueAdapter = new VenueAdapter(venueList, context);
-                                venueRecyclerView.setAdapter(venueAdapter);
-                                venueAdapter.notifyDataSetChanged();
-                                dataLoaded = true;*/
                             }
 
 
@@ -220,7 +215,4 @@ public class VenueFragment extends Fragment {
         }
     }
 
-    public void reOrderList(){
-
-    }
 }
