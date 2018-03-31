@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static com.example.c4q.capstone.utils.Constants.USER_CONTACTS;
@@ -105,16 +106,46 @@ public class UserSearchActivity extends AppCompatActivity {
          * TODO: Write logic to retrieve contacts list first, and then update the list with the new values.
          * TODO: also need to write logic to check if user is already in contact list
          */
-        PublicUserDetails publicUserDetails = new PublicUserDetails(first, last, email, url, contactID);
+        final PublicUserDetails publicUserDetails = new PublicUserDetails(first, last, email, url, contactID);
 
-        currentUserContactList.add(publicUserDetails);
+        final HashMap<String, Object> user_contacts = new HashMap<>();
 
-        UserContacts userContacts = new UserContacts(currentUserContactList);
+        final DatabaseReference userContactsRef = rootRef.child(USER_CONTACTS).child(currentUserID);
+        userContactsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot != null){
+                    for (DataSnapshot ds : dataSnapshot.getChildren()){
+                        PublicUserDetails pubUser = ds.getValue(PublicUserDetails.class);
+                        if (pubUser != null){
+                            user_contacts.put(pubUser.getUid(), pubUser);
+                        }
+                    }
+                    user_contacts.put(publicUserDetails.getUid(), publicUserDetails);
+                    userContactsRef.updateChildren(user_contacts);
+                    addContactButton.setVisibility(View.INVISIBLE);
+                }
 
-        DatabaseReference userContactsRef = rootRef.child(USER_CONTACTS).child(currentUserID);
-        userContactsRef.setValue(userContacts);
+            }
 
-        userContactsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        //before we add new contacts, we need a map of contacts that are already there.
+
+
+        //currentUserContactList.add(publicUserDetails);
+
+        //UserContacts userContacts = new UserContacts(currentUserContactList);
+
+
+       // userContactsRef.setValue(userContacts);
+        //this updates the user's contacts.
+
+
+        /*userContactsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 addContactButton.setVisibility(View.INVISIBLE);
@@ -125,6 +156,6 @@ public class UserSearchActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        });*/
     }
 }
