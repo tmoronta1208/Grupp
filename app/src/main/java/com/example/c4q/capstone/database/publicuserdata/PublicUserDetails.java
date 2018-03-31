@@ -10,6 +10,10 @@ public class PublicUserDetails {
     private int radius;
     private int zip_code;
 
+    public PublicUserDetails(){
+
+    }
+
     public PublicUserDetails(String first, String last, String email, String url, String contactID, int radius, String zipcode) {
 
     }
