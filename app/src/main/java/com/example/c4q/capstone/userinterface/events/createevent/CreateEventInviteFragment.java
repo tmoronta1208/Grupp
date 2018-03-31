@@ -106,6 +106,9 @@ public class CreateEventInviteFragment extends Fragment {
                 friendId.addAll(friendIdInvite);
                 newEventBuilder.setInvitedGuests(friendId);
                 eventPresenter.setEventGuests(friendId);
+
+
+
             }
         };
     }

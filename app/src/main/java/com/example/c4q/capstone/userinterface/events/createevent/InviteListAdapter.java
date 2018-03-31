@@ -1,12 +1,17 @@
 package com.example.c4q.capstone.userinterface.events.createevent;
 
 
+import android.util.Log;
 import android.view.View;
 
+import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews.ContactListViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.Query;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by melg on 3/20/18.
@@ -32,6 +37,21 @@ public class InviteListAdapter extends FirebaseRecyclerAdapter<PublicUserDetails
         viewHolder.setEmail(email);
         viewHolder.itemView.setTag(model.getUid());
         viewHolder.itemView.setOnClickListener(onClickListener);
+        List<PublicUser> invitedFriendUser = NewEventBuilder.getInstance().getInvitedFriendsUserList();
+        NewEventConverter eventConverter = new NewEventConverter();
+        PublicUser user = new PublicUser();
+        user = eventConverter.convertPubDetailsToPubUser(model);
+
+        if (invitedFriendUser != null){
+            invitedFriendUser.add(user);
+            Log.d("invite adapter", "pub user list size: " + invitedFriendUser.size());
+        } else {
+            invitedFriendUser = new ArrayList<>();
+
+            invitedFriendUser.add(user);
+            Log.d("invite adapter", "pub user list size: " + invitedFriendUser.size());
+        }
+        NewEventBuilder.getInstance().setInvitedFriendsUserList(invitedFriendUser);
     }
 
     /*@Override

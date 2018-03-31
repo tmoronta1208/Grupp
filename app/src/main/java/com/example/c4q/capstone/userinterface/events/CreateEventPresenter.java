@@ -49,7 +49,7 @@ public class CreateEventPresenter {
             Log.d(TAG, "event key : " + key);
             listener.getEventIdKEy(key);
             makeNetworkCall(newEventBuilder.getInvitedFriendsUserList());
-            Log.d(TAG, "post event called");
+            Log.d(TAG, "post event called" + newEventBuilder.getInvitedFriendsUserList().size());
 
             CurrentUserPost.getInstance().postNewEvent(key, newEvent);
             //UserEvent userEvent = creatUserEventFromEvent(newEvent);
