@@ -41,9 +41,9 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/request_friend_btn"
+        android:id="@+id/add_contact_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="add friend" />
+        android:text="add contact" />
 
 </LinearLayout>

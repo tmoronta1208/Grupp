@@ -1,5 +1,7 @@
 package com.example.c4q.capstone.userinterface.events.createevent;
 
+import android.util.Log;
+
 import com.example.c4q.capstone.database.events.EventGuest;
 import com.example.c4q.capstone.database.events.Events;
 import com.example.c4q.capstone.database.events.Venue;
@@ -20,7 +22,9 @@ public class VenueVoteUtility {
     public HashMap<String, Integer> venueVoteCountMap;
     public List<String> venueIDList;
     public List<String> orderedVenueIdList;
+    public List<Venue> orderedVenueList;
     public int yayCount;
+    public static final String TAG = "VOTE UTIL";
 
     public VenueVoteUtility(Events event) {
         this.event = event;
@@ -76,21 +80,30 @@ public class VenueVoteUtility {
     }
 
     private List<String>orderVenuesByVote() {
-       orderedVenueIdList = new ArrayList<>();
-        for (int i = venueIDList.size()-1; i > 0; i--){
+       orderedVenueIdList = new ArrayList<String>(venueIDList.size());
+       orderedVenueList = new ArrayList<Venue>(venueIDList.size());
+        for (int i = 0; i < venueIDList.size(); i++){
             int highestVote = venueVoteCountMap.get(venueIDList.get(i));
             String topVenueId = venueIDList.get(i);
-            for (int k = 0; k<i; k++){
+            for (int k = venueIDList.size()-1; k > i; k--){
                 int currentVote = venueVoteCountMap.get(venueIDList.get(k));
                 String currentVenueId = venueIDList.get(k);
-                if(currentVote > highestVote){
+                if(currentVote >= highestVote){
                     highestVote = currentVote;
                     topVenueId = currentVenueId;
                 }
             }
-            orderedVenueIdList.add(topVenueId);
+            Log.d(TAG,"TOP VENUE ID: " + topVenueId );
+            Log.d(TAG,"TOP VENUE ID: " + venueIdMap.get(topVenueId).getVenue_name());
+           venueIDList.set(i, venueIDList.set(venueIDList.indexOf(topVenueId), venueIDList.get(i)));
         }
-        topVenue = venueIdMap.get(orderedVenueIdList.get(0));
+        for(int j = 0; j< venueIDList.size(); j++){
+            orderedVenueList.add(venueIdMap.get(venueIDList.get(j)));
+            orderedVenueIdList.add(venueIDList.get(j));
+        }
+        //
+        // orderedVenueList.set(i, venueIdMap.get(topVenueId));
+        topVenue = orderedVenueList.get(0);
        return orderedVenueIdList;
     }
 }

@@ -15,29 +15,32 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserSearchViewHolder extends RecyclerView.ViewHolder {
     CircleImageView icon;
-    TextView fullName, emailTxt;
-    Context searchContext;
-    Button requestFriendBtn;
+    TextView emailText, fullNameTxt;
+    Button addContactButton;
+    Context requestContext;
 
     public UserSearchViewHolder(View itemView) {
         super(itemView);
-        searchContext = itemView.getContext();
-        requestFriendBtn = itemView.findViewById(R.id.request_friend_btn);
+        addContactButton = itemView.findViewById(R.id.add_contact_button);
+    }
+
+    public void setEmail(String email) {
+        emailText = itemView.findViewById(R.id.search_email);
+        emailText.setText(email);
+    }
+
+    public void setFullName(String first, String last) {
+        fullNameTxt = itemView.findViewById(R.id.search_name);
+        fullNameTxt.setText(first+" "+last);
     }
 
     public void setIcon(String url) {
         icon = itemView.findViewById(R.id.search_user_image);
-        Glide.with(searchContext).load(url).into(icon);
+        Glide.with(getRequestContext()).load(url).into(icon);
     }
 
-    public void setFullName(String full_name) {
-        fullName = itemView.findViewById(R.id.search_name);
-        fullName.setText(full_name);
+    public Context getRequestContext() {
+        requestContext = itemView.getContext();
+        return requestContext;
     }
-
-    public void setEmail(String email) {
-        emailTxt = itemView.findViewById(R.id.search_email);
-        emailTxt.setText(email);
-    }
-
 }

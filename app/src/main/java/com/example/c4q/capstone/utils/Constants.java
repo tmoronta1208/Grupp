@@ -28,11 +28,13 @@ public class Constants {
     public static final String SENT = "Request sent";
     public static final String USER_EVENTS = "user_events";
     public static final String USER_EVENTS_LIST = "user_event_list";
+    public static final String USER_CONTACTS = "user_contacts";
     public static final String USER_FRIENDS = "user_friends";
     public static final String USER_ICON = "user_icon";
     public static final String USER_SEARCH = "user_search";
     public static final String USER_EVENT_LIST ="user_event_list";
     public static final String EVENT_INVITATIONS = "event_invitations";
+    public static final String EVENT_GUEST_MAP = "event_guest_map";
     public static final String VENUES = "venues";
     public static final String VENUE_ADDRESS = "venue_address";
     public static final String VENUE_VOTE ="venue_vote";

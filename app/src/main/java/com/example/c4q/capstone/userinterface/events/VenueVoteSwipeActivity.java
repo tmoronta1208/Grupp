@@ -10,10 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.database.events.EventGuest;
 import com.example.c4q.capstone.database.events.Events;
 import com.example.c4q.capstone.database.events.Venue;
-import com.example.c4q.capstone.database.publicuserdata.PublicUser;
-import com.example.c4q.capstone.network.barzz.barzzmodel.Results;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.CurrentUserPost;
 import com.example.c4q.capstone.utils.DummyDataUtility;
@@ -77,8 +76,11 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
             public void onItemRemoved(int count) {
                 Log.d(TAG,"item removed");
                 if(count == 0) {
-                    currentEvent.setVenue_map(venueHashMap);
+                    //currentEvent.setVenue_map(venueHashMap);
                     String id = currentEvent.getEvent_id();
+                    EventGuest currentGuest = currentEvent.getEvent_guest_map().get(CurrentUser.userID);
+                    currentGuest.setVoted(true);
+                    CurrentUserPost.getInstance().postEventGuest(eventID, CurrentUser.userID, currentGuest);
                     Intent eventIntent = new Intent(VenueVoteSwipeActivity.this, EventActivity.class);
                     eventIntent.putExtra("eventID", eventID);
                     eventIntent.putExtra("eventType", eventType);
