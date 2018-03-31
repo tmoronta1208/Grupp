@@ -10,21 +10,21 @@ public class PublicUser {
     private String zip_code;
     private String budget;
     private String email;
+    private UserIcon user_icon;
     private boolean over_18;
     private boolean over_21;
     private int radius;
     private List<String> user_preferences;
     private List<String> pending_request;
-    UserIcon user_icon;
 
     public PublicUser() {
     }
 
     public PublicUser(String user_id, String first_name, String last_name, String zip_code, String budget, String email, boolean over_18, boolean over_21, int radius) {
+        this.user_id = user_id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.zip_code = zip_code;
-        this.user_id = user_id;
         this.budget = budget;
         this.email = email;
         this.over_18 = over_18;

@@ -33,8 +33,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".userinterface.user.UserProfileActivity" />
         </activity>
-        <activity android:name=".TempFriendListActivity" />
-        <activity android:name=".userinterface.alerts.PendingFriendRequestsActivity" />
         <activity android:name=".userinterface.user.UserProfileActivity" />
         <activity android:name=".userinterface.user.SettingsActivity" />
         <activity android:name=".userinterface.events.VenueVoteSwipeActivity" />

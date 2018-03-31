@@ -2,34 +2,28 @@ package com.example.c4q.capstone.userinterface.user.onboarding;
 
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
 import com.example.c4q.capstone.database.privateuserdata.PrivateUserLocation;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
+import com.example.c4q.capstone.database.publicuserdata.UserIcon;
 import com.example.c4q.capstone.database.publicuserdata.UserSearch;
-import com.example.c4q.capstone.userinterface.user.EditProfileActivity;
-import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,9 +33,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.example.c4q.capstone.utils.Constants.DEFAULT_ICON;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_LOCATION;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
+import static com.example.c4q.capstone.utils.Constants.USER_ICON;
 import static com.example.c4q.capstone.utils.Constants.USER_SEARCH;
 
 
@@ -65,13 +61,15 @@ public class CreateProfileFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private DatabaseReference rootRef, publicUserReference, privateUserReference, privateUserLocationReference, searchUserReference;
+    private DatabaseReference rootRef, publicUserReference, privateUserReference, privateUserLocationReference, searchUserReference, userIconReference;
     private FirebaseUser currentUser;
+    private UserIcon userIcon;
     private UserSearch userSearch;
     private PublicUser publicUser;
     private PrivateUser privateUser;
     private PrivateUserLocation privateUserLocation;
-    private String currentUserEmail;
+    private PublicUserDetails publicUserDetails;
+    private String currentUserEmail, iconUrl;
 
 
     public CreateProfileFragment() {
@@ -85,7 +83,7 @@ public class CreateProfileFragment extends Fragment {
 
         rootView = inflater.inflate(com.example.c4q.capstone.R.layout.fragment_create_profile, container, false);
 
-        saveBtn = rootView.findViewById(R.id.edit_profile_save_button);
+        saveBtn = rootView.findViewById(R.id.create_profile_save_button);
 
         ageGroup = rootView.findViewById(R.id.radio_group_age);
         budgetGroup = rootView.findViewById(R.id.radio_group_budget);
@@ -95,18 +93,47 @@ public class CreateProfileFragment extends Fragment {
         lastName = rootView.findViewById(R.id.edit_profile_lastname);
         zipCode = rootView.findViewById(R.id.edit_profile_zip_code);
 
-        mAuth = FirebaseAuth.getInstance();
         rootRef = FirebaseDatabase.getInstance().getReference();
 
         publicUserReference = rootRef.child(PUBLIC_USER);
         privateUserReference = rootRef.child(PRIVATE_USER);
         privateUserLocationReference = rootRef.child(PRIVATE_USER);
         searchUserReference = rootRef.child(USER_SEARCH);
-        saveBtn = rootView.findViewById(R.id.create_profile_save_button);
+        userIconReference = rootRef.child(USER_ICON);
+
+        mAuth = FirebaseAuth.getInstance();
 
         currentUser = mAuth.getCurrentUser();
         currentUserID = currentUser.getUid();
         currentUserEmail = currentUser.getEmail();
+
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                privateUser = dataSnapshot.child(currentUserID).getValue(PrivateUser.class);
+                privateUserLocation = dataSnapshot.child(currentUserID).getValue(PrivateUserLocation.class);
+                publicUser = dataSnapshot.child(currentUserID).getValue(PublicUser.class);
+                userSearch = dataSnapshot.child(currentUserID).getValue(UserSearch.class);
+                userIcon = dataSnapshot.child(currentUserID).getValue(UserIcon.class);
+
+                Log.d(TAG, "onDataChange: Added information to database: \n" + dataSnapshot.getValue());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        };
+
+        searchUserReference.addValueEventListener(valueEventListener);
+        publicUserReference.addValueEventListener(valueEventListener);
+        privateUserReference.addValueEventListener(valueEventListener);
+        privateUserLocationReference.addValueEventListener(valueEventListener);
+        userIconReference.addValueEventListener(valueEventListener);
+
+        saveBtn = rootView.findViewById(R.id.create_profile_save_button);
 
         radioGroupSelection();
 
@@ -125,28 +152,6 @@ public class CreateProfileFragment extends Fragment {
             }
         };
 
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                privateUser = dataSnapshot.child(currentUserID).getValue(PrivateUser.class);
-                privateUserLocation = dataSnapshot.child(currentUserID).getValue(PrivateUserLocation.class);
-                publicUser = dataSnapshot.child(currentUserID).getValue(PublicUser.class);
-                userSearch = dataSnapshot.child(currentUserID).getValue(UserSearch.class);
-
-                Log.d(TAG, "onDataChange: Added information to database: \n" + dataSnapshot.getValue());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        };
-
-        searchUserReference.addValueEventListener(valueEventListener);
-        publicUserReference.addValueEventListener(valueEventListener);
-        privateUserReference.addValueEventListener(valueEventListener);
-        privateUserLocationReference.addValueEventListener(valueEventListener);
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,12 +160,11 @@ public class CreateProfileFragment extends Fragment {
             }
         });
 
-
-
-
         return rootView;
     }
-    private void location(){
+
+
+    private void location() {
         ///////////////////////////////////////////
         /**
          * code below needs to be place in the launch of the app so the user can give location
@@ -190,10 +194,15 @@ public class CreateProfileFragment extends Fragment {
 
         if (!firstNameString.equals("") && !lastNameString.equals("") && !zipCodeSting.equals("")) {
 
-            publicUser = new PublicUser(currentUserID,firstNameString, lastNameString, zipCodeSting, budgetString, currentUserEmail, over18, over21, radius);
+            publicUser = new PublicUser(currentUserID, firstNameString, lastNameString, zipCodeSting, budgetString, currentUserEmail, over18, over21, radius);
+
             privateUser = new PrivateUser(firstNameString, lastNameString, over18, over21, radius);
+
             privateUserLocation = new PrivateUserLocation(share_location, lat, lng);
-            userSearch = new UserSearch(currentUserEmail);
+
+            userSearch = new UserSearch(firstNameString, lastNameString, currentUserEmail, iconUrl, currentUserID);
+
+            userIcon = new UserIcon(iconUrl);
 
             /**
              * searchUserReference needs to be added at time of account creation
@@ -201,6 +210,7 @@ public class CreateProfileFragment extends Fragment {
             searchUserReference.child(currentUserID).setValue(userSearch);
             publicUserReference.child(currentUserID).setValue(publicUser);
             privateUserReference.child(currentUserID).setValue(privateUser);
+            userIconReference.child(currentUserID).setValue(userIcon);
             privateUserLocationReference.child(currentUserID).child(PRIVATE_LOCATION).setValue(privateUserLocation);
 
             //startActivity(new Intent(CreateProfileFragment.this.getActivity(), UserProfileActivity.class));

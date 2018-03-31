@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="8dp">
+    android:background="?android:selectableItemBackground"
+    android:orientation="horizontal">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/user_icon_contactlist"
+        android:id="@+id/search_user_image"
         android:layout_width="55dp"
         android:layout_height="75dp"
         android:src="@drawable/default_avatar" />
@@ -19,17 +19,17 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/name_contactlist"
+            android:id="@+id/search_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="BLAH"
+            android:text="Full Name"
             android:textColor="@color/colorForground"
             android:textSize="16sp"
             tools:layout_editor_absoluteX="73dp"
             tools:layout_editor_absoluteY="8dp" />
 
         <TextView
-            android:id="@+id/email_contactlist"
+            android:id="@+id/search_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Boannejo@gmail.com"
@@ -38,8 +38,12 @@
             android:textStyle="italic"
             tools:layout_editor_absoluteX="73dp"
             tools:layout_editor_absoluteY="30dp" />
-
-
     </LinearLayout>
+
+    <Button
+        android:id="@+id/add_contact_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="add contact" />
 
 </LinearLayout>
