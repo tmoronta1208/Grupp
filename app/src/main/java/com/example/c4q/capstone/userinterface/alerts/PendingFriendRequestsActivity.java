@@ -5,12 +5,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.publicuserdata.UserFriends;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.example.c4q.capstone.database.publicuserdata.UserSearch;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,6 +33,7 @@ import java.util.Set;
 import static com.example.c4q.capstone.utils.Constants.PENDING;
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 import static com.example.c4q.capstone.utils.Constants.USER_FRIENDS;
+import static com.example.c4q.capstone.utils.Constants.USER_SEARCH;
 
 public class PendingFriendRequestsActivity extends AppCompatActivity {
     private static final String TAG = "PendingFriendRequests";
@@ -41,7 +44,7 @@ public class PendingFriendRequestsActivity extends AppCompatActivity {
     private DatabaseReference rootRef, pendingRequests;
     private FirebaseUser currentUser;
     private FirebaseAuth authentication;
-    private String currentUserID;
+    private String currentUserID, requesterFirstName, requesterLastName, requesterIconUrl, requesterEmail;
     private UserFriends userFriends;
 
 
@@ -55,7 +58,7 @@ public class PendingFriendRequestsActivity extends AppCompatActivity {
         currentUserID = currentUser.getUid();
 
         rootRef = FirebaseDatabase.getInstance().getReference();
-        pendingRequests = rootRef.child(PUBLIC_USER).child(currentUserID).child(PENDING);
+        pendingRequests = rootRef.child(PENDING).child(currentUserID);
 
         pendingListRecyclerView = findViewById(R.id.pending_requests_rv);
         pendingListRecyclerView.setHasFixedSize(true);
@@ -76,15 +79,25 @@ public class PendingFriendRequestsActivity extends AppCompatActivity {
 
     private void callFirebaseAdapter() {
 
-        FirebaseRecyclerAdapter<PublicUser, FriendRequestAlertViewHolder> firebaseRecyclerAdapter =
-                new FirebaseRecyclerAdapter<PublicUser, FriendRequestAlertViewHolder>(
-                        PublicUser.class, R.layout.friend_request_itemview, FriendRequestAlertViewHolder.class, pendingRequests) {
+        FirebaseRecyclerAdapter<UserSearch, FriendRequestAlertViewHolder> firebaseRecyclerAdapter =
+                new FirebaseRecyclerAdapter<UserSearch, FriendRequestAlertViewHolder>(
+                        UserSearch.class, R.layout.friend_request_itemview, FriendRequestAlertViewHolder.class, pendingRequests) {
 
                     @Override
-                    protected void populateViewHolder(final FriendRequestAlertViewHolder viewHolder, PublicUser model, final int position) {
+                    protected void populateViewHolder(final FriendRequestAlertViewHolder viewHolder, UserSearch model, final int position) {
                         final String pendingRequestID = getRef(position).getKey();
 
-                        viewHolder.setEmail(pendingRequestID);
+                        getRequestedUserData(pendingRequestID);
+
+                        Log.d(TAG, "Getting String Values: " + model.getUid());
+                        Log.d(TAG, "Getting String Values: " + model.getFirst_name());
+                        Log.d(TAG, "Getting String Values: " + model.getLast_name());
+                        Log.d(TAG, "Getting String Values: " + model.getEmail());
+                        Log.d(TAG, "Getting String Values: " + model.getIcon_url());
+
+                        viewHolder.setEmail(model.getEmail());
+                        viewHolder.setFullName(model.getFirst_name() + " " + model.getLast_name());
+                        viewHolder.setIcon(model.getIcon_url());
 
                         viewHolder.acceptBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -106,11 +119,31 @@ public class PendingFriendRequestsActivity extends AppCompatActivity {
         pendingListRecyclerView.setAdapter(firebaseRecyclerAdapter);
     }
 
+    private void getRequestedUserData(final String requestID) {
+        DatabaseReference currentUserDetailsRef = rootRef.child(USER_SEARCH).child(requestID);
+        currentUserDetailsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                UserSearch publicUserDetails = dataSnapshot.getValue(UserSearch.class);
+                requesterFirstName = publicUserDetails.getFirst_name();
+                requesterLastName = publicUserDetails.getLast_name();
+                requesterIconUrl = publicUserDetails.getIcon_url();
+                requesterEmail = publicUserDetails.getEmail();
+
+                Log.d(TAG, "requester's details: " + dataSnapshot.getValue());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private void denyFriendRequest(String pendingRequestID) {
 
-        rootRef.child(PUBLIC_USER)
+        rootRef.child(PENDING)
                 .child(currentUserID)
-                .child(PENDING)
                 .child(pendingRequestID)
                 .removeValue()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -127,20 +160,21 @@ public class PendingFriendRequestsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                if(dataSnapshot != null){
-                    for(DataSnapshot ds: dataSnapshot.getChildren()){
+                if (dataSnapshot != null) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         pendingUserFriendList.add(ds.getValue().toString());
                     }
                     /*Set<String> pendingFriends = new HashSet<>();
                     pendingFriends.addAll(pendingUserFriendList);
                     pendingUserFriendList.clear();
                     pendingUserFriendList.addAll(pendingFriends);*/
-                    if(!pendingUserFriendList.contains(currentUserID)){
+                    if (!pendingUserFriendList.contains(currentUserID)) {
                         pendingUserFriendList.add(currentUserID);
                         rootRef.child(USER_FRIENDS).child(pendingRequestID).setValue(pendingUserFriendList);
                     }
                 }
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -177,5 +211,6 @@ public class PendingFriendRequestsActivity extends AppCompatActivity {
 
 //                });
 //    }
+
 
 }

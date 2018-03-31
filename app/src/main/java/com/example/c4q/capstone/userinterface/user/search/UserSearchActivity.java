@@ -136,7 +136,7 @@ public class UserSearchActivity extends AppCompatActivity {
 
     public void sendFriendRequest(final String requestedFriendID, final Button requestFriendBtn) {
         PublicUserDetails publicUserDetails = new PublicUserDetails(currentUserFirstName, currentUserLastName, currentUserEmail, currentUserIconUrl, currentUserID);
-        DatabaseReference publicUserRef = rootRef.child(PUBLIC_USER).child(requestedFriendID).child(PENDING).child(currentUserID);
+        DatabaseReference publicUserRef = rootRef.child(PENDING).child(requestedFriendID).child(currentUserID);
         publicUserRef.setValue(publicUserDetails);
 
         publicUserRef.addValueEventListener(new ValueEventListener() {
@@ -162,9 +162,8 @@ public class UserSearchActivity extends AppCompatActivity {
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
-                rootRef.child(PUBLIC_USER)
+                rootRef.child(PENDING)
                         .child(requestedFriendID)
-                        .child(PENDING)
                         .child(currentUserID)
                         .removeValue()
                         .addOnSuccessListener(new OnSuccessListener<Void>() {

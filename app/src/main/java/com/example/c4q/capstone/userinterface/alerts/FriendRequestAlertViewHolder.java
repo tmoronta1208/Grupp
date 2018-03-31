@@ -32,6 +32,7 @@ public class FriendRequestAlertViewHolder extends RecyclerView.ViewHolder {
 
     public void setFullName(String name) {
         fullNameTxt = itemView.findViewById(R.id.request_name);
+        fullNameTxt.setText(name);
     }
 
     public void setIcon(String url) {
