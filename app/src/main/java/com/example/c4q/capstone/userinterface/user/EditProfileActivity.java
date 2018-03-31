@@ -117,6 +117,8 @@ public class EditProfileActivity extends AppCompatActivity {
                 userSearch = dataSnapshot.child(currentUserID).getValue(UserSearch.class);
                 userIcon = dataSnapshot.child(currentUserID).getValue(UserIcon.class);
 
+                iconUrl = userIcon.getIcon_url();
+
                 Log.d(TAG, "onDataChange: Added information to database: \n" + dataSnapshot.getValue());
             }
 
@@ -131,6 +133,7 @@ public class EditProfileActivity extends AppCompatActivity {
         publicUserReference.addValueEventListener(valueEventListener);
         privateUserReference.addValueEventListener(valueEventListener);
         privateUserLocationReference.addValueEventListener(valueEventListener);
+        userIconReference.addListenerForSingleValueEvent(valueEventListener);
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,6 +171,7 @@ public class EditProfileActivity extends AppCompatActivity {
         zipCodeString = zipCode.getText().toString();
 
         if (!firstNameString.equals("") && !lastNameString.equals("") && !zipCodeString.equals("")) {
+
 
             publicUser = new PublicUser(currentUserID, firstNameString, lastNameString, zipCodeString, budgetString, currentUserEmail, over18, over21, radius);
 

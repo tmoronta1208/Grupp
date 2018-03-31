@@ -45,7 +45,7 @@ public class TempUserActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     private String currentUserId;
     private Button requests, friendlist;
-    private DatabaseReference rootRef, userRef, iconRef;
+    private DatabaseReference rootRef, userRef, iconRef,userDetailsRef;
 
 
     @Override
@@ -59,6 +59,7 @@ public class TempUserActivity extends AppCompatActivity {
         rootRef = FirebaseDatabase.getInstance().getReference();
         userRef = rootRef.child(PUBLIC_USER).child(currentUserId);
         iconRef = rootRef.child(USER_ICON).child(currentUserId);
+//        userDetailsRef = rootRef.child();
         requests = findViewById(R.id.pending_req);
         friendlist = findViewById(R.id.friendlist);
         profilePic = findViewById(R.id.circle_imageview);
@@ -85,7 +86,7 @@ public class TempUserActivity extends AppCompatActivity {
 
                 UserIcon test = new UserIcon("hello");
 
-                FirebaseDatabase.getInstance().getReference().child(USER_ICON).child(currentUserId).setValue(test, new DatabaseReference.CompletionListener() {
+                iconRef.setValue(test, new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                         if (databaseError == null) {
@@ -102,7 +103,7 @@ public class TempUserActivity extends AppCompatActivity {
 
                                         UserIcon test = new UserIcon(task.getResult().getMetadata().getDownloadUrl().toString());
 
-                                        FirebaseDatabase.getInstance().getReference().child(USER_ICON).child(currentUserId).setValue(test);
+                                        iconRef.setValue(test);
                                         CurrentUserPost.getInstance().postProfilePictoPublicUser(test);
                                     }
                                 }
