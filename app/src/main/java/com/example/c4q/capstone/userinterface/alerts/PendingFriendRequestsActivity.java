@@ -10,8 +10,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
 import com.example.c4q.capstone.database.publicuserdata.UserFriends;
-import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.UserSearch;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -31,20 +31,20 @@ import java.util.Set;
 
 
 import static com.example.c4q.capstone.utils.Constants.PENDING;
-import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 import static com.example.c4q.capstone.utils.Constants.USER_FRIENDS;
 import static com.example.c4q.capstone.utils.Constants.USER_SEARCH;
 
 public class PendingFriendRequestsActivity extends AppCompatActivity {
     private static final String TAG = "PendingFriendRequests";
-    List<String> currentUserFriendList = new ArrayList<>();
-    ArrayList<String> pendingUserFriendList = new ArrayList<>();
+    List<PublicUserDetails> currentUserFriendList = new ArrayList<>();
+    List<PublicUserDetails> pendingUserFriendList = new ArrayList<>();
     private RecyclerView pendingListRecyclerView;
     private LinearLayoutManager linearLayoutManager;
     private DatabaseReference rootRef, pendingRequests;
     private FirebaseUser currentUser;
     private FirebaseAuth authentication;
-    private String currentUserID, requesterFirstName, requesterLastName, requesterIconUrl, requesterEmail;
+    private String currentUserID, currentUserEmail, currentUserFirstName, currentUserLastName,
+            currentUserIconUrl, requesterFirstName, requesterLastName, requesterIconUrl, requesterEmail;
     private UserFriends userFriends;
 
 
@@ -56,6 +56,7 @@ public class PendingFriendRequestsActivity extends AppCompatActivity {
         authentication = FirebaseAuth.getInstance();
         currentUser = authentication.getCurrentUser();
         currentUserID = currentUser.getUid();
+        currentUserEmail = currentUser.getEmail();
 
         rootRef = FirebaseDatabase.getInstance().getReference();
         pendingRequests = rootRef.child(PENDING).child(currentUserID);
@@ -73,7 +74,7 @@ public class PendingFriendRequestsActivity extends AppCompatActivity {
                         Toast.makeText(PendingFriendRequestsActivity.this, "Denied Friend Request", Toast.LENGTH_SHORT).show();
                     }
                 });*/
-
+        getCurrentUserData();
         callFirebaseAdapter();
     }
 
@@ -87,13 +88,7 @@ public class PendingFriendRequestsActivity extends AppCompatActivity {
                     protected void populateViewHolder(final FriendRequestAlertViewHolder viewHolder, UserSearch model, final int position) {
                         final String pendingRequestID = getRef(position).getKey();
 
-                        getRequestedUserData(pendingRequestID);
-
-                        Log.d(TAG, "Getting String Values: " + model.getUid());
-                        Log.d(TAG, "Getting String Values: " + model.getFirst_name());
-                        Log.d(TAG, "Getting String Values: " + model.getLast_name());
-                        Log.d(TAG, "Getting String Values: " + model.getEmail());
-                        Log.d(TAG, "Getting String Values: " + model.getIcon_url());
+                        getRequesterData(pendingRequestID);
 
                         viewHolder.setEmail(model.getEmail());
                         viewHolder.setFullName(model.getFirst_name() + " " + model.getLast_name());
@@ -119,7 +114,7 @@ public class PendingFriendRequestsActivity extends AppCompatActivity {
         pendingListRecyclerView.setAdapter(firebaseRecyclerAdapter);
     }
 
-    private void getRequestedUserData(final String requestID) {
+    private void getRequesterData(final String requestID) {
         DatabaseReference currentUserDetailsRef = rootRef.child(USER_SEARCH).child(requestID);
         currentUserDetailsRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -129,8 +124,24 @@ public class PendingFriendRequestsActivity extends AppCompatActivity {
                 requesterLastName = publicUserDetails.getLast_name();
                 requesterIconUrl = publicUserDetails.getIcon_url();
                 requesterEmail = publicUserDetails.getEmail();
+            }
 
-                Log.d(TAG, "requester's details: " + dataSnapshot.getValue());
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void getCurrentUserData() {
+        DatabaseReference currentUserDetailsRef = rootRef.child(USER_SEARCH).child(currentUserID);
+        currentUserDetailsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                UserSearch currentUserDetails = dataSnapshot.getValue(UserSearch.class);
+                currentUserFirstName = currentUserDetails.getFirst_name();
+                currentUserLastName = currentUserDetails.getLast_name();
+                currentUserIconUrl = currentUserDetails.getIcon_url();
             }
 
             @Override
@@ -155,62 +166,45 @@ public class PendingFriendRequestsActivity extends AppCompatActivity {
     }
 
     private void acceptFriendRequest(final String pendingRequestID) {
+        PublicUserDetails currentUserDetails = new PublicUserDetails(currentUserFirstName, currentUserLastName, currentUserEmail, currentUserIconUrl, currentUserID);
+        PublicUserDetails pendnigUserDetails = new PublicUserDetails(requesterFirstName, requesterLastName, requesterEmail, requesterIconUrl, pendingRequestID);
 
-        rootRef.child(USER_FRIENDS).child(pendingRequestID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+        currentUserFriendList.add(pendnigUserDetails);
+        pendingUserFriendList.add(currentUserDetails);
 
-                if (dataSnapshot != null) {
-                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                        pendingUserFriendList.add(ds.getValue().toString());
-                    }
-                    /*Set<String> pendingFriends = new HashSet<>();
-                    pendingFriends.addAll(pendingUserFriendList);
-                    pendingUserFriendList.clear();
-                    pendingUserFriendList.addAll(pendingFriends);*/
-                    if (!pendingUserFriendList.contains(currentUserID)) {
-                        pendingUserFriendList.add(currentUserID);
-                        rootRef.child(USER_FRIENDS).child(pendingRequestID).setValue(pendingUserFriendList);
-                    }
-                }
-            }
+        UserFriends currentUserFriends = new UserFriends(currentUserFriendList);
+        UserFriends pendingUserFriends = new UserFriends(pendingUserFriendList);
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+        DatabaseReference currentUserFriendListRef = rootRef.child(USER_FRIENDS).child(currentUserID);
+        DatabaseReference pendingUserFriendListRef = rootRef.child(USER_FRIENDS).child(pendingRequestID);
 
-            }
-        });
+        currentUserFriendListRef.setValue(currentUserFriends);
+        pendingUserFriendListRef.setValue(pendingUserFriends);
 
-        //        rootRef.child(PUBLIC_USER)
+//        publicUserRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                requestFriendBtn.setText("Pending");
+//                Log.d(TAG, "onDataChange: " + dataSnapshot.getValue());
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+
+//        rootRef.child(PENDING)
 //                .child(currentUserID)
-//                .child(PENDING)
 //                .child(pendingRequestID)
 //                .removeValue()
 //                .addOnSuccessListener(new OnSuccessListener<Void>() {
 //                    @Override
 //                    public void onSuccess(Void v) {
-        if (CurrentUser.getInstance().isUserHasFriends()) {
-            currentUserFriendList.addAll(CurrentUser.getInstance().getUserFriendIDList());
-        }
-        currentUserFriendList.add(pendingRequestID);
-        Set<String> userFriends = new HashSet<>();
-        userFriends.addAll(currentUserFriendList);
-        currentUserFriendList.clear();
-        currentUserFriendList.addAll(userFriends);
-        rootRef.child(USER_FRIENDS).child(currentUserID).setValue(currentUserFriendList);
-
-        /*Set<String> pendingFriends = new HashSet<>();
-        pendingFriends.addAll(pendingUserFriendList);
-        pendingUserFriendList.clear();
-        pendingUserFriendList.addAll(pendingFriends);
-        pendingUserFriendList.add(currentUserID);
-
-        ;*/
+//                        Toast.makeText(PendingFriendRequestsActivity.this, "Accepted Friend Request", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
 
     }
-
-//                });
-//    }
-
 
 }
