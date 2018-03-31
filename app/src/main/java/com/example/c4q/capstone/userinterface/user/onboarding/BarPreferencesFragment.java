@@ -28,6 +28,7 @@ import java.util.List;
 import static com.example.c4q.capstone.utils.Constants.BAR_AND_AMENITIES_PREFS;
 import static com.example.c4q.capstone.utils.Constants.PREFERENCES;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
+import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -150,7 +151,8 @@ public class BarPreferencesFragment extends Fragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                preferencesDB.child(currentUserID).child(PREFERENCES).child(BAR_AND_AMENITIES_PREFS).setValue(selectedPrefs);
+                preferencesDB.child(PUBLIC_USER).child(currentUserID).child(PREFERENCES).child(BAR_AND_AMENITIES_PREFS).setValue(selectedPrefs);
+                preferencesDB.child(PRIVATE_USER).child(currentUserID).child(PREFERENCES).child(BAR_AND_AMENITIES_PREFS).setValue(selectedPrefs);
                 OnBoardActivity.viewPager.setCurrentItem(2);
 
             }

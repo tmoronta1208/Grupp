@@ -1,18 +1,12 @@
 package com.example.c4q.capstone.utils.currentuser;
 
-import android.util.Log;
-
 import com.example.c4q.capstone.database.events.EventGuest;
 import com.example.c4q.capstone.database.events.Events;
 import com.example.c4q.capstone.database.events.UserEvent;
 import com.example.c4q.capstone.database.publicuserdata.UserIcon;
 import com.example.c4q.capstone.userinterface.CurrentUser;
-import com.example.c4q.capstone.utils.FBUserDataUtility;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static com.example.c4q.capstone.utils.Constants.AMENITY_PREFS;
+import static com.example.c4q.capstone.utils.Constants.Restaurant_PREFS;
 import static com.example.c4q.capstone.utils.Constants.BAR_AND_AMENITIES_PREFS;
 import static com.example.c4q.capstone.utils.Constants.EVENTS;
 import static com.example.c4q.capstone.utils.Constants.EVENT_GUEST_MAP;
@@ -138,7 +132,7 @@ public class CurrentUserPostUtility {
 
     public void updateAmenityPrefs(List<String> amenityPrefs){
         Map<String, Object> userPrefs = new HashMap<>();
-        userPrefs.put(AMENITY_PREFS, amenityPrefs);
+        userPrefs.put(Restaurant_PREFS, amenityPrefs);
         preferencesReference.updateChildren(userPrefs);
     }
     public void updateProfilePic(UserIcon userIcon){

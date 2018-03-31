@@ -24,7 +24,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.example.c4q.capstone.utils.Constants.AMENITY_PREFS;
+import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
+import static com.example.c4q.capstone.utils.Constants.RESTAURANT_PREFS;
 import static com.example.c4q.capstone.utils.Constants.PREFERENCES;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
 
@@ -32,7 +33,7 @@ import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
  * A simple {@link Fragment} subclass.
  */
 public class RestaurantPreferencesFragment extends Fragment {
-    CheckBox brunch, outdoorSeating, rooftop, danceFloor, fullMenu, videoGames, darts, poolTables;
+    CheckBox brunch_food, vegan_pref, pescetarian_pref, asian_pref, latin_pref, american_pref, breakfast_pref, vegetarian_pref;
     Button saveButton;
     View rootView;
     HashMap<CheckBox, String> prefs = new HashMap<>();
@@ -53,7 +54,7 @@ public class RestaurantPreferencesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_amenity_preferences, container, false);
+        rootView = inflater.inflate(R.layout.fragment_restaurant_preferences, container, false);
 
         //Firebase
         mAuth = FirebaseAuth.getInstance();
@@ -62,26 +63,26 @@ public class RestaurantPreferencesFragment extends Fragment {
         rootRef = FirebaseDatabase.getInstance().getReference();
         preferencesDB = rootRef.child(PRIVATE_USER);
 
-        brunch = rootView.findViewById(R.id.brunch_pref);
-        outdoorSeating = rootView.findViewById(R.id.outdoor_pref);
-        rooftop = rootView.findViewById(R.id.rooftop_pref);
-        danceFloor = rootView.findViewById(R.id.dance_floor_pref);
-        fullMenu = rootView.findViewById(R.id.full_menu_pref);
-        videoGames = rootView.findViewById(R.id.video_games_pref);
-        darts = rootView.findViewById(R.id.darts_pref);
-        poolTables = rootView.findViewById(R.id.pool_table_pref);
+        brunch_food = rootView.findViewById(R.id.brunch_food_pref);
+        vegan_pref = rootView.findViewById(R.id.vegan_pref);
+        american_pref = rootView.findViewById(R.id.american_pref);
+        latin_pref = rootView.findViewById(R.id.latin_food_pref);
+        asian_pref = rootView.findViewById(R.id.asian_food);
+        breakfast_pref = rootView.findViewById(R.id.breakfast_pref);
+        pescetarian_pref = rootView.findViewById(R.id.pescetarian_pref);
+        vegetarian_pref = rootView.findViewById(R.id.vegetarian_pref);
 
         saveButton = rootView.findViewById(R.id.amenity_pref_save_button);
 
 
-        prefs.put(brunch, "brunch");
-        prefs.put(outdoorSeating, "outdoor+seating");
-        prefs.put(rooftop, "rooftop");
-        prefs.put(danceFloor, "dance+floor");
-        prefs.put(fullMenu, "full+menu");
-        prefs.put(videoGames, "video+games");
-        prefs.put(darts, "darts");
-        prefs.put(poolTables, "pool+tables");
+        prefs.put(brunch_food, "brunch");
+        prefs.put(vegan_pref, "vegan");
+        prefs.put(american_pref, "american");
+        prefs.put(asian_pref, "asian");
+        prefs.put(latin_pref, "latin");
+        prefs.put(breakfast_pref, "breakfast");
+        prefs.put(pescetarian_pref, "pescetarian");
+        prefs.put(vegetarian_pref, "vegetarian");
 
         for (final CheckBox a : prefs.keySet()) {
 
@@ -117,7 +118,8 @@ public class RestaurantPreferencesFragment extends Fragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                preferencesDB.child(currentUserID).child(PREFERENCES).child(AMENITY_PREFS).setValue(selectedPrefs);
+                preferencesDB.child(PUBLIC_USER).child(currentUserID).child(PREFERENCES).child(RESTAURANT_PREFS).setValue(selectedPrefs);
+                preferencesDB.child(PRIVATE_USER).child(currentUserID).child(PREFERENCES).child(RESTAURANT_PREFS).setValue(selectedPrefs);
                 CurrentUserPost.getInstance().postNewAmenityPreferences(selectedPrefs);
                 Intent intent = new Intent(getActivity(), UserProfileActivity.class);
                 startActivity(intent);
