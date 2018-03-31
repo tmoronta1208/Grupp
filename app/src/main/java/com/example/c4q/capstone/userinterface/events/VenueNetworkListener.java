@@ -11,6 +11,8 @@ import java.util.List;
  */
 
 public interface VenueNetworkListener {
-    void getBarzList(List<Venue> venueList);
     void getFourSList(List<Venue> fourSVenues);
+    void getFourSVenueIds(List<String> fourSquareVenueIds);
+
+
 }

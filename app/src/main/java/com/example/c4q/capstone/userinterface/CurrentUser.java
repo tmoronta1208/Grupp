@@ -3,6 +3,7 @@ package com.example.c4q.capstone.userinterface;
 import android.util.Log;
 
 import com.example.c4q.capstone.database.events.Events;
+import com.example.c4q.capstone.database.events.UserEvent;
 import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.utils.currentuser.CurrentUserListener;
@@ -10,6 +11,7 @@ import com.example.c4q.capstone.utils.currentuser.CurrentUserUtility;
 import com.example.c4q.capstone.utils.currentuser.RealTimeEventsListener;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by amirahoxendine on 3/23/18.
@@ -21,13 +23,15 @@ public class CurrentUser {
     private CurrentUserListener userListener;
     private CurrentUserUtility userUtility   = new CurrentUserUtility();
 
-    private  String userID;
+    public static final String userID = CurrentUserUtility.setCurrentUserID();
     private  String userFullName;
     private  PrivateUser currentPrivateUser;
     private  PublicUser currentPublicUser;
     private  List<PublicUser> userFriendsList;
     private  List<Events> userEventsList;
     private  List<String> userFriendIDList;
+    private Map<String, UserEvent> currentUserEventMap;
+    private Map<String, UserEvent> currentUserEventInviteMap;
     private  List<String> userEventIDList;
     private boolean currentUserExists;
     private boolean userHasFriends;
@@ -48,9 +52,17 @@ public class CurrentUser {
     private void createUser(Boolean userExists){
         Log.d(TAG, "create user called");
         if(userExists){
-            setCurrentPrivateUser();
-            setCurrentPublicUser();
+            //setCurrentPrivateUser();
+           // setCurrentPublicUser();
         }
+    }
+
+    public Map<String, UserEvent> getCurrentUserEventMap() {
+        return currentUserEventMap;
+    }
+
+    public Map<String, UserEvent> getCurrentUserEventInviteMap() {
+        return currentUserEventInviteMap;
     }
 
     public static CurrentUser getInstance(){
@@ -112,24 +124,10 @@ public class CurrentUser {
     }
 
     public void getRealTimeEvents(RealTimeEventsListener listener){
+        Log.d(TAG, "get real time events called: ");
         userUtility.getRealTimeCurrentUserEvents(listener);
     }
 
-    private void setCurrentPublicUser(){
-        userUtility.getCurrentPublicUser(userListener);
-    }
-
-    private void setCurrentPrivateUser() {
-        userUtility.getCurrentPrivateUser(userListener);
-
-    }
-
-    private void setUserFriendsList(){
-        userUtility.getCurrentUserFriends(userListener);
-    }
-    private void setUserEventsList(){
-        userUtility.getCurrentUserEvents(userListener);
-    }
     private void setUserListener(){
         userListener = new CurrentUserListener() {
             @Override
@@ -145,7 +143,7 @@ public class CurrentUser {
                 userHasPublicProfile =userUtility.userHasPublicProfile;
                 Log.d(TAG, "user has public profile: " + userHasPublicProfile);
                 if (currentPublicUser != null){
-                    userFullName = currentPrivateUser.getFirst_name() + " " + currentPrivateUser.getLast_name();
+                    userFullName = currentPublicUser.getFirst_name() + " " + currentPublicUser.getLast_name();
                     Log.d(TAG, "user full name: " + userFullName);
                 }
             }
@@ -154,7 +152,7 @@ public class CurrentUser {
             public void getUserFriends(List<PublicUser> publicUserList) {
                 userFriendsList = publicUserList;
                 if (userFriendsList != null){
-                    Log.d(TAG, "user friends list size: " + userFriendsList.size());
+                    Log.d(TAG, "get user friends: user friends list size: " + userFriendsList.size());
                 }
 
             }
@@ -162,7 +160,7 @@ public class CurrentUser {
             public void getUserEvents(List<Events> eventsList) {
                 userEventsList = eventsList;
                 if (userEventsList != null){
-                    Log.d(TAG, "user events list size: " + userEventsList.size());
+                    Log.d(TAG, "get user Events : user events list size: " + userEventsList.size());
                 }
             }
 
@@ -171,7 +169,7 @@ public class CurrentUser {
                 userHasFriends = hasFriends;
                 Log.d(TAG, "user has friends: " + userHasFriends);
                 if (userHasFriends){
-                    setUserFriendsList();
+                    //setUserFriendsList();
                 }
             }
 
@@ -180,27 +178,49 @@ public class CurrentUser {
                 userHasEvents = hasEvents;
                 Log.d(TAG, "user has events: " + userHasEvents);
                 if(userHasEvents){
-                    setUserEventsList();
+                    //setUserEventsList();
                 }
             }
 
             @Override
             public void setUser(Boolean userInDB, String id) {
-                createUser(userInDB);
                 currentUserExists = userInDB;
+                createUser(userInDB);
                 Log.d(TAG, "user in database: " + currentUserExists);
-                userID = id;
+
                 Log.d(TAG, "user id: " + userID);
             }
 
             @Override
             public void getUserFriendIDs(List<String> friendIds) {
                 userFriendIDList = friendIds;
+                if (userFriendIDList != null){
+                    Log.d(TAG, "user friend id list size : " + userFriendIDList.size());
+                }
             }
 
             @Override
             public void getUserEventIDs(List<String> eventIds) {
                 userEventIDList = eventIds;
+                if (userEventIDList != null){
+                    Log.d(TAG, "user events id list size : " + userEventIDList.size());
+                }
+            }
+
+            @Override
+            public void getUserEventList(Map<String, UserEvent> userEventMap) {
+                currentUserEventMap = userEventMap;
+                if (currentUserEventMap != null){
+                    Log.d(TAG, "user events size : " + currentUserEventMap.size());
+                }
+            }
+
+            @Override
+            public void eventInviteList(Map<String, UserEvent> userEventMap) {
+                currentUserEventInviteMap = userEventMap;
+                if (currentUserEventInviteMap != null){
+                    Log.d(TAG, "user invites : " + currentUserEventInviteMap.size());
+                }
             }
 
         };

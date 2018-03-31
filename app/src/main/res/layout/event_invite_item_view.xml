@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:gravity="center"
+    android:padding="@dimen/layout_padding">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/organizer_icon"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_weight="1"
+        android:layout_marginEnd="@dimen/layout_item_margin"
+        android:src="@drawable/default_avatar" />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginLeft="@dimen/layout_padding"
+        >
+        <TextView
+            android:id="@+id/event_name_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/cities"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+            android:textSize="16sp"/>
+        <TextView
+            android:id="@+id/event_date_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/date/mmddyy"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+            android:textSize="14sp"/>
+        <TextView
+            android:id="@+id/event_organizer_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/full_names"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+            android:textSize="14sp"/>
+        <Button
+            android:id="@+id/accept_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="end"
+            android:background="@drawable/ic_check_circle_unchecked_24dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

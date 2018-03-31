@@ -33,7 +33,7 @@ public class FourSNetworkCall {
         for (int i = 0; i < BarPreferencesFragment.selectedPrefs.size(); i++) {
 
 
-            Call<FourSquareModel> call = fourSService.getVenues("beer", "10001", "500" );
+            Call<FourSquareModel> call = fourSService.getVenues("11224", "10001", "beer", "20180328");
 
             call.enqueue(new Callback<FourSquareModel>() {
                 @Override

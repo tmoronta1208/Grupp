@@ -29,6 +29,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation "com.android.support:support-compat:26.1.0"
     compile 'com.google.code.gson:gson:2.7'
 
     //view pager
@@ -40,6 +41,7 @@ dependencies {
     //firebase
     implementation 'com.google.firebase:firebase-auth:11.8.0'
     implementation 'com.google.firebase:firebase-core:11.8.0'
+    implementation 'com.google.firebase:firebase-messaging:11.8.0'
     implementation 'com.google.firebase:firebase-database:11.8.0'
     implementation 'com.firebaseui:firebase-ui-auth:3.2.2'
     implementation 'com.google.firebase:firebase-storage:11.8.0'
@@ -48,6 +50,7 @@ dependencies {
     //RecyclerView
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 
     //glide
     implementation 'com.github.bumptech.glide:glide:3.7.0'

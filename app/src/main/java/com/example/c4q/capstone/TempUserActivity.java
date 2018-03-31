@@ -7,11 +7,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.UserIcon;
+import com.example.c4q.capstone.userinterface.CurrentUserPost;
+import com.example.c4q.capstone.userinterface.alerts.PendingFriendRequestsActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,6 +45,7 @@ public class TempUserActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser firebaseUser;
     private String currentUserId;
+    private Button requests, friendlist;
     private DatabaseReference rootRef, userRef, iconRef;
 
 
@@ -56,7 +60,8 @@ public class TempUserActivity extends AppCompatActivity {
         rootRef = FirebaseDatabase.getInstance().getReference();
         userRef = rootRef.child(PUBLIC_USER).child(currentUserId);
         iconRef = rootRef.child(USER_ICON).child(currentUserId);
-
+        requests = findViewById(R.id.pending_req);
+        friendlist = findViewById(R.id.friendlist);
         profilePic = findViewById(R.id.circle_imageview);
         personName = findViewById(R.id.user_name);
 
@@ -66,6 +71,20 @@ public class TempUserActivity extends AppCompatActivity {
                 uploadImage();
             }
         });
+
+        requests.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(TempUserActivity.this, PendingFriendRequestsActivity.class));
+            }
+        });
+
+//        friendlist.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(TempUserActivity.this,TempFriendListActivity.class));
+//            }
+//        });
 
         currentUserProfileData();
     }
@@ -86,12 +105,9 @@ public class TempUserActivity extends AppCompatActivity {
                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                         if (databaseError == null) {
 
-                            String key = databaseReference.getKey();
-
                             StorageReference storage = FirebaseStorage.getInstance()
                                     .getReference(USER_ICON)
                                     .child(currentUserId)
-                                    .child(key)
                                     .child(uri.getLastPathSegment());
 
                             storage.putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -102,6 +118,7 @@ public class TempUserActivity extends AppCompatActivity {
                                         UserIcon test = new UserIcon(task.getResult().getMetadata().getDownloadUrl().toString());
 
                                         FirebaseDatabase.getInstance().getReference().child(USER_ICON).child(currentUserId).setValue(test);
+                                        CurrentUserPost.getInstance().postProfilePictoPublicUser(test);
                                     }
                                 }
                             });

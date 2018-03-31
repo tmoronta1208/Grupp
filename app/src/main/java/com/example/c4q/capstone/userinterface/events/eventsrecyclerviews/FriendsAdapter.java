@@ -1,12 +1,16 @@
 package com.example.c4q.capstone.userinterface.events.eventsrecyclerviews;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.example.c4q.capstone.userinterface.events.CreateEventPresenter;
+import com.example.c4q.capstone.userinterface.events.createevent.NewEventBuilder;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews.ContactListViewHolder;
 
 import java.util.ArrayList;
@@ -18,11 +22,13 @@ import java.util.List;
 
 public class FriendsAdapter extends RecyclerView.Adapter<ContactListViewHolder> {
     List<PublicUser> friendsList = new ArrayList<>();
-    View.OnClickListener listener;
+    CreateEventPresenter eventPresenter;
+    Context context;
 
-    public FriendsAdapter(List<PublicUser> friendsList, View.OnClickListener listener) {
+    public FriendsAdapter(List<PublicUser> friendsList, CreateEventPresenter eventPresenter, Context context) {
         this.friendsList = friendsList;
-        this.listener = listener;
+        this.eventPresenter = eventPresenter;
+        this.context = context;
     }
 
     @Override
@@ -33,10 +39,39 @@ public class FriendsAdapter extends RecyclerView.Adapter<ContactListViewHolder> 
 
     @Override
     public void onBindViewHolder(ContactListViewHolder holder, int position) {
-        PublicUser user = friendsList.get(position);
-        holder.onBind(user);
+        final PublicUser user = friendsList.get(position);
+        holder.onBind(user, context);
         holder.itemView.setTag(user.getUser_id());
-        holder.itemView.setOnClickListener(listener);
+        holder.onBind(user, context);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                v.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
+                List<String> friendId = NewEventBuilder.getInstance().getInvitedGuests();
+                if (friendId != null){
+                    if(!friendId.contains(user.getUser_id())){
+                        friendId.add(user.getUser_id());
+                    }
+                } else{
+                    friendId = new ArrayList<>();
+                    friendId.add(user.getUser_id());
+                }
+
+                NewEventBuilder.getInstance().setInvitedGuests(friendId);
+                eventPresenter.setEventGuests(friendId);
+                List<PublicUser> invitedFriendUser = NewEventBuilder.getInstance().getInvitedFriendsUserList();
+                if (invitedFriendUser != null){
+                    invitedFriendUser.add(user);
+                    Log.d("invite adapter", "pub user list size: " + invitedFriendUser.size());
+                } else {
+                    invitedFriendUser = new ArrayList<>();
+                    invitedFriendUser.add(user);
+                    Log.d("invite adapter", "pub user list size: " + invitedFriendUser.size());
+                }
+                NewEventBuilder.getInstance().setInvitedFriendsUserList(invitedFriendUser);
+            }
+        });
     }
 
     @Override

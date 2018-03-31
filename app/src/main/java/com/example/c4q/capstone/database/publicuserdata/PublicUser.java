@@ -14,6 +14,8 @@ public class PublicUser {
     private boolean over_21;
     private int radius;
     private List<String> user_preferences;
+    private List<String> pending_request;
+    UserIcon user_icon;
 
     public PublicUser() {
     }
@@ -28,6 +30,22 @@ public class PublicUser {
         this.over_18 = over_18;
         this.over_21 = over_21;
         this.radius = radius;
+    }
+
+    public UserIcon getUser_icon() {
+        return user_icon;
+    }
+
+    public void setUser_icon(UserIcon user_icon) {
+        this.user_icon = user_icon;
+    }
+
+    public List<String> getPending_request() {
+        return pending_request;
+    }
+
+    public void setPending_request(List<String> pending_request) {
+        this.pending_request = pending_request;
     }
 
     public List<String> getUser_preferences() {

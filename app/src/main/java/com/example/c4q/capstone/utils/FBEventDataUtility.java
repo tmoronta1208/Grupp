@@ -26,13 +26,11 @@ import java.util.List;
 
 public class FBEventDataUtility {
     private FirebaseDatabase mFirebaseDatabase;
-    private FirebaseAuth mAuth;
-    private DatabaseReference firebaseDatabase, userReference, eventReference;
+
+    private DatabaseReference firebaseDatabase, eventReference;
 
 
     public static FirebaseUser currentUser;
-    private String currentUserID;
-    FBUserDataUtility userDataUtility = new FBUserDataUtility();
 
 
     String eventKey;
@@ -40,16 +38,9 @@ public class FBEventDataUtility {
     Events events;
 
     public FBEventDataUtility() {
-        mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabase = mFirebaseDatabase.getReference();
         eventReference = firebaseDatabase.child(EVENTS);
-        userReference = firebaseDatabase.child(PUBLIC_USER);
-
-        currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            currentUserID = currentUser.getUid();
-        }
     }
 
     /**
@@ -69,17 +60,6 @@ public class FBEventDataUtility {
                 if (events != null) {
                     Log.d(TAG, "event name" + events.getEvent_name());
                     listener.getEvent(events);
-                    userDataUtility.getPublicUser(events.getEvent_organizer(), new FBUserDataListener() {
-                        @Override
-                        public void getUid(String userID) {
-
-                        }
-                        @Override
-                        public void getPublicUser(PublicUser publicUser) {
-                            String userFullName = publicUser.getFirst_name() + " " + publicUser.getLast_name();
-                            listener.getUserFullName(userFullName);
-                        }
-                    });
                 } else {
                     Log.d(TAG, "event not found");
                 }
@@ -87,68 +67,36 @@ public class FBEventDataUtility {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Getting Post failed, log a message
-
+                Log.d(TAG, "cancelled");
                 // ...
             }
         };
         eventReference.addValueEventListener(eventListener);
     }
-
-    /**
-     * ajoxe:
-     * this method gets all event keys from db
-     */
-    public void getAllEventKeys() {
-
-        ValueEventListener eventKeyListener = new ValueEventListener() {
+    public void getSingleValueEventFromDB(String key, final EventDataListener listener) {
+        eventKey = key;
+        ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                final List<String> eventIDList = new ArrayList<>();
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String eventKey = ds.getKey();
-                    eventIDList.add(eventKey);
-                    Log.d(TAG, "getAllEventKeys: eventKey: " + eventKey);
+                // Get Post object and use the values to update the UI
+                Log.d(TAG, "event listener called");
+                events = dataSnapshot.child(eventKey).getValue(Events.class);
+                if (events != null) {
+                    Log.d(TAG, "event name" + events.getEvent_name());
+                    listener.getEvent(events);
+                } else {
+                    Log.d(TAG, "event not found");
                 }
-
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Getting Post failed, log a message
-
+                Log.d(TAG, "cancelled");
                 // ...
             }
         };
-        eventReference.addValueEventListener(eventKeyListener);
-
+        eventReference.addListenerForSingleValueEvent(eventListener);
     }
 
-    public void getAllEvents(final FBEventDataListener listener) {
 
-        ValueEventListener eventKeyListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                final List<Events> eventsList = new ArrayList<>();
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Events events = ds.getValue(Events.class);
-                    eventsList.add(events);
-                    if (events != null) {
-                        Log.d(TAG, "getAllEvents: eventName: " + events.getEvent_name());
-                    } else {
-                        Log.d(TAG, "getAllEvents: EVENT IS NULL");
-                    }
-                }
-                listener.getAllEvents(eventsList);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-
-                // ...
-            }
-        };
-        eventReference.addValueEventListener(eventKeyListener);
-
-    }
 }

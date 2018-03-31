@@ -1,8 +1,14 @@
 package com.example.c4q.capstone.database.events;
 
 
-public class Venue {
+import java.util.HashMap;
+import java.util.List;
 
+public class Venue {
+    private String venue_id;
+    private String venue_url;
+    private String venue_photo_url;
+    private String venue_address;
     private String venue_name;
     private String venue_phone;
     private String venue_type;
@@ -13,6 +19,8 @@ public class Venue {
     private float rating_avg;
     private int  rating_count;
     private boolean reservations;
+    private HashMap<String, Boolean> venue_vote;
+    private int vote_count;
 
     public Venue() {
     }
@@ -28,6 +36,56 @@ public class Venue {
         this.rating_avg = rating_avg;
         this.rating_count = rating_count;
         this.reservations = reservations;
+    }
+
+
+
+    public HashMap<String, Boolean> getVenue_vote() {
+        return venue_vote;
+    }
+
+    public int getVote_count() {
+        return vote_count;
+    }
+
+    public void setVote_count(int vote_count) {
+        this.vote_count = vote_count;
+    }
+
+    public void setVenue_vote(HashMap<String, Boolean> venue_vote) {
+        this.venue_vote = venue_vote;
+    }
+
+    public String getVenue_url() {
+        return venue_url;
+    }
+
+    public void setVenue_url(String venue_url) {
+        this.venue_url = venue_url;
+    }
+
+    public String getVenue_address() {
+        return venue_address;
+    }
+
+    public String getVenue_photo_url() {
+        return venue_photo_url;
+    }
+
+    public void setVenue_photo_url(String venue_photo_url) {
+        this.venue_photo_url = venue_photo_url;
+    }
+
+    public void setVenue_address(String venue_address) {
+        this.venue_address = venue_address;
+    }
+
+    public String getVenue_id() {
+        return venue_id;
+    }
+
+    public void setVenue_id(String venue_id) {
+        this.venue_id = venue_id;
     }
 
     public String getVenue_name() {

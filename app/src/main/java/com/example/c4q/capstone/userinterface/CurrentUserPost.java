@@ -2,8 +2,11 @@ package com.example.c4q.capstone.userinterface;
 
 import android.util.Log;
 
+import com.example.c4q.capstone.database.events.EventGuest;
 import com.example.c4q.capstone.database.events.Events;
 
+import com.example.c4q.capstone.database.events.UserEvent;
+import com.example.c4q.capstone.database.publicuserdata.UserIcon;
 import com.example.c4q.capstone.utils.currentuser.CurrentUserPostUtility;
 
 import java.util.List;
@@ -47,4 +50,29 @@ public class CurrentUserPost {
         userPostUtility.updateAmenityPrefs(resPrefs);
     }
 
+    public void postEventToUserEventList(String eventKey, String userId, UserEvent userEvent){
+        userPostUtility.addEventToUserEventsList(eventKey, userId, userEvent);
+    }
+
+    public void postEventToUserInvitations(String eventKey, String userId, UserEvent userEvent){
+        userPostUtility.addEventToEventInviteList(eventKey, userId, userEvent);
+    }
+
+    public void postProfilePictoPublicUser(UserIcon userIcon){
+        userPostUtility.updateProfilePic(userIcon);
+    }
+
+    public void postVenueVote(String eventKey, String venueKey, Boolean vote){
+        userPostUtility.updateVenueVote(eventKey,venueKey, vote);
+    }
+
+    public void postVenueVoteCount(String eventKey, String venueKey, int voteCount){
+        userPostUtility.updateVenueVoteCount(eventKey,venueKey, voteCount);
+    }
+    public void postEventGuest(String eventKey, String userId, EventGuest eventGuest){
+        userPostUtility.updateEventGuest(eventKey,userId, eventGuest);
+    }
+    public void removeEventInvite(String eventKey, String userId) {
+        userPostUtility.removeEventFromEventInviteList(eventKey, userId);
+    }
 }
