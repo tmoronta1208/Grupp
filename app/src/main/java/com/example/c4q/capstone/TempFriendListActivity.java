@@ -19,6 +19,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 import static com.example.c4q.capstone.utils.Constants.USER_FRIENDS;
 
@@ -29,6 +32,7 @@ public class TempFriendListActivity extends AppCompatActivity {
     private DatabaseReference rootRef, friendsRef, userIDRef;
     private TempFriendListAdapter tempFriendListAdapter;
     private String currentUserID;
+    private List<String> friendList = new ArrayList<>();
 
 
     @Override
@@ -50,11 +54,19 @@ public class TempFriendListActivity extends AppCompatActivity {
         userIDRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-                friendsRef = rootRef.child(PUBLIC_USER).child(dataSnapshot.getValue().toString());
-                tempFriendListAdapter = new TempFriendListAdapter(PublicUser.class, R.layout.contact_item_view, TempFriendListViewHolder.class, friendsRef);
-                friendListRecyclerView.setAdapter(tempFriendListAdapter);
-                Log.d(TAG, "onDataChange: " + dataSnapshot.getValue());
+//                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+//                    friendList.add(ds.getValue().toString());
+//
+//                    Log.d(TAG, "onDataChange: " + dataSnapshot.getValue());
+//                    Log.d(TAG, "friendlist size: " + friendList.size());
+//
+//                    for (int i = 0; i < friendList.size(); i++) {
+                        friendsRef = rootRef.child(PUBLIC_USER).child("bA4aDvSWtqdc0ZPXN7Gz2dG8G8d2");
+//                        Log.d(TAG, "friendIdCalled: "+friendList.get(i));
+                        tempFriendListAdapter = new TempFriendListAdapter(PublicUser.class, R.layout.contact_item_view, TempFriendListViewHolder.class, friendsRef);
+                        friendListRecyclerView.setAdapter(tempFriendListAdapter);
+//                    }
+//                }
             }
 
             @Override
