@@ -5,14 +5,14 @@ import java.util.List;
 
 public class UserFriends {
     private String user_email;
-    private List<PublicUserDetails> user_friend_details;
+    private List<PublicUserDetails> friends;
 
     public UserFriends() {
     }
 
-    public UserFriends(String user_email, List<PublicUserDetails> user_friend_details) {
+    public UserFriends(String user_email, List<PublicUserDetails> friends) {
         this.user_email = user_email;
-        this.user_friend_details = user_friend_details;
+        this.friends = friends;
     }
 
     public String getUser_email() {
@@ -24,10 +24,10 @@ public class UserFriends {
     }
 
     public List<PublicUserDetails> getUser_friend_details() {
-        return user_friend_details;
+        return friends;
     }
 
-    public void setUser_friend_details(List<PublicUserDetails> user_friend_details) {
-        this.user_friend_details = user_friend_details;
+    public void setFriends(List<PublicUserDetails> friends) {
+        this.friends = friends;
     }
 }

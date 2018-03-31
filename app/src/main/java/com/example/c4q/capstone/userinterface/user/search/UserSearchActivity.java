@@ -8,18 +8,24 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
+import com.example.c4q.capstone.database.publicuserdata.UserSearch;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,7 +46,8 @@ public class UserSearchActivity extends AppCompatActivity {
     private DatabaseReference rootRef, searchUserDatabase;
     private LinearLayoutManager linearLayoutManager;
     private FirebaseUser currentUser;
-    private String currentState, currentUserID, currentUserEmail;
+    private String currentState, currentUserID, currentUserEmail, currentUserFirstName, currentUserLastName, currentUserIconUrl;
+
     private List<String> pendingFriendRequestsList = new ArrayList<>();
 
     @Override
@@ -50,40 +57,60 @@ public class UserSearchActivity extends AppCompatActivity {
 
         rootRef = FirebaseDatabase.getInstance().getReference();
 
-        searchUserDatabase = rootRef.child(USER_SEARCH);
-
         linearLayoutManager = new LinearLayoutManager(this);
 
         authentication = FirebaseAuth.getInstance();
         currentUser = authentication.getCurrentUser();
         currentUserID = currentUser.getUid();
         currentUserEmail = currentUser.getEmail();
+        getCurrentUserData();
+
+        searchUserDatabase = rootRef.child(USER_SEARCH);
 
         searchResultsList = findViewById(R.id.search_users_rv);
         searchResultsList.setHasFixedSize(true);
         searchResultsList.setLayoutManager(linearLayoutManager);
 
         currentState = NOT_FRIENDS;
+
         callFirebaseAdapter();
+    }
+
+    private void getCurrentUserData() {
+        DatabaseReference currentUserDetailsRef = rootRef.child(USER_SEARCH).child(currentUserID);
+        currentUserDetailsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                UserSearch publicUserDetails = dataSnapshot.getValue(UserSearch.class);
+                currentUserFirstName = publicUserDetails.getFirst_name();
+                currentUserLastName = publicUserDetails.getLast_name();
+                currentUserIconUrl = publicUserDetails.getIcon_url();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void callFirebaseAdapter() {
 
-        FirebaseRecyclerAdapter<User, UserSearchViewHolder> firebaseRecyclerAdapter =
-                new FirebaseRecyclerAdapter<User, UserSearchViewHolder>(
-                        User.class, R.layout.search_user_itemview, UserSearchViewHolder.class, searchUserDatabase) {
+        FirebaseRecyclerAdapter<UserSearch, UserSearchViewHolder> firebaseRecyclerAdapter =
+                new FirebaseRecyclerAdapter<UserSearch, UserSearchViewHolder>(
+                        UserSearch.class, R.layout.search_user_itemview, UserSearchViewHolder.class, searchUserDatabase) {
 
                     @Override
-                    protected void populateViewHolder(final UserSearchViewHolder viewHolder, User model, final int position) {
-
+                    protected void populateViewHolder(final UserSearchViewHolder viewHolder, UserSearch model, final int position) {
+                        viewHolder.setFullName(model.getFirst_name() + " " + model.getLast_name());
                         viewHolder.setEmail(model.getEmail());
+                        viewHolder.setIcon(model.getIcon_url());
 
                         final String requestedFriendID = getRef(position).getKey();
 
                         viewHolder.requestFriendBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
 
                                 if (!currentUserID.equals(requestedFriendID)) {
                                     /**
@@ -108,21 +135,20 @@ public class UserSearchActivity extends AppCompatActivity {
     }
 
     public void sendFriendRequest(final String requestedFriendID, final Button requestFriendBtn) {
-        HashMap<String, String> notificationData = new HashMap<>();
-        notificationData.put(REQUEST_TYPE, FRIEND_REQUEST);
+        PublicUserDetails publicUserDetails = new PublicUserDetails(currentUserFirstName, currentUserLastName, currentUserEmail, currentUserIconUrl, currentUserID);
+        DatabaseReference publicUserRef = rootRef.child(PUBLIC_USER).child(requestedFriendID).child(PENDING).child(currentUserID);
+        publicUserRef.setValue(publicUserDetails);
 
-        Map<String, Object> requestMap = new HashMap<>();
-        requestMap.put(PUBLIC_USER + "/" + requestedFriendID + "/" + PENDING + "/" + currentUserID, notificationData);
-
-        rootRef.updateChildren(requestMap, new DatabaseReference.CompletionListener() {
+        publicUserRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                if (databaseError != null) {
-                    Toast.makeText(UserSearchActivity.this, "Error: Request not sent", Toast.LENGTH_SHORT).show();
-                } else {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                requestFriendBtn.setText("Pending");
+                Log.d(TAG, "onDataChange: " + dataSnapshot.getValue());
+            }
 
-                    requestFriendBtn.setText("Pending");
-                }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
     }
@@ -142,11 +168,11 @@ public class UserSearchActivity extends AppCompatActivity {
                         .child(currentUserID)
                         .removeValue()
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void v) {
-                        requestFriendBtn.setText("Add Friend");
-                    }
-                });
+                            @Override
+                            public void onSuccess(Void v) {
+                                requestFriendBtn.setText("Add Friend");
+                            }
+                        });
 
                 dialog.dismiss();
             }
@@ -164,5 +190,4 @@ public class UserSearchActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
     }
-
 }

@@ -160,7 +160,6 @@ public class CreateProfileFragment extends Fragment {
             }
         });
 
-
         return rootView;
     }
 
@@ -193,23 +192,15 @@ public class CreateProfileFragment extends Fragment {
         lastNameString = lastName.getText().toString().trim();
         zipCodeSting = zipCode.getText().toString();
 
-        if (userIcon.getIcon_url() != null) {
-            iconUrl = userIcon.getIcon_url();
-        } else {
-            iconUrl = DEFAULT_ICON;
-        }
-
         if (!firstNameString.equals("") && !lastNameString.equals("") && !zipCodeSting.equals("")) {
 
             publicUser = new PublicUser(currentUserID, firstNameString, lastNameString, zipCodeSting, budgetString, currentUserEmail, over18, over21, radius);
-
-            publicUserDetails = new PublicUserDetails(firstNameString, lastNameString, currentUserEmail, iconUrl, currentUserID);
 
             privateUser = new PrivateUser(firstNameString, lastNameString, over18, over21, radius);
 
             privateUserLocation = new PrivateUserLocation(share_location, lat, lng);
 
-            userSearch = new UserSearch(publicUserDetails);
+            userSearch = new UserSearch(firstNameString, lastNameString, currentUserEmail, iconUrl, currentUserID);
 
             userIcon = new UserIcon(iconUrl);
 

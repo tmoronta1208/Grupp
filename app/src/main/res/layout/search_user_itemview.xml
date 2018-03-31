@@ -1,70 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?android:selectableItemBackground"
-    android:orientation="horizontal"
-    android:weightSum="4">
+    android:orientation="horizontal">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/user_image"
-        android:layout_width="64dp"
-        android:layout_weight="1"
-        android:layout_height="64dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:id="@+id/search_user_image"
+        android:layout_width="55dp"
+        android:layout_height="75dp"
         android:src="@drawable/default_avatar" />
 
     <LinearLayout
-        android:layout_weight="3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <TextView
-            android:id="@+id/search_username"
+            android:id="@+id/search_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@id/user_image"
-            android:layout_alignParentTop="true"
-            android:layout_alignTop="@id/search_first_name"
-            android:text="Display Name"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/search_first_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/search_username"
-            android:layout_alignEnd="@id/user_image"
-            android:text="First"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/search_last_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Last"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
+            android:text="Full Name"
+            android:textColor="@color/colorForground"
+            android:textSize="16sp"
+            tools:layout_editor_absoluteX="73dp"
+            tools:layout_editor_absoluteY="8dp" />
 
         <TextView
             android:id="@+id/search_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Email"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
+            android:text="Boannejo@gmail.com"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            tools:layout_editor_absoluteX="73dp"
+            tools:layout_editor_absoluteY="30dp" />
     </LinearLayout>
 
     <Button
         android:id="@+id/request_friend_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight=".5"
         android:text="add friend" />
 
 </LinearLayout>

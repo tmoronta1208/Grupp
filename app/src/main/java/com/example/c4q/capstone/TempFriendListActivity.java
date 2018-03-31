@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,29 +52,9 @@ public class TempFriendListActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(TempFriendListActivity.this);
         friendListRecyclerView.setLayoutManager(linearLayoutManager);
 
-        userIDRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-//                    friendList.add(ds.getValue().toString());
-//
-//                    Log.d(TAG, "onDataChange: " + dataSnapshot.getValue());
-//                    Log.d(TAG, "friendlist size: " + friendList.size());
-//
-//                    for (int i = 0; i < friendList.size(); i++) {
-                        friendsRef = rootRef.child(PUBLIC_USER).child("bA4aDvSWtqdc0ZPXN7Gz2dG8G8d2");
-//                        Log.d(TAG, "friendIdCalled: "+friendList.get(i));
-                        tempFriendListAdapter = new TempFriendListAdapter(PublicUser.class, R.layout.contact_item_view, TempFriendListViewHolder.class, friendsRef);
-                        friendListRecyclerView.setAdapter(tempFriendListAdapter);
-//                    }
-//                }
-            }
+        tempFriendListAdapter = new TempFriendListAdapter(PublicUserDetails.class, R.layout.contact_item_view, TempFriendListViewHolder.class, friendsRef);
+        friendListRecyclerView.setAdapter(tempFriendListAdapter);
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
 }

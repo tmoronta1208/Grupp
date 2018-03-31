@@ -1,22 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_gravity="center"
-        android:id="@+id/textview_email"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:textStyle="bold" />
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/request_user_image"
+            android:layout_width="55dp"
+            android:layout_height="75dp"
+            android:src="@drawable/default_avatar" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/request_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Full Name"
+                android:textColor="@color/colorForground"
+                android:textSize="16sp"
+                tools:layout_editor_absoluteX="73dp"
+                tools:layout_editor_absoluteY="8dp" />
+
+            <TextView
+                android:id="@+id/request_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Boannejo@gmail.com"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp"
+                android:textStyle="italic"
+                tools:layout_editor_absoluteX="73dp"
+                tools:layout_editor_absoluteY="30dp" />
+        </LinearLayout>
+    </LinearLayout>
+
 
     <LinearLayout
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
 
         <Button
             android:id="@+id/button_accept"
