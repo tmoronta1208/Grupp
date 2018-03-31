@@ -12,7 +12,6 @@ import android.widget.Button;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
-import com.example.c4q.capstone.database.publicuserdata.UserContacts;
 import com.example.c4q.capstone.database.publicuserdata.UserSearch;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,13 +38,11 @@ public class UserSearchActivity extends AppCompatActivity {
     private FirebaseUser currentUser;
     private String currentUserID;
 
-    private List<PublicUserDetails> currentUserContactList = new ArrayList<>();
-
     /**
      * TODO: create a searchable user interface
-     *
+     * <p>
      * At the moment the app can retrieve everyone in the user search node. want to be able to
-     *      search for specific users instead.
+     * search for specific users instead.
      */
 
     @Override
@@ -84,6 +81,8 @@ public class UserSearchActivity extends AppCompatActivity {
                 final String first = model.getFirst_name();
                 final String last = model.getLast_name();
                 final String icon = model.getIcon_url();
+                final String zipCode = model.getZip_code();
+                final int radius = model.getRadius();
 
                 viewHolder.setEmail(email);
                 viewHolder.setFullName(first, last);
@@ -92,7 +91,7 @@ public class UserSearchActivity extends AppCompatActivity {
                 viewHolder.addContactButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        addToContactList(contactID, viewHolder.addContactButton, first, last, email, icon);
+                        addToContactList(contactID, viewHolder.addContactButton, first, last, email, icon, radius, zipCode);
                     }
                 });
             }
@@ -101,12 +100,12 @@ public class UserSearchActivity extends AppCompatActivity {
         searchContactsRecyclerView.setAdapter(contactsListAdapter);
     }
 
-    public void addToContactList(String contactID, final Button addContactButton, String first, String last, String email, String url) {
+    public void addToContactList(String contactID, final Button addContactButton, String first, String last, String email, String url, int radius, String zipcode) {
         /**
          * TODO: Write logic to retrieve contacts list first, and then update the list with the new values.
          * TODO: also need to write logic to check if user is already in contact list
          */
-        final PublicUserDetails publicUserDetails = new PublicUserDetails(first, last, email, url, contactID);
+        final PublicUserDetails publicUserDetails = new PublicUserDetails(first, last, email, url, contactID, radius, zipcode);
 
         final HashMap<String, Object> user_contacts = new HashMap<>();
 
@@ -114,10 +113,10 @@ public class UserSearchActivity extends AppCompatActivity {
         userContactsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot != null){
-                    for (DataSnapshot ds : dataSnapshot.getChildren()){
+                if (dataSnapshot != null) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         PublicUserDetails pubUser = ds.getValue(PublicUserDetails.class);
-                        if (pubUser != null){
+                        if (pubUser != null) {
                             user_contacts.put(pubUser.getUid(), pubUser);
                         }
                     }
@@ -138,10 +137,8 @@ public class UserSearchActivity extends AppCompatActivity {
 
         //currentUserContactList.add(publicUserDetails);
 
-        //UserContacts userContacts = new UserContacts(currentUserContactList);
 
-
-       // userContactsRef.setValue(userContacts);
+        // userContactsRef.setValue(userContacts);
         //this updates the user's contacts.
 
 
