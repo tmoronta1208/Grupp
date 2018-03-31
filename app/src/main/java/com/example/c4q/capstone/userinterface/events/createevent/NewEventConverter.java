@@ -62,4 +62,8 @@ public class NewEventConverter {
         }
         return  guestHashMap;
     }
+
+    public Events newEventFromBuilder(Events newEvent, NewEventBuilder eventBuilder){
+        return newEvent;
+    }
 }

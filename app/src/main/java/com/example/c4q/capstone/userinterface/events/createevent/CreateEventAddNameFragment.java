@@ -74,7 +74,7 @@ public class CreateEventAddNameFragment extends Fragment implements DatePickerDi
             }
         });
         setViews();
-        setDatTimeClick();
+        setDateTimeClick();
         setCloseButton();
         setEnterNameEditText();
         datePickerFragment.setEventPresnter(eventPresenter);
@@ -95,7 +95,6 @@ public class CreateEventAddNameFragment extends Fragment implements DatePickerDi
         addTime = (TextView) rootView.findViewById(R.id.add_time_text_view);
         dateAndTime = (TextView) rootView.findViewById(R.id.date_time_text_view);
         datePicker = (DatePicker) rootView.findViewById(R.id.date_picker);
-
         timePicker = (TimePicker) rootView.findViewById(R.id.time_picker);
         closeButton = (Button) rootView.findViewById(R.id.close_button);
         createEventButton = (Button) rootView.findViewById(R.id.create_event_button);
@@ -106,7 +105,8 @@ public class CreateEventAddNameFragment extends Fragment implements DatePickerDi
 
 
 
-    public void setDatTimeClick() {
+    public void setDateTimeClick() {
+        //TODO set Date method call to presenter, takes these views as parameters
         addTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,6 +126,7 @@ public class CreateEventAddNameFragment extends Fragment implements DatePickerDi
     }
 
     public void setCloseButton() {
+        //TODO set close button method call to presenter, takes these views as parameters
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

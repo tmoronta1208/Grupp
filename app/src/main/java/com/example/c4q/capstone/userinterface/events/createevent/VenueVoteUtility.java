@@ -43,6 +43,7 @@ public class VenueVoteUtility {
                 return false;
             }
         }
+
         return true;
     }
 

@@ -119,15 +119,14 @@ public class CreateEventPresenter {
         newEventBuilder.setEventName(eventName);
         eventNameSet = true;
         Log.d(TAG, "event name : " + eventName);
-        eventNameSet = true;
         validateEvent();
     }
 
     public void setEventDate(String date){
         dateOfEvent = date;
         eventDateSet = true;
-        Log.d(TAG, "event date  set: " + dateOfEvent);
         newEventBuilder.setEventDate(dateOfEvent);
+        Log.d(TAG, "event date  set: " + dateOfEvent);
         setDateAndTime();
         validateEvent();
     }
@@ -181,6 +180,7 @@ public class CreateEventPresenter {
 
     public boolean validateEvent(){
         boolean validEvent = false;
+        //TODO: set booleans to new event builder info.
         if (newEventBuilder.getInvitedFriendsUserList() != null
                 && newEventBuilder.getInvitedFriendsUserList().size() != 0 ){
             eventGuestsSet = true;
@@ -204,6 +204,7 @@ public class CreateEventPresenter {
     }
 
     public String setFinalizedEvent(){
+        //TODO new event builder converter method method
         key = CurrentUserPost.getInstance().newEventKey();
         List<String> confirmedGuest = new ArrayList<>();
         confirmedGuest.add(currentUserID);

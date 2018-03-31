@@ -88,6 +88,7 @@ public class CreateEventInviteFragment extends Fragment {
         listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO separate logic - send everything to presenter, presenter sends to builder
                 v.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 friendIdInvite.add(v.getTag().toString());
                 List<String> friendId = new ArrayList<>();
