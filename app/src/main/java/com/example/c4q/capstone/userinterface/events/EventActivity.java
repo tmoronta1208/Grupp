@@ -102,17 +102,22 @@ public class EventActivity extends AppCompatActivity {
     }
 
     public void showHideVote(Events event) {
-        boolean voted = currentEvent.getEvent_guest_map().get(CurrentUser.userID).isVoted();
-        if (currentEvent.getEvent_guest_map().get(CurrentUser.userID).isVoted()) {
-            voteButton.setVisibility(View.GONE);
-            countVenues.setVisibility(View.GONE);
-            Log.d("show hide vote", "user voted" + voted);
-        } else {
-            voteButton.setVisibility(View.VISIBLE);
-            countVenues.setVisibility(View.VISIBLE);
-            countVenues.setText("You have " + currentEvent.getVenue_map().size() + " venues to vote on!");
-            Log.d("show hide vote", "user did not vote" + voted);
+        if(event != null){
+            boolean voted = currentEvent.getEvent_guest_map().get(CurrentUser.userID).isVoted();
+            if (currentEvent.getEvent_guest_map().get(CurrentUser.userID).isVoted()) {
+                voteButton.setVisibility(View.GONE);
+                countVenues.setVisibility(View.GONE);
+                Log.d("show hide vote", "user voted" + voted);
+            } else {
+                voteButton.setVisibility(View.VISIBLE);
+                countVenues.setVisibility(View.VISIBLE);
+                if (currentEvent.getVenue_map() != null){
+                    countVenues.setText("You have " + currentEvent.getVenue_map().size() + " venues to vote on!");
+                }
+                Log.d("show hide vote", "user did not vote" + voted);
+            }
         }
+
     }
 
     public void setVoteClick() {

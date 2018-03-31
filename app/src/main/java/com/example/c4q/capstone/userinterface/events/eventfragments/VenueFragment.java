@@ -208,10 +208,11 @@ public class VenueFragment extends Fragment {
         }
     }
     public void setVenueVoteCount(){
+        CurrentUserPost currentUserPost = CurrentUserPost.getInstance();
         for (Venue venue : venueList){
             int vote = venueVoteCountMap.get(venue.getVenue_id());
             venue.setVote_count(vote);
-            CurrentUserPost.getInstance().postVenueVoteCount(eventID, venue.getVenue_id(), vote);
+            currentUserPost.postVenueVoteCount(eventID, venue.getVenue_id(), vote);
         }
     }
 
