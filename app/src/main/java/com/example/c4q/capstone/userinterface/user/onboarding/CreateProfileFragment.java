@@ -151,7 +151,7 @@ public class CreateProfileFragment extends Fragment {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OnBoardActivity.viewPager.setCurrentItem(2);
+                OnBoardActivity.viewPager.setCurrentItem(1);
 
                 saveToDatabase();
             }

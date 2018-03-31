@@ -15,13 +15,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static com.example.c4q.capstone.utils.Constants.Restaurant_PREFS;
 import static com.example.c4q.capstone.utils.Constants.BAR_AND_AMENITIES_PREFS;
 import static com.example.c4q.capstone.utils.Constants.EVENTS;
 import static com.example.c4q.capstone.utils.Constants.EVENT_GUEST_MAP;
 import static com.example.c4q.capstone.utils.Constants.EVENT_INVITATIONS;
 import static com.example.c4q.capstone.utils.Constants.PREFERENCES;
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
+import static com.example.c4q.capstone.utils.Constants.RESTAURANT_PREFS;
 import static com.example.c4q.capstone.utils.Constants.USER_EVENTS;
 import static com.example.c4q.capstone.utils.Constants.USER_EVENT_LIST;
 import static com.example.c4q.capstone.utils.Constants.USER_ICON;
@@ -132,7 +132,7 @@ public class CurrentUserPostUtility {
 
     public void updateAmenityPrefs(List<String> amenityPrefs){
         Map<String, Object> userPrefs = new HashMap<>();
-        userPrefs.put(Restaurant_PREFS, amenityPrefs);
+        userPrefs.put(RESTAURANT_PREFS, amenityPrefs);
         preferencesReference.updateChildren(userPrefs);
     }
     public void updateProfilePic(UserIcon userIcon){
