@@ -41,7 +41,7 @@ public class VenueNetworkUtility {
 
         if(eventGuests != null){
             Log.d(TAG, "venue util eventGuests" + eventGuests.size());
-            eventGuests.add(CurrentUser.getInstance().getCurrentPublicUser());
+            //eventGuests.add(CurrentUser.getInstance().getCurrentPublicUser());
             String preferences = "beer karaoke";
             final int callCount = eventGuests.size();
             for (PublicUser guest: eventGuests){
