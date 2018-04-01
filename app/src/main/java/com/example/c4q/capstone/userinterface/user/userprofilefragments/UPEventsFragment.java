@@ -57,6 +57,8 @@ public class UPEventsFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
 
         LinearLayoutManager linearLayout = new LinearLayoutManager(view.getContext());
+        linearLayout.setStackFromEnd(true);
+        linearLayout.setReverseLayout(true);
         recyclerView.setLayoutManager(linearLayout);
 
         eventsAdapter = new EventsAdapter(Events.class, R.layout.events_item_view, EventsViewHolder.class, eventsRef);
