@@ -103,6 +103,7 @@ public class CurrentUserUtility {
         currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             currentUserID = currentUser.getUid();
+            Log.d(TAG, "user id " + currentUserID);
             currentUserExists = true;
 
             return currentUserID;
