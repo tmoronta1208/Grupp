@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,14 +6,12 @@
     >
 
 
-    <LinearLayout
+    <GridLayout
         android:id="@+id/user_preferences"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical">
-
-
 
 
         <TextView
@@ -22,54 +20,114 @@
             android:text="What kind of restaurants do you prefer?"
             android:textSize="25sp" />
 
-
-        <CheckBox
+        <com.rey.material.widget.Button
+            android:background="@drawable/pref_default_shape"
             android:id="@+id/vegan_pref"
+            android:text="Vegan"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vegan" />
+            android:layout_height="wrap_content" />
 
-        <CheckBox
-            android:id="@+id/pescetarian_pref"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pescetarians" />
-
-        <CheckBox
-            android:id="@+id/latin_food_pref"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Latin Food" />
-
-        <CheckBox
+        <com.rey.material.widget.Button
+            android:background="@drawable/pref_default_shape"
             android:id="@+id/asian_food"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Asian Food " />
+            android:text="Asian Food"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content" />
 
-        <CheckBox
+        <com.rey.material.widget.Button
+            android:id="@+id/latin_food_pref"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/pref_default_shape"
+            android:text="Latin Food"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp" />
+
+        <com.rey.material.widget.Button
+            android:background="@drawable/pref_default_shape"
             android:id="@+id/vegetarian_pref"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vegetarian" />
+            android:text="Vegetarian"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content" />
 
-        <CheckBox
+        <com.rey.material.widget.Button
+            android:background="@drawable/pref_default_shape"
             android:id="@+id/american_pref"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="American Food" />
+            android:text="American"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content" />
 
-        <CheckBox
+        <com.rey.material.widget.Button
+            android:background="@drawable/pref_default_shape"
             android:id="@+id/brunch_food_pref"
+            android:text="Brunch"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Brunch" />
+            android:layout_height="wrap_content" />
 
-        <CheckBox
+        <com.rey.material.widget.Button
+            android:background="@drawable/pref_default_shape"
             android:id="@+id/breakfast_pref"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Breakfast" />
+            android:text="Breakfast"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
+            android:layout_width="110sp"
+            android:layout_height="wrap_content" />
+
+        <!--<CheckBox-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Vegan" />-->
+
+        <!--<CheckBox-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Pescetarians" />-->
+
+        <!--<CheckBox-->
+            <!--android:id="@+id/latin_food_pref"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Latin Food" />-->
+
+        <!--<CheckBox-->
+            <!--android:id="@+id/asian_food"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Asian Food " />-->
+
+        <!--<CheckBox-->
+            <!--android:id="@+id/vegetarian_pref"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Vegetarian" />-->
+
+        <!--<CheckBox-->
+            <!--android:id="@+id/american_pref"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="American Food" />-->
+
+        <!--<CheckBox-->
+            <!--android:id="@+id/brunch_food_pref"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Brunch" />-->
+
+        <!--<CheckBox-->
+            <!--android:id="@+id/breakfast_pref"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Breakfast" />-->
 
 
         <Button
@@ -81,6 +139,6 @@
             android:text="Save" />
 
 
-    </LinearLayout>
+    </GridLayout>
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
