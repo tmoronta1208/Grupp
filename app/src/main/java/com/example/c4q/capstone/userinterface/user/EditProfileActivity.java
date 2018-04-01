@@ -110,6 +110,12 @@ public class EditProfileActivity extends AppCompatActivity {
                 privateUserLocation = dataSnapshot.child(currentUserID).getValue(PrivateUserLocation.class);
                 publicUser = dataSnapshot.child(currentUserID).getValue(PublicUser.class);
                 userSearch = dataSnapshot.child(currentUserID).getValue(UserSearch.class);
+<<<<<<< Updated upstream
+=======
+                userIcon = dataSnapshot.child(currentUserID).getValue(UserIcon.class);
+
+//                iconUrl = userIcon.getIcon_url();
+>>>>>>> Stashed changes
 
                 Log.d(TAG, "onDataChange: Added information to database: \n" + dataSnapshot.getValue());
             }
