@@ -8,6 +8,7 @@ import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.utils.currentuser.CurrentUserListener;
 import com.example.c4q.capstone.utils.currentuser.CurrentUserUtility;
+import com.example.c4q.capstone.utils.currentuser.PublicUserListener;
 import com.example.c4q.capstone.utils.currentuser.RealTimeEventsListener;
 
 import java.util.List;
@@ -112,6 +113,16 @@ public class CurrentUser {
     }
 
     public  PublicUser getCurrentPublicUser() {
+        return currentPublicUser;
+    }
+
+    public  PublicUser getCurrentPublicUser(final PublicUserListener publicUserListener) {
+        userUtility.getCurrentPublicUser(new PublicUserListener() {
+            @Override
+            public void publicUserExists(Boolean userExists) {
+                publicUserListener.publicUserExists(userExists);
+            }
+        });
         return currentPublicUser;
     }
 
