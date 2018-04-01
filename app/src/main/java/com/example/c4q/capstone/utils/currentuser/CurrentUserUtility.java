@@ -40,6 +40,7 @@ public class CurrentUserUtility {
     private static FirebaseAuth mAuth;
     private DatabaseReference firebaseDatabase;
     private DatabaseReference publicUserReference;
+    private static DatabaseReference publicStaticUserReference;
     private DatabaseReference privateUserReference;
     private DatabaseReference userFriendsReference;
     private DatabaseReference userEventsReference;
@@ -53,7 +54,7 @@ public class CurrentUserUtility {
     public boolean userHasFriends;
     public boolean userHasEvents;
     public boolean userHasPrivateProfile;
-    public boolean userHasPublicProfile;
+    public static boolean userHasPublicProfile;
     private List<String> userEventIDs = new ArrayList<>();
     private List<Events> userEventsList = new ArrayList<>();
     private List<String> userFriendIds = new ArrayList<>();
@@ -66,9 +67,11 @@ public class CurrentUserUtility {
     public CurrentUserUtility() {
         Log.d(TAG, "constructor called");
         setCurrentUserID();
+
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabase = mFirebaseDatabase.getReference();
         publicUserReference = firebaseDatabase.child(PUBLIC_USER);
+        publicStaticUserReference = firebaseDatabase.child(PUBLIC_USER);
         privateUserReference = firebaseDatabase.child(PRIVATE_USER);
         userFriendsReference = firebaseDatabase.child(USER_FRIENDS);
         userEventsReference = firebaseDatabase.child("user_events");
@@ -100,7 +103,9 @@ public class CurrentUserUtility {
         currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             currentUserID = currentUser.getUid();
+            Log.d(TAG, "user id " + currentUserID);
             currentUserExists = true;
+
             return currentUserID;
 
         } else {
@@ -173,6 +178,62 @@ public class CurrentUserUtility {
                 }
             };
             publicUserReference.addListenerForSingleValueEvent(publicUserListener);
+    }
+
+    public void getCurrentPublicUser(final PublicUserListener userListener) {
+        ValueEventListener publicUserListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (currentUserExists){
+                    PublicUser user = dataSnapshot.child(currentUserID).getValue(PublicUser.class);
+                    if (user != null) {
+                        userHasPublicProfile = true;
+                        Log.d(TAG, "getPublicUser with listener: user first name: " + user.getFirst_name());
+                        //currentUserListener.getPublicUser(user);
+                        userListener.publicUserExists(userHasPublicProfile);
+                    } else{
+                        userHasPublicProfile = false;
+                    }
+                    Log.d(TAG, "getPublicUser: user has public profile " + userHasPublicProfile);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.d(TAG, "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        };
+        publicUserReference.addListenerForSingleValueEvent(publicUserListener);
+    }
+
+    public static void getCurrentPublicUserProfile() {
+        ValueEventListener publicUserListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (currentUserExists){
+                    PublicUser user = dataSnapshot.child(currentUserID).getValue(PublicUser.class);
+                    if (user != null) {
+                        userHasPublicProfile = true;
+                        Log.d(TAG, "getPublicUser: user first name: " + user.getFirst_name());
+                        //currentUserListener.getPublicUser(user);
+                        //userListener.publicUserExists(userHasPublicProfile);
+                    } else{
+                        userHasPublicProfile = false;
+                    }
+                    Log.d(TAG, "getPublicUser: user has public profile " + userHasPublicProfile);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.d(TAG, "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        };
+        publicStaticUserReference.addListenerForSingleValueEvent(publicUserListener);
     }
 
     /**

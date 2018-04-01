@@ -15,6 +15,8 @@ import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
 import com.example.c4q.capstone.userinterface.user.onboarding.OnBoardActivity;
 import com.example.c4q.capstone.utils.Constants;
+import com.example.c4q.capstone.utils.currentuser.CurrentUserUtility;
+import com.example.c4q.capstone.utils.currentuser.PublicUserListener;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -49,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mfirebaseAuth = FirebaseAuth.getInstance();
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth.AuthStateListener mAuthListner;
+    private CurrentUser currentUser = CurrentUser.getInstance();
 
 //    private PublicUser publicUser;
 //    private String currentUserID;
@@ -59,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
 
         mfirebaseAuth.addAuthStateListener(mAuthListner);
     }
@@ -98,12 +102,24 @@ public class LoginActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
                 if (firebaseAuth.getCurrentUser() != null ) {
-                    CurrentUser currentUser = CurrentUser.getInstance();
-                    if (currentUser.isUserHasPublicProfile()){
-                        startActivity(new Intent(LoginActivity.this, UserProfileActivity.class));
-                    } else {
-                        startActivity(new Intent(LoginActivity.this, OnBoardActivity.class));
-                    }
+                    CurrentUserUtility currentUserUtility = new CurrentUserUtility();
+                            currentUserUtility.getCurrentPublicUser(new PublicUserListener() {
+                                @Override
+                                public void publicUserExists(Boolean userExists) {
+                                    Log.w("TAG", "login user exist" + userExists);
+                            if (userExists){
+
+                                Log.w("TAG", "login user has profile" + userExists);
+                                startActivity(new Intent(LoginActivity.this, UserProfileActivity.class));
+                            } else {
+
+                                Log.w("TAG", "login user does not have profile " + userExists);
+                                startActivity(new Intent(LoginActivity.this, OnBoardActivity.class));
+                            }
+                                }
+                            });
+                    startActivity(new Intent(LoginActivity.this, OnBoardActivity.class));
+
 
                 }
 
@@ -158,6 +174,23 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d("TAG", "signInWithCredential:success");
                             FirebaseUser user = mfirebaseAuth.getCurrentUser();
                             String userID = user.getUid();
+                            /*CurrentUserUtility currentUserUtility = new CurrentUserUtility();
+                            currentUserUtility.getCurrentPublicUser(new PublicUserListener() {
+                                @Override
+                                public void publicUserExists(Boolean userExists) {
+                                    Log.w("TAG", "login user exist" + userExists);
+                            if (currentUser.isCurrentUserExists() && userExists){
+                                Log.w("TAG", "login user exists" + currentUser.isCurrentUserExists());
+
+                                Log.w("TAG", "login user has profile" + userExists);
+                                startActivity(new Intent(LoginActivity.this, UserProfileActivity.class));
+                            } else {
+                                Log.w("TAG", "login user exists" + currentUser.isCurrentUserExists());
+                                Log.w("TAG", "login user does not have profile " + userExists);
+                                startActivity(new Intent(LoginActivity.this, OnBoardActivity.class));
+                            }
+                                }
+                            });*/
 
 //                            updateUI(user);
                         } else {
