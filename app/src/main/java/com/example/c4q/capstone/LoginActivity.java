@@ -49,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mfirebaseAuth = FirebaseAuth.getInstance();
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth.AuthStateListener mAuthListner;
+    private CurrentUser currentUser;
 
 //    private PublicUser publicUser;
 //    private String currentUserID;
@@ -59,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+       currentUser = CurrentUser.getInstance();
 
         mfirebaseAuth.addAuthStateListener(mAuthListner);
     }
@@ -98,10 +100,12 @@ public class LoginActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
                 if (firebaseAuth.getCurrentUser() != null ) {
-                    CurrentUser currentUser = CurrentUser.getInstance();
-                    if (currentUser.isUserHasPublicProfile()){
+
+                    if (currentUser.isCurrentUserExists()){
+                        Log.w("TAG", "login user has profile");
                         startActivity(new Intent(LoginActivity.this, UserProfileActivity.class));
                     } else {
+                        Log.w("TAG", "login user does not have profile");
                         startActivity(new Intent(LoginActivity.this, OnBoardActivity.class));
                     }
 
