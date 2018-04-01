@@ -120,7 +120,7 @@ public class VenueFragment extends Fragment {
         venueVoteCount = (TextView) rootView.findViewById(R.id.venue_vote_textview);
         venuePhoto = (ImageView) rootView.findViewById(R.id.venue_photo_image_view);
 
-
+        getEventData();
 
         return rootView;
     }
@@ -143,7 +143,7 @@ public class VenueFragment extends Fragment {
                         protected void populateViewHolder(VenueViewHolder viewHolder, Venue model, int position) {
                             if (getActivity() != null){
                                 viewHolder.onBind(model, getActivity().getApplicationContext());
-                                getEventData();
+                                //getEventData();
                             }
                         }
                     };
