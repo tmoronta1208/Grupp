@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
+import com.example.c4q.capstone.userinterface.user.onboarding.OnBoardActivity;
 import com.example.c4q.capstone.utils.Constants;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -66,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        CurrentUser.getInstance();
+
 
         // button views
         signInButton = findViewById(R.id.google_button);
@@ -96,8 +97,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
-                if (firebaseAuth.getCurrentUser() != null) {
-                    startActivity(new Intent(LoginActivity.this, UserProfileActivity.class));
+                if (firebaseAuth.getCurrentUser() != null ) {
+                    CurrentUser currentUser = CurrentUser.getInstance();
+                    if (currentUser.isUserHasPublicProfile()){
+                        startActivity(new Intent(LoginActivity.this, UserProfileActivity.class));
+                    } else {
+                        startActivity(new Intent(LoginActivity.this, OnBoardActivity.class));
+                    }
+
                 }
 
             }
