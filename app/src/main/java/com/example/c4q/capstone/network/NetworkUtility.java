@@ -64,7 +64,7 @@ public class NetworkUtility {
 
         Call<FourSquareModel> call = RetrofitInstance.getInstance()
                 .getFourSApi()
-                .getVenues(zipCode,radius, preferences,"20180328");
+                .getVenues(zipCode,radius, preferences,"20180331");
 
         call.enqueue(new Callback<FourSquareModel>() {
             @Override
@@ -73,15 +73,18 @@ public class NetworkUtility {
                     if(response.body() != null){
                         if (response.body().getResponse() != null){
                             if (response.body().getResponse().getVenues() != null){
-                                Log.d("SUCESSSS", response.body().getResponse().getVenues().get(0).getName());
+                                if (response.body().getResponse().getVenues().size() != 0){
+                                    Log.d("SUCESSSS", response.body().getResponse().getVenues().get(0).getName());
 
-                                List<Venues> venueResults = new ArrayList<>();
-                                venueResults = response.body().getResponse().getVenues();
-                                ApiToVenueConverter venueConverter = new ApiToVenueConverter();
-                                List<Venue> venueList = venueConverter.fourSToVenue(venueResults);
-                                Log.d("venue list", "list size: " + venueList.size());
-                                Log.d("venue list", "first venue name: " + venueList.get(0).getVenue_name());
-                                venueNetworkListener.getFourSList(venueList);
+                                    List<Venues> venueResults = new ArrayList<>();
+                                    venueResults = response.body().getResponse().getVenues();
+                                    ApiToVenueConverter venueConverter = new ApiToVenueConverter();
+                                    List<Venue> venueList = venueConverter.fourSToVenue(venueResults);
+                                    Log.d("venue list", "list size: " + venueList.size());
+                                    Log.d("venue list", "first venue name: " + venueList.get(0).getVenue_name());
+                                    venueNetworkListener.getFourSList(venueList);
+                                }
+
                             } else{
                                 Log.d("NULL", "response.body().getResponse.getVenues() is null");
                             }

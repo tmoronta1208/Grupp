@@ -6,6 +6,8 @@ import com.example.c4q.capstone.database.events.EventGuest;
 import com.example.c4q.capstone.database.events.Events;
 import com.example.c4q.capstone.database.events.UserEvent;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
+import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
+import com.example.c4q.capstone.database.publicuserdata.UserIcon;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 
 import java.util.HashMap;
@@ -61,5 +63,22 @@ public class NewEventConverter {
             guestHashMap.put(eventGuest.getUser_id(), eventGuest);
         }
         return  guestHashMap;
+    }
+
+    public PublicUser convertPubDetailsToPubUser(PublicUserDetails publicUserDetails){
+        PublicUser user = new PublicUser();
+        user.setRadius(Integer.parseInt(publicUserDetails.getRadius()));
+        user.setZip_code(String.valueOf(publicUserDetails.getZip_code()));
+        UserIcon userIcon = new UserIcon();
+        userIcon.setIcon_url(publicUserDetails.getIcon_url());
+        user.setUser_icon(userIcon);
+        user.setFirst_name(publicUserDetails.getFirst_name());
+        user.setLast_name(publicUserDetails.getLast_name());
+        user.setUser_id(publicUserDetails.getUid());
+        return user;
+    }
+
+    public Events newEventFromBuilder(Events newEvent, NewEventBuilder eventBuilder){
+        return newEvent;
     }
 }

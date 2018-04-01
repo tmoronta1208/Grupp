@@ -29,6 +29,7 @@ public class CreateEventActivity extends AppCompatActivity {
     public void venueTypeButtonClick(View view) {
 
         View otherView;
+        //send to presenter method needs context, view
 
         if(view.getTag().toString().equals("selected")){
             view.setBackgroundColor(getResources().getColor(R.color.colorAccent));
