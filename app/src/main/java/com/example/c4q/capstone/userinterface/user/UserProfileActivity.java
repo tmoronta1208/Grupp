@@ -105,7 +105,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 UPGroupDisplayFragment upGroupDisplayFragment = new UPGroupDisplayFragment();
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.addToBackStack("Grupp Details Fragment").replace(R.id.up_bottom_frag_cont, upGroupDisplayFragment);
+                fragmentTransaction.addToBackStack("Grupp Details Fragment").replace(R.id.drawer_layout, upGroupDisplayFragment);
                 fragmentTransaction.commit();
 
             }

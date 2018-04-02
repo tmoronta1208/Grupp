@@ -43,21 +43,21 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupViewHolder> {
     public void onBindViewHolder(GroupViewHolder holder, int position) {
         holder.onBind(groupsList.get(position));
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                UPGroupDisplayFragment upGroupDisplayFragment = new UPGroupDisplayFragment();
-                AppCompatActivity fragmentActivity  = (AppCompatActivity) view.getContext();
-                FragmentManager fragmentManager = fragmentActivity.getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.addToBackStack("").add(R.id.group_fragment_container, upGroupDisplayFragment);
-                fragmentTransaction.commit();
-
-
-
-            }
-        });
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+////                UPGroupDisplayFragment upGroupDisplayFragment = new UPGroupDisplayFragment();
+////                AppCompatActivity fragmentActivity  = (AppCompatActivity) view.getContext();
+////                FragmentManager fragmentManager = fragmentActivity.getSupportFragmentManager();
+////                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+////                fragmentTransaction.addToBackStack("").add(R.id.group_fragment_container, upGroupDisplayFragment);
+////                fragmentTransaction.commit();
+//
+//
+//
+//            }
+//        });
     }
 
     @Override
