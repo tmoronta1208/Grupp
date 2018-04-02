@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context="com.example.c4q.capstone.userinterface.user.userprofilefragments.UPGroupDisplayFragment">
+    tools:context="com.example.c4q.capstone.userinterface.user.userprofilefragments.UPCreateGroupFragment">
 
     <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/tool_bar"
@@ -64,7 +64,7 @@
 
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/grupp_display_member_rv"
+        android:id="@+id/grupp_create_group_rv"
         android:layout_width="match_parent"
         android:layout_height="390dp"
         android:layout_alignParentBottom="true"

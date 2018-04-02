@@ -21,16 +21,16 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UPGroupDisplayFragment extends Fragment {
+public class UPGroupDetailsFragment extends Fragment {
 
     RecyclerView recyclerView;
     GroupsAdapter groupsAdapter;
-    List<Integer> numbers = new ArrayList<>();
+    List<Integer> list = new ArrayList<>();
     View rootView;
-    FloatingActionButton button;
+    FloatingActionButton returnButton;
 
 
-    public UPGroupDisplayFragment() {
+    public UPGroupDetailsFragment() {
         // Required empty public constructor
     }
 
@@ -39,33 +39,31 @@ public class UPGroupDisplayFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootView = inflater.inflate(R.layout.fragment_upgroup_display, container, false);
-        button = rootView.findViewById(R.id.group_return_button);
 
-
+        rootView = inflater.inflate(R.layout.fragment_upgroup_details, container, false);
+        returnButton = rootView.findViewById(R.id.group__detailsreturn_button);
+        recyclerView = rootView.findViewById(R.id.group_details_rv);
         for (int i = 0; i < 6; i++) {
 
-            numbers.add(i);
+            list.add(i);
 
         }
 
-        recyclerView = rootView.findViewById(R.id.grupp_display_member_rv);
-
-
-        groupsAdapter = new GroupsAdapter(getContext(), numbers);
+        groupsAdapter = new GroupsAdapter(getContext(), list);
         recyclerView.setLayoutManager(new GridLayoutManager(rootView.getContext(), 3));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(groupsAdapter);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), UserProfileActivity.class);
                 startActivity(intent);
             }
         });
-
         return rootView;
+
+
     }
 
 }

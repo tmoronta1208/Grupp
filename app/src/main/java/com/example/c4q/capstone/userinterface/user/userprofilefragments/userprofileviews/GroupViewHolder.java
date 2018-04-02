@@ -1,18 +1,12 @@
 package com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.userinterface.user.ContactListFragment;
-import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPGroupDisplayFragment;
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPCreateGroupFragment;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -36,7 +30,7 @@ public class GroupViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UPGroupDisplayFragment upGroupDisplayFragment = new UPGroupDisplayFragment();
+                UPCreateGroupFragment upCreateGroupFragment = new UPCreateGroupFragment();
                 //FragmentTransaction fragmentTransaction =
             }
         });
@@ -51,10 +45,10 @@ public class GroupViewHolder extends RecyclerView.ViewHolder {
 //        groupImage.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-////                Intent groupDetailIntent = new Intent(context, UPGroupDisplayFragment.class);
+////                Intent groupDetailIntent = new Intent(context, UPCreateGroupFragment.class);
 ////                context.startActivity(groupDetailIntent);
 //
-////                UPGroupDisplayFragment upGroupDisplayFragment = new UPGroupDisplayFragment();
+////                UPCreateGroupFragment upGroupDisplayFragment = new UPCreateGroupFragment();
 ////             //   FragmentManager fragmentManager =
 ////                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 ////                fragmentTransaction.replace(R.id.up_bottom_frag_cont, upGroupDisplayFragment);

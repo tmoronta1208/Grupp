@@ -2,14 +2,12 @@ package com.example.c4q.capstone.userinterface.user;
 
 
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -28,11 +26,10 @@ import com.example.c4q.capstone.database.events.UserEvent;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.alerts.InviteNotifications;
 import com.example.c4q.capstone.userinterface.events.createevent.CreateEventActivity;
-import com.example.c4q.capstone.userinterface.events.createevent.VenueVoteUtility;
 import com.example.c4q.capstone.userinterface.user.onboarding.OnBoardActivity;
 import com.example.c4q.capstone.userinterface.user.search.UserSearchActivity;
 
-import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPGroupDisplayFragment;
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPCreateGroupFragment;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.fragmentanimation.ScreenSlidePagerAdapter;
 import com.example.c4q.capstone.LoginActivity;
 import com.example.c4q.capstone.utils.currentuser.CurrentUserUtility;
@@ -104,10 +101,10 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //startActivity(new Intent(UserProfileActivity.this, AddPersonActivity.class));
-                UPGroupDisplayFragment upGroupDisplayFragment = new UPGroupDisplayFragment();
+                UPCreateGroupFragment upCreateGroupFragment = new UPCreateGroupFragment();
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.addToBackStack("Grupp Details Fragment").replace(R.id.drawer_layout, upGroupDisplayFragment);
+                fragmentTransaction.addToBackStack("Grupp Details Fragment").replace(R.id.drawer_layout, upCreateGroupFragment);
                 fragmentTransaction.commit();
 
             }
