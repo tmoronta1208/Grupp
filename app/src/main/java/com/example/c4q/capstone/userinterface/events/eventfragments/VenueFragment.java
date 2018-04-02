@@ -164,7 +164,7 @@ public class VenueFragment extends Fragment {
                             if(!dataLoaded){
                                 Log.d ("Venue Fragment", "get venue map called");
 
-                                venueVoteUtility = new VenueVoteUtility(currentEvent);
+                                venueVoteUtility = new VenueVoteUtility(currentEvent, context);
                                 venueIdMap = venueVoteUtility.venueIdMap;
                                 venueVoteCountMap = venueVoteUtility.venueVoteCountMap;
                                 orderedVenueIdList = venueVoteUtility.orderedVenueIdList;

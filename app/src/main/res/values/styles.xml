@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="android:colorBackground">@android:color/white</item>
         <item name="android:colorForeground">@color/colorForground</item>
-        <item name="android:navigationBarColor">@color/colorPrimaryT</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
         <item name="android:statusBarColor">@color/colorPrimary</item>
         <item name="android:textColorPrimary">@color/colorForground</item>
     </style>

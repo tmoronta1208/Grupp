@@ -81,7 +81,9 @@ public class ContactListFragment extends Fragment {
         searchView.setHint("Name, #Grupptag, Email");
         searchView.setHintTextColor(getActivity().getResources().getColor(R.color.hintcolor));
 
+
         String currentUserId = CurrentUser.getInstance().getUserID();
+
 
         DatabaseReference contactsRef = FirebaseDatabase.getInstance().getReference().child(USER_CONTACTS).child(currentUserId);
 

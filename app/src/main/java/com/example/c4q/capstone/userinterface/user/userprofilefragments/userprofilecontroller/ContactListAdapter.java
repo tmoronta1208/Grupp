@@ -29,6 +29,7 @@ public class ContactListAdapter extends FirebaseRecyclerAdapter<PublicUserDetail
         viewHolder.setEmail(email);
     }
 
+
     /*@Override
     protected void populateViewHolder(ContactListViewHolder viewHolder, UserContacts model, int position) {
         *//*String email = model.getContacts().get(position).getEmail();
@@ -40,4 +41,6 @@ public class ContactListAdapter extends FirebaseRecyclerAdapter<PublicUserDetail
         viewHolder.setName(first, last);
         viewHolder.setUserIcon(icon);
     }*/
+
+
 }

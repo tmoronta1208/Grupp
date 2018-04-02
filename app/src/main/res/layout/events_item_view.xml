@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/linearlayout"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
-    android:padding="16sp"
-    >
+    android:padding="16sp">
 
-    <TextView
-        android:id="@+id/event_name"
-        android:text="Joe's Bday"
-        android:padding="16sp"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+
+
+            <TextView
+                android:id="@+id/event_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:autoText="false"
+                android:gravity="center"
+                android:padding="16sp"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:text="Joe's Bday"
+                android:textColor="@android:color/black" />
+
+
+
 
 </LinearLayout>

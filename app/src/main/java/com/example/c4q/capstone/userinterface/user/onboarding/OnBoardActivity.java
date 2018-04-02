@@ -35,13 +35,12 @@ public class OnBoardActivity extends FragmentActivity {
     private static final int NUM_PAGES = 3;
     public static ScrollerViewPager viewPager;
     private FragmentStatePagerAdapter pagerAdapter;
-    SpringIndicator springIndicator;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_board);
-        springIndicator = findViewById(R.id.indicator);
 
         viewPager = (ScrollerViewPager) findViewById(R.id.view_pager);
 
@@ -52,7 +51,7 @@ public class OnBoardActivity extends FragmentActivity {
         //ModelPagerAdapter adapter = new ModelPagerAdapter(getSupportFragmentManager(), manager);
         viewPager.setAdapter(adapter);
         viewPager.fixScrollSpeed();
-        springIndicator.setViewPager(viewPager);
+
 
         viewPager.setPageTransformer(true, new CubeOutTransformer());
 
