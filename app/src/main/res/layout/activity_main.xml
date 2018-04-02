@@ -7,9 +7,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@drawable/whiteloginbackground"
+    android:background="@drawable/peachfriends"
     android:orientation="vertical"
-    tools:context="com.example.c4q.capstone.DummyLoginActivity">
+    tools:context="com.example.c4q.capstone.LoginActivity">
 
 
 
@@ -24,7 +24,6 @@
     <ImageView android:src="@drawable/ic_grupp_logo_600dp"
         android:layout_width="match_parent"
         android:layout_height="240dp"
-        android:layout_marginBottom="40dp"
         android:layout_gravity="center_horizontal" />
 
         <!-- Email Label -->
@@ -52,6 +51,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textEmailAddress"
+                        android:textColor="@color/gray"
                         android:hint="Email" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -64,6 +64,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
+                        android:textColor="@color/gray"
                         android:hint="Password"/>
                 </android.support.design.widget.TextInputLayout>
 
@@ -73,6 +74,7 @@
                     android:layout_marginTop="3dp"
                     android:layout_marginBottom="16dp"
                     android:text="No account yet? Create one"
+                    android:textColor="@color/hintcolor"
                     android:gravity="center"
                     android:textSize="10sp"/>
 

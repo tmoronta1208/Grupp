@@ -1,11 +1,14 @@
 package com.example.c4q.capstone.userinterface.user.onboarding;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -32,10 +35,10 @@ import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
  * A simple {@link Fragment} subclass.
  */
 public class AmenityPreferencesFragment extends Fragment {
-    CheckBox brunch, outdoorSeating, rooftop, danceFloor, fullMenu, videoGames, darts, poolTables;
-    Button saveButton;
+    Button brunch, outdoorSeating, rooftop, danceFloor, fullMenu, videoGames, darts, poolTables;
+   com.getbase.floatingactionbutton.FloatingActionButton saveButton;
     View rootView;
-    HashMap<CheckBox, String> prefs = new HashMap<>();
+    HashMap<Button, String> prefs = new HashMap<>();
     List<String> selectedPrefs = new ArrayList<>();
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth mAuth;
@@ -50,6 +53,7 @@ public class AmenityPreferencesFragment extends Fragment {
     }
 
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -83,28 +87,24 @@ public class AmenityPreferencesFragment extends Fragment {
         prefs.put(darts, "darts");
         prefs.put(poolTables, "pool+tables");
 
-        for (final CheckBox a : prefs.keySet()) {
+            for (final Button a : prefs.keySet()) {
 
-            a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-                    if (!a.isChecked()) {
-                        selectedPrefs.remove(prefs.get(a));
-                        //selectedPrefs.add(null);
+                a.setOnClickListener(new Button.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(selectedPrefs.contains(prefs.get(a))){
+                            selectedPrefs.remove(prefs.get(a));
+                        }
                         Log.d("selctedPref size: ", selectedPrefs.toString());
 
-                    }
-                    if (a.isChecked()) {
-                        Log.d("Item Checked", prefs.get(a));
+                        a.setBackground(getActivity().getResources().getDrawable(R.drawable.pefrencebuttonpressed));
+
                         selectedPrefs.add(prefs.get(a));
-                      //  BarzzNetworkCall.start("10001");
+
                         Log.d("selctedPref size: ", selectedPrefs.toString());
+
                     }
-
-                }
-            });
-
+                });
 
         }
         saveToDatabase();
