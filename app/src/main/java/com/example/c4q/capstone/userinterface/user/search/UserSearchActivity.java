@@ -11,8 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
-import com.example.c4q.capstone.database.publicuserdata.UserSearch;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,7 +28,6 @@ import java.util.Map;
 
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 import static com.example.c4q.capstone.utils.Constants.USER_CONTACTS;
-import static com.example.c4q.capstone.utils.Constants.USER_SEARCH;
 
 public class UserSearchActivity extends AppCompatActivity {
     private static final String TAG = "UserSearchActivity";
@@ -90,18 +89,18 @@ public class UserSearchActivity extends AppCompatActivity {
             userSearchQuery = searchUserRef.orderByChild("first_name").startAt(query).endAt(query + "\uf8ff");
         }
 
-        FirebaseRecyclerAdapter<UserSearch, UserSearchViewHolder> contactsListAdapter = new FirebaseRecyclerAdapter<UserSearch, UserSearchViewHolder>(
-                UserSearch.class, R.layout.add_contact_itemview, UserSearchViewHolder.class, userSearchQuery) {
+        FirebaseRecyclerAdapter<PublicUser, UserSearchViewHolder> contactsListAdapter = new FirebaseRecyclerAdapter<PublicUser, UserSearchViewHolder>(
+                PublicUser.class, R.layout.add_contact_itemview, UserSearchViewHolder.class, userSearchQuery) {
 
             @Override
-            protected void populateViewHolder(final UserSearchViewHolder viewHolder, final UserSearch model, int position) {
+            protected void populateViewHolder(final UserSearchViewHolder viewHolder, final PublicUser model, int position) {
 
                 final String contactID = getRef(position).getKey();
 
                 final String email = model.getEmail();
                 final String first = model.getFirst_name();
                 final String last = model.getLast_name();
-                final String icon = model.getIcon_url();
+                final String icon = model.getUser_icon().getIcon_url();
                 final String zipCode = model.getZip_code();
                 //final int radius = model.getRadius();
 
