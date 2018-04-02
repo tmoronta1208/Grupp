@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -24,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import static com.example.c4q.capstone.utils.Constants.BAR_PREFS;
 import static com.example.c4q.capstone.utils.Constants.PREFERENCES;
@@ -34,11 +36,11 @@ import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
  */
 public class BarPreferencesFragment extends Fragment {
     private View view;
-    private CheckBox clubCheckBox, loungeCheckBox, karaokeCheckBox, hookahPrefCheckBox,
-            gayPrefCheckBox, beachCheckBox, hotelCheckbox, pubCheckbox, cocktailCheckbox;
-    Switch beerCheckBox;
+    private Button clubCheckBox, loungeCheckBox, karaokeCheckBox, hookahPrefCheckBox,
+            gayPrefCheckBox,beerCheckBox, beachCheckBox, hotelCheckbox, pubCheckbox, cocktailCheckbox;
+
     private FloatingActionButton saveButton;
-    HashMap<CheckBox, String> prefs = new HashMap<>();
+    HashMap<Button, String> prefs = new HashMap<>();
     public static List<String> selectedPrefs = new ArrayList<>();
 
     private FirebaseDatabase firebaseDatabase;
@@ -68,7 +70,7 @@ public class BarPreferencesFragment extends Fragment {
 
         clubCheckBox = view.findViewById(R.id.club_pref);
         loungeCheckBox = view.findViewById(R.id.lounge_pref);
-//        beerCheckBox = view.findViewById(R.id.beer_pref);
+        beerCheckBox = view.findViewById(R.id.beer_pref);
         karaokeCheckBox = view.findViewById(R.id.karaoke_pref);
         hookahPrefCheckBox = view.findViewById(R.id.hookah_pref);
         gayPrefCheckBox = view.findViewById(R.id.gayBar_pref);
@@ -84,7 +86,7 @@ public class BarPreferencesFragment extends Fragment {
 
         prefs.put(clubCheckBox, "club");
         prefs.put(loungeCheckBox, "lounge");
-        // prefs.put(beerCheckBox, "beer");
+        prefs.put(beerCheckBox, "beer");
         prefs.put(karaokeCheckBox, "karaoke");
         prefs.put(hookahPrefCheckBox, "hookah");
         prefs.put(gayPrefCheckBox, "gay");
@@ -94,29 +96,24 @@ public class BarPreferencesFragment extends Fragment {
         prefs.put(cocktailCheckbox, "cocktail");
 
         //Foreach - added an onClick listener to each checkbox in the map
+        for (final Button a : prefs.keySet()) {
 
-        for (final CheckBox a : prefs.keySet()) {
-
-            a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            a.setOnClickListener(new Button.OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-                    if (!a.isChecked()) {
-                        selectedPrefs.remove(prefs.get(a));
-                        //selectedPrefs.add(null);
+                public void onClick(View v) {
+                        if(selectedPrefs.contains(prefs.get(a))){
+                            selectedPrefs.remove(prefs.get(a));
+                        }
                         Log.d("selctedPref size: ", selectedPrefs.toString());
 
-                    }
-                    if (a.isChecked()) {
-                        Log.d("Item Checked", prefs.get(a));
+                        a.setBackground(getActivity().getResources().getDrawable(R.drawable.pefrencebuttonpressed));
+
                         selectedPrefs.add(prefs.get(a));
-                        //   BarzzNetworkCall.start("10001");
+
                         Log.d("selctedPref size: ", selectedPrefs.toString());
+
                     }
-
-                }
             });
-
 
         }
 
