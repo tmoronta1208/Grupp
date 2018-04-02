@@ -44,7 +44,6 @@ public class TempUserActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser firebaseUser;
     private String currentUserId;
-    private Button requests, friendlist;
     private DatabaseReference rootRef, userRef, iconRef,userDetailsRef;
 
 
@@ -60,9 +59,7 @@ public class TempUserActivity extends AppCompatActivity {
         userRef = rootRef.child(PUBLIC_USER).child(currentUserId);
         iconRef = rootRef.child(USER_ICON).child(currentUserId);
 //        userDetailsRef = rootRef.child();
-        requests = findViewById(R.id.pending_req);
-        friendlist = findViewById(R.id.friendlist);
-        profilePic = findViewById(R.id.circle_imageview);
+       profilePic = findViewById(R.id.circle_imageview);
         personName = findViewById(R.id.user_name);
 
         profilePic.setOnClickListener(new View.OnClickListener() {

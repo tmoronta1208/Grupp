@@ -6,9 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
@@ -20,13 +20,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 import static com.example.c4q.capstone.utils.Constants.USER_CONTACTS;
 import static com.example.c4q.capstone.utils.Constants.USER_SEARCH;
 
@@ -38,6 +38,8 @@ public class UserSearchActivity extends AppCompatActivity {
     private LinearLayoutManager linearLayoutManager;
     private FirebaseUser currentUser;
     private String currentUserID;
+    private Button searchBtn;
+    private EditText searchField;
 
     /**
      * TODO: create a searchable user interface
@@ -51,12 +53,15 @@ public class UserSearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_search);
 
+        searchBtn = findViewById(R.id.search_user_btn);
+        searchField = findViewById(R.id.search_field);
+
         authentication = FirebaseAuth.getInstance();
         currentUser = authentication.getCurrentUser();
         currentUserID = currentUser.getUid();
 
         rootRef = FirebaseDatabase.getInstance().getReference();
-        searchUserRef = rootRef.child(USER_SEARCH);
+        searchUserRef = rootRef.child(PUBLIC_USER);
 
         searchContactsRecyclerView = findViewById(R.id.search_users_rv);
         searchContactsRecyclerView.setHasFixedSize(true);
@@ -64,14 +69,29 @@ public class UserSearchActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         searchContactsRecyclerView.setLayoutManager(linearLayoutManager);
 
-        getContactListAdapter();
-
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String searchText = searchField.getText().toString().trim();
+                if (!searchText.isEmpty()) {
+                    searchUser(searchText);
+                }
+            }
+        });
     }
 
-    private void getContactListAdapter() {
+    private void searchUser(String query) {
+
+        Query userSearchQuery;
+
+        if (query.contains("@")) {
+            userSearchQuery = searchUserRef.orderByChild("email").startAt(query).endAt(query + "\uf8ff");
+        } else {
+            userSearchQuery = searchUserRef.orderByChild("first_name").startAt(query).endAt(query + "\uf8ff");
+        }
 
         FirebaseRecyclerAdapter<UserSearch, UserSearchViewHolder> contactsListAdapter = new FirebaseRecyclerAdapter<UserSearch, UserSearchViewHolder>(
-                UserSearch.class, R.layout.add_contact_itemview, UserSearchViewHolder.class, searchUserRef) {
+                UserSearch.class, R.layout.add_contact_itemview, UserSearchViewHolder.class, userSearchQuery) {
 
             @Override
             protected void populateViewHolder(final UserSearchViewHolder viewHolder, final UserSearch model, int position) {
@@ -102,7 +122,8 @@ public class UserSearchActivity extends AppCompatActivity {
         searchContactsRecyclerView.setAdapter(contactsListAdapter);
     }
 
-    public void addToContactList(String contactID, final Button addContactButton, String first, String last, String email, String url, String radius, String zipcode) {
+    public void addToContactList(String contactID, final Button addContactButton, String
+            first, String last, String email, String url, String radius, String zipcode) {
         /**
          * TODO: Write logic to retrieve contacts list first, and then update the list with the new values.
          * TODO: also need to write logic to check if user is already in contact list
@@ -136,27 +157,5 @@ public class UserSearchActivity extends AppCompatActivity {
 
             }
         });
-        //before we add new contacts, we need a map of contacts that are already there.
-
-
-        //currentUserContactList.add(publicUserDetails);
-
-
-        // userContactsRef.setValue(userContacts);
-        //this updates the user's contacts.
-
-
-        /*userContactsRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                addContactButton.setVisibility(View.INVISIBLE);
-                Log.d(TAG, "onDataChange: " + dataSnapshot.getValue());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });*/
     }
 }
