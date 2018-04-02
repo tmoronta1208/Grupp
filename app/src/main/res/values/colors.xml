@@ -6,6 +6,7 @@
     <color name="colorPrimaryDark">#1d99b2</color>
     <color name="colorPrimaryVeryDark">#167385</color>
 
+
     <color name="colorAccent">#ec8f56</color>
     <color name="colorAccentLight">#f3b792</color>
     <color name="colorAccentDark">#b56639</color>
@@ -46,6 +47,7 @@
     <color name="indicator_2">#64A4A4</color>
     <color name="indicator_3">#66D7B9</color>
     <color name="indicator_4">#FDBC7D</color>
+    <color name="superlightcream">#ADf0d593</color>
 
 
 </resources>

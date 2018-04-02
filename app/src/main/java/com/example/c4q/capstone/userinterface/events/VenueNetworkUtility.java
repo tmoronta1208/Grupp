@@ -69,6 +69,8 @@ public class VenueNetworkUtility {
                             Log.d(TAG, "ready to compare lists");
                             compareUserVenueLists();
                         }
+                        Log.d(TAG, "not ready " + callCount);
+
                     }
 
                     @Override
