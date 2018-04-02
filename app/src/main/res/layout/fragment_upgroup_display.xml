@@ -93,7 +93,7 @@
             android:layout_height="match_parent"
             />
         <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/amenity_pref_save_button"
+            android:id="@+id/group_return_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
