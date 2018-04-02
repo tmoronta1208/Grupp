@@ -1,0 +1,50 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.c4q.capstone.userinterface.user.userprofilefragments.UPGroupDisplayFragment">
+
+ <RelativeLayout
+     android:background="@color/white"
+     android:orientation="vertical"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent">
+
+     <TextView
+         android:id="@+id/textView"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentStart="true"
+         android:layout_alignParentTop="true"
+         android:layout_marginTop="51dp"
+         android:text="Group Name"
+         android:textColor="@color/colorPrimaryDark"
+         android:textSize="25sp" />
+
+     <EditText
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_alignParentStart="true"
+         android:layout_below="@+id/textView"
+         android:hint="Enter group name here"
+         android:textColor="@color/colorPrimaryDark"
+         android:id="@+id/editText" />
+
+     <android.support.v7.widget.RecyclerView
+         android:id="@+id/grupp_display_member_rv"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_alignParentBottom="true"
+         android:layout_alignParentStart="true"
+         android:layout_below="@+id/editText"></android.support.v7.widget.RecyclerView>
+
+ </RelativeLayout>
+
+
+
+
+
+
+
+
+</FrameLayout>

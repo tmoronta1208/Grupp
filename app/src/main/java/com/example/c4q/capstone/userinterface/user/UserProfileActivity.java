@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -28,6 +30,7 @@ import com.example.c4q.capstone.userinterface.alerts.InviteNotifications;
 import com.example.c4q.capstone.userinterface.events.createevent.CreateEventActivity;
 import com.example.c4q.capstone.userinterface.user.search.UserSearchActivity;
 
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPGroupDisplayFragment;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.fragmentanimation.ScreenSlidePagerAdapter;
 import com.example.c4q.capstone.LoginActivity;
 import com.example.c4q.capstone.utils.currentuser.CurrentUserUtility;
@@ -98,7 +101,12 @@ public class UserProfileActivity extends AppCompatActivity {
         addPerson.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(UserProfileActivity.this, AddPersonActivity.class));
+                //startActivity(new Intent(UserProfileActivity.this, AddPersonActivity.class));
+                UPGroupDisplayFragment upGroupDisplayFragment = new UPGroupDisplayFragment();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.addToBackStack("Grupp Details Fragment").replace(R.id.up_bottom_frag_cont, upGroupDisplayFragment);
+                fragmentTransaction.commit();
 
             }
         });

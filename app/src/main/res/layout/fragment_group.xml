@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/group_fragment_container"
     tools:context="com.example.c4q.capstone.userinterface.user.userprofilefragments.UPGroupFragment">
 
     <android.support.v7.widget.RecyclerView

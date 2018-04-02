@@ -38,7 +38,7 @@ public class UPGroupFragment extends Fragment {
         /* populate GROUP LIST HERE list here because the view pager calls oncreateview
         it populates the list as many times as you go into the fragment MG */
         if (randomNumbersList.size() == 0) {
-            for (int i = 1; i <= 5; i++) {
+            for (int i = 1; i <= 8; i++) {
                 randomNumbersList.add(i);
             }
         }
