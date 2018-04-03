@@ -62,7 +62,7 @@ public class EditTextUX {
 
                             //TODO alert user
                         } else {
-                            eventPresenter.sendEventToFireBase(listener);
+                            //eventPresenter.sendEventToFireBase(listener);
                         }
 
                     } else if(type.equals("addNote")) {

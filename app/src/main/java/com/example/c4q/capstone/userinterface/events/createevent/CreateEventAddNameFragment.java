@@ -5,6 +5,8 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,11 +21,25 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
+import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.events.CreateEventPresenter;
 import com.example.c4q.capstone.userinterface.events.EventActivity;
 import com.example.c4q.capstone.userinterface.events.EventFragmentListener;
 import com.example.c4q.capstone.userinterface.events.createevent.createeventux.EditTextUX;
 import com.example.c4q.capstone.userinterface.events.createevent.createeventux.calenderdialog.DatePickerFragment;
+import com.example.c4q.capstone.userinterface.events.eventsrecyclerviews.FriendsAdapter;
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews.ContactListViewHolder;
+import com.example.c4q.capstone.utils.SimpleDividerItemDecoration;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static com.example.c4q.capstone.utils.Constants.USER_CONTACTS;
 
 
 /**
@@ -45,6 +61,15 @@ public class CreateEventAddNameFragment extends Fragment implements DatePickerDi
     LinearLayout visibleLayout;
     DatePickerFragment datePickerFragment = new DatePickerFragment();
 
+
+    RecyclerView recyclerView;
+    InviteListAdapter contactListAdapter;
+    LinearLayoutManager linearLayoutManager;
+    View.OnClickListener listener;
+    Set<String> friendIdInvite = new HashSet<>();
+    FriendsAdapter friendsAdapter;
+    String currentUserId = CurrentUser.userID;
+
     private String dateString;
 
     public CreateEventAddNameFragment() {
@@ -61,6 +86,11 @@ public class CreateEventAddNameFragment extends Fragment implements DatePickerDi
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         eventPresenter = new CreateEventPresenter(NewEventBuilder.getInstance());
+        setOnClick();
+        DatabaseReference contactsRef = FirebaseDatabase.getInstance().getReference().child(USER_CONTACTS).child(currentUserId);
+        contactListAdapter = new InviteListAdapter(PublicUserDetails.class, R.layout.contact_item_view, ContactListViewHolder.class, contactsRef, listener);
+
+
     }
 
     @Override
@@ -78,7 +108,33 @@ public class CreateEventAddNameFragment extends Fragment implements DatePickerDi
         setCloseButton();
         setEnterNameEditText();
         datePickerFragment.setEventPresnter(eventPresenter);
+
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.invite_recycler_view);
+        //friendsAdapter = new FriendsAdapter(friendsUserList,eventPresenter, getActivity().getApplicationContext());
+        linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        recyclerView.setAdapter(contactListAdapter);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
+
         return rootView;
+    }
+
+    private void setOnClick(){
+        listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO separate logic - send everything to presenter, presenter sends to builder
+                v.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                friendIdInvite.add(v.getTag().toString());
+                List<String> friendId = new ArrayList<>();
+                friendId.addAll(friendIdInvite);
+                newEventBuilder.setInvitedGuests(friendId);
+                eventPresenter.setEventGuests(friendId);
+
+
+
+            }
+        };
     }
 
     public void loadeEventSingleton(NewEventBuilder eventPTSingleton) {
@@ -148,7 +204,7 @@ public class CreateEventAddNameFragment extends Fragment implements DatePickerDi
                     Log.d(TAG, "create event: event not valid");
                     //TODO alert user
                 } else {
-                    eventPresenter.sendEventToFireBase(new EventFragmentListener() {
+                    /*eventPresenter.sendEventToFireBase(new EventFragmentListener() {
                         @Override
                         public void swapFragments() {
                             Log.d(TAG, "Swap fragments called");
@@ -160,7 +216,7 @@ public class CreateEventAddNameFragment extends Fragment implements DatePickerDi
                             eventID = key;
                             loadEventFragment();
                         }
-                    });
+                    });*/
                     Log.d(TAG, "create event: eventSent to firebase");
                 }
             }
