@@ -69,8 +69,8 @@ public class NewEventPresenter implements NewEventListener {
     }
 
     @Override
-    public void timeEntered(TimePicker timePicker) {
-        int hour;
+    public void timeEntered(int hour, int minute) {
+        /*int hour;
         int minute;
         if (Build.VERSION.SDK_INT < 23) {
             hour = timePicker.getCurrentHour();
@@ -78,7 +78,7 @@ public class NewEventPresenter implements NewEventListener {
         } else {
             hour = timePicker.getHour();
             minute =timePicker.getMinute();
-        }
+        }*/
         StringBuilder timeBuilder = new StringBuilder();
         String amPm = "am";
         if (hour == 12){

@@ -21,7 +21,7 @@ public interface NewEventListener {
 
     void timeButtonClicked(TimePicker timePicker, Button closeButton, LinearLayout visibleLayout, LinearLayout hiddenLayout);
 
-    void timeEntered(TimePicker timePicker);
+    void timeEntered(int hour, int minute);
 
     void closeButtonClicked(TimePicker timePicker, Button closeButton, LinearLayout visibleLayout, LinearLayout hiddenLayout);
 

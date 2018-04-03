@@ -37,7 +37,7 @@ public class ContactListAdapter extends FirebaseRecyclerAdapter<PublicUserDetail
         String last = model.getContacts().get(position).getLast_name();
         String icon = model.getContacts().get(position).getIcon_url();
 
-        viewHolder.setEmail(email);
+        viewHolder.setLastName(email);
         viewHolder.setName(first, last);
         viewHolder.setUserIcon(icon);
     }*/
