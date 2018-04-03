@@ -164,7 +164,7 @@ public class UserProfileActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.edit_profile_menu_item:
-                startActivity(new Intent(UserProfileActivity.this, OnBoardActivity.class));
+                startActivity(new Intent(UserProfileActivity.this, EditProfileActivity.class));
                 break;
             case R.id.edit_preferences_menu_item:
                 //TODO

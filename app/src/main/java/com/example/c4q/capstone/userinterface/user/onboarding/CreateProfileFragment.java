@@ -64,6 +64,7 @@ public class CreateProfileFragment extends Fragment {
     private DatabaseReference rootRef, publicUserReference, privateUserReference, privateUserLocationReference, userIconReference;
     private FirebaseUser currentUser;
     private PublicUser publicUser;
+    private UserIcon userIcon;
     private PrivateUser privateUser;
     private PrivateUserLocation privateUserLocation;
     private PublicUserDetails publicUserDetails;
@@ -185,10 +186,11 @@ public class CreateProfileFragment extends Fragment {
         firstNameString = firstName.getText().toString().trim();
         lastNameString = lastName.getText().toString().trim();
         zipCodeString = zipCode.getText().toString();
+        userIcon = new UserIcon(DEFAULT_ICON);
 
         if (!firstNameString.equals("") && !lastNameString.equals("") && !zipCodeString.equals("")) {
 
-            publicUser = new PublicUser(currentUserID, firstNameString, lastNameString, zipCodeString, budgetString, currentUserEmail, DEFAULT_ICON, over18, over21, radius);
+            publicUser = new PublicUser(currentUserID, firstNameString, lastNameString, zipCodeString, budgetString, currentUserEmail, userIcon, over18, over21, radius);
 
             privateUser = new PrivateUser(firstNameString, lastNameString, over18, over21, radius);
 

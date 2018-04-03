@@ -10,43 +10,34 @@ public class PublicUser {
     private String zip_code;
     private String budget;
     private String email;
-    private String icon_ur;
+    private UserIcon user_icon;
     private boolean over_18;
     private boolean over_21;
     private int radius;
     private List<String> user_preferences;
-    private List<String> pending_request;
 
     public PublicUser() {
     }
 
-    public PublicUser(String user_id, String first_name, String last_name, String zip_code, String budget, String email, String icon_ur, boolean over_18, boolean over_21, int radius) {
+    public PublicUser(String user_id, String first_name, String last_name, String zip_code, String budget, String email, UserIcon user_icon, boolean over_18, boolean over_21, int radius) {
         this.user_id = user_id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.zip_code = zip_code;
         this.budget = budget;
         this.email = email;
-        this.icon_ur = icon_ur;
+        this.user_icon = user_icon;
         this.over_18 = over_18;
         this.over_21 = over_21;
         this.radius = radius;
     }
 
-    public String getIcon_ur() {
-        return icon_ur;
+    public UserIcon getUser_icon() {
+        return user_icon;
     }
 
-    public void setIcon_ur(String icon_ur) {
-        this.icon_ur = icon_ur;
-    }
-
-    public List<String> getPending_request() {
-        return pending_request;
-    }
-
-    public void setPending_request(List<String> pending_request) {
-        this.pending_request = pending_request;
+    public void setUser_icon(UserIcon user_icon) {
+        this.user_icon = user_icon;
     }
 
     public List<String> getUser_preferences() {
