@@ -8,6 +8,7 @@
     android:gravity="center"
     android:layout_gravity="center"
     android:background="@android:color/white"
+    android:id="@+id/create_event_parent"
     tools:context="com.example.c4q.capstone.userinterface.events.createevent.CreateEventActivity"
     >
 

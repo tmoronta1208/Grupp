@@ -3,6 +3,7 @@ package com.example.c4q.capstone.userinterface.events.createevent;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
@@ -22,7 +23,7 @@ import java.util.List;
  * Created by amirahoxendine on 4/3/18.
  */
 
-public class NewEventPresenter implements CreateEventActivity.NewEventListener {
+public class NewEventPresenter implements NewEventListener {
     NewEventBuilder newEventBuilder = NewEventBuilder.getInstance();
     View view;
     Context context;
@@ -68,7 +69,16 @@ public class NewEventPresenter implements CreateEventActivity.NewEventListener {
     }
 
     @Override
-    public void timeEntered(int hour, int minute) {
+    public void timeEntered(TimePicker timePicker) {
+        int hour;
+        int minute;
+        if (Build.VERSION.SDK_INT < 23) {
+            hour = timePicker.getCurrentHour();
+            minute = timePicker.getCurrentMinute();
+        } else {
+            hour = timePicker.getHour();
+            minute =timePicker.getMinute();
+        }
         StringBuilder timeBuilder = new StringBuilder();
         String amPm = "am";
         if (hour == 12){

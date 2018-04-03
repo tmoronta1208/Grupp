@@ -20,13 +20,12 @@ import java.util.List;
  */
 
 public class InviteListAdapter extends FirebaseRecyclerAdapter<PublicUserDetails, ContactListViewHolder> {
-    View.OnClickListener onClickListener;
-    CreateEventActivity.NewEventListener newEventListener;
+
+    NewEventListener newEventListener;
     Context context;
 
-    public InviteListAdapter(Class<PublicUserDetails> modelClass, int modelLayout, Class<ContactListViewHolder> viewHolderClass, Query ref, View.OnClickListener onClickListener, CreateEventActivity.NewEventListener newEventListener, Context context) {
+    public InviteListAdapter(Class<PublicUserDetails> modelClass, int modelLayout, Class<ContactListViewHolder> viewHolderClass, Query ref, NewEventListener newEventListener, Context context) {
         super(modelClass, modelLayout, viewHolderClass, ref);
-        this.onClickListener = onClickListener;
         this.newEventListener = newEventListener;
         this.context = context;
     }
@@ -51,33 +50,5 @@ public class InviteListAdapter extends FirebaseRecyclerAdapter<PublicUserDetails
                 newEventListener.friendInvited(user);
             }
         });
-        /*List<PublicUser> invitedFriendUser = NewEventBuilder.getInstance().getInvitedFriendsUserList();
-        NewEventConverter eventConverter = new NewEventConverter();
-        PublicUser user = new PublicUser();
-        user = eventConverter.convertPubDetailsToPubUser(model);
-
-        if (invitedFriendUser != null){
-            invitedFriendUser.add(user);
-            Log.d("invite adapter", "pub user list size: " + invitedFriendUser.size());
-        } else {
-            invitedFriendUser = new ArrayList<>();
-
-            invitedFriendUser.add(user);
-            Log.d("invite adapter", "pub user list size: " + invitedFriendUser.size());
-        }
-        //NewEventBuilder.getInstance().setInvitedFriendsUserList(invitedFriendUser);
-        newEventListener.friendInvited(user);*/
     }
-
-    /*@Override
-    protected void populateViewHolder(ContactListViewHolder viewHolder, UserContacts model, int position) {
-        *//*String email = model.getContacts().get(position).getEmail();
-        String first = model.getContacts().get(position).getFirst_name();
-        String last = model.getContacts().get(position).getLast_name();
-        String icon = model.getContacts().get(position).getIcon_url();
-
-        viewHolder.setEmail(email);
-        viewHolder.setName(first, last);
-        viewHolder.setUserIcon(icon);
-    }*/
 }

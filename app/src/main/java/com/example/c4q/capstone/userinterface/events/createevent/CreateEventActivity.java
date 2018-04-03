@@ -1,9 +1,5 @@
 package com.example.c4q.capstone.userinterface.events.createevent;
 
-import android.os.Build;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +15,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.events.createevent.createeventux.EditTextUX;
@@ -29,12 +24,9 @@ import com.example.c4q.capstone.utils.SimpleDividerItemDecoration;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import static com.example.c4q.capstone.utils.Constants.USER_CONTACTS;
 
-public class CreateEventActivity extends AppCompatActivity {
+public class CreateEventActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static String TAG = "CREATE_EVENT_FRAG: ";
     EditText eventName;
@@ -48,37 +40,25 @@ public class CreateEventActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     InviteListAdapter contactListAdapter;
     LinearLayoutManager linearLayoutManager;
-    View.OnClickListener listener;
     String currentUserId = CurrentUser.userID;
     NewEventListener newEventListener;
+    EditTextUX editTextUX;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
         newEventListener = new NewEventPresenter(getApplicationContext(), this);
-        setFriendClick();
+        setViews();
+        setViewCLickListeners();
         DatabaseReference contactsRef = FirebaseDatabase.getInstance().getReference().child(USER_CONTACTS).child(currentUserId);
         contactListAdapter = new InviteListAdapter(PublicUserDetails.class, R.layout.contact_item_view,
-                ContactListViewHolder.class, contactsRef, listener, newEventListener, getApplicationContext());
-
-        setViews();
-        setDateTimeClick();
-        setCloseButton();
-        setEnterNameEditText();
-        datePickerFragment.setEventPresnter(newEventListener);
+                ContactListViewHolder.class, contactsRef, newEventListener, getApplicationContext());
         recyclerView = (RecyclerView) findViewById(R.id.invite_recycler_view);
         linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setAdapter(contactListAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
-        createEventButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                newEventListener.doneButtonClicked();
-            }
-        });
-
     }
 
     public void setViews() {
@@ -93,90 +73,34 @@ public class CreateEventActivity extends AppCompatActivity {
         hiddenLayout = findViewById(R.id.hidden_linear_layout);
         visibleLayout = findViewById(R.id.visible_layout);
     }
-    public void setEnterNameEditText() {
-        eventName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    //hideSoftKeyboard(activity);
 
-
-                    String name = eventName.getText().toString();
-                    newEventListener.eventNameEntered(name);
-                    handled = true;
-                }
-                return handled;
-            }
-        });
+    public void setViewCLickListeners(){
+        addDate.setOnClickListener(this);
+        addTime.setOnClickListener(this);
+        closeButton.setOnClickListener(this);
+        createEventButton.setOnClickListener(this);
+        datePickerFragment.setEventPresnter(newEventListener);
+        editTextUX = new EditTextUX(eventName, newEventListener, CreateEventActivity.this, findViewById(R.id.create_event_parent), "eventName" );
     }
 
-    private void setFriendClick() {
-        listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO separate logic - send everything to presenter, presenter sends to builder
-                v.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-            }
-        };
-    }
-
-    public void setDateTimeClick() {
-        //TODO set Date method call to presenter, takes these views as parameters
-        addTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                newEventListener.timeButtonClicked(timePicker, closeButton, visibleLayout, hiddenLayout);
-            }
-        });
-
-        addDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.add_date_text_view:
                 newEventListener.dateButtonClicked(datePickerFragment, getSupportFragmentManager());
-            }
-        });
-    }
-
-    public void setCloseButton() {
-        //TODO set close button method call to presenter, takes these views as parameters
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                break;
+            case R.id.add_time_text_view:
+                newEventListener.timeButtonClicked(timePicker, closeButton, visibleLayout, hiddenLayout);
+                break;
+            case R.id.close_button:
                 if (timePicker.getVisibility() == View.VISIBLE) {
                     newEventListener.closeButtonClicked(timePicker, closeButton, visibleLayout, hiddenLayout);
-                    if (Build.VERSION.SDK_INT < 23) {
-                        newEventListener.timeEntered(timePicker.getCurrentHour(), timePicker.getCurrentMinute());
-                    } else {
-                        newEventListener.timeEntered(timePicker.getHour(), timePicker.getMinute());
-                    }
-
+                    newEventListener.timeEntered(timePicker);
                 }
-            }
-        });
-    }
-
-    public interface NewEventListener {
-        void eventNameEntered(String eventName);
-
-        void dateButtonClicked(DatePickerFragment datePickerFragment, FragmentManager fragmentManager);
-
-        void dateEntered(int eventMonth, int eventDay);
-
-        void timeButtonClicked(TimePicker timePicker, Button closeButton, LinearLayout visibleLayout, LinearLayout hiddenLayout);
-
-        void timeEntered(int hour, int minute);
-
-        void closeButtonClicked(TimePicker timePicker, Button closeButton, LinearLayout visibleLayout, LinearLayout hiddenLayout);
-
-        void inviteFriendsButtonClicked();
-
-        void friendInvited(PublicUser publicUser);
-
-        void addNoteClicked();
-
-        void noteAdded(String eventNote);
-
-        void doneButtonClicked();
+                break;
+            case R.id.create_event_button:
+                newEventListener.doneButtonClicked();
+                break;
+        }
     }
 }

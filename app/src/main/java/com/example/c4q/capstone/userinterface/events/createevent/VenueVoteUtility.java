@@ -117,8 +117,8 @@ public class VenueVoteUtility {
                     topVenueId = currentVenueId;
                 }
             }
-            Log.d(TAG, "TOP VENUE ID: " + topVenueId);
-            Log.d(TAG, "TOP VENUE ID: " + venueIdMap.get(topVenueId).getVenue_name());
+            //Log.d(TAG, "TOP VENUE ID: " + topVenueId);
+            //Log.d(TAG, "TOP VENUE ID: " + venueIdMap.get(topVenueId).getVenue_name());
             venueIDList.set(i, venueIDList.set(venueIDList.indexOf(topVenueId), venueIDList.get(i)));
         }
         for (int j = 0; j < venueIDList.size(); j++) {

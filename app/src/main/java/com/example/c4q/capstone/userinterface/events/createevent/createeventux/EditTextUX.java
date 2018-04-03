@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.c4q.capstone.userinterface.events.createevent.CreateEventPresenter;
 import com.example.c4q.capstone.userinterface.events.EventFragmentListener;
+import com.example.c4q.capstone.userinterface.events.createevent.NewEventListener;
 
 /**
  * Created by amirahoxendine on 3/20/18.
@@ -20,16 +21,16 @@ import com.example.c4q.capstone.userinterface.events.EventFragmentListener;
 
 public class EditTextUX {
     private EditText editText;
-    private CreateEventPresenter eventPresenter;
+    private NewEventListener newEventListener;
     private Activity activity;
     private  View rootView;
     private String type;
     private EventFragmentListener listener;
 
 
-    public EditTextUX(EditText editText, CreateEventPresenter eventPresenter, Activity activity, View rootview, String type, EventFragmentListener listener) {
+    public EditTextUX(EditText editText, NewEventListener newEventListener, Activity activity, View rootview, String type) {
         this.editText = editText;
-        this.eventPresenter = eventPresenter;
+        this.newEventListener = newEventListener;
         this.activity = activity;
         this.rootView = rootview;
         this.type = type;
@@ -53,20 +54,12 @@ public class EditTextUX {
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     hideSoftKeyboard(activity);
-
                     if(type.equals("eventName")){
                         String name = editText.getText().toString();
-                        eventPresenter.setEventName(name);
-
-                        if (!eventPresenter.validateEvent()) {
-
-                            //TODO alert user
-                        } else {
-                            //eventPresenter.sendEventToFireBase(listener);
-                        }
+                        newEventListener.eventNameEntered(name);
 
                     } else if(type.equals("addNote")) {
-                        eventPresenter.setEventNote(editText.getText().toString());
+                        //newEventListener.(editText.getText().toString());
                     }
                     handled = true;
                 }
@@ -86,8 +79,17 @@ public class EditTextUX {
                     if(event.getActionMasked() == MotionEvent.ACTION_UP) {
                         hideSoftKeyboard(activity);
                         Log.d("Edit text UX" , "hide keyboard called");
-                        String name = editText.getText().toString();
-                        eventPresenter.setEventName(name);
+                        if (type.equals("eventName")) {
+                            String name = editText.getText().toString().trim();
+                            if (!name.equals("")){
+                                newEventListener.eventNameEntered(name);
+                            }
+                        } else if(type.equals("eventName")){
+                            String note = editText.getText().toString().trim();
+                            if (!note.equals("")){
+                                //add method fir setting note
+                            }
+                        }
                     }
 
 
@@ -123,9 +125,9 @@ public class EditTextUX {
                         (InputMethodManager) activity.getSystemService(
                                 Activity.INPUT_METHOD_SERVICE);
                 if (activity.getCurrentFocus() != null){
-                    inputMethodManager.hideSoftInputFromWindow(
-
-                            activity.getCurrentFocus().getWindowToken(), 0);
+                    if(inputMethodManager != null){
+                        inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+                    }
                 }
             }
     }
