@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
@@ -25,7 +26,6 @@ import java.util.List;
 
 public class NewEventPresenter implements NewEventListener {
     NewEventBuilder newEventBuilder = NewEventBuilder.getInstance();
-    View view;
     Context context;
     Activity activity;
     public static String TAG = "NEW EVENT PRES";
@@ -46,10 +46,8 @@ public class NewEventPresenter implements NewEventListener {
         datePickerFragment.show(fragmentManager,"datePicker");
     }
 
-
-
     @Override
-    public void dateEntered(int eventMonth, int eventDay) {
+    public void dateEntered(int eventMonth, int eventDay, TextView addDate) {
         String[] months = {"January", "February", "March", "April", "May", "June",
                 "July", "August", "September", "October", "November", "December"};
         StringBuilder dateBuilder = new StringBuilder();
@@ -57,28 +55,12 @@ public class NewEventPresenter implements NewEventListener {
         dateBuilder.append(" ");
         dateBuilder.append(String.valueOf(eventDay));
         newEventBuilder.setEventDate(dateBuilder.toString());
+        addDate.setText(dateBuilder.toString());
         Log.d(TAG, "event date : " + newEventBuilder.getEventDate());
     }
 
     @Override
-    public void timeButtonClicked(TimePicker timePicker, Button closeButton, LinearLayout visibleLayout, LinearLayout hiddenLayout) {
-        timePicker.setVisibility(View.VISIBLE);
-        closeButton.setVisibility(View.VISIBLE);
-        hiddenLayout.setVisibility(View.VISIBLE);
-        visibleLayout.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void timeEntered(int hour, int minute) {
-        /*int hour;
-        int minute;
-        if (Build.VERSION.SDK_INT < 23) {
-            hour = timePicker.getCurrentHour();
-            minute = timePicker.getCurrentMinute();
-        } else {
-            hour = timePicker.getHour();
-            minute =timePicker.getMinute();
-        }*/
+    public void timeEntered(int hour, int minute, TextView addTime) {
         StringBuilder timeBuilder = new StringBuilder();
         String amPm = "am";
         if (hour == 12){
@@ -99,23 +81,8 @@ public class NewEventPresenter implements NewEventListener {
         timeBuilder.append(" ");
         timeBuilder.append(amPm);
         newEventBuilder.setEventTime(timeBuilder.toString());
+        addTime.setText(timeBuilder.toString());
         Log.d(TAG, "event time : " + newEventBuilder.getEventTime());
-    }
-
-    @Override
-    public void closeButtonClicked(TimePicker timePicker, Button closeButton, LinearLayout visibleLayout, LinearLayout hiddenLayout) {
-        if (timePicker.getVisibility() == View.VISIBLE) {
-            timePicker.setVisibility(View.GONE);
-            hiddenLayout.setVisibility(View.GONE);
-            visibleLayout.setVisibility(View.VISIBLE);
-            closeButton.setVisibility(View.GONE);
-        }
-    }
-
-
-    @Override
-    public void inviteFriendsButtonClicked() {
-
     }
 
     @Override
@@ -148,20 +115,10 @@ public class NewEventPresenter implements NewEventListener {
 
     @Override
     public void doneButtonClicked() {
-        boolean eventNameSet = newEventBuilder.getEventName() != null;
-        boolean eventDateSet = newEventBuilder.getEventDate() != null;
-        boolean eventTimeSet = newEventBuilder.getEventTime() != null;
-        boolean eventGuestsSet = newEventBuilder.getInvitedFriendsUserList() != null;
 
-        boolean validEvent = eventDateSet && eventTimeSet && eventNameSet && eventGuestsSet;
-        Log.d(TAG, "event validation: " + validEvent);
+        Log.d(TAG, "event validation: " + validEvent());
         CreateEventController eventController = new CreateEventController();
-        eventController.sendEventToFireBase(validEvent, new EventFragmentListener() {
-            @Override
-            public void swapFragments() {
-
-            }
-
+        eventController.sendEventToFireBase(validEvent(), new EventFragmentListener() {
             @Override
             public void getEventIdKEy(String key) {
                String eventID = key;
@@ -169,17 +126,31 @@ public class NewEventPresenter implements NewEventListener {
                launchEventActivity(eventID);
             }
         });
-
-
     }
 
-    public void launchEventActivity(String eventID) { // change name
+    private boolean validEvent(){
+        boolean eventNameSet = newEventBuilder.getEventName() != null;
+        boolean eventDateSet = newEventBuilder.getEventDate() != null;
+        boolean eventTimeSet = newEventBuilder.getEventTime() != null;
+        boolean eventGuestsSet = newEventBuilder.getInvitedFriendsUserList() != null;
+        return eventDateSet && eventTimeSet && eventNameSet && eventGuestsSet;
+    }
+
+    @Override
+    public void showCreateEventButton(Button createEventButton) {
+        if(validEvent()){
+            createEventButton.setVisibility(View.VISIBLE);
+        } else {
+            createEventButton.setVisibility(View.GONE);
+        }
+    }
+
+    private void launchEventActivity(String eventID) { // change name
         Log.d(TAG, "launch event activity called ");
         Intent intent = new Intent(context, EventActivity.class);
         intent.putExtra("eventID", eventID);
         intent.putExtra("eventType", "new");
         context.startActivity(intent);
-        //newEventBuilder.destroyInstance();
         activity.finish();
     }
 }

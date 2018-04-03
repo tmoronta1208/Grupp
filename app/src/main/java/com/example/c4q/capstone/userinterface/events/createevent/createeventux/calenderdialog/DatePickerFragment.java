@@ -21,6 +21,7 @@ public class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener{
     private TextView datetime;
     NewEventListener eventPresenter;
+    TextView addDate;
 
         @NonNull
         @Override
@@ -39,8 +40,9 @@ public class DatePickerFragment extends DialogFragment
         return datePicker;
     }
 
-    public void setEventPresnter(NewEventListener eventPresnter){
+    public void setEventPresnter(NewEventListener eventPresnter, TextView addDate){
             this.eventPresenter = eventPresnter;
+            this.addDate = addDate;
     }
 
         @Override
@@ -50,7 +52,7 @@ public class DatePickerFragment extends DialogFragment
             if (getActivity().findViewById(R.id.date_time_text_view) != null){
                 datetime = getActivity().findViewById(R.id.date_time_text_view);
                 String date = "Date: " +(monthOfYear+1) + "/"+ dayOfMonth + "/" + year;
-                eventPresenter.dateEntered(monthOfYear, dayOfMonth);
+                eventPresenter.dateEntered(monthOfYear, dayOfMonth, addDate);
                 datetime.setText(date);
                 //eventPresenter.setEventDate(date);
             }

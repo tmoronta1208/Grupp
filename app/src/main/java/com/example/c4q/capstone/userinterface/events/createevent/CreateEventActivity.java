@@ -76,6 +76,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         createEventButton.setVisibility(View.GONE);
         eventName = (EditText) findViewById(R.id.event_name_edit_text);
         inviteBottomSheet = (NestedScrollView) findViewById(R.id.invite_friends_bottom_sheet);
+        inviteBottomSheet.setVisibility(View.GONE);
         bottomSheetBehavior = BottomSheetBehavior.from(inviteBottomSheet);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
     }
@@ -85,8 +86,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         addTime.setOnClickListener(this);
         inviteFriends.setOnClickListener(this);
         createEventButton.setOnClickListener(this);
-        datePickerFragment.setEventPresnter(newEventListener);
-        timePickerFragment.setEventPresnter(newEventListener);
+        datePickerFragment.setEventPresnter(newEventListener, addDate);
+        timePickerFragment.setEventPresnter(newEventListener, addTime);
         editTextUX = new EditTextUX(eventName, newEventListener, CreateEventActivity.this, findViewById(R.id.create_event_parent), "eventName" );
     }
 
@@ -101,6 +102,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 //newEventListener.timeButtonClicked(timePicker, closeButton, visibleLayout, hiddenLayout);
                 break;
             case R.id.invite_friends_text_view:
+                inviteBottomSheet.setVisibility(View.VISIBLE);
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 createEventButton.setVisibility(View.VISIBLE);
                 break;
