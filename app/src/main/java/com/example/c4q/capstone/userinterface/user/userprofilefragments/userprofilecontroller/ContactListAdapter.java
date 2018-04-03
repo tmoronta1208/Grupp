@@ -1,7 +1,6 @@
 package com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller;
 
 
-import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews.ContactListViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -28,19 +27,4 @@ public class ContactListAdapter extends FirebaseRecyclerAdapter<PublicUserDetail
         viewHolder.setName(first,last);
         viewHolder.setEmail(email);
     }
-
-
-    /*@Override
-    protected void populateViewHolder(ContactListViewHolder viewHolder, UserContacts model, int position) {
-        *//*String email = model.getContacts().get(position).getEmail();
-        String first = model.getContacts().get(position).getFirst_name();
-        String last = model.getContacts().get(position).getLast_name();
-        String icon = model.getContacts().get(position).getIcon_url();
-
-        viewHolder.setEmail(email);
-        viewHolder.setName(first, last);
-        viewHolder.setUserIcon(icon);
-    }*/
-
-
 }

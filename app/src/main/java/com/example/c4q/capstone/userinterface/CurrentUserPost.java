@@ -75,4 +75,8 @@ public class CurrentUserPost {
     public void removeEventInvite(String eventKey, String userId) {
         userPostUtility.removeEventFromEventInviteList(eventKey, userId);
     }
+
+    public void deleteEvent (Events events){
+        userPostUtility.deleteEvent(events);
+    }
 }

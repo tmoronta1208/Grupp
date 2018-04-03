@@ -1,22 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:background="@android:color/white"
+    android:id="@+id/create_event_parent"
     tools:context="com.example.c4q.capstone.userinterface.events.createevent.CreateEventActivity">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vpPager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/visible_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/layout_padding"
+            >
+            <EditText
+                android:id="@+id/event_name_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="Name your event"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                android:textSize="24sp"
+                android:inputType="text"
+                android:maxLines="1"
+                android:imeOptions="actionDone"
+                android:clickable="true"
+                />
+            <TextView
+                android:id="@+id/date_time_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/dark_gray"/>
+            <TextView
+                android:id="@+id/add_date_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/eventbutton"
+                android:layout_marginBottom="@dimen/layout_item_margin"
+                android:gravity="center"
+                android:textAllCaps="true"
+                android:text="@string/pick_a_date"
+                android:padding="@dimen/layout_item_margin"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
+                android:textSize="16sp"
+                />
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/create_event_tab_layout"
+            <TextView
+                android:id="@+id/add_time_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/layout_item_margin"
+                android:background="@drawable/eventbutton"
+                android:gravity="center"
+                android:textAllCaps="true"
+                android:text="@string/pick_a_time"
+                android:padding="@dimen/layout_item_margin"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
+                android:textSize="16sp"
+                />
+
+            <TextView
+                android:id="@+id/invite_friends_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Invite Friends"
+                android:background="@drawable/eventbutton"
+                android:gravity="center"
+                android:textAllCaps="true"
+                android:padding="@dimen/layout_item_margin"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
+                android:textSize="16sp"
+                />
+
+        </LinearLayout>
+        <!--android:enabled="false" -->
+
+
+
+
+
+
+    <Button
+        android:id="@+id/create_event_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/layout_padding"
+        android:padding="@dimen/layout_padding"
+        android:text="Create Event"
+        android:layout_gravity="bottom|right"
+        android:textColor="#ffffff"
+        android:background="@drawable/eventbutton"
+        />
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/invite_friends_bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:behavior_hideable="true"
+        app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
+        android:background="#ffffff"
+        >
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/invite_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            style="@style/MyCustomTabLayout"/>
-    </android.support.v4.view.ViewPager>
+            />
 
-</android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+</android.support.design.widget.CoordinatorLayout>
