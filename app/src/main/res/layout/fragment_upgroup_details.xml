@@ -1,4 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,7 +7,8 @@
     android:background="@color/white"
     tools:context="com.example.c4q.capstone.userinterface.user.userprofilefragments.UPGroupDetailsFragment">
 
-    <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
+    <android.support.v7.widget.Toolbar
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,8 +25,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAlignment="center"
         android:text="Group Name"
-        android:textSize="50sp" />
+        android:textSize="20sp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/group_details_rv"
