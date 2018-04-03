@@ -10,7 +10,7 @@ public class PublicUser {
     private String zip_code;
     private String budget;
     private String email;
-    private UserIcon user_icon;
+    private String icon_ur;
     private boolean over_18;
     private boolean over_21;
     private int radius;
@@ -20,24 +20,25 @@ public class PublicUser {
     public PublicUser() {
     }
 
-    public PublicUser(String user_id, String first_name, String last_name, String zip_code, String budget, String email, boolean over_18, boolean over_21, int radius) {
+    public PublicUser(String user_id, String first_name, String last_name, String zip_code, String budget, String email, String icon_ur, boolean over_18, boolean over_21, int radius) {
         this.user_id = user_id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.zip_code = zip_code;
         this.budget = budget;
         this.email = email;
+        this.icon_ur = icon_ur;
         this.over_18 = over_18;
         this.over_21 = over_21;
         this.radius = radius;
     }
 
-    public UserIcon getUser_icon() {
-        return user_icon;
+    public String getIcon_ur() {
+        return icon_ur;
     }
 
-    public void setUser_icon(UserIcon user_icon) {
-        this.user_icon = user_icon;
+    public void setIcon_ur(String icon_ur) {
+        this.icon_ur = icon_ur;
     }
 
     public List<String> getPending_request() {

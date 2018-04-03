@@ -82,11 +82,15 @@ public class UserSearchActivity extends AppCompatActivity {
     private void searchUser(String query) {
 
         Query userSearchQuery;
+        String child;
 
         if (query.contains("@")) {
             userSearchQuery = searchUserRef.orderByChild("email").startAt(query).endAt(query + "\uf8ff");
         } else {
             userSearchQuery = searchUserRef.orderByChild("first_name").startAt(query).endAt(query + "\uf8ff");
+            if (userSearchQuery.equals(null)){
+                userSearchQuery = searchUserRef.orderByChild("last_name").startAt(query).endAt(query + "\uf8ff");
+            }
         }
 
         FirebaseRecyclerAdapter<PublicUser, UserSearchViewHolder> contactsListAdapter = new FirebaseRecyclerAdapter<PublicUser, UserSearchViewHolder>(
