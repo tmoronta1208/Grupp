@@ -71,7 +71,6 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         addDate = (TextView) findViewById(R.id.add_date_text_view);
         addTime = (TextView) findViewById(R.id.add_time_text_view);
         inviteFriends = (TextView) findViewById(R.id.invite_friends_text_view);
-        dateAndTime = (TextView) findViewById(R.id.date_time_text_view);
         createEventButton = (Button) findViewById(R.id.create_event_button);
         createEventButton.setVisibility(View.GONE);
         eventName = (EditText) findViewById(R.id.event_name_edit_text);

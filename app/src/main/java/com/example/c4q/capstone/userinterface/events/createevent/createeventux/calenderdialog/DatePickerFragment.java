@@ -19,7 +19,7 @@ import java.util.Calendar;
 
 public class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener{
-    private TextView datetime;
+
     NewEventListener eventPresenter;
     TextView addDate;
 
@@ -49,12 +49,12 @@ public class DatePickerFragment extends DialogFragment
         public void onDateSet (DatePicker view,int year, int monthOfYear, int dayOfMonth) {
             // Sets the date to textview
             // Month value start with zero, we have to add by one
-            if (getActivity().findViewById(R.id.date_time_text_view) != null){
-                datetime = getActivity().findViewById(R.id.date_time_text_view);
+
+
                 String date = "Date: " +(monthOfYear+1) + "/"+ dayOfMonth + "/" + year;
                 eventPresenter.dateEntered(monthOfYear, dayOfMonth, addDate);
-                datetime.setText(date);
+
                 //eventPresenter.setEventDate(date);
-            }
+
         }
 }

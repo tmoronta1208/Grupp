@@ -19,7 +19,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="@dimen/layout_padding">
+        android:padding="32dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,19 +37,11 @@
             android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLines="1"
-            android:drawableStart="@drawable/ic_grupp_icon_24"
-            android:drawableBottom="@drawable/textviewlinedivider"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
             android:textStyle="bold"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:layout_marginBottom="@dimen/layout_item_margin"/>
 
-        <TextView
-            android:id="@+id/date_time_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="@color/dark_gray"
-            android:visibility="gone"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -65,10 +57,10 @@
             android:layout_marginBottom="@dimen/layout_item_margin"
             android:padding="@dimen/layout_item_margin"
             android:text="@string/pick_a_date"
-            android:gravity="center"
+            android:gravity="left"
             android:drawableStart="@drawable/blueeventicon"
             android:drawableBottom="@drawable/textviewlinedivider"
-            android:drawablePadding="@dimen/layout_item_margin"
+            android:drawablePadding="@dimen/layout_padding"
             android:textColor="@color/colorAppGrey"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:textSize="16sp" />
@@ -86,24 +78,31 @@
             android:layout_marginBottom="@dimen/layout_item_margin"
             android:drawableStart="@drawable/ic_access_time_black_24dp"
             android:drawableBottom="@drawable/textviewlinedivider"
-            android:drawablePadding="@dimen/layout_item_margin"
+            android:drawablePadding="@dimen/layout_padding"
             android:padding="@dimen/layout_item_margin"
             android:text="@string/pick_a_time"
-            android:gravity="center"
+            android:gravity="left"
             android:textColor="@color/colorAppGrey"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:textSize="16sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guests"
+            android:textColor="@color/colorAppGrey"
+            android:textSize="10sp"/>
 
         <TextView
             android:id="@+id/invite_friends_text_view"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/eventbutton"
             android:drawableStart="@drawable/ic_person_add_black_24dp"
-            android:drawablePadding="@dimen/layout_item_margin"
+            android:drawableBottom="@drawable/textviewlinedivider"
+            android:drawablePadding="@dimen/layout_padding"
             android:padding="@dimen/layout_item_margin"
             android:text="Invite Friends"
-            android:gravity="center"
+            android:textColor="@color/colorAppGrey"
+            android:gravity="left"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:textSize="16sp" />
 
@@ -129,6 +128,7 @@
         app:behavior_hideable="true"
         android:padding="@dimen/layout_padding"
         app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
+        android:visibility="gone"
         >
 
 
