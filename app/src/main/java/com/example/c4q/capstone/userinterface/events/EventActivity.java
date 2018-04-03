@@ -19,6 +19,7 @@ import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.events.Events;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.CurrentUser;
+import com.example.c4q.capstone.userinterface.CurrentUserPost;
 import com.example.c4q.capstone.userinterface.events.eventfragments.InvitedFriendsFragment;
 import com.example.c4q.capstone.userinterface.events.eventfragments.VenueFragment;
 
@@ -47,6 +48,7 @@ public class EventActivity extends AppCompatActivity {
     InvitedFriendsFragment invitedFriendsFragment;
     VenueFragment venueFragment;
     Boolean newInstanceCalled = false;
+    Button deletButton;
 
     /**
      * ajoxe: Nav Drawer
@@ -92,6 +94,13 @@ public class EventActivity extends AppCompatActivity {
         moreButton = (ImageButton) findViewById(R.id.more_button);
         progressBar = (ProgressBar) findViewById(R.id.get_vote_progress);
         frameLayout = (FrameLayout) findViewById(R.id.event_fragment_container);
+        deletButton = (Button) findViewById(R.id.delete_event);
+        deletButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CurrentUserPost.getInstance().deleteEvent(currentEvent);
+            }
+        });
     }
 
     public void showHideVote() {

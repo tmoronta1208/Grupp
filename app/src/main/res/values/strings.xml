@@ -9,7 +9,7 @@
     <string name="signout">Sign Out</string>
 
     <string name="enter_name">Event Name</string>
-    <string name="create_new_event">New Event</string>
+    <string name="create_new_event">Create New Event</string>
     <string name="pick_a_date">Add a Date</string>
     <string name="pick_a_time">Add a Time</string>
     <string name="venue_type_choice">Type of Venue</string>
