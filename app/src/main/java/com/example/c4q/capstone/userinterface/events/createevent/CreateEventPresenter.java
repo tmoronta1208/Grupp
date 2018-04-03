@@ -1,4 +1,4 @@
-package com.example.c4q.capstone.userinterface.events;
+package com.example.c4q.capstone.userinterface.events.createevent;
 
 import android.os.Build;
 import android.util.Log;
@@ -12,8 +12,9 @@ import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.network.FourSquareDetailListener;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.CurrentUserPost;
-import com.example.c4q.capstone.userinterface.events.createevent.NewEventBuilder;
-import com.example.c4q.capstone.userinterface.events.createevent.NewEventConverter;
+import com.example.c4q.capstone.userinterface.events.EventFragmentListener;
+import com.example.c4q.capstone.userinterface.events.VenueNetworkListener;
+import com.example.c4q.capstone.userinterface.events.VenueNetworkUtility;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +28,6 @@ import java.util.List;
 public class CreateEventPresenter {
     private Events newEvent;
     private boolean eventNameSet, eventDateSet, eventTimeSet, eventGuestsSet, eventNoteSet;
-    private boolean nameDone, friendsDone;
     public String dateOfEvent;
     public String timeOfEvent;
     public String dateTime = "";
@@ -41,6 +41,7 @@ public class CreateEventPresenter {
     public CreateEventPresenter(NewEventBuilder eventPTSingleton){
         newEventBuilder = eventPTSingleton;
         newEvent = new Events();
+        //CreateEventAddNameFragment.newInstance(this)
     }
 
     public void sendEventToFireBase(EventFragmentListener listener){
@@ -164,9 +165,7 @@ public class CreateEventPresenter {
         Log.d(TAG, "invite size" + invitedGuests.size());
         validateEvent();
     }
-    public boolean validateFriendsDone(){
-        return friendsDone;
-    }
+
     public boolean validateNameDone(){
         return eventTimeSet && eventDateSet && eventNameSet && eventGuestsSet;
     }

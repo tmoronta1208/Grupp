@@ -1,9 +1,11 @@
 package com.example.c4q.capstone.userinterface.events.createevent;
 
 
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
+import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews.ContactListViewHolder;
@@ -19,10 +21,14 @@ import java.util.List;
 
 public class InviteListAdapter extends FirebaseRecyclerAdapter<PublicUserDetails, ContactListViewHolder> {
     View.OnClickListener onClickListener;
+    CreateEventActivity.NewEventListener newEventListener;
+    Context context;
 
-    public InviteListAdapter(Class<PublicUserDetails> modelClass, int modelLayout, Class<ContactListViewHolder> viewHolderClass, Query ref, View.OnClickListener onClickListener) {
+    public InviteListAdapter(Class<PublicUserDetails> modelClass, int modelLayout, Class<ContactListViewHolder> viewHolderClass, Query ref, View.OnClickListener onClickListener, CreateEventActivity.NewEventListener newEventListener, Context context) {
         super(modelClass, modelLayout, viewHolderClass, ref);
         this.onClickListener = onClickListener;
+        this.newEventListener = newEventListener;
+        this.context = context;
     }
 
     @Override
@@ -36,8 +42,16 @@ public class InviteListAdapter extends FirebaseRecyclerAdapter<PublicUserDetails
         viewHolder.setName(first,last);
         viewHolder.setEmail(email);
         viewHolder.itemView.setTag(model.getUid());
-        viewHolder.itemView.setOnClickListener(onClickListener);
-        List<PublicUser> invitedFriendUser = NewEventBuilder.getInstance().getInvitedFriendsUserList();
+        NewEventConverter eventConverter = new NewEventConverter();
+        final PublicUser user = eventConverter.convertPubDetailsToPubUser(model);
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
+                newEventListener.friendInvited(user);
+            }
+        });
+        /*List<PublicUser> invitedFriendUser = NewEventBuilder.getInstance().getInvitedFriendsUserList();
         NewEventConverter eventConverter = new NewEventConverter();
         PublicUser user = new PublicUser();
         user = eventConverter.convertPubDetailsToPubUser(model);
@@ -51,7 +65,8 @@ public class InviteListAdapter extends FirebaseRecyclerAdapter<PublicUserDetails
             invitedFriendUser.add(user);
             Log.d("invite adapter", "pub user list size: " + invitedFriendUser.size());
         }
-        NewEventBuilder.getInstance().setInvitedFriendsUserList(invitedFriendUser);
+        //NewEventBuilder.getInstance().setInvitedFriendsUserList(invitedFriendUser);
+        newEventListener.friendInvited(user);*/
     }
 
     /*@Override

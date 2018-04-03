@@ -11,7 +11,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.c4q.capstone.userinterface.events.CreateEventPresenter;
+import com.example.c4q.capstone.userinterface.events.createevent.CreateEventPresenter;
 import com.example.c4q.capstone.userinterface.events.EventFragmentListener;
 
 /**
