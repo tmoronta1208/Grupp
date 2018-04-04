@@ -1,10 +1,10 @@
 package com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller;
 
 
+import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
 import com.example.c4q.capstone.database.publicuserdata.UserIcon;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews.ContactListViewHolder;
-import com.firebase.ui.auth.data.model.User;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -13,6 +13,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 import static com.example.c4q.capstone.utils.Constants.USER_ICON;
 
 /**
@@ -28,8 +29,9 @@ public class ContactListAdapter extends FirebaseRecyclerAdapter<PublicUserDetail
     @Override
     protected void populateViewHolder(final ContactListViewHolder viewHolder, PublicUserDetails model, int position) {
         String contactID = getRef(position).getKey();
-        DatabaseReference iconRef = FirebaseDatabase.getInstance().getReference().child(USER_ICON).child(contactID);
-
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference iconRef = rootRef.child(USER_ICON).child(contactID);
+        DatabaseReference userName = rootRef.child(PUBLIC_USER).child(contactID);
         iconRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -44,11 +46,24 @@ public class ContactListAdapter extends FirebaseRecyclerAdapter<PublicUserDetail
             }
         });
 
-        String first = model.getFirst_name();
-        String last = model.getLast_name();
-        String email = model.getEmail();
+        userName.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                PublicUser publicUser = dataSnapshot.getValue(PublicUser.class);
+                String first = publicUser.getFirst_name();
+                String last = publicUser.getLast_name();
+                String email = publicUser.getEmail();
 
-        viewHolder.setName(first, last);
-        viewHolder.setEmail(email);
+                viewHolder.setName(first, last);
+                viewHolder.setEmail(email);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
 }

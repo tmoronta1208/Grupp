@@ -39,7 +39,6 @@ import static com.example.c4q.capstone.utils.Constants.USER_ICON;
 public class TempUserActivity extends AppCompatActivity {
 
     private static final int IMG_PICKER_GALLERY = 1;
-    private static final int IMG_PICKER_CAMERA = 2;
 
     private CircleImageView profilePic;
     private TextView personName;
@@ -60,14 +59,13 @@ public class TempUserActivity extends AppCompatActivity {
         rootRef = FirebaseDatabase.getInstance().getReference();
         userRef = rootRef.child(PUBLIC_USER).child(currentUserId);
         iconRef = rootRef.child(USER_ICON).child(currentUserId);
-//        userDetailsRef = rootRef.child();
-       profilePic = findViewById(R.id.circle_imageview);
+        profilePic = findViewById(R.id.circle_imageview);
         personName = findViewById(R.id.user_name);
 
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadImage();
+                uploadImageFromGallery();
             }
         });
 
@@ -116,7 +114,7 @@ public class TempUserActivity extends AppCompatActivity {
         }
     }
 
-    private void uploadImage() {
+    private void uploadImageFromGallery() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
