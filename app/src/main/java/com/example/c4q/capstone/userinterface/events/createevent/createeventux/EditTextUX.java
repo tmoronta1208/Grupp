@@ -55,9 +55,10 @@ public class EditTextUX {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     hideSoftKeyboard(activity);
                     if(type.equals("eventName")){
-                        String name = editText.getText().toString();
-                        newEventListener.eventNameEntered(name);
-
+                        String name = editText.getText().toString().trim();
+                        if (!name.equals("")){
+                            newEventListener.eventNameEntered(name);
+                        }
                     } else if(type.equals("addNote")) {
                         //newEventListener.(editText.getText().toString());
                     }
@@ -84,7 +85,7 @@ public class EditTextUX {
                             if (!name.equals("")){
                                 newEventListener.eventNameEntered(name);
                             }
-                        } else if(type.equals("eventName")){
+                        } else if(type.equals("eventNote")){
                             String note = editText.getText().toString().trim();
                             if (!note.equals("")){
                                 //add method fir setting note
