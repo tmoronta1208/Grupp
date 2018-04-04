@@ -4,6 +4,8 @@ package com.example.c4q.capstone.userinterface.events.createevent;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
@@ -47,8 +49,22 @@ public class InviteListAdapter extends FirebaseRecyclerAdapter<PublicUserDetails
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
-                newEventListener.friendInvited(user);
+                TextView firstName = (TextView) v.findViewById(R.id.name_first);
+                TextView lastName = (TextView) v.findViewById(R.id.name_last);
+                ImageView checkImage = (ImageView) v.findViewById(R.id.friend_checked_image);
+                if (checkImage.getTag().toString().equals("unChecked") ){
+                    checkImage.setBackground(context.getResources().getDrawable(R.drawable.ic_check_circle_checked_24dp));
+                    checkImage.setTag("checked");
+                    firstName.setTextColor(context.getResources().getColor(R.color.colorAccent));
+                    lastName.setTextColor(context.getResources().getColor(R.color.colorAccent));
+                    newEventListener.friendInvited(user);
+                } else{
+                    firstName.setTextColor(context.getResources().getColor(R.color.colorAppGrey));
+                    lastName.setTextColor(context.getResources().getColor(R.color.colorAppGrey));
+                    checkImage.setBackground(context.getResources().getDrawable(R.drawable.ic_check_circle_unchecked_24dp));
+                    checkImage.setTag("unChecked");
+                    newEventListener.friendUnInvited(user);
+                }
             }
         });
     }

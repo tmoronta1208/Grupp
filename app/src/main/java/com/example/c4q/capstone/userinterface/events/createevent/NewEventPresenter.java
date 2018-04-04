@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.NestedScrollView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +30,7 @@ public class NewEventPresenter implements NewEventListener {
     NewEventBuilder newEventBuilder = NewEventBuilder.getInstance();
     Context context;
     Activity activity;
+    Button createEventButton;
     public static String TAG = "NEW EVENT PRES";
 
     public NewEventPresenter(Context context, Activity activity){
@@ -39,6 +42,9 @@ public class NewEventPresenter implements NewEventListener {
     public void eventNameEntered(String eventName) {
         newEventBuilder.setEventName(eventName);
         Log.d(TAG, "event name : " + newEventBuilder.getEventName());
+        if(validEvent()){
+            createEventButton.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -57,6 +63,9 @@ public class NewEventPresenter implements NewEventListener {
         newEventBuilder.setEventDate(dateBuilder.toString());
         addDate.setText(dateBuilder.toString());
         Log.d(TAG, "event date : " + newEventBuilder.getEventDate());
+        if(validEvent()){
+            createEventButton.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -83,6 +92,9 @@ public class NewEventPresenter implements NewEventListener {
         newEventBuilder.setEventTime(timeBuilder.toString());
         addTime.setText(timeBuilder.toString());
         Log.d(TAG, "event time : " + newEventBuilder.getEventTime());
+        if(validEvent()){
+            createEventButton.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -103,6 +115,24 @@ public class NewEventPresenter implements NewEventListener {
     }
 
     @Override
+    public void friendUnInvited(PublicUser publicUser) {
+        List<PublicUser> invitedFriends = newEventBuilder.getInvitedFriendsUserList();
+        invitedFriends.remove(publicUser);// not quite
+        newEventBuilder.setInvitedFriendsUserList(invitedFriends);
+        List<String> friendIdList = newEventBuilder.getInvitedGuests();
+        friendIdList.remove(publicUser.getUser_id());
+        newEventBuilder.setInvitedGuests(friendIdList);
+    }
+
+    @Override
+    public void inviteFriendsButtonClicked(TextView inviteFriends, BottomSheetBehavior bottomSheetBehavior, Button inviteDone, NestedScrollView nestedScrollView) {
+        inviteDone.setVisibility(View.VISIBLE);
+        nestedScrollView.setVisibility(View.VISIBLE);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+    }
+
+
+    @Override
     public void addNoteClicked() {
 
     }
@@ -114,7 +144,7 @@ public class NewEventPresenter implements NewEventListener {
     }
 
     @Override
-    public void doneButtonClicked() {
+    public void createEventButtonClicked() {
 
         Log.d(TAG, "event validation: " + validEvent());
         CreateEventController eventController = new CreateEventController();
@@ -128,6 +158,15 @@ public class NewEventPresenter implements NewEventListener {
         });
     }
 
+    @Override
+    public void inviteDoneButtonClicked(Button inviteDone, BottomSheetBehavior bottomSheetBehavior) {
+        inviteDone.setVisibility(View.GONE);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        if(validEvent()){
+            createEventButton.setVisibility(View.VISIBLE);
+        }
+    }
+
     private boolean validEvent(){
         boolean eventNameSet = newEventBuilder.getEventName() != null;
         boolean eventDateSet = newEventBuilder.getEventDate() != null;
@@ -138,6 +177,7 @@ public class NewEventPresenter implements NewEventListener {
 
     @Override
     public void showCreateEventButton(Button createEventButton) {
+        this.createEventButton = createEventButton;
         if(validEvent()){
             createEventButton.setVisibility(View.VISIBLE);
         } else {

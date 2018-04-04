@@ -1,20 +1,16 @@
 package com.example.c4q.capstone.userinterface.events.createevent;
 
 import android.support.design.widget.BottomSheetBehavior;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
@@ -23,12 +19,9 @@ import com.example.c4q.capstone.userinterface.events.createevent.createeventux.E
 import com.example.c4q.capstone.userinterface.events.createevent.createeventux.calenderdialog.DatePickerFragment;
 import com.example.c4q.capstone.userinterface.events.createevent.createeventux.calenderdialog.TimePickerFragment;
 import com.example.c4q.capstone.userinterface.events.eventsrecyclerviews.InviteFriendsViewHolder;
-import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews.ContactListViewHolder;
 import com.example.c4q.capstone.utils.SimpleDividerItemDecoration;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.orhanobut.dialogplus.DialogPlus;
-import com.orhanobut.dialogplus.OnItemClickListener;
 
 import static com.example.c4q.capstone.utils.Constants.USER_CONTACTS;
 
@@ -37,7 +30,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     private static String TAG = "CREATE_EVENT_FRAG: ";
     EditText eventName;
     TextView addDate, addTime, dateAndTime, inviteFriends;
-    Button createEventButton;
+    Button createEventButton, inviteDoneButton;
     DatePickerFragment datePickerFragment = new DatePickerFragment();
     RecyclerView recyclerView;
     InviteListAdapter contactListAdapter;
@@ -63,7 +56,6 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setAdapter(contactListAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
-        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
 
     }
 
@@ -73,7 +65,9 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         inviteFriends = (TextView) findViewById(R.id.invite_friends_text_view);
         createEventButton = (Button) findViewById(R.id.create_event_button);
         createEventButton.setVisibility(View.GONE);
+        newEventListener.showCreateEventButton(createEventButton);
         eventName = (EditText) findViewById(R.id.event_name_edit_text);
+        inviteDoneButton = (Button) findViewById(R.id.invite_done_button);
         inviteBottomSheet = (NestedScrollView) findViewById(R.id.invite_friends_bottom_sheet);
         inviteBottomSheet.setVisibility(View.GONE);
         bottomSheetBehavior = BottomSheetBehavior.from(inviteBottomSheet);
@@ -101,12 +95,13 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 //newEventListener.timeButtonClicked(timePicker, closeButton, visibleLayout, hiddenLayout);
                 break;
             case R.id.invite_friends_text_view:
-                inviteBottomSheet.setVisibility(View.VISIBLE);
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                createEventButton.setVisibility(View.VISIBLE);
+                newEventListener.inviteFriendsButtonClicked(inviteFriends, bottomSheetBehavior, inviteDoneButton, inviteBottomSheet);
                 break;
             case R.id.create_event_button:
-                newEventListener.doneButtonClicked();
+                newEventListener.createEventButtonClicked();
+                break;
+            case R.id.invite_done_button:
+                newEventListener.inviteDoneButtonClicked(inviteDoneButton, bottomSheetBehavior);
                 break;
         }
     }

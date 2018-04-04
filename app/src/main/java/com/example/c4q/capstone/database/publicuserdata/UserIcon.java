@@ -5,6 +5,7 @@ public class UserIcon {
     private String icon_url;
 
     public UserIcon() {
+
     }
 
     public UserIcon(String icon_url) {

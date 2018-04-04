@@ -35,6 +35,7 @@ public class InviteFriendsViewHolder extends RecyclerView.ViewHolder {
     public void setName(String first) {
         firstName = itemView.findViewById(R.id.name_first);
         firstName.setText(first);
+
     }
 
     public void setLastName(String last) {

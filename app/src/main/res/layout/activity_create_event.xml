@@ -11,7 +11,18 @@
     android:gravity="center"
     android:orientation="vertical"
     tools:context="com.example.c4q.capstone.userinterface.events.createevent.CreateEventActivity">
-
+    <Button
+        android:id="@+id/create_event_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_margin="@dimen/layout_padding"
+        android:drawableEnd="@drawable/ic_check_circle_unchecked_24dp"
+        android:drawablePadding="@dimen/layout_padding"
+        android:background="#ffffff"
+        android:padding="@dimen/layout_padding"
+        android:text="Create Event"
+        android:textColor="@color/colorAppGrey"/>
     <LinearLayout
         android:id="@+id/visible_layout"
         android:layout_width="match_parent"
@@ -32,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:gravity="center"
+            android:gravity="left"
             android:hint="My Event"
             android:imeOptions="actionDone"
             android:inputType="text"
@@ -58,7 +69,7 @@
             android:padding="@dimen/layout_item_margin"
             android:text="@string/pick_a_date"
             android:gravity="left"
-            android:drawableStart="@drawable/blueeventicon"
+            android:drawableStart="@drawable/ic_event_black_24dp"
             android:drawableBottom="@drawable/textviewlinedivider"
             android:drawablePadding="@dimen/layout_padding"
             android:textColor="@color/colorAppGrey"
@@ -109,34 +120,54 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/create_event_button"
+        android:id="@+id/invite_done_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="@dimen/layout_padding"
-        android:background="@drawable/eventbutton"
+        android:drawableEnd="@drawable/ic_check_circle_unchecked_24dp"
+        android:drawablePadding="@dimen/layout_padding"
+        android:background="#ffffff"
         android:padding="@dimen/layout_padding"
-        android:text="Create Event"
-        android:textColor="#ffffff" />
+        android:text="invite"
+        android:textColor="@color/colorPrimary"
+        android:visibility="gone"/>
 
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/invite_friends_bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:background="@color/colorAppGreyLight"
+        android:background="#ffffff"
         app:behavior_hideable="true"
-        android:padding="@dimen/layout_padding"
         app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
-        android:visibility="gone"
         >
-
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/invite_recycler_view"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:layout_height="300dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:textSize="18sp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                android:textStyle="bold"
+                android:text="Invite Friends"
+                android:textColor="@color/colorPrimaryLight"
+                android:padding="@dimen/layout_padding"
+                android:gravity="center"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/invite_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="@dimen/layout_padding"/>
+
+        </LinearLayout>
+
+
+
 
     </android.support.v4.widget.NestedScrollView>
 
