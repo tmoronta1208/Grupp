@@ -139,7 +139,6 @@ public class UserSearchActivity extends AppCompatActivity {
     public void addToContactList(String contactID, final Button addContactButton, String
             first, String last, String email, String url, String radius, String zipcode) {
         /**
-         * TODO: Write logic to retrieve contacts list first, and then update the list with the new values.
          * TODO: also need to write logic to check if user is already in contact list
          */
         final PublicUserDetails publicUserDetails = new PublicUserDetails(first, last, email, url, contactID, radius, zipcode);
