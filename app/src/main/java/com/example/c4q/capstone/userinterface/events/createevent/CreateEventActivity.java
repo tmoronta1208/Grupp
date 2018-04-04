@@ -138,6 +138,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 inviteDoneButton.setBackground(getResources().getDrawable(R.drawable.ic_check_circle_checked_24dp));
                 inviteFriends.setText("Guest List");
                 displayRecyclerView.setVisibility(View.VISIBLE);
+                invitedFriendsList.clear();
                 invitedFriendsList.addAll(NewEventBuilder.getInstance().getInvitedFriendsUserList());
                 invitedFriendsAdapter.notifyDataSetChanged();
                 break;
