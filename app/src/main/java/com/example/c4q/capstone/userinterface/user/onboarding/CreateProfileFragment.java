@@ -33,6 +33,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.example.c4q.capstone.utils.Constants.DEFAULT_ICON;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_LOCATION;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
@@ -62,12 +63,12 @@ public class CreateProfileFragment extends Fragment {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference rootRef, publicUserReference, privateUserReference, privateUserLocationReference, userIconReference;
     private FirebaseUser currentUser;
-    private UserIcon userIcon;
     private PublicUser publicUser;
+    private UserIcon userIcon;
     private PrivateUser privateUser;
     private PrivateUserLocation privateUserLocation;
     private PublicUserDetails publicUserDetails;
-    private String currentUserEmail, iconUrl;
+    private String currentUserEmail;
 
 
     public CreateProfileFragment() {
@@ -111,7 +112,6 @@ public class CreateProfileFragment extends Fragment {
                 privateUser = dataSnapshot.child(currentUserID).getValue(PrivateUser.class);
                 privateUserLocation = dataSnapshot.child(currentUserID).getValue(PrivateUserLocation.class);
                 publicUser = dataSnapshot.child(currentUserID).getValue(PublicUser.class);
-                userIcon = dataSnapshot.child(currentUserID).getValue(UserIcon.class);
 
                 Log.d(TAG, "onDataChange: Added information to database: \n" + dataSnapshot.getValue());
             }
@@ -186,23 +186,18 @@ public class CreateProfileFragment extends Fragment {
         firstNameString = firstName.getText().toString().trim();
         lastNameString = lastName.getText().toString().trim();
         zipCodeString = zipCode.getText().toString();
+        userIcon = new UserIcon(DEFAULT_ICON);
 
         if (!firstNameString.equals("") && !lastNameString.equals("") && !zipCodeString.equals("")) {
 
-            publicUser = new PublicUser(currentUserID, firstNameString, lastNameString, zipCodeString, budgetString, currentUserEmail, over18, over21, radius);
+            publicUser = new PublicUser(currentUserID, firstNameString, lastNameString, zipCodeString, budgetString, currentUserEmail, userIcon, over18, over21, radius);
 
             privateUser = new PrivateUser(firstNameString, lastNameString, over18, over21, radius);
 
             privateUserLocation = new PrivateUserLocation(share_location, lat, lng);
 
-            userIcon = new UserIcon(iconUrl);
-
-            /**
-             * searchUserReference needs to be added at time of account creation
-             */
             publicUserReference.child(currentUserID).setValue(publicUser);
             privateUserReference.child(currentUserID).setValue(privateUser);
-            userIconReference.child(currentUserID).setValue(userIcon);
             privateUserLocationReference.child(currentUserID).child(PRIVATE_LOCATION).setValue(privateUserLocation);
 
             //startActivity(new Intent(CreateProfileFragment.this.getActivity(), UserProfileActivity.class));

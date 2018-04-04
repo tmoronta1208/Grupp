@@ -2,15 +2,13 @@ package com.example.c4q.capstone.userinterface.events.eventsrecyclerviews;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
-import com.example.c4q.capstone.userinterface.events.CreateEventPresenter;
-import com.example.c4q.capstone.userinterface.events.createevent.NewEventBuilder;
+import com.example.c4q.capstone.userinterface.events.createevent.CreateEventPresenter;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews.ContactListViewHolder;
 
 import java.util.ArrayList;

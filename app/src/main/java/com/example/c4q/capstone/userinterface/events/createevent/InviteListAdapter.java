@@ -1,68 +1,73 @@
 package com.example.c4q.capstone.userinterface.events.createevent;
 
 
-import android.util.Log;
+import android.content.Context;
 import android.view.View;
 
+import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
-import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews.ContactListViewHolder;
+import com.example.c4q.capstone.database.publicuserdata.UserIcon;
+import com.example.c4q.capstone.userinterface.events.eventsrecyclerviews.InviteFriendsViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import static com.example.c4q.capstone.utils.Constants.USER_ICON;
 
 /**
  * Created by melg on 3/20/18.
  */
 
-public class InviteListAdapter extends FirebaseRecyclerAdapter<PublicUserDetails, ContactListViewHolder> {
-    View.OnClickListener onClickListener;
+public class InviteListAdapter extends FirebaseRecyclerAdapter<PublicUserDetails, InviteFriendsViewHolder> {
 
-    public InviteListAdapter(Class<PublicUserDetails> modelClass, int modelLayout, Class<ContactListViewHolder> viewHolderClass, Query ref, View.OnClickListener onClickListener) {
+    NewEventListener newEventListener;
+    Context context;
+
+    public InviteListAdapter(Class<PublicUserDetails> modelClass, int modelLayout, Class<InviteFriendsViewHolder> viewHolderClass, Query ref, NewEventListener newEventListener, Context context) {
         super(modelClass, modelLayout, viewHolderClass, ref);
-        this.onClickListener = onClickListener;
+        this.newEventListener = newEventListener;
+        this.context = context;
     }
 
     @Override
-    protected void populateViewHolder(ContactListViewHolder viewHolder, PublicUserDetails model, int position) {
+    protected void populateViewHolder(final InviteFriendsViewHolder viewHolder, PublicUserDetails model, int position) {
         String first = model.getFirst_name();
         String last = model.getLast_name();
-        String email = model.getEmail();
-        String url = model.getIcon_url();
 
-        viewHolder.setUserIcon(url);
-        viewHolder.setName(first,last);
-        viewHolder.setEmail(email);
+        String contactID = getRef(position).getKey();
+        DatabaseReference iconRef = FirebaseDatabase.getInstance().getReference().child(USER_ICON).child(contactID);
+
+        iconRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                UserIcon userIcon = dataSnapshot.getValue(UserIcon.class);
+                String url = userIcon.getIcon_url();
+                viewHolder.setUserIcon(url);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        viewHolder.setName(first);
+        viewHolder.setLastName(last);
         viewHolder.itemView.setTag(model.getUid());
-        viewHolder.itemView.setOnClickListener(onClickListener);
-        List<PublicUser> invitedFriendUser = NewEventBuilder.getInstance().getInvitedFriendsUserList();
         NewEventConverter eventConverter = new NewEventConverter();
-        PublicUser user = new PublicUser();
-        user = eventConverter.convertPubDetailsToPubUser(model);
-
-        if (invitedFriendUser != null){
-            invitedFriendUser.add(user);
-            Log.d("invite adapter", "pub user list size: " + invitedFriendUser.size());
-        } else {
-            invitedFriendUser = new ArrayList<>();
-
-            invitedFriendUser.add(user);
-            Log.d("invite adapter", "pub user list size: " + invitedFriendUser.size());
-        }
-        NewEventBuilder.getInstance().setInvitedFriendsUserList(invitedFriendUser);
+        final PublicUser user = eventConverter.convertPubDetailsToPubUser(model);
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
+                newEventListener.friendInvited(user);
+            }
+        });
     }
-
-    /*@Override
-    protected void populateViewHolder(ContactListViewHolder viewHolder, UserContacts model, int position) {
-        *//*String email = model.getContacts().get(position).getEmail();
-        String first = model.getContacts().get(position).getFirst_name();
-        String last = model.getContacts().get(position).getLast_name();
-        String icon = model.getContacts().get(position).getIcon_url();
-
-        viewHolder.setEmail(email);
-        viewHolder.setName(first, last);
-        viewHolder.setUserIcon(icon);
-    }*/
 }

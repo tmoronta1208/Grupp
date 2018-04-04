@@ -73,6 +73,8 @@ public class CurrentUserPostUtility {
     }
 
     public void addEventToDb(String key, Events newEvent){
+        Log.d(TAG, "event key" + key);
+        Log.d(TAG, "event name" + newEvent.getEvent_name());
         eventsReference.child(key).setValue(newEvent);
     }
 
@@ -155,5 +157,24 @@ public class CurrentUserPostUtility {
     }
     public void updateEventGuest(String eventKey, String userId, EventGuest eventGuest){
         eventsReference.child(eventKey).child(EVENT_GUEST_MAP).child(userId).setValue(eventGuest);
+    }
+    public void removeEventFromUserList(String eventId, String userId){
+        userEventListReference.child(userId).child(eventId).removeValue();
+    }
+    public void deleteEvent(Events events){
+        String eventId = events.getEvent_id();
+        eventsReference.child(eventId).removeValue();
+        if (events.getConfirmed_guests() != null) {
+            List<String> confirmed_guests = events.getConfirmed_guests();
+            for (String c: confirmed_guests){
+                userEventListReference.child(c).child(eventId).removeValue();
+            }
+        }
+       if (events.getInvited_guests() != null){
+           List<String> inviteList = events.getInvited_guests();
+           for (String s: inviteList){
+               eventInvitesReference.child(s).child(eventId).removeValue();
+           }
+       }
     }
 }

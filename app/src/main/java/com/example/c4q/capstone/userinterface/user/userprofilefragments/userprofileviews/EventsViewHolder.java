@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.userinterface.CurrentUser;
 
 
 /**

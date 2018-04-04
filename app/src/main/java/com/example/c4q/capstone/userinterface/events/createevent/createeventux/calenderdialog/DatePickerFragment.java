@@ -10,7 +10,9 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.example.c4q.capstone.R;
-import com.example.c4q.capstone.userinterface.events.CreateEventPresenter;
+import com.example.c4q.capstone.userinterface.events.createevent.CreateEventActivity;
+import com.example.c4q.capstone.userinterface.events.createevent.CreateEventPresenter;
+import com.example.c4q.capstone.userinterface.events.createevent.NewEventListener;
 
 import java.util.Calendar;
 
@@ -18,7 +20,7 @@ import java.util.Calendar;
 public class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener{
     private TextView datetime;
-    CreateEventPresenter eventPresenter;
+    NewEventListener eventPresenter;
 
         @NonNull
         @Override
@@ -37,7 +39,7 @@ public class DatePickerFragment extends DialogFragment
         return datePicker;
     }
 
-    public void setEventPresnter(CreateEventPresenter eventPresnter){
+    public void setEventPresnter(NewEventListener eventPresnter){
             this.eventPresenter = eventPresnter;
     }
 
@@ -48,8 +50,9 @@ public class DatePickerFragment extends DialogFragment
             if (getActivity().findViewById(R.id.date_time_text_view) != null){
                 datetime = getActivity().findViewById(R.id.date_time_text_view);
                 String date = "Date: " +(monthOfYear+1) + "/"+ dayOfMonth + "/" + year;
+                eventPresenter.dateEntered(monthOfYear, dayOfMonth);
                 datetime.setText(date);
-                eventPresenter.setEventDate(date);
+                //eventPresenter.setEventDate(date);
             }
         }
 }

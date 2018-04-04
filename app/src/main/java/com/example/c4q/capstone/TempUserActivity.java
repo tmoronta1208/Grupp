@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -29,6 +28,7 @@ import com.google.firebase.storage.UploadTask;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.example.c4q.capstone.utils.Constants.DEFAULT_ICON;
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 import static com.example.c4q.capstone.utils.Constants.USER_ICON;
 
@@ -38,13 +38,14 @@ import static com.example.c4q.capstone.utils.Constants.USER_ICON;
 
 public class TempUserActivity extends AppCompatActivity {
 
-    private static final int RC_PHOTO_PICKER = 2;
+    private static final int IMG_PICKER_GALLERY = 1;
+
     private CircleImageView profilePic;
     private TextView personName;
     private FirebaseAuth mAuth;
     private FirebaseUser firebaseUser;
     private String currentUserId;
-    private DatabaseReference rootRef, userRef, iconRef,userDetailsRef;
+    private DatabaseReference rootRef, userRef, iconRef;
 
 
     @Override
@@ -58,14 +59,13 @@ public class TempUserActivity extends AppCompatActivity {
         rootRef = FirebaseDatabase.getInstance().getReference();
         userRef = rootRef.child(PUBLIC_USER).child(currentUserId);
         iconRef = rootRef.child(USER_ICON).child(currentUserId);
-//        userDetailsRef = rootRef.child();
-       profilePic = findViewById(R.id.circle_imageview);
+        profilePic = findViewById(R.id.circle_imageview);
         personName = findViewById(R.id.user_name);
 
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadImage();
+                uploadImageFromGallery();
             }
         });
 
@@ -76,12 +76,12 @@ public class TempUserActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == RC_PHOTO_PICKER) {
+        if (requestCode == IMG_PICKER_GALLERY) {
 
             try {
                 final Uri uri = data.getData();
 
-                UserIcon test = new UserIcon("hello");
+                UserIcon test = new UserIcon(DEFAULT_ICON);
 
                 iconRef.setValue(test, new DatabaseReference.CompletionListener() {
                     @Override
@@ -114,11 +114,11 @@ public class TempUserActivity extends AppCompatActivity {
         }
     }
 
-    private void uploadImage() {
+    private void uploadImageFromGallery() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-        startActivityForResult(Intent.createChooser(intent, "Complete action using"), RC_PHOTO_PICKER);
+        startActivityForResult(Intent.createChooser(intent, "Complete action using"), IMG_PICKER_GALLERY);
 
     }
 
