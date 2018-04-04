@@ -102,9 +102,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.invite_done_button:
                 newEventListener.inviteDoneButtonClicked(inviteDoneButton, bottomSheetBehavior, inviteBottomSheet);
-                inviteDoneButton.setVisibility(View.GONE);
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-                inviteBottomSheet.setVisibility(View.GONE);
+                inviteDoneButton.setBackground(getResources().getDrawable(R.drawable.ic_check_circle_checked_24dp));
                 break;
         }
     }

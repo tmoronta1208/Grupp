@@ -122,19 +122,16 @@
 
     <Button
         android:id="@+id/invite_done_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
         android:layout_gravity="bottom|right"
         android:layout_margin="@dimen/layout_padding"
-        android:drawableEnd="@drawable/ic_check_circle_unchecked_24dp"
-        android:drawablePadding="@dimen/layout_padding"
-        android:background="#ffffff"
+        android:background="@drawable/ic_check_circle_unchecked_24dp"
         android:padding="@dimen/layout_padding"
-        android:text="invite"
         android:textColor="@color/colorPrimary"
-        android:visibility="gone"
         android:clickable="true"
         android:focusable="true"
+        android:visibility="gone"
         android:onClick="onClick"/>
 
 

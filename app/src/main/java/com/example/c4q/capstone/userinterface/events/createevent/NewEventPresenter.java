@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.events.EventActivity;
 import com.example.c4q.capstone.userinterface.events.EventFragmentListener;
@@ -31,6 +32,7 @@ public class NewEventPresenter implements NewEventListener {
     Context context;
     Activity activity;
     Button createEventButton;
+    Button inviteDone;
     public static String TAG = "NEW EVENT PRES";
 
     public NewEventPresenter(Context context, Activity activity){
@@ -112,6 +114,7 @@ public class NewEventPresenter implements NewEventListener {
         friendIdList.add(publicUser.getUser_id());
         newEventBuilder.setInvitedGuests(friendIdList);
         Log.d(TAG, "event invite list : " + newEventBuilder.getInvitedFriendsUserList().size());
+        inviteDone.setBackground(context.getResources().getDrawable(R.drawable.ic_check_circle_checked_24dp));
     }
 
     @Override
@@ -126,6 +129,7 @@ public class NewEventPresenter implements NewEventListener {
 
     @Override
     public void inviteFriendsButtonClicked(TextView inviteFriends, BottomSheetBehavior bottomSheetBehavior, Button inviteDone, NestedScrollView nestedScrollView) {
+        this.inviteDone =inviteDone;
         inviteDone.setVisibility(View.VISIBLE);
         nestedScrollView.setVisibility(View.VISIBLE);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
@@ -160,6 +164,7 @@ public class NewEventPresenter implements NewEventListener {
 
     @Override
     public void inviteDoneButtonClicked(Button inviteDone, BottomSheetBehavior bottomSheetBehavior, NestedScrollView nestedScrollView) {
+        this.inviteDone = inviteDone;
         nestedScrollView.setVisibility(View.GONE);
         inviteDone.setVisibility(View.GONE);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
