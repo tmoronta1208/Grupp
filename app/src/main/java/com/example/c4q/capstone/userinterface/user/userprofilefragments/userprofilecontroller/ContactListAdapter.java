@@ -1,6 +1,7 @@
 package com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller;
 
 
+import com.bumptech.glide.Glide;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
 import com.example.c4q.capstone.database.publicuserdata.UserIcon;
@@ -21,6 +22,7 @@ import static com.example.c4q.capstone.utils.Constants.USER_ICON;
  */
 
 public class ContactListAdapter extends FirebaseRecyclerAdapter<PublicUserDetails, ContactListViewHolder> {
+    DatabaseReference rootRef, iconRef, userName;
 
     public ContactListAdapter(Class<PublicUserDetails> modelClass, int modelLayout, Class<ContactListViewHolder> viewHolderClass, Query ref) {
         super(modelClass, modelLayout, viewHolderClass, ref);
@@ -29,9 +31,11 @@ public class ContactListAdapter extends FirebaseRecyclerAdapter<PublicUserDetail
     @Override
     protected void populateViewHolder(final ContactListViewHolder viewHolder, PublicUserDetails model, int position) {
         String contactID = getRef(position).getKey();
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference iconRef = rootRef.child(USER_ICON).child(contactID);
-        DatabaseReference userName = rootRef.child(PUBLIC_USER).child(contactID);
+
+        rootRef = FirebaseDatabase.getInstance().getReference();
+        iconRef = rootRef.child(USER_ICON).child(contactID);
+        userName = rootRef.child(PUBLIC_USER).child(contactID);
+
         iconRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -42,7 +46,6 @@ public class ContactListAdapter extends FirebaseRecyclerAdapter<PublicUserDetail
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
 
@@ -53,7 +56,6 @@ public class ContactListAdapter extends FirebaseRecyclerAdapter<PublicUserDetail
                 String first = publicUser.getFirst_name();
                 String last = publicUser.getLast_name();
                 String email = publicUser.getEmail();
-
                 viewHolder.setName(first, last);
                 viewHolder.setEmail(email);
             }
@@ -63,7 +65,5 @@ public class ContactListAdapter extends FirebaseRecyclerAdapter<PublicUserDetail
 
             }
         });
-
-
     }
 }
