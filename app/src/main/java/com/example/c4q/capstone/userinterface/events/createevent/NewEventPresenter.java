@@ -19,6 +19,7 @@ import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.events.EventActivity;
 import com.example.c4q.capstone.userinterface.events.EventFragmentListener;
 import com.example.c4q.capstone.userinterface.events.createevent.createeventux.calenderdialog.DatePickerFragment;
+import com.example.c4q.capstone.userinterface.events.eventsrecyclerviews.FriendsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -134,6 +135,8 @@ public class NewEventPresenter implements NewEventListener {
         nestedScrollView.setVisibility(View.VISIBLE);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
+
+
 
 
     @Override

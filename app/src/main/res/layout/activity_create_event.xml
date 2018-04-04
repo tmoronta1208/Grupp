@@ -115,6 +115,10 @@
             android:gravity="left"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:textSize="16sp" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/invited_friends_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
