@@ -31,16 +31,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="@tools:sample/first_names"
-            android:textColor="@color/colorForground"
+            android:textColor="@color/colorAppGrey"
             android:textSize="16sp"
             tools:layout_editor_absoluteX="73dp"
-            tools:layout_editor_absoluteY="8dp" />
+            tools:layout_editor_absoluteY="8dp"
+            />
     <TextView
         android:id="@+id/name_last"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="@tools:sample/last_names"
-        android:textColor="@color/colorForground"
+        android:textColor="@color/colorAppGrey"
         android:textSize="16sp"
         tools:layout_editor_absoluteX="73dp"
         tools:layout_editor_absoluteY="8dp" />

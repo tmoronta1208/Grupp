@@ -159,12 +159,15 @@ public class NewEventPresenter implements NewEventListener {
     }
 
     @Override
-    public void inviteDoneButtonClicked(Button inviteDone, BottomSheetBehavior bottomSheetBehavior) {
+    public void inviteDoneButtonClicked(Button inviteDone, BottomSheetBehavior bottomSheetBehavior, NestedScrollView nestedScrollView) {
+        nestedScrollView.setVisibility(View.GONE);
         inviteDone.setVisibility(View.GONE);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        Log.d(TAG, " invite done clicked");
         if(validEvent()){
             createEventButton.setVisibility(View.VISIBLE);
         }
+
     }
 
     private boolean validEvent(){

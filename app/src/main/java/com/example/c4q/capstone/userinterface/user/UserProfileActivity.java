@@ -129,13 +129,9 @@ public class UserProfileActivity extends AppCompatActivity {
 
                 if (userEventMap != null){
                     Log.d(TAG, "notifications not null");
-                    for (String s: userEventMap.keySet()){
-                        String eventName = userEventMap.get(s).getEvent_name();
-                        String userName = userEventMap.get(s).getEvent_organizer_full_name();
-                        String title = userName;
-                        String desc= "You're invited to " + eventName+ "!";
-                        new InviteNotifications(title, desc, getApplicationContext(), userEventMap.get(s).getEvent_id());
-                    }
+
+                        new InviteNotifications("You're Invited!", "you have new events", getApplicationContext(), null);
+
                 }else{
                     Log.d(TAG, "notifications null");
                 }

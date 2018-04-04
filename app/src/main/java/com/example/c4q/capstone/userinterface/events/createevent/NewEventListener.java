@@ -33,6 +33,6 @@ public interface NewEventListener {
     void noteAdded(String eventNote);
 
     void createEventButtonClicked();
-    void inviteDoneButtonClicked(Button inviteDone, BottomSheetBehavior bottomSheetBehavior);
+    void inviteDoneButtonClicked(Button inviteDone, BottomSheetBehavior bottomSheetBehavior, NestedScrollView nestedScrollView);
     void showCreateEventButton(Button createEventButton);
 }

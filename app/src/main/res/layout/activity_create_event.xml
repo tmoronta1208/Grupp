@@ -51,7 +51,8 @@
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
             android:textStyle="bold"
             android:textSize="24sp"
-            android:layout_marginBottom="@dimen/layout_item_margin"/>
+            android:layout_marginBottom="@dimen/layout_item_margin"
+            android:textColor="@color/colorAppGrey"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -131,7 +132,10 @@
         android:padding="@dimen/layout_padding"
         android:text="invite"
         android:textColor="@color/colorPrimary"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="onClick"/>
 
 
     <android.support.v4.widget.NestedScrollView

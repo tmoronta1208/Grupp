@@ -101,7 +101,10 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 newEventListener.createEventButtonClicked();
                 break;
             case R.id.invite_done_button:
-                newEventListener.inviteDoneButtonClicked(inviteDoneButton, bottomSheetBehavior);
+                newEventListener.inviteDoneButtonClicked(inviteDoneButton, bottomSheetBehavior, inviteBottomSheet);
+                inviteDoneButton.setVisibility(View.GONE);
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+                inviteBottomSheet.setVisibility(View.GONE);
                 break;
         }
     }

@@ -388,7 +388,7 @@ public class CurrentUserUtility {
      */
 
     public void getCurrentUserEvents() {
-        Log.d(TAG, "get current user events called :");
+       /* Log.d(TAG, "get current user events called :");
 
 
         eventsReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -421,7 +421,7 @@ public class CurrentUserUtility {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        });*/
     }
 
     public void getRealTimeCurrentUserEvents(final RealTimeEventsListener listener) {

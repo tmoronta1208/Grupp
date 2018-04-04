@@ -53,7 +53,7 @@ public class InviteListAdapter extends FirebaseRecyclerAdapter<PublicUserDetails
                 TextView lastName = (TextView) v.findViewById(R.id.name_last);
                 ImageView checkImage = (ImageView) v.findViewById(R.id.friend_checked_image);
                 if (checkImage.getTag().toString().equals("unChecked") ){
-                    checkImage.setBackground(context.getResources().getDrawable(R.drawable.ic_check_circle_checked_24dp));
+                    checkImage.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_check_circle_checked_24dp));
                     checkImage.setTag("checked");
                     firstName.setTextColor(context.getResources().getColor(R.color.colorAccent));
                     lastName.setTextColor(context.getResources().getColor(R.color.colorAccent));
@@ -61,7 +61,7 @@ public class InviteListAdapter extends FirebaseRecyclerAdapter<PublicUserDetails
                 } else{
                     firstName.setTextColor(context.getResources().getColor(R.color.colorAppGrey));
                     lastName.setTextColor(context.getResources().getColor(R.color.colorAppGrey));
-                    checkImage.setBackground(context.getResources().getDrawable(R.drawable.ic_check_circle_unchecked_24dp));
+                    checkImage.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_check_circle_unchecked_24dp));
                     checkImage.setTag("unChecked");
                     newEventListener.friendUnInvited(user);
                 }
