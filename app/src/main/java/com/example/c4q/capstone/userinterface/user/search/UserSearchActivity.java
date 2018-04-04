@@ -13,6 +13,7 @@ import android.widget.EditText;
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
+import com.example.c4q.capstone.database.publicuserdata.UserIcon;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,12 +29,13 @@ import java.util.Map;
 
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 import static com.example.c4q.capstone.utils.Constants.USER_CONTACTS;
+import static com.example.c4q.capstone.utils.Constants.USER_ICON;
 
 public class UserSearchActivity extends AppCompatActivity {
     private static final String TAG = "UserSearchActivity";
     private RecyclerView searchContactsRecyclerView;
     private FirebaseAuth authentication;
-    private DatabaseReference rootRef, searchUserRef;
+    private DatabaseReference rootRef, searchUserRef,iconRef;
     private LinearLayoutManager linearLayoutManager;
     private FirebaseUser currentUser;
     private String currentUserID;
@@ -82,6 +84,7 @@ public class UserSearchActivity extends AppCompatActivity {
     private void searchUser(String query) {
 
         Query userSearchQuery;
+        String child;
 
         if (query.contains("@")) {
             userSearchQuery = searchUserRef.orderByChild("email").startAt(query).endAt(query + "\uf8ff");
@@ -96,6 +99,19 @@ public class UserSearchActivity extends AppCompatActivity {
             protected void populateViewHolder(final UserSearchViewHolder viewHolder, final PublicUser model, int position) {
 
                 final String contactID = getRef(position).getKey();
+                iconRef = rootRef.child(USER_ICON).child(contactID);
+                iconRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        UserIcon userIcon = dataSnapshot.getValue(UserIcon.class);
+                        String url = userIcon.getIcon_url();
+                        viewHolder.setIcon(url);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
 
                 final String email = model.getEmail();
                 final String first = model.getFirst_name();
@@ -106,7 +122,6 @@ public class UserSearchActivity extends AppCompatActivity {
 
                 viewHolder.setEmail(email);
                 viewHolder.setFullName(first, last);
-                viewHolder.setIcon(icon);
 
                 viewHolder.addContactButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -124,7 +139,6 @@ public class UserSearchActivity extends AppCompatActivity {
     public void addToContactList(String contactID, final Button addContactButton, String
             first, String last, String email, String url, String radius, String zipcode) {
         /**
-         * TODO: Write logic to retrieve contacts list first, and then update the list with the new values.
          * TODO: also need to write logic to check if user is already in contact list
          */
         final PublicUserDetails publicUserDetails = new PublicUserDetails(first, last, email, url, contactID, radius, zipcode);

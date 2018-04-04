@@ -17,6 +17,11 @@
         android:inputType="text"
         android:maxLines="1"
         />
+    <Button
+        android:id="@+id/search_contacts_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="search"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/contact_list_rec"

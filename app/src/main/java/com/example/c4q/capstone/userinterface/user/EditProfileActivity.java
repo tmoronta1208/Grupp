@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,7 +18,6 @@ import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
 import com.example.c4q.capstone.database.privateuserdata.PrivateUserLocation;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
-import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
 import com.example.c4q.capstone.database.publicuserdata.UserIcon;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -54,9 +52,8 @@ public class EditProfileActivity extends AppCompatActivity {
     private PublicUser publicUser;
     private PrivateUser privateUser;
     private UserIcon userIcon;
-    private PublicUserDetails publicUserDetails;
     private PrivateUserLocation privateUserLocation;
-    private String currentUserEmail, iconUrl;
+    private String currentUserEmail;
 
 
     @Override
@@ -88,21 +85,21 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
         radioGroupSelection();
-
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (currentUser != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + currentUser.getUid());
-//                    Toast.makeText(EditProfileActivity.this, "Successfully signed in with: " + currentUser.getEmail(), Toast.LENGTH_SHORT).show();
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-//                    Toast.makeText(EditProfileActivity.this, "Successfully signed out.", Toast.LENGTH_SHORT).show();
-                }
-            }
-        };
+//
+//        mAuthListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                if (currentUser != null) {
+//                    // User is signed in
+//                    Log.d(TAG, "onAuthStateChanged:signed_in:" + currentUser.getUid());
+////                    Toast.makeText(EditProfileActivity.this, "Successfully signed in with: " + currentUser.getEmail(), Toast.LENGTH_SHORT).show();
+//                } else {
+//                    // User is signed out
+//                    Log.d(TAG, "onAuthStateChanged:signed_out");
+////                    Toast.makeText(EditProfileActivity.this, "Successfully signed out.", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        };
 
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
@@ -112,9 +109,8 @@ public class EditProfileActivity extends AppCompatActivity {
                 publicUser = dataSnapshot.child(currentUserID).getValue(PublicUser.class);
                 userIcon = dataSnapshot.child(currentUserID).getValue(UserIcon.class);
 
-                iconUrl = userIcon.getIcon_url();
-
                 Log.d(TAG, "onDataChange: Added information to database: \n" + dataSnapshot.getValue());
+                Log.d(TAG, "onDataChange: " + userIcon);
             }
 
             @Override
@@ -166,19 +162,11 @@ public class EditProfileActivity extends AppCompatActivity {
 
         if (!firstNameString.equals("") && !lastNameString.equals("") && !zipCodeString.equals("")) {
 
-
-            publicUser = new PublicUser(currentUserID, firstNameString, lastNameString, zipCodeString, budgetString, currentUserEmail, over18, over21, radius);
+            publicUser = new PublicUser(currentUserID, firstNameString, lastNameString, zipCodeString, budgetString, currentUserEmail, userIcon, over18, over21, radius);
 
             privateUser = new PrivateUser(firstNameString, lastNameString, over18, over21, radius);
 
             privateUserLocation = new PrivateUserLocation(share_location, lat, lng);
-
-            //will cause a nullPointerException, to be fixed
-            userIcon = new UserIcon(iconUrl);
-
-            /**
-             * searchUserReference needs to be added at time of account creation
-             */
 
             publicUserReference.child(currentUserID).setValue(publicUser);
             privateUserReference.child(currentUserID).setValue(privateUser);
@@ -191,20 +179,6 @@ public class EditProfileActivity extends AppCompatActivity {
             firstName.setError("Required");
             lastName.setError("Required");
             zipCode.setError("Required");
-        }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
         }
     }
 

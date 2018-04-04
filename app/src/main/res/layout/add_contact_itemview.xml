@@ -43,9 +43,9 @@
 
     <Button
         android:id="@+id/add_contact_button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/add_button_img"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/ic_add_circle_outline_black_24dp"
         android:layout_gravity="center_vertical"/>
 
 </LinearLayout>
