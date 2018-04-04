@@ -13,16 +13,14 @@
     tools:context="com.example.c4q.capstone.userinterface.events.createevent.CreateEventActivity">
     <Button
         android:id="@+id/create_event_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_gravity="top|right"
         android:layout_margin="@dimen/layout_padding"
-        android:drawableEnd="@drawable/ic_check_circle_unchecked_24dp"
-        android:drawablePadding="@dimen/layout_padding"
-        android:background="#ffffff"
+        android:background="@drawable/ic_check_circle_unchecked_24dp"
         android:padding="@dimen/layout_padding"
-        android:text="Create Event"
-        android:textColor="@color/colorAppGrey"/>
+        android:textColor="@color/colorAppGrey"
+        />
     <LinearLayout
         android:id="@+id/visible_layout"
         android:layout_width="match_parent"

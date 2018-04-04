@@ -1,7 +1,9 @@
 package com.example.c4q.capstone.userinterface.events.createevent;
 
+import android.content.DialogInterface;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.c4q.capstone.LoginActivity;
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
 import com.example.c4q.capstone.userinterface.CurrentUser;
@@ -83,6 +86,20 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         timePickerFragment.setEventPresnter(newEventListener, addTime);
         editTextUX = new EditTextUX(eventName, newEventListener, CreateEventActivity.this, findViewById(R.id.create_event_parent), "eventName" );
     }
+    public void newEventAlert(String message) {
+        AlertDialog alertDialog = new AlertDialog.Builder(CreateEventActivity.this).create();
+        alertDialog.setIcon(getResources().getDrawable(R.drawable.ic_grupp_icon_24));
+        alertDialog.setTitle("New Event!");
+        alertDialog.setMessage(message);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        newEventListener.createEventButtonClicked();
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+    }
 
     @Override
     public void onClick(View v) {
@@ -98,7 +115,9 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 newEventListener.inviteFriendsButtonClicked(inviteFriends, bottomSheetBehavior, inviteDoneButton, inviteBottomSheet);
                 break;
             case R.id.create_event_button:
-                newEventListener.createEventButtonClicked();
+                newEventAlert(NewEventBuilder.getInstance().getEventName());
+                //newEventListener.createEventButtonClicked();
+
                 break;
             case R.id.invite_done_button:
                 newEventListener.inviteDoneButtonClicked(inviteDoneButton, bottomSheetBehavior, inviteBottomSheet);
