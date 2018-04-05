@@ -1,7 +1,9 @@
 package com.example.c4q.capstone.userinterface.events.createevent;
 
+import android.content.DialogInterface;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,16 +14,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.c4q.capstone.LoginActivity;
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.events.createevent.createeventux.EditTextUX;
 import com.example.c4q.capstone.userinterface.events.createevent.createeventux.calenderdialog.DatePickerFragment;
 import com.example.c4q.capstone.userinterface.events.createevent.createeventux.calenderdialog.TimePickerFragment;
+import com.example.c4q.capstone.userinterface.events.eventsrecyclerviews.FriendsAdapter;
 import com.example.c4q.capstone.userinterface.events.eventsrecyclerviews.InviteFriendsViewHolder;
 import com.example.c4q.capstone.utils.SimpleDividerItemDecoration;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.c4q.capstone.utils.Constants.USER_CONTACTS;
 
@@ -33,6 +41,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     Button createEventButton, inviteDoneButton;
     DatePickerFragment datePickerFragment = new DatePickerFragment();
     RecyclerView recyclerView;
+    RecyclerView displayRecyclerView;
     InviteListAdapter contactListAdapter;
     LinearLayoutManager linearLayoutManager;
     String currentUserId = CurrentUser.userID;
@@ -41,6 +50,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     TimePickerFragment timePickerFragment = new TimePickerFragment();
     NestedScrollView inviteBottomSheet;
     BottomSheetBehavior bottomSheetBehavior;
+    FriendsAdapter invitedFriendsAdapter;
+    List<PublicUser> invitedFriendsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +83,11 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         inviteBottomSheet.setVisibility(View.GONE);
         bottomSheetBehavior = BottomSheetBehavior.from(inviteBottomSheet);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        displayRecyclerView = (RecyclerView) findViewById(R.id.invited_friends_recycler_view);
+        displayRecyclerView.setVisibility(View.GONE);
+        invitedFriendsAdapter = new FriendsAdapter(invitedFriendsList);
+        displayRecyclerView.setAdapter(invitedFriendsAdapter);
+        displayRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
     }
 
     public void setViewCLickListeners(){
@@ -82,6 +98,21 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         datePickerFragment.setEventPresnter(newEventListener, addDate);
         timePickerFragment.setEventPresnter(newEventListener, addTime);
         editTextUX = new EditTextUX(eventName, newEventListener, CreateEventActivity.this, findViewById(R.id.create_event_parent), "eventName" );
+    }
+    public void newEventAlert(String message) {
+        AlertDialog alertDialog = new AlertDialog.Builder(CreateEventActivity.this).create();
+        alertDialog.setIcon(getResources().getDrawable(R.drawable.ic_grupp_icon_24));
+        alertDialog.setTitle("New Event!");
+        alertDialog.setMessage(message);
+        //alertDialog.setView();
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        newEventListener.createEventButtonClicked();
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 
     @Override
@@ -98,11 +129,18 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 newEventListener.inviteFriendsButtonClicked(inviteFriends, bottomSheetBehavior, inviteDoneButton, inviteBottomSheet);
                 break;
             case R.id.create_event_button:
+                //newEventAlert(NewEventBuilder.getInstance().getEventName());
                 newEventListener.createEventButtonClicked();
+
                 break;
             case R.id.invite_done_button:
                 newEventListener.inviteDoneButtonClicked(inviteDoneButton, bottomSheetBehavior, inviteBottomSheet);
                 inviteDoneButton.setBackground(getResources().getDrawable(R.drawable.ic_check_circle_checked_24dp));
+                inviteFriends.setText("Guest List");
+                displayRecyclerView.setVisibility(View.VISIBLE);
+                invitedFriendsList.clear();
+                invitedFriendsList.addAll(NewEventBuilder.getInstance().getInvitedFriendsUserList());
+                invitedFriendsAdapter.notifyDataSetChanged();
                 break;
         }
     }

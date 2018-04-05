@@ -18,58 +18,30 @@ import java.util.List;
  * Created by amirahoxendine on 3/21/18.
  */
 
-public class FriendsAdapter extends RecyclerView.Adapter<ContactListViewHolder> {
-    List<PublicUser> friendsList = new ArrayList<>();
-    CreateEventPresenter eventPresenter;
-    Context context;
+public class FriendsAdapter extends RecyclerView.Adapter<FriendsViewHolder> {
+    public List<PublicUser> friendsList = new ArrayList<>();
 
-    public FriendsAdapter(List<PublicUser> friendsList, CreateEventPresenter eventPresenter, Context context) {
+    public FriendsAdapter(List<PublicUser> friendsList) {
         this.friendsList = friendsList;
-        this.eventPresenter = eventPresenter;
-        this.context = context;
     }
 
     @Override
-    public ContactListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.contact_item_view, parent, false);
-        return new ContactListViewHolder(view);
+    public FriendsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.invited_friends_display_item, parent, false);
+        return new FriendsViewHolder(view);
     }
 
+
+
     @Override
-    public void onBindViewHolder(ContactListViewHolder holder, int position) {
-        final PublicUser user = friendsList.get(position);
-        /*holder.onBind(user, context);
-        holder.itemView.setTag(user.getUser_id());
-        holder.onBind(user, context);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    public void onBindViewHolder(FriendsViewHolder holder, int position) {
+        final PublicUser model = friendsList.get(position);
+        String first = model.getFirst_name();
+        String url = model.getUser_icon().getIcon_url();
 
-                v.setBackgroundColor(context.getResousetOnClick();rces().getColor(R.color.colorAccent));
-                List<String> friendId = NewEventBuilder.getInstance().getInvitedGuests();
-                if (friendId != null){
-                    if(!friendId.contains(user.getUser_id())){
-                        friendId.add(user.getUser_id());
-                    }
-                } else{
-                    friendId = new ArrayList<>();
-                    friendId.add(user.getUser_id());
-                }
+        holder.setUserIcon(url);
+        holder.setName(first);
 
-                NewEventBuilder.getInstance().setInvitedGuests(friendId);
-                eventPresenter.setEventGuests(friendId);
-                List<PublicUser> invitedFriendUser = NewEventBuilder.getInstance().getInvitedFriendsUserList();
-                if (invitedFriendUser != null){
-                    invitedFriendUser.add(user);
-                    Log.d("invite adapter", "pub user list size: " + invitedFriendUser.size());
-                } else {
-                    invitedFriendUser = new ArrayList<>();
-                    invitedFriendUser.add(user);
-                    Log.d("invite adapter", "pub user list size: " + invitedFriendUser.size());
-                }
-                NewEventBuilder.getInstance().setInvitedFriendsUserList(invitedFriendUser);
-            }
-        });*/
     }
 
     @Override

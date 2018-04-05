@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="275dp"
+    android:layout_height="match_parent"
+    android:padding="@dimen/layout_padding"
+    android:gravity="center">
+
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_grupp_icon_24"
+            android:layout_margin="@dimen/layout_item_margin"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_event"
+            android:layout_marginBottom="32dp"
+            android:textSize="10sp"
+            android:textColor="@color/colorAppGreyLight"/>
+        <TextView
+            android:id="@+id/alert_event_name_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Testing Alert Layout"
+            android:textSize="26sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:gravity="center"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:id="@+id/alert_event_date_time_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_item_margin"
+            android:layout_marginBottom="@dimen/layout_item_margin"
+            android:text="Testing Alert Layout"
+            android:drawableBottom="@drawable/textviewlinedivider"
+            android:drawablePadding="@dimen/layout_padding"
+            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
+            android:gravity="center"
+            android:textSize="14dp"/>
+    <LinearLayout
+        android:id="@+id/alert_event_ready_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Go to my event!"
+            android:textSize="12sp"
+            android:drawableTop="@drawable/ic_check_circle_unchecked_24dp"
+            android:drawablePadding="@dimen/layout_item_margin"
+            android:layout_margin="@dimen/layout_item_margin"
+            android:paddingLeft="@dimen/layout_padding"
+            android:paddingRight="@dimen/layout_padding"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/alert_progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_marginTop="32dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="searching venues for this event..."
+            android:gravity="center"
+            android:textColor="@color/colorAppGreyLight"/>
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/alert_rv_button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/layout_padding"
+        >
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/alert_recycler_view"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/layout_padding"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/layout_padding">
+            <TextView
+                android:id="@+id/alert_edit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+
+                android:layout_marginRight="32dp"
+                android:drawableTop="@drawable/ic_edit_black_24dp"
+                android:drawablePadding="@dimen/layout_item_margin"
+                android:textSize="12sp"
+
+                />
+            <TextView
+                android:id="@+id/alert_create_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+
+                android:layout_marginLeft="32dp"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:drawableTop="@drawable/ic_check_circle_unchecked_24dp"
+                android:drawablePadding="@dimen/layout_item_margin"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
