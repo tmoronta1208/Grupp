@@ -9,6 +9,7 @@
         <item name="android:colorBackground">@android:color/white</item>
         <item name="android:navigationBarColor">@color/colorPrimary</item>
         <item name="android:colorForeground">@color/colorForground</item>
+        <item name="android:actionOverflowButtonStyle">@style/MyActionButtonOverflow</item>
         <!-- Window transitions. not working :( -->
         <item name="android:windowActivityTransitions">true</item>
 
@@ -37,5 +38,10 @@
         <item name="textAllCaps">true</item>
     </style>
 
+    <style name="MyActionButtonOverflow" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_menu_black_24dp</item>
+        <item name="android:background">?android:attr/actionBarItemBackground</item>
+        <item name="android:contentDescription">"Grupp"</item>
+    </style>
     <dimen name="tab_max_width">75dp</dimen>
 </resources>
