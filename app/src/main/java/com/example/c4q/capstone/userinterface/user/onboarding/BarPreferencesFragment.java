@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import static com.example.c4q.capstone.utils.Constants.AMENITY_PREFS;
 import static com.example.c4q.capstone.utils.Constants.BAR_PREFS;
 import static com.example.c4q.capstone.utils.Constants.PREFERENCES;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
@@ -48,7 +49,7 @@ public class BarPreferencesFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private String currentUserID;
-    private DatabaseReference rootRef, preferencesDB;
+    private DatabaseReference rootRef, privatePreferencesDB, publicPreferencesDB;
     private FirebaseUser currentUser;
 
     public BarPreferencesFragment() {
@@ -67,7 +68,8 @@ public class BarPreferencesFragment extends Fragment {
         currentUser = mAuth.getCurrentUser();
         currentUserID = currentUser.getUid();
         rootRef = FirebaseDatabase.getInstance().getReference();
-        preferencesDB = rootRef.child(PRIVATE_USER);
+        privatePreferencesDB = rootRef.child(PRIVATE_USER);
+        publicPreferencesDB = rootRef.child(PUBLIC_USER);
 
         clubCheckBox = view.findViewById(R.id.club_pref);
         loungeCheckBox = view.findViewById(R.id.lounge_pref);
@@ -128,8 +130,8 @@ public class BarPreferencesFragment extends Fragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                preferencesDB.child(PUBLIC_USER).child(currentUserID).child(PREFERENCES).child(BAR_PREFS).setValue(selectedPrefs);
-                preferencesDB.child(PRIVATE_USER).child(currentUserID).child(PREFERENCES).child(BAR_PREFS).setValue(selectedPrefs);
+                publicPreferencesDB.child(currentUserID).child(PREFERENCES).child(AMENITY_PREFS).setValue(selectedPrefs);
+                privatePreferencesDB.child(currentUserID).child(PREFERENCES).child(AMENITY_PREFS).setValue(selectedPrefs);
                 OnBoardActivity.viewPager.setCurrentItem(2);
 
             }

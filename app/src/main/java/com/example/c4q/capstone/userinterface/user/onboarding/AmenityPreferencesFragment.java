@@ -4,16 +4,12 @@ package com.example.c4q.capstone.userinterface.user.onboarding;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.userinterface.CurrentUserPost;
@@ -37,7 +33,7 @@ import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
  */
 public class AmenityPreferencesFragment extends Fragment {
     Button brunch, outdoorSeating, rooftop, danceFloor, fullMenu, videoGames, darts, poolTables;
-   com.getbase.floatingactionbutton.FloatingActionButton saveButton;
+    com.getbase.floatingactionbutton.FloatingActionButton saveButton;
     View rootView;
     HashMap<Button, String> prefs = new HashMap<>();
     List<String> selectedPrefs = new ArrayList<>();
@@ -45,7 +41,7 @@ public class AmenityPreferencesFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private String currentUserID;
-    private DatabaseReference rootRef, preferencesDB;
+    private DatabaseReference rootRef, privatePreferencesDB, publicPreferencesDB;
     private FirebaseUser currentUser;
 
 
@@ -65,7 +61,8 @@ public class AmenityPreferencesFragment extends Fragment {
         currentUser = mAuth.getCurrentUser();
         currentUserID = currentUser.getUid();
         rootRef = FirebaseDatabase.getInstance().getReference();
-        preferencesDB = rootRef.child(PRIVATE_USER);
+        privatePreferencesDB = rootRef.child(PRIVATE_USER);
+        publicPreferencesDB = rootRef.child(PUBLIC_USER);
 
         brunch = rootView.findViewById(R.id.brunch_pref);
         outdoorSeating = rootView.findViewById(R.id.outdoor_pref);
@@ -88,24 +85,24 @@ public class AmenityPreferencesFragment extends Fragment {
         prefs.put(darts, "darts");
         prefs.put(poolTables, "pool+tables");
 
-            for (final Button a : prefs.keySet()) {
+        for (final Button a : prefs.keySet()) {
 
-                a.setOnClickListener(new Button.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(selectedPrefs.contains(prefs.get(a))){
-                            selectedPrefs.remove(prefs.get(a));
-                        }
-                        Log.d("selctedPref size: ", selectedPrefs.toString());
-
-                        a.setBackground(getActivity().getResources().getDrawable(R.drawable.pefrencebuttonpressed));
-
-                        selectedPrefs.add(prefs.get(a));
-
-                        Log.d("selctedPref size: ", selectedPrefs.toString());
-
+            a.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (selectedPrefs.contains(prefs.get(a))) {
+                        selectedPrefs.remove(prefs.get(a));
                     }
-                });
+                    Log.d("selctedPref size: ", selectedPrefs.toString());
+
+                    a.setBackground(getActivity().getResources().getDrawable(R.drawable.pefrencebuttonpressed));
+
+                    selectedPrefs.add(prefs.get(a));
+
+                    Log.d("selctedPref size: ", selectedPrefs.toString());
+
+                }
+            });
 
         }
         saveToDatabase();
@@ -118,8 +115,8 @@ public class AmenityPreferencesFragment extends Fragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                preferencesDB.child(PUBLIC_USER).child(currentUserID).child(PREFERENCES).child(AMENITY_PREFS).setValue(selectedPrefs);
-                preferencesDB.child(PRIVATE_USER).child(currentUserID).child(PREFERENCES).child(AMENITY_PREFS).setValue(selectedPrefs);
+                publicPreferencesDB.child(currentUserID).child(PREFERENCES).child(AMENITY_PREFS).setValue(selectedPrefs);
+                privatePreferencesDB.child(currentUserID).child(PREFERENCES).child(AMENITY_PREFS).setValue(selectedPrefs);
                 CurrentUserPost.getInstance().postNewAmenityPreferences(selectedPrefs);
                 Intent intent = new Intent(getActivity(), UserProfileActivity.class);
                 startActivity(intent);
