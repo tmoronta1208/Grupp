@@ -73,14 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        // button views
         signInButton = findViewById(R.id.google_button);
-
-
-
-//        publicUserDatabaseReference = firebaseDatabase.getReference().child(Constants.PUBLIC_USER);
-//        getUserData();
-
 
 
 

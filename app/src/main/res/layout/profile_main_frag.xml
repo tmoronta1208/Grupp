@@ -22,8 +22,8 @@
         app:ss_rightIcon="@drawable/ic_group_black_24dp"
         app:ss_rightText="Grupps"
         app:ss_selectedTextSize="12sp"
-        app:ss_sliderBackgroundColor="@color/fabuttoncolor"
-        app:ss_switchColor="@color/colorAppGreyLight"
+        app:ss_sliderBackgroundColor="@color/colorAppGreyLight"
+        app:ss_switchColor="@color/white"
         app:ss_textColor="@android:color/black"
         app:ss_textSize="12sp" />
 
