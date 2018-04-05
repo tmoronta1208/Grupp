@@ -31,6 +31,12 @@ public class CreateEventController {
     String currentUserID = CurrentUser.userID;
     Events newEvent = new Events();
     NewEventBuilder eventBuilder = NewEventBuilder.getInstance();
+    NewEventPresenter newEventListener;
+
+    public CreateEventController(NewEventPresenter newEventListener){
+        this.newEventListener = newEventListener;
+
+    }
 
     public void sendEventToFireBase(boolean validEvent, EventFragmentListener listener){
         Log.d(TAG, " send event to fire base called ");
@@ -93,6 +99,7 @@ public class CreateEventController {
                                         Log.d(TAG, "venue detail list" + venueDetailMap.size());
                                         newEvent.setVenue_map(venueDetailMap);
                                         CurrentUserPost.getInstance().postNewEvent(key, newEvent);
+                                        newEventListener.alertShowEventReady(venueDetailMap.size());
                                     }
                                 } else{
                                     Log.d(TAG, "final venue list is null");

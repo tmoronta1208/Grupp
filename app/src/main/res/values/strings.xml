@@ -27,5 +27,6 @@
     <string name="calculating">Searching Venues...</string>
     <string name="event_channel_name">Events Notification</string>
     <string name="channel_description">Events Notifications</string>
+    <string name="new_event">New Event!</string>
 
 </resources>
