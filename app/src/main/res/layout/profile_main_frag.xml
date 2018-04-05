@@ -16,13 +16,14 @@
         app:ss_animationDuration="300"
         app:ss_iconPadding="14dp"
         app:ss_iconSize="14dp"
+        app:ss_animationType="line"
         app:ss_leftIcon="@drawable/eventiconswitch"
         app:ss_leftText="Events"
         app:ss_rightIcon="@drawable/ic_group_black_24dp"
         app:ss_rightText="Grupps"
         app:ss_selectedTextSize="12sp"
-        app:ss_sliderBackgroundColor="@color/fabuttoncolor"
-        app:ss_switchColor="@color/colorAppGreyLight"
+        app:ss_sliderBackgroundColor="@color/colorAppGreyLight"
+        app:ss_switchColor="@color/white"
         app:ss_textColor="@android:color/black"
         app:ss_textSize="12sp" />
 

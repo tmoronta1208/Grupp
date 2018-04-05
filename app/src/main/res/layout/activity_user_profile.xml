@@ -20,7 +20,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="@android:color/transparent"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
 
@@ -32,26 +32,17 @@
 
 </LinearLayout>
 
-    <!--<android.support.design.widget.FloatingActionButton-->
-    <!--android:id="@+id/floatingactionb"-->
-    <!--android:layout_gravity="bottom|center"-->
-    <!--android:layout_marginTop="10dp"-->
-    <!--android:layout_marginBottom="10dp"-->
-    <!--android:src="@drawable/ic_plus_sign_24dp"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content" />-->
-
-
         <com.github.clans.fab.FloatingActionMenu
             android:id="@+id/floatingaction_menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             app:menu_backgroundColor="@color/floatingmenucolor"
-            app:menu_labels_textColor="@color/fabuttoncolor"
+            app:menu_labels_textColor="@color/colorPrimary"
             app:menu_labels_colorNormal="@android:color/white"
-            app:menu_colorNormal="@color/fabuttoncolor"
-            app:menu_colorPressed="@color/floatingmenucolor"
+            app:menu_colorNormal="@color/colorPrimary"
+            android:clickable="false"
+            app:menu_colorPressed="@color/colorAppGreyLight"
             app:menu_shadowColor="@android:color/transparent"
             app:menu_openDirection="up">
 
@@ -60,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/eventicon"
-                app:fab_colorNormal="@color/light_salmon"
+                app:fab_colorNormal="@color/white"
                 app:fab_label="create event"
                 app:fab_size="mini" />
 
@@ -68,7 +59,7 @@
                 android:id="@+id/add_group_mini"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:fab_colorNormal="@color/light_salmon"
+                app:fab_colorNormal="@color/white"
                 android:src="@drawable/addgroup"
                 app:fab_label="add group"
                 app:fab_size="mini" />

@@ -73,22 +73,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        // button views
         signInButton = findViewById(R.id.google_button);
-        emailLogInButton = findViewById(R.id.btn_login);
 
 
-//        publicUserDatabaseReference = firebaseDatabase.getReference().child(Constants.PUBLIC_USER);
-//        getUserData();
-
-
-
-        emailLogInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn();
-            }
-        });
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
