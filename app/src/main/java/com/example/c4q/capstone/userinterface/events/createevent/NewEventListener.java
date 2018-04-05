@@ -10,6 +10,9 @@ import android.widget.TimePicker;
 
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.events.createevent.createeventux.calenderdialog.DatePickerFragment;
+import com.example.c4q.capstone.userinterface.events.eventsrecyclerviews.FriendsAdapter;
+
+import java.util.List;
 
 /**
  * Created by amirahoxendine on 4/3/18.
@@ -27,7 +30,6 @@ public interface NewEventListener {
     void friendInvited(PublicUser publicUser);
     void friendUnInvited(PublicUser publicUser);
     void inviteFriendsButtonClicked(TextView inviteFriends, BottomSheetBehavior bottomSheetBehavior, Button inviteDone, NestedScrollView nestedScrollView);
-
     void addNoteClicked();
 
     void noteAdded(String eventNote);
