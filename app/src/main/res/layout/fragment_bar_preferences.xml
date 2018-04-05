@@ -52,6 +52,7 @@
         app:layout_constraintStart_toEndOf="@+id/beer_pref"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+
     <Button
         android:id="@+id/club_pref"
         android:layout_width="70dp"
@@ -64,6 +65,7 @@
         app:layout_constraintBottom_toTopOf="@+id/pub_pref"
         app:layout_constraintEnd_toStartOf="@+id/hotel_pref"
         app:layout_constraintTop_toBottomOf="@+id/beer_pref" />
+
 
     <Button
         android:id="@+id/beach_pref"

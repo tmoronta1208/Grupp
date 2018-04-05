@@ -51,6 +51,7 @@
             app:menu_labels_textColor="@color/fabuttoncolor"
             app:menu_labels_colorNormal="@android:color/white"
             app:menu_colorNormal="@color/fabuttoncolor"
+            android:clickable="false"
             app:menu_colorPressed="@color/floatingmenucolor"
             app:menu_shadowColor="@android:color/transparent"
             app:menu_openDirection="up">
