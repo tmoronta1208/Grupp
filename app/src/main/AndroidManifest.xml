@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
+        android:name=".utils.FirebasePersistence"
         android:allowBackup="true"
         android:icon="@drawable/ic_grupp_icon_24"
         android:label="@string/app_name"
