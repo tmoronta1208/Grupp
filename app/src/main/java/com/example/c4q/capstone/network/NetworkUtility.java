@@ -136,7 +136,6 @@ public class NetworkUtility {
                 } else {
                     Log.d("RESPONSE:", "response is null");
                 }
-
             }
 
             @Override

@@ -5,6 +5,5 @@ package com.example.c4q.capstone.userinterface.events;
  */
 
 public interface EventFragmentListener {
-    void swapFragments();
     void getEventIdKEy(String key);
 }

@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.format.DateFormat;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.c4q.capstone.userinterface.events.createevent.NewEventListener;
@@ -18,6 +19,7 @@ import java.util.Calendar;
 public class TimePickerFragment extends DialogFragment
         implements TimePickerDialog.OnTimeSetListener {
     NewEventListener eventPresenter;
+    TextView addTime;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -32,12 +34,13 @@ public class TimePickerFragment extends DialogFragment
         return timePickerFragment;
     }
 
-    public void setEventPresnter(NewEventListener eventPresnter){
+    public void setEventPresnter(NewEventListener eventPresnter, TextView addTime){
         this.eventPresenter = eventPresnter;
+        this.addTime = addTime;
     }
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         // Do something with the time chosen by the user
-        eventPresenter.timeEntered(hourOfDay, minute);
+        eventPresenter.timeEntered(hourOfDay, minute, addTime);
     }
 }

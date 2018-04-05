@@ -31,6 +31,12 @@ public class CreateEventController {
     String currentUserID = CurrentUser.userID;
     Events newEvent = new Events();
     NewEventBuilder eventBuilder = NewEventBuilder.getInstance();
+    NewEventPresenter newEventListener;
+
+    public CreateEventController(NewEventPresenter newEventListener){
+        this.newEventListener = newEventListener;
+
+    }
 
     public void sendEventToFireBase(boolean validEvent, EventFragmentListener listener){
         Log.d(TAG, " send event to fire base called ");
@@ -43,26 +49,15 @@ public class CreateEventController {
             key = setFinalizedEvent();
             Log.d(TAG, "event key : " + key);
             listener.getEventIdKEy(key);
-            makeNetworkCall(eventBuilder.getInvitedFriendsUserList());
-            Log.d(TAG, "post event called" + eventBuilder.getInvitedFriendsUserList().size());
+            List<PublicUser> eventGuests = eventBuilder.getInvitedFriendsUserList();
+            makeNetworkCall(eventGuests);
+            eventBuilder.destroyInstance();
+            Log.d(TAG, "post event called" + eventGuests);
             CurrentUserPost.getInstance().postNewEvent(key, newEvent);
             UserEvent userEvent = newEventConverter.creatUserEventFromEvent(newEvent);
             CurrentUserPost.getInstance().postEventToUserEventList(key, currentUserID,userEvent);
             sendInvites(userEvent, newEvent);
         }
-
-        /*if(validEvent){
-            key = setFinalizedEvent();
-            Log.d(TAG, "event key : " + key);
-            listener.getEventIdKEy(key);
-            makeNetworkCall(eventBuilder.getInvitedFriendsUserList());
-            Log.d(TAG, "post event called" + eventBuilder.getInvitedFriendsUserList().size());
-
-            CurrentUserPost.getInstance().postNewEvent(key, newEvent);
-            UserEvent userEvent = newEventConverter.creatUserEventFromEvent(newEvent);
-            CurrentUserPost.getInstance().postEventToUserEventList(key, currentUserID,userEvent);
-            sendInvites(userEvent, newEvent);
-        }*/
     }
 
     public void sendInvites(UserEvent userEvent, Events events){
@@ -104,6 +99,7 @@ public class CreateEventController {
                                         Log.d(TAG, "venue detail list" + venueDetailMap.size());
                                         newEvent.setVenue_map(venueDetailMap);
                                         CurrentUserPost.getInstance().postNewEvent(key, newEvent);
+                                        newEventListener.alertShowEventReady(venueDetailMap.size());
                                     }
                                 } else{
                                     Log.d(TAG, "final venue list is null");
@@ -119,6 +115,7 @@ public class CreateEventController {
 
         });
         Log.d(TAG, "event guests" + eventGuests.get(0).getFirst_name());
+
         venueNetworkUtility.getVoteListFromFourSquare(eventGuests);
     }
 
