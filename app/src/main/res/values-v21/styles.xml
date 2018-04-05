@@ -3,11 +3,11 @@
 
     <style name="GruppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimaryT</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="android:colorBackground">@android:color/white</item>
-        <item name="android:navigationBarColor">@color/colorPrimaryT</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
         <item name="android:colorForeground">@color/colorForground</item>
         <!-- Window transitions. not working :( -->
         <item name="android:windowActivityTransitions">true</item>
