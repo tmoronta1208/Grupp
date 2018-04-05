@@ -62,10 +62,10 @@ public class BarPreferencesFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_bar_preferences, container, false);
 
+        //Firebase
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         currentUserID = currentUser.getUid();
-
         rootRef = FirebaseDatabase.getInstance().getReference();
         preferencesDB = rootRef.child(PRIVATE_USER);
 
