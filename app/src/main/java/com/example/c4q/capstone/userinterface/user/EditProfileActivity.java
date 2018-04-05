@@ -83,6 +83,9 @@ public class EditProfileActivity extends AppCompatActivity {
         currentUserID = currentUser.getUid();
         currentUserEmail = currentUser.getEmail();
 
+        /**
+         * write code to check if user exists in contact list of other users and then update the code
+         */
 
         radioGroupSelection();
 //

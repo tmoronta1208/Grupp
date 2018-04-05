@@ -20,6 +20,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 
+import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 import static com.example.c4q.capstone.utils.Constants.USER_ICON;
 
 /**
@@ -39,11 +40,10 @@ public class InviteListAdapter extends FirebaseRecyclerAdapter<PublicUserDetails
 
     @Override
     protected void populateViewHolder(final InviteFriendsViewHolder viewHolder, PublicUserDetails model, int position) {
-        String first = model.getFirst_name();
-        String last = model.getLast_name();
 
         String contactID = getRef(position).getKey();
         DatabaseReference iconRef = FirebaseDatabase.getInstance().getReference().child(USER_ICON).child(contactID);
+        DatabaseReference nameRef = FirebaseDatabase.getInstance().getReference().child(PUBLIC_USER).child(contactID);
 
         iconRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -59,8 +59,22 @@ public class InviteListAdapter extends FirebaseRecyclerAdapter<PublicUserDetails
             }
         });
 
-        viewHolder.setName(first);
-        viewHolder.setLastName(last);
+        nameRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                PublicUser publicUser = dataSnapshot.getValue(PublicUser.class);
+                String first = publicUser.getFirst_name();
+                String last = publicUser.getLast_name();
+                viewHolder.setName(first);
+                viewHolder.setLastName(last);            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
         viewHolder.itemView.setTag(model.getUid());
         NewEventConverter eventConverter = new NewEventConverter();
         final PublicUser user = eventConverter.convertPubDetailsToPubUser(model);

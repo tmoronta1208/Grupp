@@ -64,6 +64,8 @@ public class UPEventsFragment extends Fragment {
         eventsAdapter = new EventsAdapter(Events.class, R.layout.events_item_view, EventsViewHolder.class, eventsRef);
 
         recyclerView.setAdapter(eventsAdapter);
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
+
         return view;
     }
 }

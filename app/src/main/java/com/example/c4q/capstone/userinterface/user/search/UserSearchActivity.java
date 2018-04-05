@@ -42,13 +42,6 @@ public class UserSearchActivity extends AppCompatActivity {
     private Button searchBtn;
     private EditText searchField;
 
-    /**
-     * TODO: create a searchable user interface
-     * <p>
-     * At the moment the app can retrieve everyone in the user search node. want to be able to
-     * search for specific users instead.
-     */
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,6 +139,7 @@ public class UserSearchActivity extends AppCompatActivity {
         final Map<String, Object> user_contacts = new HashMap<>();
 
         final DatabaseReference userContactsRef = rootRef.child(USER_CONTACTS).child(currentUserID);
+
         userContactsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
