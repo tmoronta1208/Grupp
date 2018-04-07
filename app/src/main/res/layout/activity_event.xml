@@ -19,15 +19,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-<<<<<<< HEAD
         android:gravity="center"
         android:padding="@dimen/layout_item_margin"
         android:background="@color/colorPrimary"
         android:foreground="@drawable/event_foregroundscrim"
         >
-=======
-        android:orientation="vertical">
->>>>>>> ca99252f7cc9c83b45e936490cc37c779fde67e3
         <TextView
             android:id="@+id/event_title_text_view"
             android:layout_width="match_parent"
@@ -35,7 +31,6 @@
             android:fontFamily="@font/roboto_black"
             android:gravity="center"
             android:padding="@dimen/layout_padding"
-<<<<<<< HEAD
             android:textStyle="bold"
             android:textColor="@color/colorPrimaryVeryDark"
             />
@@ -51,12 +46,7 @@
             android:textStyle="bold"
             android:textColor="@color/colorPrimaryVeryDark"
             />
-=======
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-            android:textColor="@color/colorAppGrey"
-            android:textSize="32sp"
-            tools:text="@string/app_name" />
->>>>>>> ca99252f7cc9c83b45e936490cc37c779fde67e3
+
         <TextView
             android:id="@+id/event_date_text_view"
             android:layout_width="match_parent"
@@ -91,9 +81,6 @@
         app:tabIndicatorColor="@color/colorPrimaryLight"
         android:minHeight="?attr/actionBarSize"
         />
-
-
-
 </LinearLayout>
 
 
