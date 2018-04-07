@@ -5,8 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.userinterface.CurrentUser;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
@@ -14,8 +17,9 @@ import com.example.c4q.capstone.userinterface.CurrentUser;
  */
 
 public class EventsViewHolder extends RecyclerView.ViewHolder {
-    private TextView event_name;
+    private TextView event_name, event_date;
     private Context eventContext;
+    private CircleImageView userIcon;
 
     public EventsViewHolder(View itemView) {
         super(itemView);
@@ -30,4 +34,14 @@ public class EventsViewHolder extends RecyclerView.ViewHolder {
         eventContext = itemView.getContext();
         return eventContext;
     }
+
+    public void setUserIcon(String url) {
+        userIcon = itemView.findViewById(R.id.userImageProfile);
+        Glide.with(getEventContext()).load(url).into(userIcon);
+    }
+    public void setEvent_date(String date){
+        event_date = itemView.findViewById(R.id.event_date_tv);
+        event_date.setText(date);
+    }
+
 }
