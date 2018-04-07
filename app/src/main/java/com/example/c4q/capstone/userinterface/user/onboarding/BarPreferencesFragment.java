@@ -128,8 +128,8 @@ public class BarPreferencesFragment extends Fragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                preferencesDB.child(PUBLIC_USER).child(currentUserID).child(PREFERENCES).child(BAR_PREFS).setValue(selectedPrefs);
-                preferencesDB.child(PRIVATE_USER).child(currentUserID).child(PREFERENCES).child(BAR_PREFS).setValue(selectedPrefs);
+                preferencesDB.child(currentUserID).child(PREFERENCES).child(BAR_PREFS).setValue(selectedPrefs);
+                preferencesDB.child(currentUserID).child(PREFERENCES).child(BAR_PREFS).setValue(selectedPrefs);
                 OnBoardActivity.viewPager.setCurrentItem(2);
 
             }

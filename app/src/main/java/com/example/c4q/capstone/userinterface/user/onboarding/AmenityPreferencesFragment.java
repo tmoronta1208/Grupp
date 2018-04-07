@@ -114,12 +114,11 @@ public class AmenityPreferencesFragment extends Fragment {
 
     public void saveToDatabase() {
 
-
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                preferencesDB.child(PUBLIC_USER).child(currentUserID).child(PREFERENCES).child(AMENITY_PREFS).setValue(selectedPrefs);
-                preferencesDB.child(PRIVATE_USER).child(currentUserID).child(PREFERENCES).child(AMENITY_PREFS).setValue(selectedPrefs);
+                preferencesDB.child(currentUserID).child(PREFERENCES).child(AMENITY_PREFS).setValue(selectedPrefs);
+                preferencesDB.child(currentUserID).child(PREFERENCES).child(AMENITY_PREFS).setValue(selectedPrefs);
                 CurrentUserPost.getInstance().postNewAmenityPreferences(selectedPrefs);
                 Intent intent = new Intent(getActivity(), UserProfileActivity.class);
                 startActivity(intent);

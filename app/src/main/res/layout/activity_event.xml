@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!-- Use DrawerLayout as root container for activity -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
@@ -8,18 +7,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.c4q.capstone.userinterface.events.EventActivity">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/event_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        />
+        android:layout_height="?attr/actionBarSize" />
 
     <LinearLayout
+        android:orientation="vertical"
         android:id="@+id/title_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:background="@color/colorPrimary"
+        android:foreground="@drawable/event_foregroundscrim"
+        android:gravity="center"
+        android:padding="@dimen/layout_item_margin">
+
         <TextView
             android:id="@+id/event_title_text_view"
             android:layout_width="match_parent"
@@ -27,21 +31,33 @@
             android:fontFamily="@font/roboto_black"
             android:gravity="center"
             android:padding="@dimen/layout_padding"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-            android:textColor="@color/colorAppGrey"
-            android:textSize="32sp"
-            tools:text="@string/app_name" />
+
+            android:textColor="@color/colorPrimaryVeryDark"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/event_organier_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+            android:textColor="@color/colorPrimaryVeryDark"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="@tools:sample/full_names" />
+
+
         <TextView
             android:id="@+id/event_date_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
+            android:gravity="center"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
             android:textColor="@color/colorAppGreyDark"
             android:textSize="14sp"
-            tools:text="@tools:sample/date/mmddyy"
-            android:gravity="center"
-            />
+            tools:text="@tools:sample/date/mmddyy" />
 
     </LinearLayout>
 
@@ -49,23 +65,20 @@
         android:id="@+id/eventViewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
-        />
+        android:layout_weight="3" />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/view_pager_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
-        app:tabMode="fixed"
-        app:tabGravity="fill"
         android:elevation="6dp"
-        app:tabTextColor="#d3d3d3"
-        app:tabSelectedTextColor="@color/colorAppGrey"
-        app:tabIndicatorColor="@color/colorPrimaryLight"
         android:minHeight="?attr/actionBarSize"
-        />
-
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/colorPrimaryLight"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/colorAppGrey"
+        app:tabTextColor="#d3d3d3" />
 
 
 </LinearLayout>

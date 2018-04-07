@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.UserIcon;
 import com.example.c4q.capstone.userinterface.CurrentUserPost;
@@ -32,6 +35,7 @@ import com.google.firebase.storage.UploadTask;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.example.c4q.capstone.utils.Constants.DEFAULT_ICON;
+import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
 import static com.example.c4q.capstone.utils.Constants.USER_ICON;
 
@@ -48,8 +52,11 @@ public class TempUserActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser firebaseUser;
     private String currentUserId;
-    private DatabaseReference rootRef, userRef, iconRef;
+    private DatabaseReference rootRef, userRef, iconRef, prefRef;
     private ImageView editProfileBtn;
+    private RecyclerView preferencesRv;
+    private GridLayoutManager gridLayoutManager;
+    private PreferencesAdapter preferencesAdapter;
 
 
     @Override
@@ -60,9 +67,13 @@ public class TempUserActivity extends AppCompatActivity {
         firebaseUser = mAuth.getCurrentUser();
         currentUserId = firebaseUser.getUid();
 
+        preferencesRv = findViewById(R.id.prefs_rv);
+
         rootRef = FirebaseDatabase.getInstance().getReference();
         userRef = rootRef.child(PUBLIC_USER).child(currentUserId);
         iconRef = rootRef.child(USER_ICON).child(currentUserId);
+        prefRef = rootRef.child(PRIVATE_USER).child(currentUserId);
+
         profilePic = findViewById(R.id.circle_imageview);
         personName = findViewById(R.id.user_name);
 
@@ -80,6 +91,12 @@ public class TempUserActivity extends AppCompatActivity {
                 uploadImageFromGallery();
             }
         });
+
+        preferencesAdapter = new PreferencesAdapter(PrivateUser.class, R.layout.preference_itemview, PreferencesViewHolder.class, prefRef);
+        gridLayoutManager = new GridLayoutManager(TempUserActivity.this, 3);
+
+        preferencesRv.setLayoutManager(gridLayoutManager);
+        preferencesRv.setAdapter(preferencesAdapter);
 
         currentUserProfileData();
     }

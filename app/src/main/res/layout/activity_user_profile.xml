@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:clickable="true"
     android:orientation="vertical"
     tools:context="com.example.c4q.capstone.userinterface.user.UserProfileActivity">
 
@@ -21,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@android:color/transparent"
-        android:theme="@style/MyActionButtonOverflow" />
+        android:theme="@style/Base.ThemeOverlay.AppCompat" />
 
 
     <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
@@ -41,7 +42,6 @@
             app:menu_labels_textColor="@color/colorPrimary"
             app:menu_labels_colorNormal="@android:color/white"
             app:menu_colorNormal="@color/white"
-            android:clickable="false"
             app:menu_icon="@drawable/ic_plus_sign_24dp"
             app:menu_colorPressed="@color/colorAppGreyLight"
             app:menu_shadowColor="@color/colorAppGreyLight"
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/eventicon"
                 app:fab_colorNormal="@color/white"
-                app:fab_colorPressed="@color/colorPrimary"
+                app:fab_colorPressed="@color/white"
                 app:fab_label="create event"
                 app:fab_size="mini" />
 
@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:fab_colorNormal="@color/white"
-                app:fab_colorPressed="@color/colorPrimary"
+                app:fab_colorPressed="@color/white"
                 android:src="@drawable/addgroup"
                 app:fab_label="add group"
                 app:fab_size="mini" />

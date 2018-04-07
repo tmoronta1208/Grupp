@@ -7,7 +7,7 @@
         android:bottomRightRadius="100dp"
         />
     <solid
-        android:color="@color/fui_transparent"
+        android:color="@color/colorPrimary"
         />
     <padding
         android:left="0dp"
@@ -21,6 +21,6 @@
         />
     <stroke
         android:width="3dp"
-        android:color="@color/salmon"
+        android:color="@color/colorAppGreyLight"
         />
 </shape>

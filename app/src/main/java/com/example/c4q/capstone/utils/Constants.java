@@ -41,5 +41,4 @@ public class Constants {
     public static final String VENUE_VOTE = "venue_vote";
     public static final String VENUE_VOTE_COUNT = "vote_count";
 
-
 }
