@@ -13,7 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         />
+
     <LinearLayout
+        android:id="@+id/title_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -42,10 +44,6 @@
             />
 
     </LinearLayout>
-
-
-
-
 
     <android.support.v4.view.ViewPager
         android:id="@+id/eventViewPager"

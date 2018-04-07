@@ -10,7 +10,7 @@
         android:paddingLeft="@dimen/layout_padding"
         android:paddingRight="@dimen/layout_padding">
         <TextView
-            android:text="Event Info"
+            android:text="Info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dp"

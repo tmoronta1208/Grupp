@@ -50,6 +50,7 @@ public class EventInfoFragment extends Fragment {
     CircleImageView organizerIcon;
     RatingBar voteCount;
     Button voteButton;
+    View itemView;
 
 
     public EventInfoFragment() {
@@ -99,6 +100,7 @@ public class EventInfoFragment extends Fragment {
         voteButton = (Button) rootView.findViewById(R.id.vote_button);
         topVenueImage = (ImageView) rootView.findViewById(R.id.venue_photo_image_view);
         organizerIcon = (CircleImageView) rootView.findViewById(R.id.user_icon);
+        itemView = (View) rootView.findViewById(R.id.top_venue_item_view);
     }
 
     public void setVoteClick() {
@@ -108,7 +110,7 @@ public class EventInfoFragment extends Fragment {
                 Intent voteIntent = new Intent(EventInfoFragment.this.getContext(), VenueVoteSwipeActivity.class);
                 voteIntent.putExtra("eventID", eventID);
                 startActivity(voteIntent);
-                if (getActivity() != null){
+                if (getActivity() != null) {
                     getActivity().finish();
                 }
 
@@ -149,32 +151,41 @@ public class EventInfoFragment extends Fragment {
                         EventGuest eventGuest = currentEvent.getEvent_guest_map().get(currentEvent.getEvent_organizer());
                         eventOrganizer = eventGuest.getUser_firstname() + " " + eventGuest.getUser_lastname();
                         eventOrganizerTV.setText(eventOrganizer);
-                        if (eventGuest.getUser_icon().getIcon_url() != null){
-                            Glide.with(getContext()).load(eventGuest.getUser_icon().getIcon_url()).into(organizerIcon);
-                        }
-                        Venue topVenue = currentEvent.getVenue_map().get(currentEvent.getTop_venue());
-                        if (topVenue != null) {
-
-                            if (topVenue.getVenue_vote() != null) {
-                                topVenueName.setText(topVenue.getVenue_name());
-                                topVenueAddress.setText(topVenue.getVenue_address());
-                                if (topVenue.getVenue_photo_url() != null) {
-                                    Picasso.with(getContext())
-                                            .load(topVenue.getVenue_photo_url())
-                                            .into(topVenueImage);
-                                }
-                                String votes = "votes";
-                                if (topVenue.getVote_count() == 1){
-                                   votes = "vote";
-                                }
-                                String numVotes = String.valueOf(topVenue.getVote_count()) + " " + votes;
-
-                                voteCountTV.setText(numVotes);
-                            } else {
-                                voteCountTV.setText("no votes yet");
+                        if (eventGuest.getUser_icon().getIcon_url() != null) {
+                            if (getContext() != null) {
+                                Glide.with(getContext()).load(eventGuest.getUser_icon().getIcon_url()).into(organizerIcon);
                             }
-                        }
 
+                        }
+                        if (currentEvent.getVenue_map() != null) {
+                            if (currentEvent.getVenue_map().get(currentEvent.getTop_venue()) != null) {
+                                Venue topVenue = currentEvent.getVenue_map().get(currentEvent.getTop_venue());
+                                if (topVenue != null) {
+
+                                    if (topVenue.getVenue_vote() != null) {
+                                        topVenueName.setText(topVenue.getVenue_name());
+                                        topVenueAddress.setText(topVenue.getVenue_address());
+                                        if (topVenue.getVenue_photo_url() != null) {
+                                            Picasso.with(getContext())
+                                                    .load(topVenue.getVenue_photo_url())
+                                                    .into(topVenueImage);
+                                        }
+                                        String votes = "votes";
+                                        if (topVenue.getVote_count() == 1) {
+                                            votes = "vote";
+                                        }
+                                        String numVotes = String.valueOf(topVenue.getVote_count()) + " " + votes;
+
+                                        voteCountTV.setText(numVotes);
+                                    } else {
+                                        voteCountTV.setText("no votes yet");
+                                    }
+                                }
+                            }
+
+                        } else {
+                            itemView.setVisibility(View.GONE);
+                        }
 
                     } else {
                         Log.d("Event Info Fragment", "event is null");

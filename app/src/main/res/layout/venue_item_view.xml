@@ -51,19 +51,21 @@
 
             <TextView
                 android:id="@+id/venue_name_textview"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
                 android:textSize="16sp"
+                android:gravity="center"
                 tools:text="@tools:sample/cities" />
 
             <TextView
                 android:id="@+id/venue_address_textview"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
                 android:textSize="14sp"
+                android:gravity="center"
                 android:fontFamily="@font/roboto"
                 tools:text="@tools:sample/cities" />
 

@@ -6,7 +6,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.SupportActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.c4q.capstone.R;
@@ -28,51 +28,18 @@ public class EventActivity extends AppCompatActivity {
 
 
     Intent intent;
-
     private String eventID;
     EventPresenter eventPresenter;
     private Events currentEvent;
     TextView eventName, eventDate;
-    Button voteButton;
     ArrayList<String> invitedFriendsList;
     Button deletButton;
     FragmentPagerAdapter adapterViewPager;
     ViewPager eventVPager;
     Toolbar toolbar;
-
-    /**
-     * ajoxe: Nav Drawer
-     */
-
+    LinearLayout titleLayout;
     SupportActivity activity;
     Context context;
-
-    Bundle eventBundle;
-    EventInfoFragment eventInfoFragment;
-    VenueFragment venueFragment;
-    EventGuestsFragment eventGuestsFragment;
-    FragmentManager fragmentManager;
-    FragmentTransaction fragmentTransaction;
-
-    /*private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.event_info:
-
-                    return true;
-                case R.id.event_guests:
-
-                    return true;
-                case R.id.event_venues:
-
-                    return true;
-            }
-            return false;
-        }
-    };*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,12 +50,7 @@ public class EventActivity extends AppCompatActivity {
         activity = this;
         intent = getIntent();
         eventID = intent.getStringExtra("eventID");
-        fragmentManager = getSupportFragmentManager();
-        //fragmentTransaction = fragmentManager.beginTransaction();
 
-
-        /*BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);*/
         defineViews();
         getEventData();
 
@@ -98,15 +60,14 @@ public class EventActivity extends AppCompatActivity {
         eventName = (TextView) findViewById(R.id.event_title_text_view);
         eventDate = (TextView) findViewById(R.id.event_date_text_view);
         toolbar = (Toolbar) findViewById(R.id.event_toolbar);
+        titleLayout = (LinearLayout) findViewById(R.id.title_layout);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         //CurrentUserPost.getInstance().deleteEvent(currentEvent);
 
     }
-
-
-
     /**
      * method to get event data ( based on event id from bundle ) from the database
      */
@@ -121,7 +82,6 @@ public class EventActivity extends AppCompatActivity {
 
                     eventName.setText(currentEvent.getEvent_name());
                     eventDate.setText(currentEvent.getEvent_date() + " @ " + currentEvent.getEvent_time());
-                    //setFragments(eventID);
                     invitedFriendsList = new ArrayList<>();
                     invitedFriendsList.addAll(event.getInvited_guests());
                     eventVPager = (ViewPager) findViewById(R.id.eventViewPager);
@@ -130,12 +90,6 @@ public class EventActivity extends AppCompatActivity {
                     adapterViewPager = new EventPagerAdapter(getSupportFragmentManager(),eventID, invitedFriendsList );
                     eventVPager.setAdapter(adapterViewPager);
 
-                    if (currentEvent.getVenue_map() != null) {
-
-                        //showHideVote(currentEvent);
-
-
-                    }
                 } else {
                     Log.d("Event Fragment", "event is null");
                 }
@@ -144,32 +98,6 @@ public class EventActivity extends AppCompatActivity {
 
     }
 
-    public void setFragments(String eventID){
-        /*eventGuestsFragment = EventGuestsFragment.newInstance(eventID);
-        venueFragment = VenueFragment.newInstance(eventID);
-        eventInfoFragment = EventInfoFragment.newInstance(eventID);*/
-    }
-
-    /**
-     * method to load UserFreindsFragment below event data
-     */
-    public void loadUserFriendsFragment() {
-/*
-        ArrayList<String> invitedFriends = new ArrayList<>();
-        if (invitedFriendsList != null && invitedFriendsList.size() != 0) {
-            invitedFriends.addAll(invitedFriendsList);
-            Log.d("Event Fragment", "invited list array size:" + invitedFriendsList.size());
-            eventGuestsFragment.getFriendUsers(invitedFriends);
-        }*/
-
-
-    }
-
-    public void loadVenueFragment(String eventID) {
-        /*venueFragment = VenueFragment.newInstance(eventID);
-        fragmentManager.beginTransaction().replace(R.id.event_fragment_container, venueFragment).commit();*/
-
-    }
     public static class EventPagerAdapter extends FragmentPagerAdapter {
         private static int NUM_ITEMS = 3;
         String eventId;
