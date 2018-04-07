@@ -101,7 +101,7 @@ public class NetworkUtility {
             public void onFailure(Call<FourSquareModel> call, Throwable t) {
 
                 t.printStackTrace();
-                Log.d("SUCESSSS", "unsucessful");
+                Log.d("network call", "unsucessful");
 
             }
         });
@@ -140,7 +140,8 @@ public class NetworkUtility {
 
             @Override
             public void onFailure(Call<FourSquareDetailCall> call, Throwable t) {
-
+                t.printStackTrace();
+                Log.d("network call", "unsucessful");
             }
         });
     }

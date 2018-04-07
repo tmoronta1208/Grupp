@@ -1,46 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="140dp"
-    android:padding="@dimen/layout_padding">
-    <TextView
-        android:id="@+id/user_initial_avatar_text_view"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:text="FL"
-        android:textSize="24sp"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    xmlns:tools="http://schemas.android.com/tools">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/user_icon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/default_avatar" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="32dp"
         android:gravity="center"
-        android:layout_marginRight="@dimen/layout_item_margin"
-        android:layout_alignParentLeft="true"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-        android:background="@drawable/avatar_circle"
-        android:layout_marginBottom="@dimen/layout_item_margin"/>
+        >
 
-    <TextView
-        android:id="@+id/user_full_name_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="FirstName LastName"
-        android:layout_marginBottom="@dimen/layout_item_margin"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
-        android:textSize="24sp"
-        android:gravity="end"
-        android:padding="@dimen/layout_item_margin"
-        />
+        <TextView
+            android:id="@+id/user_full_name_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/roboto"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+            android:textColor="@color/colorAppGreyDark"
+            android:textSize="14sp"
+            tools:text="@tools:sample/full_names"
+            />
 
-    <TextView
-        android:id="@+id/user_info_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="info"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
-        android:textSize="18sp"
-        android:gravity="end"
-        android:padding="@dimen/layout_item_margin"
-        />
+    </LinearLayout>
 
-</RelativeLayout>
+
+
+</LinearLayout>

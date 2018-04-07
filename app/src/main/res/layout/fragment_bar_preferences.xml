@@ -16,6 +16,7 @@
         android:layout_marginEnd="120dp"
         android:layout_marginTop="40dp"
         android:padding="16dp"
+        android:textColor="@color/gray"
         android:text="What kind of bars \ndo you prefer?"
         android:textSize="25sp"
      />
@@ -27,9 +28,9 @@
         android:layout_height="100dp"
         android:layout_marginBottom="70dp"
         android:layout_marginEnd="42dp"
-
         android:background="@drawable/preferencesbutton"
         android:text="Beer Bar"
+        android:textColor="@color/gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/bar_pref_save_button" />
 
@@ -39,10 +40,10 @@
         android:layout_height="80dp"
         android:layout_marginBottom="62dp"
         android:layout_marginEnd="37dp"
-
         android:layout_marginStart="37dp"
         android:background="@drawable/preferencesbutton"
         android:text="Lounge"
+        android:textColor="@color/gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/beer_pref"
         app:layout_constraintStart_toStartOf="parent" />
@@ -53,6 +54,7 @@
         android:layout_height="80dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="12dp"
+        android:textColor="@color/gray"
         android:background="@drawable/preferencesbutton"
         android:text="Clubs"
         app:layout_constraintBottom_toTopOf="@+id/beer_pref"
@@ -65,6 +67,7 @@
         android:layout_marginBottom="20dp"
         android:background="@drawable/preferencesbutton"
         android:text="Beach Bar"
+        android:textColor="@color/gray"
         app:layout_constraintBottom_toTopOf="@+id/lounge_pref"
         app:layout_constraintStart_toEndOf="@+id/karaoke_pref" />
 
@@ -75,6 +78,7 @@
         android:layout_marginEnd="57dp"
         android:background="@drawable/preferencesbutton"
         android:text="Gay Bars"
+        android:textColor="@color/gray"
         app:layout_constraintBottom_toTopOf="@+id/hookah_pref"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -85,6 +89,7 @@
         android:layout_marginBottom="156dp"
         android:layout_marginEnd="14dp"
         android:layout_marginStart="12dp"
+        android:textColor="@color/gray"
         android:background="@drawable/preferencesbutton"
         android:text="Hookah"
         app:layout_constraintBottom_toTopOf="@+id/bar_pref_save_button"
@@ -100,6 +105,7 @@
         android:layout_marginEnd="28dp"
         android:background="@drawable/preferencesbutton"
         android:text="Hotel Bars"
+        android:textColor="@color/gray"
         app:layout_constraintBottom_toTopOf="@+id/beach_pref"
         app:layout_constraintEnd_toStartOf="@+id/hookah_pref"
         app:layout_constraintTop_toBottomOf="@+id/gayBar_pref"
@@ -113,6 +119,7 @@
         android:layout_marginStart="16dp"
         android:background="@drawable/preferencesbutton"
         android:text="Karaoke"
+        android:textColor="@color/gray"
         app:layout_constraintBottom_toTopOf="@+id/lounge_pref"
         app:layout_constraintEnd_toStartOf="@+id/beach_pref"
         app:layout_constraintStart_toStartOf="parent" />
@@ -124,6 +131,7 @@
         android:layout_marginStart="190dp"
         android:background="@drawable/preferencesbutton"
         android:text="Pubs"
+        android:textColor="@color/gray"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -135,6 +143,7 @@
         android:layout_marginStart="70dp"
         android:background="@drawable/preferencesbutton"
         android:text="Cocktail"
+        android:textColor="@color/gray"
         app:layout_constraintBottom_toTopOf="@+id/karaoke_pref"
         app:layout_constraintEnd_toStartOf="@+id/hotel_pref"
         app:layout_constraintHorizontal_bias="0.307"

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/event_info"
+
+        android:title="Event Info" />
+
+    <item
+        android:id="@+id/event_venues"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="Venues" />
+
+    <item
+        android:id="@+id/event_guests"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="Event Guests" />
+
+</menu>

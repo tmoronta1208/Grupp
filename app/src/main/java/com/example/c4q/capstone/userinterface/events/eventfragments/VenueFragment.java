@@ -25,7 +25,7 @@ import com.example.c4q.capstone.userinterface.events.EventDataListener;
 import com.example.c4q.capstone.userinterface.events.EventInviteViewHolder;
 import com.example.c4q.capstone.userinterface.events.EventPresenter;
 import com.example.c4q.capstone.userinterface.events.createevent.VenueVoteUtility;
-import com.example.c4q.capstone.userinterface.events.eventsrecyclerviews.VenueAdapter;
+
 import com.example.c4q.capstone.userinterface.events.eventsrecyclerviews.VenueViewHolder;
 import com.example.c4q.capstone.utils.SimpleDividerItemDecoration;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -47,11 +47,10 @@ import static com.example.c4q.capstone.utils.Constants.VENUE_MAP;
 public class VenueFragment extends Fragment {
     View rootView;
     RecyclerView venueRecyclerView;
-    VenueAdapter venueAdapter;
     List<Venue> venueList = new ArrayList<>();
     String eventID;
     Events currentEvent;
-    Bundle args;
+    private static Bundle args;
     EventPresenter eventPresenter = new EventPresenter();
     LinearLayoutManager linearLayoutManager;
     VenueVoteUtility venueVoteUtility;
@@ -74,7 +73,7 @@ public class VenueFragment extends Fragment {
     }
 
     public static VenueFragment newInstance(String eventID) {
-        Bundle args = new Bundle();
+        args = new Bundle();
         args.putString("eventID", eventID);
         VenueFragment fragment = new VenueFragment();
         fragment.setArguments(args);
@@ -113,7 +112,7 @@ public class VenueFragment extends Fragment {
 
         venueRecyclerView.setAdapter(firebaseRecyclerAdapter);
         venueRecyclerView.setLayoutManager(linearLayoutManager);
-        venueRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
+
 
         venueName = (TextView) rootView.findViewById(R.id.venue_name_textview);
         venueAddress = (TextView) rootView.findViewById(R.id.venue_address_textview);
@@ -132,7 +131,7 @@ public class VenueFragment extends Fragment {
         //getEventData();
     }
 
-    public void loadFireBaseAdapter(String eventID){
+    public void loadFireBaseAdapter(final String eventID){
         if (eventID != null){
             venue_map = eventsRef.child(eventID).child(VENUE_MAP);
             Log.d("venue frag", "event id" + eventID);
@@ -141,6 +140,9 @@ public class VenueFragment extends Fragment {
 
                         @Override
                         protected void populateViewHolder(VenueViewHolder viewHolder, Venue model, int position) {
+                            if(position == 0){
+
+                            }
                             if (getActivity() != null){
                                 viewHolder.onBind(model, getActivity().getApplicationContext());
                                 //getEventData();
@@ -170,12 +172,10 @@ public class VenueFragment extends Fragment {
                                 orderedVenueIdList = venueVoteUtility.orderedVenueIdList;
                                 venueList = new ArrayList<>();
                                 venueList = venueVoteUtility.orderedVenueList;
-                                topVenue = venueVoteUtility.topVenue;
                                 setVenueVoteCount();
-                                setTopVenueView(topVenue);
+
                                 Log.d ("Venue Fragment", "get venue map called: list size " + venueList.size());
                             }
-
 
                         } else{
 
@@ -189,24 +189,15 @@ public class VenueFragment extends Fragment {
         }
 
     }
+<<<<<<< HEAD
     public void setTopVenueView(Venue venue){
         venueName.setText(venue.getVenue_name());
         if(getActivity() != null){
             venueName.setTextColor(getActivity().getResources().getColor(R.color.colorAccent));
         }
+=======
+>>>>>>> ca99252f7cc9c83b45e936490cc37c779fde67e3
 
-        venueAddress.setText(venue.getVenue_address());
-        if (venue.getVenue_vote() != null){
-            venueVoteCount.setText(String.valueOf(venue.getVote_count())+ "  **Top Venue!** ");
-        } else {
-            venueVoteCount.setText("not voted yet");
-        }
-        if (venue.getVenue_photo_url() != null){
-            Picasso.with(context)
-                    .load(venue.getVenue_photo_url())
-                    .into(venuePhoto);
-        }
-    }
     public void setVenueVoteCount(){
         CurrentUserPost currentUserPost = CurrentUserPost.getInstance();
         for (Venue venue : venueList){
