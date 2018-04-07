@@ -21,8 +21,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import static com.example.c4q.capstone.utils.Constants.AMENITY_PREFS;
+import static com.example.c4q.capstone.utils.Constants.GROUPS;
+import static com.example.c4q.capstone.utils.Constants.PREFERENCES;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
 
 /**
@@ -40,7 +44,7 @@ public class UPCreateGroupFragment extends Fragment {
     List<Integer> numbers = new ArrayList<>();
     View rootView;
     EditText groupTitle;
-    FloatingActionButton button;
+    FloatingActionButton returnButton;
 
 
     public UPCreateGroupFragment() {
@@ -52,6 +56,7 @@ public class UPCreateGroupFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_upgroup_display, container, false);
+        returnButton = rootView.findViewById(R.id.group_return_button);
 
 
         //Firebase
@@ -61,7 +66,8 @@ public class UPCreateGroupFragment extends Fragment {
         rootRef = FirebaseDatabase.getInstance().getReference();
         preferencesDB = rootRef.child(PRIVATE_USER);
 
-        button = rootView.findViewById(R.id.group_return_button);
+
+
 
 
         for (int i = 0; i < 6; i++) {
@@ -70,17 +76,23 @@ public class UPCreateGroupFragment extends Fragment {
 
         }
 
-        recyclerView = rootView.findViewById(R.id.grupp_create_group_rv);
+       // recyclerView = rootView.findViewById(R.id.grupp_create_group_rv);
+
+//
+//        groupsAdapter = new GroupsAdapter(getContext(), numbers);
+//        recyclerView.setLayoutManager(new GridLayoutManager(rootView.getContext(), 3));
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setAdapter(groupsAdapter);
 
 
-        groupsAdapter = new GroupsAdapter(getContext(), numbers);
-        recyclerView.setLayoutManager(new GridLayoutManager(rootView.getContext(), 3));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(groupsAdapter);
-
-        button.setOnClickListener(new View.OnClickListener() {
+        returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                HashMap<Integer, String> newGroup = new HashMap<>();
+
+                rootRef.child(GROUPS).push().setValue("testing");
+
                 Intent intent = new Intent(getActivity(), UserProfileActivity.class);
                 startActivity(intent);
             }
