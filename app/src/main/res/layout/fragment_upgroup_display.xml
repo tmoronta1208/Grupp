@@ -1,5 +1,4 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,7 +16,7 @@
         android:minHeight="?attr/actionBarSize"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:theme="@style/ThemeOverlay.AppCompat.Dark"
-        app:title="Create a group "
+        app:title="Create a grupp "
         app:titleTextColor="@color/white"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
@@ -44,83 +43,61 @@
         android:textColor="@color/colorPrimaryDark"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="54dp" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/editText"
-        android:text="Search for Grupp members"
-        android:textSize="10sp"
+        android:text="Add Grupp members"
         android:textColor="@color/colorPrimaryDark"
+        android:textSize="10sp"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="102dp"
-        />
-    <!--<android.support.v7.widget.SearchView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content">-->
+        tools:layout_editor_absoluteY="102dp" />
 
 
-    <!--</android.support.v7.widget.SearchView>-->
-
-
-
-
-<FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-
-    <LinearLayout
-        android:layout_gravity="bottom|right"
-        android:orientation="horizontal"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/grupp_create_group_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="290dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/editText"
+        android:layout_gravity="bottom"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="150dp">
 
 
-        <!--<TextView-->
-            <!--android:text="Done"-->
-            <!--android:gravity="center"-->
-            <!--android:textSize="10sp"-->
-            <!--android:layout_gravity="bottom|center"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="match_parent"-->
-            <!--/>-->
+    </android.support.v7.widget.RecyclerView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="bottom|center"
+            android:layout_toStartOf="@+id/group_return_button"
+            android:gravity="center"
+            android:text="Done"
+            android:textSize="10sp" />
+
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/group_return_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="bottom|right"
             android:src="@drawable/ic_check_black_24dp" />
 
 
-
-
-
-
-
-    </LinearLayout>
-
-    <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:id="@+id/grupp_create_group_rv"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="390dp"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:layout_below="@+id/editText"-->
-        <!--android:layout_gravity="bottom"-->
-        <!--tools:layout_editor_absoluteX="0dp"-->
-        <!--tools:layout_editor_absoluteY="150dp">-->
-
-
-    <!--</android.support.v7.widget.RecyclerView>-->
-
-
-</FrameLayout>
-
-
-
-
-
+    </RelativeLayout>
 
 
 </LinearLayout>

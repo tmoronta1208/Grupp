@@ -15,6 +15,11 @@ public class Groups {
         this.group_name = group_name;
     }
 
+    public Groups(List<String> group_members, String group_name) {
+        this.group_members = group_members;
+        this.group_name = group_name;
+    }
+
     public Groups(List<String> group_events, List<String> group_members, String group_name) {
         this.group_events = group_events;
         this.group_members = group_members;

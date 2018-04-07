@@ -88,7 +88,6 @@ public class UPCreateGroupFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                // HashMap<Integer, String> newGroup = new HashMap<>();
                 groupTitle = groupTitleInput.getText().toString();
 
                 rootRef.child(GROUPS).child(currentUserID).push().child("group_name").setValue(groupTitle);

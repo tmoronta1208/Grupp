@@ -80,27 +80,19 @@ public class GroupsAdapter extends FirebaseRecyclerAdapter<Groups, GroupViewHold
     protected void populateViewHolder(GroupViewHolder viewHolder, Groups model, int position) {
         viewHolder.setGroupName(model.getGroup_name());
 
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                UPGroupDetailsFragment upGroupDetailsFragment = new UPGroupDetailsFragment();
+                AppCompatActivity fragmentActivity = (AppCompatActivity) view.getContext();
+                FragmentManager fragmentManager = fragmentActivity.getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.addToBackStack("").replace(R.id.drawer_layout, upGroupDetailsFragment);
+                fragmentTransaction.commit();
+            }
+        });
 
     }
-
-//
-//     viewHolder.setEvent_name(model.getEvent_name());
-//
-//        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            String eventID = model.getEvent_id();;
-//            Intent intent = new Intent(viewHolder.getEventContext(), EventActivity.class);
-//            intent.putExtra("eventID", eventID);
-//            intent.putExtra("eventType", "notNew");
-//            viewHolder.getEventContext().startActivity(intent);
-//        }
-//    });
-//}
-//}
-
-//    @Override
-//    public int getItemCount() {
-//        return groupsList.size();
-//    }
 }
