@@ -2,11 +2,16 @@ package com.example.c4q.capstone.userinterface.events;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.SupportActivity;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +25,7 @@ import com.example.c4q.capstone.database.events.Events;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.CurrentUserPost;
+import com.example.c4q.capstone.userinterface.events.eventfragments.EventInfoFragment;
 import com.example.c4q.capstone.userinterface.events.eventfragments.InvitedFriendsFragment;
 import com.example.c4q.capstone.userinterface.events.eventfragments.VenueFragment;
 
@@ -31,24 +37,16 @@ public class EventActivity extends AppCompatActivity {
 
     Intent intent;
 
-    String eventID;
-    String eventType;
+    private String eventID;
     EventPresenter eventPresenter;
-    private static Events currentEvent;
-    TextView eventName, eventOrganizer, eventDate, countVenues;
-    ProgressBar progressBar;
+    private Events currentEvent;
+    TextView eventName;
     Button voteButton;
-    ImageButton moreButton;
-    String organizerFullName;
-
-    FrameLayout frameLayout;
-    List<String> invitedFriendsList;
-    FragmentManager fragmentManager;
-    FragmentTransaction fragmentTransaction;
-    InvitedFriendsFragment invitedFriendsFragment;
-    VenueFragment venueFragment;
-    Boolean newInstanceCalled = false;
+    ArrayList<String> invitedFriendsList;
     Button deletButton;
+    FragmentPagerAdapter adapterViewPager;
+    ViewPager eventVPager;
+    Toolbar toolbar;
 
     /**
      * ajoxe: Nav Drawer
@@ -68,46 +66,24 @@ public class EventActivity extends AppCompatActivity {
         activity = this;
         intent = getIntent();
         eventID = intent.getStringExtra("eventID");
-        eventType = intent.getStringExtra("eventType");
-
-        invitedFriendsFragment = new InvitedFriendsFragment();
-        //venueFragment = new VenueFragment();
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.event_fragment_container, invitedFriendsFragment);
-        fragmentTransaction.commit();
-
         defineViews();
         getEventData();
-        showHideVote();
-        setVoteClick();
-        showHideMore();
+
     }
 
     public void defineViews() {
         eventName = (TextView) findViewById(R.id.event_title_text_view);
-        eventOrganizer = (TextView) findViewById(R.id.event_organier_text_view);
-        eventDate = (TextView) findViewById(R.id.event_date_text_view);
-        countVenues = (TextView) findViewById(R.id.venues_result_number_tv);
-        voteButton = (Button) findViewById(R.id.vote_button);
-        voteButton.setVisibility(View.GONE);
-        moreButton = (ImageButton) findViewById(R.id.more_button);
-        progressBar = (ProgressBar) findViewById(R.id.get_vote_progress);
-        frameLayout = (FrameLayout) findViewById(R.id.event_fragment_container);
-        deletButton = (Button) findViewById(R.id.delete_event);
-        deletButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CurrentUserPost.getInstance().deleteEvent(currentEvent);
-            }
-        });
-    }
+        toolbar = (Toolbar) findViewById(R.id.event_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //CurrentUserPost.getInstance().deleteEvent(currentEvent);
 
-    public void showHideVote() {
-        if (currentEvent == null) {
-            voteButton.setVisibility(View.GONE);
-            countVenues.setVisibility(View.GONE);
-        }
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     public void showHideVote(Events event) {
@@ -115,13 +91,11 @@ public class EventActivity extends AppCompatActivity {
             boolean voted = currentEvent.getEvent_guest_map().get(CurrentUser.userID).isVoted();
             if (currentEvent.getEvent_guest_map().get(CurrentUser.userID).isVoted()) {
                 voteButton.setVisibility(View.GONE);
-                countVenues.setVisibility(View.GONE);
+
                 Log.d("show hide vote", "user voted" + voted);
             } else {
                 voteButton.setVisibility(View.VISIBLE);
-                countVenues.setVisibility(View.VISIBLE);
                 if (currentEvent.getVenue_map() != null){
-                    countVenues.setText("You have " + currentEvent.getVenue_map().size() + " venues to vote on!");
                 }
                 Log.d("show hide vote", "user did not vote" + voted);
             }
@@ -141,33 +115,6 @@ public class EventActivity extends AppCompatActivity {
         });
     }
 
-    public void showHideMore() {
-        moreButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("Event Fragment", "more button clicked");
-                if (frameLayout.getVisibility() == View.VISIBLE) {
-                    Log.d("Event Fragment", "frame is visible");
-                    frameLayout.setVisibility(View.GONE);
-                    showHideVote(currentEvent);
-                    eventName.setTextSize(50);
-                    eventOrganizer.setVisibility(View.VISIBLE);
-                    eventOrganizer.setTextSize(18);
-
-                } else if (frameLayout.getVisibility() == View.GONE) {
-                    Log.d("Event Fragment", "frame is invisible");
-                    frameLayout.setVisibility(View.VISIBLE);
-                    if (voteButton.getVisibility() == View.VISIBLE) {
-                        voteButton.setVisibility(View.GONE);
-                        countVenues.setVisibility(View.GONE);
-                    }
-                    eventName.setTextSize(28);
-                    eventOrganizer.setVisibility(View.GONE);
-                }
-            }
-        });
-    }
-
     /**
      * method to get event data ( based on event id from bundle ) from the database
      */
@@ -180,29 +127,21 @@ public class EventActivity extends AppCompatActivity {
                 if (currentEvent != null) {
                     Log.d("Event Fragment", "event: name" + event.getEvent_name());
 
-
                     eventName.setText(currentEvent.getEvent_name());
 
-                    eventDate.setText(currentEvent.getEvent_date());
-                    invitedFriendsList = event.getInvited_guests();
-                    organizerFullName = currentEvent.getEvent_guest_map().get(currentEvent.getEvent_organizer()).getUser_firstname();
-                    eventOrganizer.setText("Created By " + organizerFullName);
-                    //loadUserFriendsFragment();
-
+                    invitedFriendsList = new ArrayList<>();
+                    invitedFriendsList.addAll(event.getInvited_guests());
+                    eventVPager = (ViewPager) findViewById(R.id.eventViewPager);
+                    TabLayout tabLayout = (TabLayout) findViewById(R.id.view_pager_tab);
+                    tabLayout.setupWithViewPager(eventVPager);
+                    adapterViewPager = new EventPagerAdapter(getSupportFragmentManager(),eventID, invitedFriendsList );
+                    eventVPager.setAdapter(adapterViewPager);
 
                     if (currentEvent.getVenue_map() != null) {
-                        progressBar.setVisibility(View.GONE);
-                        boolean voted = currentEvent.getEvent_guest_map().get(CurrentUser.userID).isVoted();
-                        Log.d("get event data", "user voted" + voted);
-                        showHideVote(currentEvent);
 
-                        if (!newInstanceCalled) {
-                            loadVenueFragment(eventID);
-                            newInstanceCalled = true;
-                        }
-                    } else {
-                        progressBar.setVisibility(View.GONE);
-                        countVenues.setText("Sorry, no matching venues");
+                        //showHideVote(currentEvent);
+
+
                     }
                 } else {
                     Log.d("Event Fragment", "event is null");
@@ -216,20 +155,68 @@ public class EventActivity extends AppCompatActivity {
      * method to load UserFreindsFragment below event data
      */
     public void loadUserFriendsFragment() {
-
+/*
         ArrayList<String> invitedFriends = new ArrayList<>();
         if (invitedFriendsList != null && invitedFriendsList.size() != 0) {
             invitedFriends.addAll(invitedFriendsList);
             Log.d("Event Fragment", "invited list array size:" + invitedFriendsList.size());
             invitedFriendsFragment.getFriendUsers(invitedFriends);
-        }
+        }*/
 
 
     }
 
     public void loadVenueFragment(String eventID) {
-        venueFragment = VenueFragment.newInstance(eventID);
-        fragmentManager.beginTransaction().replace(R.id.event_fragment_container, venueFragment).commit();
+        /*venueFragment = VenueFragment.newInstance(eventID);
+        fragmentManager.beginTransaction().replace(R.id.event_fragment_container, venueFragment).commit();*/
+
+    }
+    public static class EventPagerAdapter extends FragmentPagerAdapter {
+        private static int NUM_ITEMS = 3;
+        String eventId;
+        ArrayList<String> friendsList;
+
+
+        public EventPagerAdapter(FragmentManager fragmentManager, String eventId, ArrayList<String> friendsList) {
+            super(fragmentManager);
+            this.eventId = eventId;
+            this.friendsList = friendsList;
+        }
+
+        @Override
+        public int getCount() {
+            return NUM_ITEMS;
+        }
+
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return EventInfoFragment.newInstance(eventId);
+                case 1:
+                    return VenueFragment.newInstance(eventId);
+                case 2:
+                    return InvitedFriendsFragment.newInstance(friendsList);
+                default:
+                    return null;
+            }
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position){
+                case 0:
+                    return "Info";
+                case 1:
+                    return "Venues";
+                case 2:
+                    return "Guest List";
+                default:
+                    return null;
+
+            }
+        }
 
     }
 }

@@ -132,7 +132,7 @@ public class VenueFragment extends Fragment {
         //getEventData();
     }
 
-    public void loadFireBaseAdapter(String eventID){
+    public void loadFireBaseAdapter(final String eventID){
         if (eventID != null){
             venue_map = eventsRef.child(eventID).child(VENUE_MAP);
             Log.d("venue frag", "event id" + eventID);
@@ -141,6 +141,9 @@ public class VenueFragment extends Fragment {
 
                         @Override
                         protected void populateViewHolder(VenueViewHolder viewHolder, Venue model, int position) {
+                            if(position == 0){
+                                CurrentUserPost.getInstance().postTopVenue(eventID, model.getVenue_id(), model.getVenue_photo_url());
+                            }
                             if (getActivity() != null){
                                 viewHolder.onBind(model, getActivity().getApplicationContext());
                                 //getEventData();

@@ -73,7 +73,7 @@ public class InvitedFriendsFragment extends Fragment {
                 ArrayList<String> invitedFriends = args.getStringArrayList("invitedFriends");
                 Log.d("UserFriends Fragment", "on create: invited list array size:" + invitedFriends.size());
                 friendsUserIDList = invitedFriends;
-                convertIdsToUsers(invitedFriends);
+                //convertIdsToUsers(invitedFriends);
             }
         }
 
@@ -83,15 +83,15 @@ public class InvitedFriendsFragment extends Fragment {
 
         } else {
 
-            convertIdsToUsers(friendsUserIDList);
-            if (friendsUserList != null) {
+            //convertIdsToUsers(friendsUserIDList);
+            /*if (friendsUserList != null) {
                 if (getActivity() != null) {
                     contactListAdapter = new ContactListAdapter(PublicUserDetails.class, R.layout.contact_item_view, ContactListViewHolder.class, contactsRef);
                     linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
                     recyclerView.setAdapter(contactListAdapter);
                     recyclerView.setLayoutManager(linearLayoutManager);
                 }
-            }
+            }*/
         }
     }
 
@@ -110,11 +110,11 @@ public class InvitedFriendsFragment extends Fragment {
 
     public void getFriendUsers(ArrayList<String> invtedList) {
         newInstance(invtedList);
-        convertIdsToUsers(invtedList);
+        //convertIdsToUsers(invtedList);
 
     }
 
-    public void convertIdsToUsers(ArrayList<String> invitedList) {
+    /*public void convertIdsToUsers(ArrayList<String> invitedList) {
         friendsUserIDList = new ArrayList<>();
         friendsUserIDList.addAll(invitedList);
         Log.d("UserFriends Fragment", "convertIdsTousers");
@@ -145,5 +145,5 @@ public class InvitedFriendsFragment extends Fragment {
         } else {
 
         }
-    }
+    }*/
 }
