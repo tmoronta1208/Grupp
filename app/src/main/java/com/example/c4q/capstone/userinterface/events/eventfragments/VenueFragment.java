@@ -189,6 +189,14 @@ public class VenueFragment extends Fragment {
         }
 
     }
+<<<<<<< HEAD
+    public void setTopVenueView(Venue venue){
+        venueName.setText(venue.getVenue_name());
+        if(getActivity() != null){
+            venueName.setTextColor(getActivity().getResources().getColor(R.color.colorAccent));
+        }
+=======
+>>>>>>> ca99252f7cc9c83b45e936490cc37c779fde67e3
 
     public void setVenueVoteCount(){
         CurrentUserPost currentUserPost = CurrentUserPost.getInstance();
