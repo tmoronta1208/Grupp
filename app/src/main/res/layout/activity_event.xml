@@ -13,19 +13,38 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         />
-
-    <TextView
-        android:id="@+id/event_title_text_view"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fontFamily="@font/roboto_black"
-        android:gravity="center"
-        android:padding="@dimen/layout_padding"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-        android:textColor="@color/colorAppGrey"
-        android:textSize="32sp"
-        tools:text="@string/app_name" />
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/event_title_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_black"
+            android:gravity="center"
+            android:padding="@dimen/layout_padding"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+            android:textColor="@color/colorAppGrey"
+            android:textSize="32sp"
+            tools:text="@string/app_name" />
+        <TextView
+            android:id="@+id/event_date_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+            android:textColor="@color/colorAppGreyDark"
+            android:textSize="14sp"
+            tools:text="@tools:sample/date/mmddyy"
+            android:gravity="center"
+            />
+
+    </LinearLayout>
+
+
+
 
 
     <android.support.v4.view.ViewPager
@@ -34,9 +53,6 @@
         android:layout_height="0dp"
         android:layout_weight="3"
         />
-
-
-
 
     <android.support.design.widget.TabLayout
         android:id="@+id/view_pager_tab"

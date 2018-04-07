@@ -48,11 +48,12 @@
         <activity
             android:name=".userinterface.events.createevent.CreateEventActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".userinterface.events.EventInviteActivity"></activity>
+        <activity android:name=".userinterface.events.EventInviteActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
     </application>
 
 </manifest>

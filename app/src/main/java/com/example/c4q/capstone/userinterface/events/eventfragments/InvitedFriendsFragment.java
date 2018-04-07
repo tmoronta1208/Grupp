@@ -49,11 +49,12 @@ public class InvitedFriendsFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static InvitedFriendsFragment newInstance(ArrayList<String> invitedFriends) {
-        Log.d("UserFriends Fragment", "invited list array size:" + invitedFriends.size());
+    public static InvitedFriendsFragment newInstance(String eventID) {
+
         InvitedFriendsFragment fragment = new InvitedFriendsFragment();
         Bundle userFragBundle = new Bundle();
-        userFragBundle.putStringArrayList("invitedFriends", invitedFriends);
+        userFragBundle.putString("eventID", eventID);
+        //userFragBundle.putStringArrayList("invitedFriends", invitedFriends);
         fragment.setArguments(userFragBundle);
         return fragment;
     }
@@ -62,7 +63,7 @@ public class InvitedFriendsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String currentUserId = CurrentUser.getInstance().getUserID();
+        /*String currentUserId = CurrentUser.getInstance().getUserID();
 
         contactsRef = FirebaseDatabase.getInstance().getReference().child(USER_CONTACTS).child(currentUserId).child("contacts");
 
@@ -84,15 +85,15 @@ public class InvitedFriendsFragment extends Fragment {
         } else {
 
             //convertIdsToUsers(friendsUserIDList);
-            /*if (friendsUserList != null) {
+            *//*if (friendsUserList != null) {
                 if (getActivity() != null) {
                     contactListAdapter = new ContactListAdapter(PublicUserDetails.class, R.layout.contact_item_view, ContactListViewHolder.class, contactsRef);
                     linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
                     recyclerView.setAdapter(contactListAdapter);
                     recyclerView.setLayoutManager(linearLayoutManager);
                 }
-            }*/
-        }
+            }*//*
+        }*/
     }
 
     @Override
@@ -109,7 +110,7 @@ public class InvitedFriendsFragment extends Fragment {
     }
 
     public void getFriendUsers(ArrayList<String> invtedList) {
-        newInstance(invtedList);
+        //newInstance(invtedList);
         //convertIdsToUsers(invtedList);
 
     }

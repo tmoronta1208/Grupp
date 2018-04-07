@@ -2,6 +2,8 @@ package com.example.c4q.capstone.userinterface.events;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -40,7 +43,7 @@ public class EventActivity extends AppCompatActivity {
     private String eventID;
     EventPresenter eventPresenter;
     private Events currentEvent;
-    TextView eventName;
+    TextView eventName, eventDate;
     Button voteButton;
     ArrayList<String> invitedFriendsList;
     Button deletButton;
@@ -56,6 +59,31 @@ public class EventActivity extends AppCompatActivity {
     Context context;
 
     Bundle eventBundle;
+    EventInfoFragment eventInfoFragment;
+    VenueFragment venueFragment;
+    InvitedFriendsFragment invitedFriendsFragment;
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
+
+    /*private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.event_info:
+
+                    return true;
+                case R.id.event_guests:
+
+                    return true;
+                case R.id.event_venues:
+
+                    return true;
+            }
+            return false;
+        }
+    };*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +94,12 @@ public class EventActivity extends AppCompatActivity {
         activity = this;
         intent = getIntent();
         eventID = intent.getStringExtra("eventID");
+        fragmentManager = getSupportFragmentManager();
+        //fragmentTransaction = fragmentManager.beginTransaction();
+
+
+        /*BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);*/
         defineViews();
         getEventData();
 
@@ -73,6 +107,7 @@ public class EventActivity extends AppCompatActivity {
 
     public void defineViews() {
         eventName = (TextView) findViewById(R.id.event_title_text_view);
+        eventDate = (TextView) findViewById(R.id.event_date_text_view);
         toolbar = (Toolbar) findViewById(R.id.event_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -80,40 +115,8 @@ public class EventActivity extends AppCompatActivity {
         //CurrentUserPost.getInstance().deleteEvent(currentEvent);
 
     }
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
-    }
 
-    public void showHideVote(Events event) {
-        if(event != null){
-            boolean voted = currentEvent.getEvent_guest_map().get(CurrentUser.userID).isVoted();
-            if (currentEvent.getEvent_guest_map().get(CurrentUser.userID).isVoted()) {
-                voteButton.setVisibility(View.GONE);
 
-                Log.d("show hide vote", "user voted" + voted);
-            } else {
-                voteButton.setVisibility(View.VISIBLE);
-                if (currentEvent.getVenue_map() != null){
-                }
-                Log.d("show hide vote", "user did not vote" + voted);
-            }
-        }
-
-    }
-
-    public void setVoteClick() {
-        voteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent voteIntent = new Intent(EventActivity.this, VenueVoteSwipeActivity.class);
-                voteIntent.putExtra("eventID", eventID);
-                startActivity(voteIntent);
-                finish();
-            }
-        });
-    }
 
     /**
      * method to get event data ( based on event id from bundle ) from the database
@@ -128,7 +131,8 @@ public class EventActivity extends AppCompatActivity {
                     Log.d("Event Fragment", "event: name" + event.getEvent_name());
 
                     eventName.setText(currentEvent.getEvent_name());
-
+                    eventDate.setText(currentEvent.getEvent_date() + " @ " + currentEvent.getEvent_time());
+                    //setFragments(eventID);
                     invitedFriendsList = new ArrayList<>();
                     invitedFriendsList.addAll(event.getInvited_guests());
                     eventVPager = (ViewPager) findViewById(R.id.eventViewPager);
@@ -149,6 +153,12 @@ public class EventActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void setFragments(String eventID){
+        /*invitedFriendsFragment = InvitedFriendsFragment.newInstance(eventID);
+        venueFragment = VenueFragment.newInstance(eventID);
+        eventInfoFragment = EventInfoFragment.newInstance(eventID);*/
     }
 
     /**
@@ -197,7 +207,7 @@ public class EventActivity extends AppCompatActivity {
                 case 1:
                     return VenueFragment.newInstance(eventId);
                 case 2:
-                    return InvitedFriendsFragment.newInstance(friendsList);
+                    return InvitedFriendsFragment.newInstance(eventId);
                 default:
                     return null;
             }

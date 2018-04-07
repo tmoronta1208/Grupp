@@ -3,13 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#f1f1f1"
     tools:context="com.example.c4q.capstone.userinterface.events.eventfragments.VenueFragment">
-    <include
-        android:id="@+id/top_venue_item_view"
-        layout="@layout/venue_item_view"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/venue_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/layout_padding"
+        android:paddingRight="@dimen/layout_padding"/>
 
 </LinearLayout>
