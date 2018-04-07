@@ -1,10 +1,14 @@
 package com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller;
 
 
+import android.view.View;
+import android.widget.Button;
+
 import com.bumptech.glide.Glide;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
 import com.example.c4q.capstone.database.publicuserdata.UserIcon;
+import com.example.c4q.capstone.userinterface.user.search.UserSearchActivity;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews.ContactListViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +27,7 @@ import static com.example.c4q.capstone.utils.Constants.USER_ICON;
 
 public class ContactListAdapter extends FirebaseRecyclerAdapter<PublicUserDetails, ContactListViewHolder> {
     DatabaseReference rootRef, iconRef, userName;
+    Button addButton;
 
     public ContactListAdapter(Class<PublicUserDetails> modelClass, int modelLayout, Class<ContactListViewHolder> viewHolderClass, Query ref) {
         super(modelClass, modelLayout, viewHolderClass, ref);
@@ -35,6 +40,8 @@ public class ContactListAdapter extends FirebaseRecyclerAdapter<PublicUserDetail
         rootRef = FirebaseDatabase.getInstance().getReference();
         iconRef = rootRef.child(USER_ICON).child(contactID);
         userName = rootRef.child(PUBLIC_USER).child(contactID);
+
+
 
         iconRef.addValueEventListener(new ValueEventListener() {
             @Override
