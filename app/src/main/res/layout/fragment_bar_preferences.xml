@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/circles"
     tools:context="com.example.c4q.capstone.userinterface.user.onboarding.BarPreferencesFragment"
     >
 
@@ -17,135 +18,126 @@
         android:padding="16dp"
         android:text="What kind of bars \ndo you prefer?"
         android:textSize="25sp"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+     />
 
 
     <Button
         android:id="@+id/beer_pref"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginBottom="1dp"
-        android:layout_marginStart="104dp"
+        android:layout_marginBottom="70dp"
+        android:layout_marginEnd="42dp"
+
         android:background="@drawable/preferencesbutton"
         android:text="Beer Bar"
-
-        app:layout_constraintBottom_toTopOf="@+id/club_pref"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.62" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bar_pref_save_button" />
 
     <Button
         android:id="@+id/lounge_pref"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="49dp"
-        android:layout_marginEnd="49dp"
-        android:layout_marginStart="65dp"
-        android:layout_marginTop="71dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="62dp"
+        android:layout_marginEnd="37dp"
+
+        android:layout_marginStart="37dp"
         android:background="@drawable/preferencesbutton"
         android:text="Lounge"
-
-        app:layout_constraintBottom_toTopOf="@+id/hotel_pref"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/beer_pref"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/beer_pref"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/club_pref"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="38dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginTop="1dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="12dp"
         android:background="@drawable/preferencesbutton"
         android:text="Clubs"
-        app:layout_constraintBottom_toTopOf="@+id/pub_pref"
-        app:layout_constraintEnd_toStartOf="@+id/hotel_pref"
-        app:layout_constraintTop_toBottomOf="@+id/beer_pref" />
+        app:layout_constraintBottom_toTopOf="@+id/beer_pref"
+        app:layout_constraintStart_toEndOf="@+id/beach_pref" />
 
     <Button
         android:id="@+id/beach_pref"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginBottom="30dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/preferencesbutton"
         android:text="Beach Bar"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/bar_pref_save_button" />
+        app:layout_constraintBottom_toTopOf="@+id/lounge_pref"
+        app:layout_constraintStart_toEndOf="@+id/karaoke_pref" />
 
     <Button
         android:id="@+id/gayBar_pref"
         android:layout_width="85dp"
         android:layout_height="85dp"
-        android:layout_marginBottom="53dp"
-        android:layout_marginEnd="72dp"
+        android:layout_marginEnd="57dp"
         android:background="@drawable/preferencesbutton"
         android:text="Gay Bars"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/beach_pref" />
-
-    <Button
-        android:id="@+id/hookah_pref"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="49dp"
-        android:background="@drawable/preferencesbutton"
-        android:text="Hookah"
-        app:layout_constraintBottom_toTopOf="@+id/beach_pref"
+        app:layout_constraintBottom_toTopOf="@+id/hookah_pref"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
+        android:id="@+id/hookah_pref"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="156dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/preferencesbutton"
+        android:text="Hookah"
+        app:layout_constraintBottom_toTopOf="@+id/bar_pref_save_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/club_pref" />
+
+    <Button
         android:id="@+id/hotel_pref"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginBottom="38dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="51dp"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="28dp"
         android:background="@drawable/preferencesbutton"
         android:text="Hotel Bars"
-        app:layout_constraintBottom_toTopOf="@+id/hookah_pref"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/pub_pref" />
+        app:layout_constraintBottom_toTopOf="@+id/beach_pref"
+        app:layout_constraintEnd_toStartOf="@+id/hookah_pref"
+        app:layout_constraintTop_toBottomOf="@+id/gayBar_pref"
+        app:layout_constraintVertical_bias="0.447" />
 
     <Button
         android:id="@+id/karaoke_pref"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="30dp"
-        android:layout_marginStart="37dp"
-        android:layout_marginTop="1dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="76dp"
+        android:layout_marginStart="16dp"
         android:background="@drawable/preferencesbutton"
         android:text="Karaoke"
-        app:layout_constraintBottom_toTopOf="@+id/cocktail_pref"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/beer_pref" />
+        app:layout_constraintBottom_toTopOf="@+id/lounge_pref"
+        app:layout_constraintEnd_toStartOf="@+id/beach_pref"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/pub_pref"
         android:layout_width="85dp"
         android:layout_height="85dp"
-        android:layout_marginBottom="35dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="190dp"
         android:background="@drawable/preferencesbutton"
         android:text="Pubs"
-        app:layout_constraintBottom_toTopOf="@+id/beach_pref"
-        app:layout_constraintStart_toEndOf="@+id/cocktail_pref" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/cocktail_pref"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_marginBottom="32dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginStart="70dp"
         android:background="@drawable/preferencesbutton"
         android:text="Cocktail"
-        app:layout_constraintBottom_toTopOf="@+id/gayBar_pref"
+        app:layout_constraintBottom_toTopOf="@+id/karaoke_pref"
+        app:layout_constraintEnd_toStartOf="@+id/hotel_pref"
+        app:layout_constraintHorizontal_bias="0.307"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.getbase.floatingactionbutton.FloatingActionButton
@@ -153,15 +145,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="4dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="443dp"
+        android:layout_marginTop="100dp"
         android:src="@drawable/ic_arrow_forward_black_24dp"
+        app:fab_colorNormal="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:fab_colorNormal="@color/salmon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/club_pref" />
 
 
     </android.support.constraint.ConstraintLayout>

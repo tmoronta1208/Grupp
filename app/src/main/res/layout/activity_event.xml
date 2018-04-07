@@ -15,6 +15,7 @@
         android:gravity="center"
         android:padding="@dimen/layout_item_margin"
         android:background="@color/colorPrimary"
+        android:foreground="@drawable/event_foregroundscrim"
         >
         <TextView
             android:id="@+id/event_title_text_view"
@@ -27,7 +28,7 @@
             android:gravity="center"
             android:padding="@dimen/layout_padding"
             android:textStyle="bold"
-            android:textColor="@color/light_cream"
+            android:textColor="@color/colorPrimaryVeryDark"
             />
         <TextView
             android:id="@+id/event_organier_text_view"

@@ -192,7 +192,7 @@ public class VenueFragment extends Fragment {
     public void setTopVenueView(Venue venue){
         venueName.setText(venue.getVenue_name());
         if(getActivity() != null){
-            venueName.setTextColor(getActivity().getResources().getColor(R.color.colorPrimary));
+            venueName.setTextColor(getActivity().getResources().getColor(R.color.colorAccent));
         }
 
         venueAddress.setText(venue.getVenue_address());
