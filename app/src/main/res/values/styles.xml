@@ -10,7 +10,7 @@
         <item name="android:colorForeground">@color/colorForground</item>
         <item name="android:navigationBarColor">@color/colorPrimary</item>
         <item name="android:statusBarColor">@color/colorPrimary</item>
-        <item name="android:textColorPrimary">@color/colorForground</item>
+        <item name="android:textColorPrimary">@color/colorBottomNavigationInactive</item>
 
 
     </style>

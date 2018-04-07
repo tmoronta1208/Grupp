@@ -109,6 +109,10 @@ public class EventInfoFragment extends Fragment {
                 Intent voteIntent = new Intent(EventInfoFragment.this.getContext(), VenueVoteSwipeActivity.class);
                 voteIntent.putExtra("eventID", eventID);
                 startActivity(voteIntent);
+                if (getActivity() != null){
+                    getActivity().finish();
+                }
+
 
             }
         });
