@@ -67,7 +67,8 @@
 
         <include
             android:id="@+id/top_venue_item_view"
-            layout="@layout/venue_item_view"/>
+            layout="@layout/venue_item_view"
+            android:visibility="gone"/>
 
 
 

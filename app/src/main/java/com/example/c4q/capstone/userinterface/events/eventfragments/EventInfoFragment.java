@@ -163,6 +163,7 @@ public class EventInfoFragment extends Fragment {
                                 if (topVenue != null) {
 
                                     if (topVenue.getVenue_vote() != null) {
+                                        itemView.setVisibility(View.VISIBLE);
                                         topVenueName.setText(topVenue.getVenue_name());
                                         topVenueAddress.setText(topVenue.getVenue_address());
                                         if (topVenue.getVenue_photo_url() != null) {
@@ -183,8 +184,6 @@ public class EventInfoFragment extends Fragment {
                                 }
                             }
 
-                        } else {
-                            itemView.setVisibility(View.GONE);
                         }
 
                     } else {
