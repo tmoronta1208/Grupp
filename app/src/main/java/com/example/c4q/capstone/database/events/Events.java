@@ -15,6 +15,7 @@ public class Events {
     private String venue_type;
     private String event_time;
     private String final_venue;
+    private String top_venue;
     private HashMap<String, EventGuest> event_guest_map;
     private List<String> confirmed_guests;
     private List<String> invited_guests;
@@ -49,6 +50,14 @@ public class Events {
         this.invited_guests = invited_guests;
         this.potential_venues = potential_venues;
         this.top_three_venues = top_three_venues;
+    }
+
+    public String getTop_venue() {
+        return top_venue;
+    }
+
+    public void setTop_venue(String top_venue) {
+        this.top_venue = top_venue;
     }
 
     public String getTop_venue_photo() {

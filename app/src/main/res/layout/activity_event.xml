@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><!-- Use DrawerLayout as root container for activity -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
@@ -7,112 +8,64 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.c4q.capstone.userinterface.events.EventActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/event_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        />
+
     <LinearLayout
+        android:id="@+id/title_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
         android:layout_weight="1"
-        android:gravity="center"
-        android:padding="@dimen/layout_item_margin"
-        android:background="@color/colorPrimary"
-        >
+        android:orientation="vertical">
         <TextView
             android:id="@+id/event_title_text_view"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2.5"
-            tools:text="@string/app_name"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-            android:textSize="50sp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_black"
             android:gravity="center"
             android:padding="@dimen/layout_padding"
-            android:textStyle="bold"
-            android:textColor="@color/light_cream"
-            />
-        <TextView
-            android:id="@+id/event_organier_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            tools:text="@tools:sample/full_names"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textColor="@color/colorPrimaryVeryDark"
-            />
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+            android:textColor="@color/colorAppGrey"
+            android:textSize="32sp"
+            tools:text="@string/app_name" />
         <TextView
             android:id="@+id/event_date_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+            android:textColor="@color/colorAppGreyDark"
             android:textSize="14sp"
+            tools:text="@tools:sample/date/mmddyy"
             android:gravity="center"
-            android:textColor="@color/colorPrimaryVeryDark"
-            />
-
-        <ProgressBar
-            android:id="@+id/get_vote_progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-
-        <Button
-            android:id="@+id/vote_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="vote"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="@dimen/layout_padding"
-            android:layout_marginRight="@dimen/layout_padding"
-            android:textStyle="bold"
-            android:background="@drawable/button"
-            android:textColor="@color/colorPrimaryVeryDark"
-            android:visibility="gone"
-            />
-        <TextView
-            android:id="@+id/venues_result_number_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/layout_item_margin"
-            tools:text="@string/calculating"
-            android:textColor="@color/colorPrimaryVeryDark"
-            android:padding="@dimen/layout_padding"
-            android:visibility="gone"
             />
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:background="@color/colorPrimary"
-        >
-        <Button
-            android:id="@+id/delete_event"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="delete"
-            android:visibility="gone"/>
-        <ImageButton
-            android:id="@+id/more_button"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/ic_more_horiz_black_24dp"
-            android:layout_gravity="center"
-            android:clickable="true"/>
 
-    </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/event_fragment_container"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/eventViewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
-        android:visibility="gone"/>
+        />
 
-<!-- Container for contents of drawer - use NavigationView to make configuration easier -->
+    <android.support.design.widget.TabLayout
+        android:id="@+id/view_pager_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        app:tabMode="fixed"
+        app:tabGravity="fill"
+        android:elevation="6dp"
+        app:tabTextColor="#d3d3d3"
+        app:tabSelectedTextColor="@color/colorAppGrey"
+        app:tabIndicatorColor="@color/colorPrimaryLight"
+        android:minHeight="?attr/actionBarSize"
+        />
+
 
 
 </LinearLayout>

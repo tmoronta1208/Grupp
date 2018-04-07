@@ -3,7 +3,7 @@
 
     <style name="GruppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimaryT</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="android:colorBackground">@android:color/white</item>
@@ -21,7 +21,7 @@
         <item name="android:windowSharedElementEnterTransition">@android:transition/explode</item>
         <item name="android:windowSharedElementExitTransition">@android:transition/explode</item>
         <item name="android:statusBarColor">@color/colorPrimary</item>
-        <item name="android:textColorPrimary">@color/colorForground</item>
+        <item name="android:textColorPrimary">@color/colorBottomNavigationInactive</item>
     </style>
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorColor">@color/colorAccent</item>
