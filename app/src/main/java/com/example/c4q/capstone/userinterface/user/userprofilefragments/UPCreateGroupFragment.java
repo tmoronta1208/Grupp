@@ -58,7 +58,6 @@ public class UPCreateGroupFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_upgroup_display, container, false);
         returnButton = rootView.findViewById(R.id.group_return_button);
-
         groupTitleInput = rootView.findViewById(R.id.create_group_title_name);
 
 
@@ -91,7 +90,8 @@ public class UPCreateGroupFragment extends Fragment {
 
                 // HashMap<Integer, String> newGroup = new HashMap<>();
                 groupTitle = groupTitleInput.getText().toString();
-                rootRef.child(GROUPS).child(currentUserID).push().setValue(groupTitle);
+
+                rootRef.child(GROUPS).child(currentUserID).push().child("group_name").setValue(groupTitle);
 
                 Intent intent = new Intent(getActivity(), UserProfileActivity.class);
                 startActivity(intent);

@@ -49,10 +49,10 @@ public class UPGroupDetailsFragment extends Fragment {
 
         }
 
-        groupsAdapter = new GroupsAdapter(getContext(), list);
-        recyclerView.setLayoutManager(new GridLayoutManager(rootView.getContext(), 3));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(groupsAdapter);
+//        groupsAdapter = new GroupsAdapter(getContext(), list);
+//        recyclerView.setLayoutManager(new GridLayoutManager(rootView.getContext(), 3));
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setAdapter(groupsAdapter);
 
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override

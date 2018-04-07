@@ -16,7 +16,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class GroupViewHolder extends RecyclerView.ViewHolder {
 
-    private final Context context;
+    private  Context context;
     private CircleImageView groupImage;
     private TextView groupName;
 
@@ -24,7 +24,6 @@ public class GroupViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
         groupImage = itemView.findViewById(R.id.group_image);
-        context = itemView.getContext();
         groupName = itemView.findViewById(R.id.group_name);
 
         itemView.setOnClickListener(new View.OnClickListener() {
@@ -38,8 +37,27 @@ public class GroupViewHolder extends RecyclerView.ViewHolder {
 
     }
 
+//
+//    public void setEvent_name(String name) {
+//        event_name = itemView.findViewById(R.id.event_name);
+//        event_name.setText(name);
+//    }
+//
+    public Context getContext() {
+        context = itemView.getContext();
+        return context;
+    }
+
+
+    public void setGroupName(String name){
+        groupName = itemView.findViewById(R.id.group_name);
+        groupName.setText(name);
+
+    }
+
+
     public void onBind(int position) {
-        groupName.setText("Grupp " + String.valueOf(position));
+      //  groupName.setText("Grupp " + String.valueOf(position));
 
 
 //        groupImage.setOnClickListener(new View.OnClickListener() {
