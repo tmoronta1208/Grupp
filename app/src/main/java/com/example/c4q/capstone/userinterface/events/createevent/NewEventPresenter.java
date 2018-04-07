@@ -261,6 +261,7 @@ public class NewEventPresenter implements NewEventListener {
             @Override
             public void onClick(View v) {
                 launchEventActivity(eventID);
+                alertDialog.dismiss();
             }
         });
         alertDialog.show();

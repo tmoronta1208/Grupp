@@ -139,9 +139,19 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 inviteFriends.setText("Guest List");
                 displayRecyclerView.setVisibility(View.VISIBLE);
                 invitedFriendsList.clear();
-                invitedFriendsList.addAll(NewEventBuilder.getInstance().getInvitedFriendsUserList());
-                invitedFriendsAdapter.notifyDataSetChanged();
+                if (NewEventBuilder.getInstance().getInvitedFriendsUserList() != null ){
+                    invitedFriendsList.addAll(NewEventBuilder.getInstance().getInvitedFriendsUserList());
+                    invitedFriendsAdapter.notifyDataSetChanged();
+                }
+
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        NewEventBuilder.getInstance().destroyInstance();
+        finish();
     }
 }

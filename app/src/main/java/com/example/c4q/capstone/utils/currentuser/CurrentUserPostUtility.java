@@ -177,4 +177,10 @@ public class CurrentUserPostUtility {
            }
        }
     }
+    public void updateTopVenue(String eventKey, String venueID, String photoUrl){
+        eventsReference.child(eventKey).child("top_venue").setValue(venueID);
+        if (photoUrl != null){
+            eventsReference.child(eventKey).child("top_venue_photo").setValue(photoUrl);
+        }
+    }
 }

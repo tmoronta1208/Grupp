@@ -6,6 +6,7 @@ import com.example.c4q.capstone.database.events.EventGuest;
 import com.example.c4q.capstone.database.events.Events;
 
 import com.example.c4q.capstone.database.events.UserEvent;
+import com.example.c4q.capstone.database.events.Venue;
 import com.example.c4q.capstone.database.publicuserdata.UserIcon;
 import com.example.c4q.capstone.utils.currentuser.CurrentUserPostUtility;
 
@@ -74,6 +75,9 @@ public class CurrentUserPost {
     }
     public void removeEventInvite(String eventKey, String userId) {
         userPostUtility.removeEventFromEventInviteList(eventKey, userId);
+    }
+    public void postTopVenue(String eventKey, String venueId, String photoUrl){
+        userPostUtility.updateTopVenue(eventKey, venueId, photoUrl);
     }
 
     public void deleteEvent (Events events){

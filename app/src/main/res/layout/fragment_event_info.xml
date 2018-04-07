@@ -1,0 +1,80 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.c4q.capstone.userinterface.events.eventfragments.EventInfoFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/layout_padding"
+        android:paddingRight="@dimen/layout_padding">
+        <TextView
+            android:text="Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:fontFamily="@font/roboto_bold"
+            android:layout_gravity="center"
+            android:textColor="@color/colorAppGrey"
+            android:drawableBottom="@drawable/textviewlinedivider"
+            android:drawablePadding="@dimen/layout_item_margin"/>
+
+        <TextView
+
+            android:layout_marginBottom="@dimen/layout_item_margin"
+            android:layout_marginTop="@dimen/layout_item_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+            android:textColor="@color/colorAppGrey"
+            android:textSize="12sp"
+            android:text="Created By"
+            />
+
+        <include
+            android:id="@+id/event_organizer_item"
+            layout="@layout/user_friend_item_view"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+
+            />
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+            android:textColor="@color/colorAppGrey"
+            android:textSize="12sp"
+            android:text="Top Venue"
+            android:layout_marginTop="@dimen/layout_padding"
+            android:layout_marginBottom="@dimen/layout_item_margin"
+            android:drawableTop="@drawable/textviewlinedivider"
+            android:drawablePadding="@dimen/layout_item_margin"/>
+        <Button
+            android:layout_marginTop="@dimen/layout_item_margin"
+            android:id="@+id/vote_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vote on Venues"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+        <include
+            android:id="@+id/top_venue_item_view"
+            layout="@layout/venue_item_view"
+            android:visibility="gone"/>
+
+
+
+    </LinearLayout>
+
+
+
+
+</ScrollView>
