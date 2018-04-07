@@ -141,7 +141,7 @@ public class VenueFragment extends Fragment {
                         @Override
                         protected void populateViewHolder(VenueViewHolder viewHolder, Venue model, int position) {
                             if(position == 0){
-                                CurrentUserPost.getInstance().postTopVenue(eventID, model.getVenue_id(), model.getVenue_photo_url());
+
                             }
                             if (getActivity() != null){
                                 viewHolder.onBind(model, getActivity().getApplicationContext());
@@ -177,7 +177,6 @@ public class VenueFragment extends Fragment {
                                 Log.d ("Venue Fragment", "get venue map called: list size " + venueList.size());
                             }
 
-
                         } else{
 
                         }
@@ -190,24 +189,7 @@ public class VenueFragment extends Fragment {
         }
 
     }
-    public void setTopVenueView(Venue venue){
-        /*venueName.setText(venue.getVenue_name());
-        if(getActivity() != null){
-            venueName.setTextColor(getActivity().getResources().getColor(R.color.colorPrimary));
-        }
 
-        venueAddress.setText(venue.getVenue_address());
-        if (venue.getVenue_vote() != null){
-            venueVoteCount.setText(String.valueOf(venue.getVote_count())+ "  **Top Venue!** ");
-        } else {
-            venueVoteCount.setText("not voted yet");
-        }
-        if (venue.getVenue_photo_url() != null){
-            Picasso.with(context)
-                    .load(venue.getVenue_photo_url())
-                    .into(venuePhoto);
-        }*/
-    }
     public void setVenueVoteCount(){
         CurrentUserPost currentUserPost = CurrentUserPost.getInstance();
         for (Venue venue : venueList){

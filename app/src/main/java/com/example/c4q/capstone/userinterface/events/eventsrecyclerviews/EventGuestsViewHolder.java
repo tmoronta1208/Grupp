@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.events.EventGuest;
 import com.squareup.picasso.Picasso;
@@ -34,9 +35,7 @@ public class EventGuestsViewHolder extends RecyclerView.ViewHolder{
         String name = eventGuest.getUser_firstname() + " " + eventGuest.getUser_lastname();
         firstName.setText( name);
         if (eventGuest.getUser_icon().getIcon_url() != null){
-            Picasso.with(getContactContext())
-                    .load(eventGuest.getUser_icon().getIcon_url())
-                    .into(userIcon);
+            Glide.with(getContactContext()).load(eventGuest.getUser_icon().getIcon_url()).into(userIcon);
         }
     }
 }

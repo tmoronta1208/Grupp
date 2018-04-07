@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.events.EventGuest;
 import com.example.c4q.capstone.database.events.Events;
@@ -75,9 +76,7 @@ public class EventInfoFragment extends Fragment {
             eventID = args.getString("eventID");
 
         }
-        if (eventID != null) {
-            getEventData();
-        }
+
 
     }
 
@@ -151,9 +150,7 @@ public class EventInfoFragment extends Fragment {
                         eventOrganizer = eventGuest.getUser_firstname() + " " + eventGuest.getUser_lastname();
                         eventOrganizerTV.setText(eventOrganizer);
                         if (eventGuest.getUser_icon().getIcon_url() != null){
-                            Picasso.with(getContext())
-                                    .load(eventGuest.getUser_icon().getIcon_url())
-                                    .into(organizerIcon);
+                            Glide.with(getContext()).load(eventGuest.getUser_icon().getIcon_url()).into(organizerIcon);
                         }
                         Venue topVenue = currentEvent.getVenue_map().get(currentEvent.getTop_venue());
                         if (topVenue != null) {

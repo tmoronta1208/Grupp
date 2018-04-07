@@ -4,8 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/layout_padding"
-    tools:context="com.example.c4q.capstone.userinterface.events.eventfragments.EventGuestsFragment">
+    tools:context="com.example.c4q.capstone.userinterface.events.eventfragments.EventGuestsFragment"
+    android:paddingLeft="@dimen/layout_padding"
+    android:paddingRight="@dimen/layout_padding">
     <TextView
         android:text="Event Guests"
         android:layout_width="wrap_content"
@@ -13,14 +14,15 @@
         android:textSize="20dp"
         android:fontFamily="@font/roboto_bold"
         android:layout_gravity="center"
-        android:padding="@dimen/layout_padding"
         android:textColor="@color/colorAppGrey"
         android:drawableBottom="@drawable/textviewlinedivider"
-        android:drawablePadding="@dimen/layout_item_margin"/>
+        android:drawablePadding="@dimen/layout_item_margin"
+        android:layout_marginBottom="@dimen/layout_item_margin"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/friends_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        />
 
 </LinearLayout>
