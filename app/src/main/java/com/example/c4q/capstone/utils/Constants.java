@@ -14,6 +14,7 @@ public class Constants {
     public static final String FOUR_SQUARE_CLIENT_SECRET = "client_secret=YL54NLBRUR41WMSNQGX1P33PICLW0V1VQUGKKJOH5NNLDKHM";
     public static final String FOUR_SQUARE_URL = "https://api.foursquare.com/v2/venues/";
     public static final String GROUPS = "groups";
+    public static final String GROUP_NAME = "group_name";
     public static final String NOTIFICATIONS = "notifications";
     public static final String PREFERENCES = "preferences";
     public static final String PRIVATE_USER = "private_user";

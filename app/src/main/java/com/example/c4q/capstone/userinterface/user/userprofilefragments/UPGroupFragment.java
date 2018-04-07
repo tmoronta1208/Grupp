@@ -33,7 +33,6 @@ public class UPGroupFragment extends Fragment {
     private View view;
     private RecyclerView recyclerView;
     private GroupsAdapter groupsAdapter;
-    List<Integer> randomNumbersList = new ArrayList<>();
     private DatabaseReference rootRef, groupRef;
 
 

@@ -4,7 +4,7 @@ package com.example.c4q.capstone.userinterface.user.userprofilefragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +12,11 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
 import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller.ContactListAdapter;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller.GroupsAdapter;
+import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews.ContactListViewHolder;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,13 +24,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import static com.example.c4q.capstone.utils.Constants.AMENITY_PREFS;
 import static com.example.c4q.capstone.utils.Constants.GROUPS;
-import static com.example.c4q.capstone.utils.Constants.PREFERENCES;
-import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
+import static com.example.c4q.capstone.utils.Constants.GROUP_NAME;
+import static com.example.c4q.capstone.utils.Constants.USER_CONTACTS;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,7 +38,7 @@ public class UPCreateGroupFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private String currentUserID;
-    private DatabaseReference rootRef, preferencesDB;
+    private DatabaseReference rootRef, contactsRef;
     private FirebaseUser currentUser;
     private String groupTitle;
     RecyclerView recyclerView;
@@ -46,6 +47,7 @@ public class UPCreateGroupFragment extends Fragment {
     View rootView;
     EditText groupTitleInput;
     FloatingActionButton returnButton;
+    private ContactListAdapter contactListAdapter;
 
 
     public UPCreateGroupFragment() {
@@ -56,7 +58,7 @@ public class UPCreateGroupFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_upgroup_display, container, false);
+        rootView = inflater.inflate(R.layout.fragment_upgroup_create, container, false);
         returnButton = rootView.findViewById(R.id.group_return_button);
         groupTitleInput = rootView.findViewById(R.id.create_group_title_name);
 
@@ -66,22 +68,15 @@ public class UPCreateGroupFragment extends Fragment {
         currentUser = mAuth.getCurrentUser();
         currentUserID = currentUser.getUid();
         rootRef = FirebaseDatabase.getInstance().getReference();
-        preferencesDB = rootRef.child(PRIVATE_USER);
+        contactsRef = rootRef.child(USER_CONTACTS).child(currentUserID);
 
 
-        for (int i = 0; i < 6; i++) {
+        recyclerView = rootView.findViewById(R.id.grupp_create_group_rv);
 
-            numbers.add(i);
+        contactListAdapter = new ContactListAdapter(PublicUserDetails.class, R.layout.contact_item_view, ContactListViewHolder.class, contactsRef);
 
-        }
-
-        // recyclerView = rootView.findViewById(R.id.grupp_create_group_rv);
-
-//
-//        groupsAdapter = new GroupsAdapter(getContext(), numbers);
-//        recyclerView.setLayoutManager(new GridLayoutManager(rootView.getContext(), 3));
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setAdapter(groupsAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
+        recyclerView.setAdapter(contactListAdapter);
 
 
         returnButton.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +85,7 @@ public class UPCreateGroupFragment extends Fragment {
 
                 groupTitle = groupTitleInput.getText().toString();
 
-                rootRef.child(GROUPS).child(currentUserID).push().child("group_name").setValue(groupTitle);
+                rootRef.child(GROUPS).child(currentUserID).push().child(GROUP_NAME).setValue(groupTitle);
 
                 Intent intent = new Intent(getActivity(), UserProfileActivity.class);
                 startActivity(intent);
