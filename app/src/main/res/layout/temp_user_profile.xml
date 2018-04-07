@@ -45,6 +45,17 @@
             android:elevation="4dp"
             android:paddingBottom="24dp">
 
+            <TextView
+                android:id="@+id/event_invite_button"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:background="@drawable/ic_notifications_active_black_24dp"/>
+
             <ImageView
                 android:id="@+id/edit_profile_button"
                 android:layout_width="wrap_content"
@@ -80,6 +91,13 @@
 
         </RelativeLayout>
 
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profile_layout"
+            android:padding="8dp">
+
+        </android.support.v7.widget.RecyclerView>
     </RelativeLayout>
 </ScrollView>
 
