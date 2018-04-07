@@ -39,11 +39,12 @@ public class UPCreateGroupFragment extends Fragment {
     private String currentUserID;
     private DatabaseReference rootRef, preferencesDB;
     private FirebaseUser currentUser;
+    private String groupTitle;
     RecyclerView recyclerView;
     GroupsAdapter groupsAdapter;
     List<Integer> numbers = new ArrayList<>();
     View rootView;
-    EditText groupTitle;
+    EditText groupTitleInput;
     FloatingActionButton returnButton;
 
 
@@ -58,6 +59,8 @@ public class UPCreateGroupFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_upgroup_display, container, false);
         returnButton = rootView.findViewById(R.id.group_return_button);
 
+        groupTitleInput = rootView.findViewById(R.id.create_group_title_name);
+
 
         //Firebase
         mAuth = FirebaseAuth.getInstance();
@@ -67,16 +70,13 @@ public class UPCreateGroupFragment extends Fragment {
         preferencesDB = rootRef.child(PRIVATE_USER);
 
 
-
-
-
         for (int i = 0; i < 6; i++) {
 
             numbers.add(i);
 
         }
 
-       // recyclerView = rootView.findViewById(R.id.grupp_create_group_rv);
+        // recyclerView = rootView.findViewById(R.id.grupp_create_group_rv);
 
 //
 //        groupsAdapter = new GroupsAdapter(getContext(), numbers);
@@ -89,9 +89,9 @@ public class UPCreateGroupFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                HashMap<Integer, String> newGroup = new HashMap<>();
-
-                rootRef.child(GROUPS).push().setValue("testing");
+                // HashMap<Integer, String> newGroup = new HashMap<>();
+                groupTitle = groupTitleInput.getText().toString();
+                rootRef.child(GROUPS).child(currentUserID).push().setValue(groupTitle);
 
                 Intent intent = new Intent(getActivity(), UserProfileActivity.class);
                 startActivity(intent);
@@ -100,5 +100,6 @@ public class UPCreateGroupFragment extends Fragment {
 
         return rootView;
     }
+
 
 }

@@ -152,6 +152,7 @@ public class CreateProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 saveToDatabase();
+                OnBoardActivity.viewPager.setCurrentItem(1);
             }
         });
 
