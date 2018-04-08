@@ -24,6 +24,7 @@
         android:gravity="center"
         android:padding="@dimen/layout_item_margin">
 
+
         <TextView
             android:id="@+id/event_title_text_view"
             android:layout_width="match_parent"
@@ -31,7 +32,7 @@
             android:fontFamily="@font/roboto_black"
             android:gravity="center"
             android:padding="@dimen/layout_padding"
-
+            android:textStyle="bold"
             android:textColor="@color/colorPrimaryVeryDark"
             android:textStyle="bold" />
 
@@ -47,6 +48,8 @@
             android:textStyle="bold"
             tools:text="@tools:sample/full_names" />
 
+            android:textColor="@color/colorPrimaryVeryDark"
+            />
 
         <TextView
             android:id="@+id/event_date_text_view"
@@ -81,6 +84,7 @@
         app:tabTextColor="#d3d3d3" />
 
 
+        />
 </LinearLayout>
 
 
