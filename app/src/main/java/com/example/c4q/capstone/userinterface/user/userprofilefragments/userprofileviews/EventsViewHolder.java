@@ -1,6 +1,7 @@
 package com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -24,10 +25,18 @@ public class EventsViewHolder extends RecyclerView.ViewHolder {
     private Context eventContext;
     private CircleImageView userIcon;
     ImageView eventImg;
+    public CardView cardView;
 
     public EventsViewHolder(View itemView) {
         super(itemView);
+
+      cardView =   itemView.findViewById(R.id.profileCard);
+
+
+
     }
+
+
 
     public void setEvent_name(String name) {
         event_name = itemView.findViewById(R.id.event_name);
