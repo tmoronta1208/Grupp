@@ -184,6 +184,7 @@ public class CurrentUserPostUtility {
         }
         for (String s: event.getEvent_guest_map().keySet()){
             userEventListReference.child(s).child(eventKey).child("event_photo").setValue(photoUrl);
+            eventInvitesReference.child(s).child(eventKey).child("event_photo").setValue(photoUrl);
         }
     }
 }
