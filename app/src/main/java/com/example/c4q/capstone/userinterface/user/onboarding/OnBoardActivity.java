@@ -32,8 +32,8 @@ import github.chenupt.springindicator.viewpager.ScrollerViewPager;
 
 public class OnBoardActivity extends FragmentActivity {
     CreateProfileFragment createProfileFragment;
-    private static final int NUM_PAGES = 3;
-    public static ScrollerViewPager viewPager;
+    private static final int NUM_PAGES = 2;
+    public static ViewPager viewPager;
     private FragmentStatePagerAdapter pagerAdapter;
 
 
@@ -42,7 +42,7 @@ public class OnBoardActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_board);
 
-        viewPager = (ScrollerViewPager) findViewById(R.id.view_pager);
+        viewPager = findViewById(R.id.view_pager);
 
         PagerModelManager manager = new PagerModelManager();
 
@@ -50,7 +50,7 @@ public class OnBoardActivity extends FragmentActivity {
         ViewPagerActivityAdapter adapter =new ViewPagerActivityAdapter(getSupportFragmentManager());
         //ModelPagerAdapter adapter = new ModelPagerAdapter(getSupportFragmentManager(), manager);
         viewPager.setAdapter(adapter);
-        viewPager.fixScrollSpeed();
+
 
 
         viewPager.setPageTransformer(true, new CubeOutTransformer());
@@ -74,7 +74,7 @@ public class OnBoardActivity extends FragmentActivity {
         List<String> list = new ArrayList<>();
         list.add("1");
         list.add("2");
-        list.add("3");
+
 
         return list;
     }
@@ -92,12 +92,9 @@ public class OnBoardActivity extends FragmentActivity {
 
             switch (position) {
                 case 0:
-                    fragment = new CreateProfileFragment();
-                    break;
-                case 1:
                     fragment = new BarPreferencesFragment();
                     break;
-                case 2:
+                case 1:
                     fragment = new AmenityPreferencesFragment();
                     break;
 

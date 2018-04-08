@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/circles"
+    android:background="@drawable/fadedcircles"
     tools:context="com.example.c4q.capstone.userinterface.user.onboarding.BarPreferencesFragment"
     >
 
@@ -24,8 +24,8 @@
 
     <Button
         android:id="@+id/beer_pref"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_marginBottom="70dp"
         android:layout_marginEnd="42dp"
         android:background="@drawable/preferencesbutton"
@@ -62,8 +62,8 @@
 
     <Button
         android:id="@+id/beach_pref"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/preferencesbutton"
         android:text="Beach Bar"
@@ -99,8 +99,8 @@
 
     <Button
         android:id="@+id/hotel_pref"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginBottom="24dp"
         android:layout_marginEnd="28dp"
         android:background="@drawable/preferencesbutton"
@@ -126,8 +126,8 @@
 
     <Button
         android:id="@+id/pub_pref"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
+        android:layout_width="95dp"
+        android:layout_height="90dp"
         android:layout_marginStart="190dp"
         android:background="@drawable/preferencesbutton"
         android:text="Pubs"

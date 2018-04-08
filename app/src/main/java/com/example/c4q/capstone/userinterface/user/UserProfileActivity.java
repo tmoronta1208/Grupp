@@ -26,6 +26,7 @@ import com.example.c4q.capstone.database.events.UserEvent;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.alerts.InviteNotifications;
 import com.example.c4q.capstone.userinterface.events.createevent.CreateEventActivity;
+import com.example.c4q.capstone.userinterface.user.onboarding.CreateProfileFragment;
 import com.example.c4q.capstone.userinterface.user.onboarding.OnBoardActivity;
 import com.example.c4q.capstone.userinterface.user.search.UserSearchActivity;
 
@@ -161,7 +162,7 @@ public class UserProfileActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.edit_profile_menu_item:
-                startActivity(new Intent(UserProfileActivity.this, EditProfileActivity.class));
+                startActivity(new Intent(UserProfileActivity.this, OnBoardActivity.class));
                 break;
             case R.id.edit_preferences_menu_item:
                 //TODO
