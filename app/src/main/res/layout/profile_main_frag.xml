@@ -11,20 +11,20 @@
 
     <belka.us.androidtoggleswitch.widgets.ToggleSwitch
         android:id="@+id/toogle_bar"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:textSize="18dp"
         custom:textToggleLeft="Events"
         custom:textToggleRight="Friends"
-        custom:cornerRadius = "6dp"
+        custom:cornerRadius = "8dp"
         custom:separatorColor="@color/colorAccent"
         custom:inactiveTextColor="@color/gray"
         custom:inactiveBgColor="@color/colorPrimaryVeryDark"
         custom:activeBgColor="@color/colorPrimary"
         custom:activeTextColor="@color/gray"
-        custom:toggleWidth="150dp"
+        custom:toggleWidth="100dp"
         />
 
 

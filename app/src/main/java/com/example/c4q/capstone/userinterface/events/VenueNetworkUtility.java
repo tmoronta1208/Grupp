@@ -117,7 +117,14 @@ public class VenueNetworkUtility {
 
 
                 List<String> finalVenueIdList = new ArrayList<>();
-                finalVenueIdList.addAll(finalVenueIdSet);
+                for (String vd: finalVenueIdSet){
+                    finalVenueIdList.add(vd);
+                    if (finalVenueIdList.size() == 5){
+                        break;
+                    }
+                }
+                //finalVenueIdList.addAll(finalVenueIdSet);
+
                 venueNetworkListener.getFourSVenueIds(finalVenueIdList);
                 //getDetailedVenues(finalVenueIdList);
             }

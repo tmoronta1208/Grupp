@@ -39,6 +39,7 @@ public class EventsAdapter extends FirebaseRecyclerAdapter<Events, EventsViewHol
         viewHolder.setEvent_name(model.getEvent_name());
         rootRef = FirebaseDatabase.getInstance().getReference();
         iconRef = rootRef.child(USER_ICON).child(model.getEvent_organizer());
+        viewHolder.setImage(model.getTop_venue_photo());
 
         iconRef.addValueEventListener(new ValueEventListener() {
             @Override
