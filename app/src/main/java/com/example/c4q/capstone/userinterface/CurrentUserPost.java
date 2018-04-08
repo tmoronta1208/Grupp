@@ -76,8 +76,8 @@ public class CurrentUserPost {
     public void removeEventInvite(String eventKey, String userId) {
         userPostUtility.removeEventFromEventInviteList(eventKey, userId);
     }
-    public void postTopVenue(String eventKey, String venueId, String photoUrl){
-        userPostUtility.updateTopVenue(eventKey, venueId, photoUrl);
+    public void postTopVenue(String eventKey, String venueId, String photoUrl, Events events){
+        userPostUtility.updateTopVenue(eventKey, venueId, photoUrl, events);
     }
 
     public void deleteEvent (Events events){

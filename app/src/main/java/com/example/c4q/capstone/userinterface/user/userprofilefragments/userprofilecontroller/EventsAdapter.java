@@ -1,9 +1,11 @@
 package com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 
 import com.example.c4q.capstone.database.events.Events;
+import com.example.c4q.capstone.database.events.UserEvent;
 import com.example.c4q.capstone.database.publicuserdata.UserIcon;
 import com.example.c4q.capstone.userinterface.events.EventActivity;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews.EventsViewHolder;
@@ -24,22 +26,23 @@ import static com.example.c4q.capstone.utils.Constants.USER_ICON;
  * Created by melg on 3/18/18.
  */
 
-public class EventsAdapter extends FirebaseRecyclerAdapter<Events, EventsViewHolder> {
+public class EventsAdapter extends FirebaseRecyclerAdapter<UserEvent, EventsViewHolder> {
     private DatabaseReference rootRef, iconRef;
 
-    public EventsAdapter(Class<Events> modelClass, int modelLayout, Class<EventsViewHolder> viewHolderClass, Query ref) {
+    public EventsAdapter(Class<UserEvent> modelClass, int modelLayout, Class<EventsViewHolder> viewHolderClass, Query ref) {
         super(modelClass, modelLayout, viewHolderClass, ref);
 
     }
 
     @Override
-    protected void populateViewHolder(final EventsViewHolder viewHolder, final Events model, final int position) {
+    protected void populateViewHolder(final EventsViewHolder viewHolder, final UserEvent model, final int position) {
 
         viewHolder.setEvent_date(model.getEvent_date());
         viewHolder.setEvent_name(model.getEvent_name());
         rootRef = FirebaseDatabase.getInstance().getReference();
         iconRef = rootRef.child(USER_ICON).child(model.getEvent_organizer());
-        viewHolder.setImage(model.getTop_venue_photo());
+        //Log.d("Events Adapter", "url " + model.getTop_venue_photo());
+        viewHolder.setImage(model.getEvent_photo());
 
         iconRef.addValueEventListener(new ValueEventListener() {
             @Override

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.events.Events;
+import com.example.c4q.capstone.database.events.UserEvent;
 import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller.EventsAdapter;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews.EventsViewHolder;
@@ -61,7 +62,7 @@ public class UPEventsFragment extends Fragment {
         linearLayout.setReverseLayout(true);
         recyclerView.setLayoutManager(linearLayout);
 
-        eventsAdapter = new EventsAdapter(Events.class, R.layout.events_item_view, EventsViewHolder.class, eventsRef);
+        eventsAdapter = new EventsAdapter(UserEvent.class, R.layout.events_item_view, EventsViewHolder.class, eventsRef);
 
         recyclerView.setAdapter(eventsAdapter);
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));

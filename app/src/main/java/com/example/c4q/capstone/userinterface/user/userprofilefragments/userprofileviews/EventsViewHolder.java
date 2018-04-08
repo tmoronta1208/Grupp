@@ -2,6 +2,7 @@ package com.example.c4q.capstone.userinterface.user.userprofilefragments.userpro
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,14 +48,9 @@ public class EventsViewHolder extends RecyclerView.ViewHolder {
         event_date.setText(date);
     }
 
-    public void setImage(String url){
-        eventImg = itemView.findViewById(R.id.event_image);
-        if (url != null){
-            Picasso.with(getEventContext())
-                    .load(url)
-                    .into(eventImg);
-        }
 
+    public void setImage(String top_venue_photo) {
+        eventImg = itemView.findViewById(R.id.cv_event_image);
+        Glide.with(getEventContext()).load(top_venue_photo).into(eventImg);
     }
-
 }

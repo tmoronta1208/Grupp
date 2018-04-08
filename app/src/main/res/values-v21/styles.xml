@@ -19,7 +19,7 @@
         <!-- specify shared element transitions -->
         <item name="android:windowSharedElementEnterTransition">@android:transition/explode</item>
         <item name="android:windowSharedElementExitTransition">@android:transition/explode</item>
-        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:statusBarColor">@color/colorAppGreyLight</item>
         <item name="android:textColorPrimary">@color/colorBottomNavigationInactive</item>
     </style>
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
