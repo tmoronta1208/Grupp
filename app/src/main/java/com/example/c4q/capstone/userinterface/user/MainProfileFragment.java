@@ -29,6 +29,7 @@ public class MainProfileFragment extends Fragment {
     private UPGroupFragment groupFragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    private ToggleSwitch toggleSwitch;
 
     private View view;
 
@@ -46,22 +47,38 @@ public class MainProfileFragment extends Fragment {
         setFragmentReference();
         loadFirstFragment();
 
+        toggleSwitch = view.findViewById(R.id.toogle_bar);
 
 
-        final StickySwitch stickySwitch = view.findViewById(R.id.sticky_switch);
-        stickySwitch.setOnSelectedChangeListener(new StickySwitch.OnSelectedChangeListener() {
+
+        toggleSwitch.setOnToggleSwitchChangeListener(new ToggleSwitch.OnToggleSwitchChangeListener(){
+
             @Override
-            public void onSelectedChange(@NotNull StickySwitch.Direction direction, @NotNull String text) {
-                if (stickySwitch.getDirection() == StickySwitch.Direction.RIGHT) {
-//                    Toast.makeText(activity, "Direction " + stickySwitch.getDirection(), Toast.LENGTH_SHORT).show();
+            public void onToggleSwitchChangeListener(int position, boolean isChecked) {
+
+                if (toggleSwitch.getCheckedTogglePosition() == 1){
                     swapFragments(groupFragment);
-                } else if (stickySwitch.getDirection() == StickySwitch.Direction.LEFT){
-//                    Toast.makeText(activity, "Direction "+ stickySwitch.getDirection(), Toast.LENGTH_SHORT).show();
+                } else{
                     swapFragments(eventsFragment);
                 }
+                // Write your code ...
             }
-
         });
+
+//        final StickySwitch stickySwitch = view.findViewById(R.id.sticky_switch);
+//        stickySwitch.setOnSelectedChangeListener(new StickySwitch.OnSelectedChangeListener() {
+//            @Override
+//            public void onSelectedChange(@NotNull StickySwitch.Direction direction, @NotNull String text) {
+//                if (stickySwitch.getDirection() == StickySwitch.Direction.RIGHT) {
+////                    Toast.makeText(activity, "Direction " + stickySwitch.getDirection(), Toast.LENGTH_SHORT).show();
+//                    swapFragments(groupFragment);
+//                } else if (stickySwitch.getDirection() == StickySwitch.Direction.LEFT){
+////                    Toast.makeText(activity, "Direction "+ stickySwitch.getDirection(), Toast.LENGTH_SHORT).show();
+//                    swapFragments(eventsFragment);
+//                }
+//            }
+//
+//        });
 
 
         return view;

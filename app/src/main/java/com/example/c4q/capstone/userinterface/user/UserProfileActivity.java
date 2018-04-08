@@ -89,6 +89,7 @@ public class UserProfileActivity extends AppCompatActivity {
         activity = this;
 
         floatingActionMenu = findViewById(R.id.floatingaction_menu);
+        floatingActionMenu.setClosedOnTouchOutside(true);
         creatEvent = findViewById(R.id.create_event_mini);
         creatEvent.setOnClickListener(new View.OnClickListener() {
             @Override

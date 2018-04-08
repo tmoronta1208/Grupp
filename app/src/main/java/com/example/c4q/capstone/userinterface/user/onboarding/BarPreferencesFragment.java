@@ -27,7 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-import static com.example.c4q.capstone.utils.Constants.AMENITY_PREFS;
 import static com.example.c4q.capstone.utils.Constants.BAR_PREFS;
 import static com.example.c4q.capstone.utils.Constants.PREFERENCES;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
@@ -49,7 +48,7 @@ public class BarPreferencesFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private String currentUserID;
-    private DatabaseReference rootRef, privatePreferencesDB, publicPreferencesDB;
+    private DatabaseReference rootRef, preferencesDB;
     private FirebaseUser currentUser;
 
     public BarPreferencesFragment() {
@@ -63,13 +62,12 @@ public class BarPreferencesFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_bar_preferences, container, false);
 
-        //Firebase
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         currentUserID = currentUser.getUid();
+
         rootRef = FirebaseDatabase.getInstance().getReference();
-        privatePreferencesDB = rootRef.child(PRIVATE_USER);
-        publicPreferencesDB = rootRef.child(PUBLIC_USER);
+        preferencesDB = rootRef.child(PRIVATE_USER);
 
         clubCheckBox = view.findViewById(R.id.club_pref);
         loungeCheckBox = view.findViewById(R.id.lounge_pref);
@@ -130,8 +128,8 @@ public class BarPreferencesFragment extends Fragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                publicPreferencesDB.child(currentUserID).child(PREFERENCES).child(BAR_PREFS).setValue(selectedPrefs);
-                privatePreferencesDB.child(currentUserID).child(PREFERENCES).child(BAR_PREFS).setValue(selectedPrefs);
+                preferencesDB.child(currentUserID).child(PREFERENCES).child(BAR_PREFS).setValue(selectedPrefs);
+                preferencesDB.child(currentUserID).child(PREFERENCES).child(BAR_PREFS).setValue(selectedPrefs);
                 OnBoardActivity.viewPager.setCurrentItem(2);
 
             }

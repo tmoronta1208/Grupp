@@ -1,9 +1,12 @@
 package com.example.c4q.capstone;
 
+import android.*;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -38,27 +41,18 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 
-
-/**
- * Created by melg on 3/28/18.
- */
-
 public class LoginActivity extends AppCompatActivity {
-
     private static final int RC_SIGN_IN = 2;
     private SignInButton signInButton;
-    private Button emailLogInButton;
+
     private FirebaseAuth mfirebaseAuth = FirebaseAuth.getInstance();
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth.AuthStateListener mAuthListner;
-    private CurrentUser currentUser = CurrentUser.getInstance();
 
-//    private PublicUser publicUser;
+    //    private PublicUser publicUser;
 //    private String currentUserID;
 //    private DatabaseReference publicUserDatabaseReference, searchUserReference;
 //    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -69,24 +63,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         // button views
         signInButton = findViewById(R.id.google_button);
-        emailLogInButton = findViewById(R.id.btn_login);
 
 
-//        publicUserDatabaseReference = firebaseDatabase.getReference().child(Constants.PUBLIC_USER);
-//        getUserData();
-
-
-
-        emailLogInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn();
-            }
-        });
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,46 +74,30 @@ public class LoginActivity extends AppCompatActivity {
                 signIn();
             }
         });
-
         mAuthListner = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
-                if (firebaseAuth.getCurrentUser() != null ) {
-                    CurrentUserUtility currentUserUtility = new CurrentUserUtility();
-                            currentUserUtility.getCurrentPublicUser(new PublicUserListener() {
-                                @Override
-                                public void publicUserExists(Boolean userExists) {
-                                    Log.w("TAG", "login user exist" + userExists);
-                            if (userExists){
-
-                                Log.w("TAG", "login user has profile" + userExists);
-                                startActivity(new Intent(LoginActivity.this, UserProfileActivity.class));
-                            } else {
-
-                                Log.w("TAG", "login user does not have profile " + userExists);
-                                startActivity(new Intent(LoginActivity.this, OnBoardActivity.class));
-                            }
-                                }
-                            });
-//                    startActivity(new Intent(LoginActivity.this, OnBoardActivity.class));
-
-
+                if (firebaseAuth.getCurrentUser() != null) {
+                    startActivity(new Intent(LoginActivity.this, UserProfileActivity.class));
                 }
-
             }
         };
-
-
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-    }
 
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1020);
+            return;
+        }
+    }
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
@@ -143,7 +107,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
@@ -161,7 +124,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
-
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         mfirebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -172,65 +134,16 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d("TAG", "signInWithCredential:success");
                             FirebaseUser user = mfirebaseAuth.getCurrentUser();
                             String userID = user.getUid();
-                            /*CurrentUserUtility currentUserUtility = new CurrentUserUtility();
-                            currentUserUtility.getCurrentPublicUser(new PublicUserListener() {
-                                @Override
-                                public void publicUserExists(Boolean userExists) {
-                                    Log.w("TAG", "login user exist" + userExists);
-                            if (currentUser.isCurrentUserExists() && userExists){
-                                Log.w("TAG", "login user exists" + currentUser.isCurrentUserExists());
-
-                                Log.w("TAG", "login user has profile" + userExists);
-                                startActivity(new Intent(LoginActivity.this, UserProfileActivity.class));
-                            } else {
-                                Log.w("TAG", "login user exists" + currentUser.isCurrentUserExists());
-                                Log.w("TAG", "login user does not have profile " + userExists);
-                                startActivity(new Intent(LoginActivity.this, OnBoardActivity.class));
-                            }
-                                }
-                            });*/
-
 //                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
 //                            Log.w("TAG", "signInWithCredential:failure", task.getException());
-
                             Toast.makeText(LoginActivity.this, "auth went wrong", Toast.LENGTH_SHORT).show();
 //                            Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
 //                            updateUI(null);
                         }
-
                         // ...
                     }
                 });
     }
-
-    /* database method*/
-
-
-//    public void getUserData() {
-//        ValueEventListener userListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                // Get Post object and use the values to update the UI
-//                Log.d(" LOGIN", "USER LISTENER CALLED");
-//                publicUser = dataSnapshot.child(currentUserID).getValue(PublicUser.class);
-//                if (publicUser != null) {
-//                    Log.d(" LOGIN", "user first name" + publicUser.getFirst_name());
-//                } else {
-//                    Log.d(" LOGIN", "user is null");
-//
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                // Getting Post failed, log a message
-//
-//                // ...
-//            }
-//        };
-//        publicUserDatabaseReference.addValueEventListener(userListener);
-//    }
 }

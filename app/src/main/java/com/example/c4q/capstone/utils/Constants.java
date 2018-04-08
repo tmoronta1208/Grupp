@@ -2,6 +2,16 @@ package com.example.c4q.capstone.utils;
 
 
 public class Constants {
+    public static final String BEACH_ICON = "gs://grupp-154a6.appspot.com/preference_icon/beach_icon.png";
+    public static final String BEER_ICON = "gs://grupp-154a6.appspot.com/preference_icon/beer_icon.png";
+    public static final String PUB_ICON = "gs://grupp-154a6.appspot.com/preference_icon/pub_icon.png";
+    public static final String GAY_BAR_ICON = "gs://grupp-154a6.appspot.com/preference_icon/gay_icon.png";
+    public static final String HOTEL_BAR_ICON = "gs://grupp-154a6.appspot.com/preference_icon/hotel_icon.png";
+    public static final String KARAOKE_ICON = "gs://grupp-154a6.appspot.com/preference_icon/karaoke.png";
+    public static final String CLUB_ICON = "gs://grupp-154a6.appspot.com/preference_icon/club_icon.png";
+    public static final String HOOKAH_ICON = "gs://grupp-154a6.appspot.com/preference_icon/hookah_icon.png";
+    public static final String LOUNGE_ICON = "gs://grupp-154a6.appspot.com/preference_icon/louge_icon.png";
+    public static final String COCKTAIL_ICON = "gs://grupp-154a6.appspot.com/preference_icon/cocktail_icon.png";
     public static final String AMENITY_PREFS = "amenity_preferences";
     public static final String BAR_PREFS = "bar_prefs";
     public static final String BARZZ_KEY = "&user_key=96b42918912ec3f1d85660e18356617c";
