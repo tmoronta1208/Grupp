@@ -5,14 +5,19 @@ import java.util.List;
 
 public class PrivateUser {
     private UserPreferences preferences;
+    private PrivateUserLocation current_location;
     private String first_name;
     private String last_name;
     private boolean over_18;
     private boolean over_21;
     private int radius;
-    private List<String> user_preferences;
+//    private List<String> user_preferences;
 
     public PrivateUser() {
+    }
+
+    public PrivateUser(UserPreferences preferences) {
+        this.preferences = preferences;
     }
 
     public PrivateUser(String first_name, String last_name, boolean over_18, boolean over_21, int radius) {
@@ -23,6 +28,14 @@ public class PrivateUser {
         this.radius = radius;
     }
 
+    public PrivateUserLocation getCurrent_location() {
+        return current_location;
+    }
+
+    public void setCurrent_location(PrivateUserLocation current_location) {
+        this.current_location = current_location;
+    }
+
     public UserPreferences getPreferences() {
         return preferences;
     }
@@ -31,13 +44,6 @@ public class PrivateUser {
         this.preferences = preferences;
     }
 
-    public List<String> getUser_preferences() {
-        return user_preferences;
-    }
-
-    public void setUser_preferences(List<String> user_preferences) {
-        this.user_preferences = user_preferences;
-    }
 
     public String getFirst_name() {
         return first_name;

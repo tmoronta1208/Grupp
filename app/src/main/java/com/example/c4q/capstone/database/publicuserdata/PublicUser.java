@@ -1,7 +1,7 @@
 package com.example.c4q.capstone.database.publicuserdata;
 
 
-import com.example.c4q.capstone.database.privateuserdata.UserPreferences;
+import com.example.c4q.capstone.database. privateuserdata.UserPreferences;
 
 import java.util.List;
 

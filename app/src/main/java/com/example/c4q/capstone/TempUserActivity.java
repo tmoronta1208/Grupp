@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
+import com.example.c4q.capstone.database.privateuserdata.UserPreferences;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.UserIcon;
 import com.example.c4q.capstone.userinterface.CurrentUserPost;
@@ -34,9 +35,16 @@ import com.google.firebase.storage.UploadTask;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.example.c4q.capstone.utils.Constants.BEACH_ICON;
+import static com.example.c4q.capstone.utils.Constants.BEER_ICON;
+import static com.example.c4q.capstone.utils.Constants.COCKTAIL_ICON;
 import static com.example.c4q.capstone.utils.Constants.DEFAULT_ICON;
+import static com.example.c4q.capstone.utils.Constants.HOTEL_BAR_ICON;
+import static com.example.c4q.capstone.utils.Constants.KARAOKE_ICON;
+import static com.example.c4q.capstone.utils.Constants.PREFERENCES;
 import static com.example.c4q.capstone.utils.Constants.PRIVATE_USER;
 import static com.example.c4q.capstone.utils.Constants.PUBLIC_USER;
+import static com.example.c4q.capstone.utils.Constants.PUB_ICON;
 import static com.example.c4q.capstone.utils.Constants.USER_ICON;
 
 /**
@@ -52,11 +60,8 @@ public class TempUserActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser firebaseUser;
     private String currentUserId;
-    private DatabaseReference rootRef, userRef, iconRef, prefRef;
-    private ImageView editProfileBtn;
-    private RecyclerView preferencesRv;
-    private GridLayoutManager gridLayoutManager;
-    private PreferencesAdapter preferencesAdapter;
+    private DatabaseReference rootRef, userRef, iconRef;
+    private ImageView editProfileBtn, alertBtn;
 
 
     @Override
@@ -67,12 +72,11 @@ public class TempUserActivity extends AppCompatActivity {
         firebaseUser = mAuth.getCurrentUser();
         currentUserId = firebaseUser.getUid();
 
-        preferencesRv = findViewById(R.id.prefs_rv);
+        alertBtn = findViewById(R.id.event_invite_button);
 
         rootRef = FirebaseDatabase.getInstance().getReference();
         userRef = rootRef.child(PUBLIC_USER).child(currentUserId);
         iconRef = rootRef.child(USER_ICON).child(currentUserId);
-        prefRef = rootRef.child(PRIVATE_USER).child(currentUserId);
 
         profilePic = findViewById(R.id.circle_imageview);
         personName = findViewById(R.id.user_name);
@@ -91,12 +95,6 @@ public class TempUserActivity extends AppCompatActivity {
                 uploadImageFromGallery();
             }
         });
-
-        preferencesAdapter = new PreferencesAdapter(PrivateUser.class, R.layout.preference_itemview, PreferencesViewHolder.class, prefRef);
-        gridLayoutManager = new GridLayoutManager(TempUserActivity.this, 3);
-
-        preferencesRv.setLayoutManager(gridLayoutManager);
-        preferencesRv.setAdapter(preferencesAdapter);
 
         currentUserProfileData();
     }
