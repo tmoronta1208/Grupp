@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
+    tools:context="com.example.c4q.capstone.userinterface.user.UserProfileActivity"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <android.support.v7.widget.CardView
@@ -20,12 +21,12 @@
         app:cardPreventCornerOverlap="true">
 
         <ImageView
-            android:id="@+id/event_image"
+            android:id="@+id/cv_event_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:foreground="@drawable/scrim"
             android:scaleType="centerCrop"
-            android:background="#d8d4d4"/>
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,7 +35,7 @@
             android:gravity="center"
             android:layout_marginTop="10dp"
             android:padding="24dp"
-            android:background="@color/colorAppGreyLight">
+            >
 
             <TextView
                 android:id="@+id/event_name"

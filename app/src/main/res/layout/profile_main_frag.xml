@@ -20,10 +20,10 @@
         custom:textToggleRight="Friends"
         custom:cornerRadius = "8dp"
         custom:separatorColor="@color/colorAccent"
-        custom:inactiveTextColor="@color/gray"
+        custom:inactiveTextColor="@color/colorAppGrey"
         custom:inactiveBgColor="@color/colorPrimaryVeryDark"
         custom:activeBgColor="@color/colorPrimary"
-        custom:activeTextColor="@color/gray"
+        custom:activeTextColor="@color/colorAppGreyLight"
         custom:toggleWidth="100dp"
         />
 

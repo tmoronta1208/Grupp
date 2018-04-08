@@ -177,10 +177,13 @@ public class CurrentUserPostUtility {
            }
        }
     }
-    public void updateTopVenue(String eventKey, String venueID, String photoUrl){
+    public void updateTopVenue(String eventKey, String venueID, String photoUrl, Events event){
         eventsReference.child(eventKey).child("top_venue").setValue(venueID);
         if (photoUrl != null){
             eventsReference.child(eventKey).child("top_venue_photo").setValue(photoUrl);
+        }
+        for (String s: event.getEvent_guest_map().keySet()){
+            userEventListReference.child(s).child(eventKey).child("event_photo").setValue(photoUrl);
         }
     }
 }
