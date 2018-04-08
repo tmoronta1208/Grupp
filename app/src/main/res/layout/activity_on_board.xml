@@ -7,27 +7,18 @@
     android:orientation="vertical"
     tools:context="com.example.c4q.capstone.userinterface.user.onboarding.OnBoardActivity">
 
-    <android.support.v7.widget.Toolbar
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/tool_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/salmon"
-        android:elevation="10dp"
-        app:title="@string/app_name"
-        android:minHeight="?attr/actionBarSize"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark" />
+
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <github.chenupt.springindicator.viewpager.ScrollerViewPager
+        <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:background="@android:color/transparent"
 
             />
 

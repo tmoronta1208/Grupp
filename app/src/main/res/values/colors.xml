@@ -10,6 +10,7 @@
     <color name="colorAccent">#72c990</color>
     <color name="colorAccentLight">#f3b792</color>
     <color name="colorAccentDark">#b56639</color>
+    <color name="buttoncolorpressed">#92cadd</color>
 
     <color name="colorAppGreen">#63c1b3</color>
     <color name="colorAppGreenLight">#a1dad1</color>

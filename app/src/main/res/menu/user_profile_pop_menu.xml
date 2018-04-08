@@ -4,7 +4,7 @@
     >
 
     <item android:id="@+id/edit_profile_menu_item"
-        android:title="@string/edit_profile"
+        android:title="Edit Preferences"
 
         />
     <item android:id="@+id/edit_preferences_menu_item"

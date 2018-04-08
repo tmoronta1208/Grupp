@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             android:foreground="@drawable/scrim"
             android:scaleType="centerCrop"
-            android:background="#ffffff"/>
+            android:background="#d8d4d4"/>
 
         <LinearLayout
             android:layout_width="match_parent"
