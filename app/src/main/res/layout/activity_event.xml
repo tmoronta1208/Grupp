@@ -34,7 +34,7 @@
             android:padding="@dimen/layout_padding"
             android:textStyle="bold"
             android:textColor="@color/colorPrimaryVeryDark"
-            android:textStyle="bold" />
+             />
 
         <TextView
             android:id="@+id/event_organier_text_view"
@@ -46,9 +46,7 @@
             android:textColor="@color/colorPrimaryVeryDark"
             android:textSize="20sp"
             android:textStyle="bold"
-            tools:text="@tools:sample/full_names" />
-
-            android:textColor="@color/colorPrimaryVeryDark"
+            tools:text="@tools:sample/full_names"
             />
 
         <TextView
@@ -84,7 +82,7 @@
         app:tabTextColor="#d3d3d3" />
 
 
-        />
+
 </LinearLayout>
 
 
