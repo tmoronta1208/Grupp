@@ -49,17 +49,20 @@ public class ContactListViewHolder extends RecyclerView.ViewHolder {
 
         addButton = itemView.findViewById(R.id.add_contact_button);
 
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addButton.setVisibility(View.INVISIBLE);
-
-              //  rootRef.child(GROUPS).child(currentUserID).push().child(GROUP_NAME).setValue(groupTitle);
-                // UserSearchActivity.addToContactList(contactID, viewHolder.addContactButton, first, last, email, icon, radiusString, zipCode);
-
-
-            }
-        });
+//        addButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                addButton.setVisibility(View.INVISIBLE);
+//
+////                final String contactID = getRef(position).getKey();
+//
+//
+//                //  rootRef.child(GROUPS).child(currentUserID).push().child(GROUP_NAME).setValue(groupTitle);
+//                // UserSearchActivity.addToContactList(contactID, viewHolder.addContactButton, first, last, email, icon, radiusString, zipCode);
+//
+//
+//            }
+//        });
     }
 
     public Context getContactContext() {
@@ -79,7 +82,10 @@ public class ContactListViewHolder extends RecyclerView.ViewHolder {
 
     public void setUserIcon(String url) {
         userIcon = itemView.findViewById(R.id.user_icon_contactlist);
-        Glide.with(getContactContext()).load(url).into(userIcon);
+        if(url != null){
+            Glide.with(getContactContext()).load(url).into(userIcon);
+        }
+
     }
 
 }

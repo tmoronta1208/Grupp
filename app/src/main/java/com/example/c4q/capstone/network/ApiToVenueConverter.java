@@ -16,7 +16,7 @@ import retrofit2.Retrofit;
  * Created by amirahoxendine on 3/27/18.
  */
 
-public class ApiToVenueConverter {
+public class  ApiToVenueConverter {
     private String ID;
     private String Name;
     private String Address;

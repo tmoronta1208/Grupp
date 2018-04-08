@@ -34,15 +34,9 @@ public class GroupViewHolder extends RecyclerView.ViewHolder {
             }
         });
 
-
     }
 
-//
-//    public void setEvent_name(String name) {
-//        event_name = itemView.findViewById(R.id.event_name);
-//        event_name.setText(name);
-//    }
-//
+
     public Context getContext() {
         context = itemView.getContext();
         return context;

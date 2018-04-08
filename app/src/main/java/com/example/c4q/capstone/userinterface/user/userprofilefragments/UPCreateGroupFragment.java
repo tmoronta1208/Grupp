@@ -63,7 +63,7 @@ public class UPCreateGroupFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_upgroup_create, container, false);
         addButton = rootView.findViewById(R.id.add_contact_button);
-        addButton.setVisibility(View.VISIBLE);
+//        addButton.setVisibility(View.VISIBLE);
         returnButton = rootView.findViewById(R.id.group_return_button);
         groupTitleInput = rootView.findViewById(R.id.create_group_title_name);
 
@@ -78,23 +78,23 @@ public class UPCreateGroupFragment extends Fragment {
 
         recyclerView = rootView.findViewById(R.id.grupp_create_group_rv);
 
-        contactListAdapter = new ContactListAdapter(PublicUserDetails.class, R.layout.add_contact_itemview, ContactListViewHolder.class, contactsRef);
+//        contactListAdapter = new ContactListAdapter(PublicUserDetails.class, R.layout.add_contact_itemview, ContactListViewHolder.class, contactsRef);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
-        recyclerView.setAdapter(contactListAdapter);
-
-
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addButton.setVisibility(View.INVISIBLE);
-
-                //rootRef.child(GROUPS).child(currentUserID).push().child(GROUP_NAME).setValue(groupTitle);
-              //  UserSearchActivity.addToContactList(contactID, viewHolder.addContactButton, first, last, email, icon, radiusString, zipCode);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
+//        recyclerView.setAdapter(contactListAdapter);
 
 
-            }
-        });
+//        addButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                addButton.setVisibility(View.INVISIBLE);
+//
+//                //rootRef.child(GROUPS).child(currentUserID).push().child(GROUP_NAME).setValue(groupTitle);
+//              //  UserSearchActivity.addToContactList(contactID, viewHolder.addContactButton, first, last, email, icon, radiusString, zipCode);
+//
+//
+//            }
+//        });
 
 
         returnButton.setOnClickListener(new View.OnClickListener() {

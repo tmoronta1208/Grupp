@@ -116,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
                                 }
                             });
-                    startActivity(new Intent(LoginActivity.this, OnBoardActivity.class));
+//                    startActivity(new Intent(LoginActivity.this, OnBoardActivity.class));
 
 
                 }
