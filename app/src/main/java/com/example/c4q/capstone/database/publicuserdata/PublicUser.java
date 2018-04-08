@@ -1,6 +1,8 @@
 package com.example.c4q.capstone.database.publicuserdata;
 
 
+import com.example.c4q.capstone.database. privateuserdata.UserPreferences;
+
 import java.util.List;
 
 public class PublicUser {
@@ -31,6 +33,7 @@ public class PublicUser {
         this.over_21 = over_21;
         this.radius = radius;
     }
+
 
     public UserIcon getUser_icon() {
         return user_icon;
