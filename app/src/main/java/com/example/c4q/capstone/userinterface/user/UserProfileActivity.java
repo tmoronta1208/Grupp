@@ -132,7 +132,7 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void getUserEventList(Map<String, UserEvent> userEventMap) {
 
-                if (userEventMap != null) {
+                if (userEventMap != null && userEventMap.size() != 0) {
                     Log.d(TAG, "notifications not null");
 
                     new InviteNotifications("You're Invited!", "you have new events", getApplicationContext(), null);

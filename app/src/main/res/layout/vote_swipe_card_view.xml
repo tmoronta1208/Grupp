@@ -43,7 +43,9 @@
                 android:textSize="18dp"
                 android:textStyle="bold"
                 android:layout_height="wrap_content"
-                tools:text="@tools:sample/last_names"/>
+                tools:text="@tools:sample/last_names"
+                android:paddingLeft="@dimen/layout_padding"
+                android:paddingRight="@dimen/layout_padding"/>
             <TextView
                 android:id="@+id/locationNameTxt"
                 android:layout_width="wrap_content"
@@ -51,7 +53,22 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="14dp"
                 android:textStyle="normal"
-                tools:text="@tools:sample/cities"/>
+                tools:text="@tools:sample/cities"
+                android:layout_marginTop="@dimen/layout_item_margin"
+                android:layout_marginBottom="@dimen/layout_item_margin"
+                android:paddingLeft="@dimen/layout_padding"
+                android:paddingRight="@dimen/layout_padding"/>
+            <TextView
+                android:id="@+id/websiteTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14dp"
+                android:textStyle="normal"
+                tools:text="@tools:sample/cities"
+
+                android:paddingLeft="@dimen/layout_padding"
+                android:paddingRight="@dimen/layout_padding"/>
             <Button
                 android:layout_width="30dp"
                 android:layout_height="30dp"
