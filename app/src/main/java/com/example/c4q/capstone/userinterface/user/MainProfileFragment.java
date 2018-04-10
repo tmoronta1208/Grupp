@@ -1,6 +1,7 @@
 package com.example.c4q.capstone.userinterface.user;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.TempUserActivity;
+import com.example.c4q.capstone.userinterface.user.search.UserSearchActivity;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPEventsFragment;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.UPGroupFragment;
 
@@ -57,7 +60,8 @@ public class MainProfileFragment extends Fragment {
             public void onToggleSwitchChangeListener(int position, boolean isChecked) {
 
                 if (toggleSwitch.getCheckedTogglePosition() == 1){
-                    swapFragments(groupFragment);
+                    startActivity(new Intent(getContext(), UserSearchActivity.class));
+
                 } else{
                     swapFragments(eventsFragment);
                 }

@@ -7,6 +7,7 @@ import android.view.View;
 import com.example.c4q.capstone.database.events.Events;
 import com.example.c4q.capstone.database.events.UserEvent;
 import com.example.c4q.capstone.database.publicuserdata.UserIcon;
+import com.example.c4q.capstone.userinterface.CurrentUser;
 import com.example.c4q.capstone.userinterface.events.EventActivity;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews.EventsViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -36,6 +37,26 @@ public class EventsAdapter extends FirebaseRecyclerAdapter<UserEvent, EventsView
 
     @Override
     protected void populateViewHolder(final EventsViewHolder viewHolder, final UserEvent model, final int position) {
+        DatabaseReference eventOrgRef = FirebaseDatabase.getInstance().getReference().child("user_event_list").child(CurrentUser.userID);
+        eventOrgRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                UserEvent userEvent = dataSnapshot.getValue(UserEvent.class);
+                String evenOrganizer = userEvent.getEvent_organizer();
+                viewHolder.setUserIcon(evenOrganizer);
+                try {
+                    String url = userEvent.getEvent_organizer_icon().getIcon_url();
+                    viewHolder.setUserIcon(url);
+                } catch (NullPointerException e) {
+                    viewHolder.setUserIcon(DEFAULT_ICON);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         viewHolder.setEvent_date(model.getEvent_date());
         viewHolder.setEvent_name(model.getEvent_name());
@@ -43,7 +64,7 @@ public class EventsAdapter extends FirebaseRecyclerAdapter<UserEvent, EventsView
 //        iconRef = rootRef.child(USER_ICON).child(model.getEvent_organizer());
         //Log.d("Events Adapter", "url " + model.getTop_venue_photo());
         viewHolder.setImage(model.getEvent_photo());
-        viewHolder.setUserIcon(model.getEvent_organizer_icon().getIcon_url());
+//        viewHolder.setUserIcon(model.getEvent_organizer_icon().getIcon_url());
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,23 +76,22 @@ public class EventsAdapter extends FirebaseRecyclerAdapter<UserEvent, EventsView
             }
         });
 
-        /*iconRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                UserIcon userIcon = dataSnapshot.getValue(UserIcon.class);
-                try {
-                    String url = userIcon.getIcon_url();
-                    viewHolder.setUserIcon(url);
-                } catch (NullPointerException e) {
-                    viewHolder.setUserIcon(DEFAULT_ICON);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
-        */
+//        iconRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                UserIcon userIcon = dataSnapshot.getValue(UserIcon.class);
+//                try {
+//                    String url = userIcon.getIcon_url();
+//                    viewHolder.setUserIcon(url);
+//                } catch (NullPointerException e) {
+//                    viewHolder.setUserIcon(DEFAULT_ICON);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//            }
+//        });
+//
     }
 }

@@ -1,6 +1,7 @@
 package com.example.c4q.capstone;
 
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,8 +21,10 @@ import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.UserIcon;
 import com.example.c4q.capstone.userinterface.CurrentUserPost;
 import com.example.c4q.capstone.userinterface.user.EditProfileActivity;
+import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
 import com.example.c4q.capstone.userinterface.user.onboarding.CreateProfileFragment;
 import com.example.c4q.capstone.userinterface.user.onboarding.OnBoardActivity;
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -62,9 +65,21 @@ public class TempUserActivity extends AppCompatActivity {
     private TextView personName;
     private FirebaseAuth mAuth;
     private FirebaseUser firebaseUser;
+    private ImageView editlocation;
+    private Button signout;
     private String currentUserId;
     private DatabaseReference rootRef, userRef, iconRef;
     private ImageView editProfileBtn, alertBtn;
+    private FirebaseAuth.AuthStateListener mAuthListner;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        mAuth.addAuthStateListener(mAuthListner);
+
+    }
+
 
 
     @Override
@@ -75,8 +90,44 @@ public class TempUserActivity extends AppCompatActivity {
         firebaseUser = mAuth.getCurrentUser();
         currentUserId = firebaseUser.getUid();
 
+
         alertBtn = findViewById(R.id.event_invite_button);
         editPreferencesButton = findViewById(R.id.edit_pref_button);
+        signout = findViewById(R.id.signout_button);
+
+        signout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+
+                AuthUI.getInstance()
+                        .signOut(TempUserActivity.this)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                            }
+
+                            // do something here
+
+                        });
+
+
+
+            }
+        });
+
+        editlocation = findViewById(R.id.edit_loc_button);
+        editlocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(TempUserActivity.this, EditProfileActivity.class));
+
+            }
+        });
+
+
+
 
         editPreferencesButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,7 +148,7 @@ public class TempUserActivity extends AppCompatActivity {
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(TempUserActivity.this, CreateProfileFragment.class));
+                startActivity(new Intent(TempUserActivity.this, EditProfileActivity.class));
             }
         });
 
@@ -109,6 +160,16 @@ public class TempUserActivity extends AppCompatActivity {
         });
 
         currentUserProfileData();
+
+        mAuthListner = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (mAuth.getCurrentUser() == null) {
+                    startActivity(new Intent(TempUserActivity.this, LoginActivity.class));
+                }
+            }
+        };
+
     }
 
     @Override

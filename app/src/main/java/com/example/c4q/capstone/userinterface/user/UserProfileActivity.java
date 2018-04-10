@@ -62,13 +62,6 @@ public class UserProfileActivity extends AppCompatActivity {
     private PagerAdapter mPagerAdapter;
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        mAuth.addAuthStateListener(mAuthListner);
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +104,8 @@ public class UserProfileActivity extends AppCompatActivity {
         });
 
 
+
+        //new InviteNotifications("test", "notification", getApplicationContext());
         mAuthListner = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -120,9 +115,8 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         };
         pushEventInviteNotifications();
-        //new InviteNotifications("test", "notification", getApplicationContext());
 
-
+    finish();
     }
 
     public void pushEventInviteNotifications() {

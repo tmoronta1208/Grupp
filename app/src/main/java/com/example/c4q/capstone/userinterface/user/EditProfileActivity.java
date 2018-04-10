@@ -15,6 +15,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.example.c4q.capstone.R;
+import com.example.c4q.capstone.TempUserActivity;
 import com.example.c4q.capstone.database.privateuserdata.PrivateUser;
 import com.example.c4q.capstone.database.privateuserdata.PrivateUserLocation;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
@@ -61,7 +62,7 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-//        saveBtn = findViewById(R.id.edit_profile_save_button);
+        saveBtn = findViewById(R.id.edit_profile_save_button);
 
         ageGroup = findViewById(R.id.radio_group_age);
         budgetGroup = findViewById(R.id.radio_group_budget);
@@ -128,12 +129,14 @@ public class EditProfileActivity extends AppCompatActivity {
         privateUserLocationReference.addValueEventListener(valueEventListener);
         userIconReference.addListenerForSingleValueEvent(valueEventListener);
 
-//        saveBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                saveToDatabase();
-//            }
-//        });
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveToDatabase();
+                startActivity(new Intent(EditProfileActivity.this, TempUserActivity.class));
+
+            }
+        });
 
 
         ///////////////////////////////////////////
