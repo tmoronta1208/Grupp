@@ -64,7 +64,7 @@ public class NetworkUtility {
 
         Call<FourSquareModel> call = RetrofitInstance.getInstance()
                 .getFourSApi()
-                .getVenues(zipCode,radius, preferences,"20180331");
+                .getVenues(zipCode,radius, preferences,"20180410");
 
         call.enqueue(new Callback<FourSquareModel>() {
             @Override
@@ -90,7 +90,7 @@ public class NetworkUtility {
                             }
                         } else{ Log.d("NULL", "response.body().getResponse() is null");}
                     } else {
-                        Log.d("NULL", "response.body() is null");
+                        Log.d("NULL", "first list response.body() is null");
                     }
                 } else {
                     Log.d("RESPONSE:", "response is null");
@@ -111,7 +111,7 @@ public class NetworkUtility {
 
         Call<FourSquareDetailCall> call = RetrofitInstance.getInstance()
                 .getFourSApi()
-                .getVenueDetail(venueId,"20180328" );
+                .getVenueDetail(venueId,"20180410" );
 
         call.enqueue(new Callback<FourSquareDetailCall>() {
             @Override
@@ -131,7 +131,7 @@ public class NetworkUtility {
                             }
                         } else{ Log.d("NULL", "response.body().getResponse() is null");}
                     } else {
-                        Log.d("NULL", "response.body() is null");
+                        Log.d("NULL detail", "response.body() is null");
                     }
                 } else {
                     Log.d("RESPONSE:", "response is null");

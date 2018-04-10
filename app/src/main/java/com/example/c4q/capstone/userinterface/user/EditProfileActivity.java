@@ -66,6 +66,7 @@ public class EditProfileActivity extends AppCompatActivity {
         ageGroup = findViewById(R.id.radio_group_age);
         budgetGroup = findViewById(R.id.radio_group_budget);
         radiusGroup = findViewById(R.id.radio_group_radius);
+        saveBtn = findViewById(R.id.edit_profile_save_button);
 
         firstName = findViewById(R.id.edit_profile_firstname);
         lastName = findViewById(R.id.edit_profile_lastname);
@@ -128,12 +129,12 @@ public class EditProfileActivity extends AppCompatActivity {
         privateUserLocationReference.addValueEventListener(valueEventListener);
         userIconReference.addListenerForSingleValueEvent(valueEventListener);
 
-//        saveBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                saveToDatabase();
-//            }
-//        });
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveToDatabase();
+            }
+        });
 
 
         ///////////////////////////////////////////
