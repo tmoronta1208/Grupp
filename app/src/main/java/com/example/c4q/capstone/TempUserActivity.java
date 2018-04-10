@@ -19,6 +19,7 @@ import com.example.c4q.capstone.database.privateuserdata.UserPreferences;
 import com.example.c4q.capstone.database.publicuserdata.PublicUser;
 import com.example.c4q.capstone.database.publicuserdata.UserIcon;
 import com.example.c4q.capstone.userinterface.CurrentUserPost;
+import com.example.c4q.capstone.userinterface.events.EventInviteActivity;
 import com.example.c4q.capstone.userinterface.user.EditProfileActivity;
 import com.example.c4q.capstone.userinterface.user.onboarding.CreateProfileFragment;
 import com.example.c4q.capstone.userinterface.user.onboarding.OnBoardActivity;
@@ -76,6 +77,12 @@ public class TempUserActivity extends AppCompatActivity {
         currentUserId = firebaseUser.getUid();
 
         alertBtn = findViewById(R.id.event_invite_button);
+        alertBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(TempUserActivity.this, EventInviteActivity.class));
+            }
+        });
         editPreferencesButton = findViewById(R.id.edit_pref_button);
 
         editPreferencesButton.setOnClickListener(new View.OnClickListener() {

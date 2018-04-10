@@ -11,6 +11,6 @@
         android:textSize="32sp"
         android:textStyle="bold"
         android:layout_margin="40dp"
-        android:textColor="@android:color/holo_red_light"
-        android:text="Reject"/>
+        android:textColor="@color/colorAppGrey"
+        android:text="Nay"/>
 </LinearLayout>

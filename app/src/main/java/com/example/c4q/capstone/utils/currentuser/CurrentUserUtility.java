@@ -533,13 +533,16 @@ public class CurrentUserUtility {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot != null){
                     Map<String, UserEvent> eventInviteHashMap = new HashMap<>();
+                    if (eventInviteHashMap != null){
 
-                    for (DataSnapshot ds : dataSnapshot.getChildren()){
-                        UserEvent userEvent = ds.getValue(UserEvent.class);
-                        eventInviteHashMap.put(userEvent.getEvent_id(), userEvent);
-                        Log.d("curr user util", "event invites called");
+                        for (DataSnapshot ds : dataSnapshot.getChildren()){
+                            UserEvent userEvent = ds.getValue(UserEvent.class);
+                            eventInviteHashMap.put(userEvent.getEvent_id(), userEvent);
+                            Log.d("curr user util", "event invites called");
+                        }
+                        userEventListener.getUserEventList(eventInviteHashMap);
                     }
-                    userEventListener.getUserEventList(eventInviteHashMap);
+
                 }
             }
 

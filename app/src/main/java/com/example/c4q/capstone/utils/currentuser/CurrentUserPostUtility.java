@@ -7,6 +7,7 @@ import com.example.c4q.capstone.database.events.Events;
 import com.example.c4q.capstone.database.events.UserEvent;
 import com.example.c4q.capstone.database.publicuserdata.UserIcon;
 import com.example.c4q.capstone.userinterface.CurrentUser;
+import com.example.c4q.capstone.userinterface.events.EventInviteActivity;
 import com.example.c4q.capstone.utils.FBUserDataUtility;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -183,8 +184,12 @@ public class CurrentUserPostUtility {
             eventsReference.child(eventKey).child("top_venue_photo").setValue(photoUrl);
         }
         for (String s: event.getEvent_guest_map().keySet()){
-            userEventListReference.child(s).child(eventKey).child("event_photo").setValue(photoUrl);
-            eventInvitesReference.child(s).child(eventKey).child("event_photo").setValue(photoUrl);
+            EventGuest guest = event.getEvent_guest_map().get(s);
+            if (guest.isConfirmed_guest()){
+                userEventListReference.child(s).child(eventKey).child("event_photo").setValue(photoUrl);
+            }else if (!guest.isConfirmed_guest()){
+                eventInvitesReference.child(s).child(eventKey).child("event_photo").setValue(photoUrl);
+            }
         }
     }
 }

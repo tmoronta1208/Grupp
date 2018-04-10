@@ -1,6 +1,7 @@
 package com.example.c4q.capstone.userinterface.user;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.publicuserdata.PublicUserDetails;
 import com.example.c4q.capstone.userinterface.CurrentUser;
+import com.example.c4q.capstone.userinterface.user.search.UserSearchActivity;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofilecontroller.ContactListAdapter;
 import com.example.c4q.capstone.userinterface.user.userprofilefragments.userprofileviews.ContactListViewHolder;
 import com.example.c4q.capstone.utils.SimpleDividerItemDecoration;
@@ -63,8 +65,10 @@ public class ContactListFragment extends Fragment {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String query = searchView.getText().toString().trim();
-                searchExistingContact(query);
+               /* String query = searchView.getText().toString().trim();
+                searchExistingContact(query);*/
+               Intent searIntent = new Intent(ContactListFragment.this.getActivity(), UserSearchActivity.class);
+               startActivity(searIntent);
             }
         });
 

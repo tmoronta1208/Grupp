@@ -269,6 +269,8 @@ public class NewEventPresenter implements NewEventListener {
 
     public void alertShowEventReady(int venueListSize) {
         progressBar.setVisibility(View.INVISIBLE);
-        eventReady.setVisibility(View.VISIBLE);
+        launchEventActivity(eventID);
+        alertDialog.dismiss();
+        //eventReady.setVisibility(View.VISIBLE);
     }
 }
