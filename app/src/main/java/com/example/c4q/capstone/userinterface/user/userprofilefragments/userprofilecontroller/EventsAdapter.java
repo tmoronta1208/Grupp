@@ -40,11 +40,22 @@ public class EventsAdapter extends FirebaseRecyclerAdapter<UserEvent, EventsView
         viewHolder.setEvent_date(model.getEvent_date());
         viewHolder.setEvent_name(model.getEvent_name());
         rootRef = FirebaseDatabase.getInstance().getReference();
-        iconRef = rootRef.child(USER_ICON).child(model.getEvent_organizer());
+//        iconRef = rootRef.child(USER_ICON).child(model.getEvent_organizer());
         //Log.d("Events Adapter", "url " + model.getTop_venue_photo());
         viewHolder.setImage(model.getEvent_photo());
+        viewHolder.setUserIcon(model.getEvent_organizer_icon().getIcon_url());
+        viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String eventID = model.getEvent_id();
+                Intent intent = new Intent(viewHolder.getEventContext(), EventActivity.class);
+                intent.putExtra("eventID", eventID);
+                intent.putExtra("eventType", "notNew");
+                viewHolder.getEventContext().startActivity(intent);
+            }
+        });
 
-        iconRef.addValueEventListener(new ValueEventListener() {
+        /*iconRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 UserIcon userIcon = dataSnapshot.getValue(UserIcon.class);
@@ -61,16 +72,6 @@ public class EventsAdapter extends FirebaseRecyclerAdapter<UserEvent, EventsView
             }
         });
 
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String eventID = model.getEvent_id();
-                ;
-                Intent intent = new Intent(viewHolder.getEventContext(), EventActivity.class);
-                intent.putExtra("eventID", eventID);
-                intent.putExtra("eventType", "notNew");
-                viewHolder.getEventContext().startActivity(intent);
-            }
-        });
+        */
     }
 }

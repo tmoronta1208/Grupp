@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/fadedcircles"
+    android:background="@drawable/newprefcircles"
     android:layout_height="match_parent"
 
     tools:context="com.example.c4q.capstone.userinterface.user.onboarding.AmenityPreferencesFragment"
@@ -37,8 +37,8 @@
         android:id="@+id/outdoor_pref"
         android:layout_width="85dp"
         android:layout_height="85dp"
-        android:layout_marginEnd="53dp"
-        android:layout_marginTop="53dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginTop="72dp"
         android:background="@drawable/preferencesbutton"
         android:text="Outdoor\n Seating"
 
@@ -66,7 +66,7 @@
         android:layout_marginBottom="11dp"
         android:layout_marginStart="16dp"
         android:background="@drawable/preferencesbutton"
-        android:text="Dance Floor"
+        android:text="Dance \nFloor"
         android:textColor="@color/gray"
         app:layout_constraintBottom_toTopOf="@+id/video_games_pref"
         app:layout_constraintStart_toStartOf="parent"
