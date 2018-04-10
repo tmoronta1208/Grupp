@@ -74,8 +74,8 @@ public class InviteListAdapter extends FirebaseRecyclerAdapter<PublicUserDetails
                                 if (checkImage.getTag().toString().equals("unChecked") ){
                                     checkImage.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_check_circle_checked_24dp));
                                     checkImage.setTag("checked");
-                                    firstName.setTextColor(context.getResources().getColor(R.color.colorAccent));
-                                    lastName.setTextColor(context.getResources().getColor(R.color.colorAccent));
+                                    firstName.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+                                    lastName.setTextColor(context.getResources().getColor(R.color.colorPrimary));
                                     newEventListener.friendInvited(publicUser);
                                 } else{
                                     firstName.setTextColor(context.getResources().getColor(R.color.colorAppGrey));

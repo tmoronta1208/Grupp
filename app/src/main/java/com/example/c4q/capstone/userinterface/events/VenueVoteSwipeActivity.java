@@ -2,6 +2,7 @@ package com.example.c4q.capstone.userinterface.events;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -154,6 +155,9 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
         @com.mindorks.placeholderview.annotations.View(R.id.locationNameTxt)
         private TextView locationNameTxt;
 
+        @com.mindorks.placeholderview.annotations.View(R.id.websiteTxt)
+        private TextView website;
+
         //private Results results;
         private Venue venue;
         private Context context;
@@ -181,6 +185,13 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
                     .into(profileImageView);
             nameAgeTxt.setText(venue.getVenue_name());
             locationNameTxt.setText(venue.getVenue_address());
+            website.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(venue.getVenue_url()));
+                    startActivity(webIntent);
+                }
+            });
 
         }
 
