@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -228,7 +229,8 @@ public class NewEventPresenter implements NewEventListener {
         eventDate.setText(date);
         friends = alertDialog.findViewById(R.id.alert_recycler_view);
         friends.setAdapter(new FriendsAdapter(newEventBuilder.getInvitedFriendsUserList()));
-        friends.setLayoutManager(new GridLayoutManager(context, 3));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        friends.setLayoutManager(linearLayoutManager);
         progressBar = alertDialog.findViewById(R.id.alert_progressBar);
         eventReady = alertDialog.findViewById(R.id.alert_event_ready_button);
         rvLayout = alertDialog.findViewById(R.id.alert_rv_button_layout);

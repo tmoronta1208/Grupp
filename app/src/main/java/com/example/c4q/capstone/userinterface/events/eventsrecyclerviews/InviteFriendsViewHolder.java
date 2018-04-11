@@ -51,7 +51,9 @@ public class InviteFriendsViewHolder extends RecyclerView.ViewHolder {
                     .load(url)
                     .resize(800, 500)
                     .into(userIcon);*/
-            Glide.with(getContactContext()).load(url).into(userIcon);
+           if (getContactContext() != null){
+               Glide.with(getContactContext()).load(url).into(userIcon);
+           }
         }
 
     }

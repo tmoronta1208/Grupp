@@ -12,14 +12,14 @@ public class FourSquareVenueDetail {
     String url;
     BestPhoto bestPhoto;
     Location location;
-    int rating;
+    float rating;
     String description;
 
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 

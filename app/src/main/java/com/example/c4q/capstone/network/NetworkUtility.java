@@ -91,6 +91,8 @@ public class NetworkUtility {
                         } else{ Log.d("NULL", "response.body().getResponse() is null");}
                     } else {
                         Log.d("NULL", "first list response.body() is null");
+                        List<Venue> venueList = new ArrayList<>();
+                        venueNetworkListener.getFourSList(venueList);
                     }
                 } else {
                     Log.d("RESPONSE:", "response is null");
@@ -101,7 +103,7 @@ public class NetworkUtility {
             public void onFailure(Call<FourSquareModel> call, Throwable t) {
 
                 t.printStackTrace();
-                Log.d("network call", "unsucessful");
+                Log.d("network call", "venue list unsucessful");
 
             }
         });
@@ -132,6 +134,8 @@ public class NetworkUtility {
                         } else{ Log.d("NULL", "response.body().getResponse() is null");}
                     } else {
                         Log.d("NULL detail", "response.body() is null");
+                        Venue venue = new Venue();
+                        detailListener.getVenueDetail(venue);
                     }
                 } else {
                     Log.d("RESPONSE:", "response is null");
@@ -141,7 +145,7 @@ public class NetworkUtility {
             @Override
             public void onFailure(Call<FourSquareDetailCall> call, Throwable t) {
                 t.printStackTrace();
-                Log.d("network call", "unsucessful");
+                Log.d("network call", "venue detail unsucessful");
             }
         });
     }

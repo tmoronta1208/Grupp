@@ -89,12 +89,16 @@
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/layout_padding"
         >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guest List"/>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/alert_recycler_view"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/layout_padding"/>
+            android:layout_marginTop="@dimen/layout_item_margin"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -108,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-
+                android:text="Edit Event"
                 android:layout_marginRight="32dp"
                 android:drawableTop="@drawable/ic_edit_black_24dp"
                 android:drawablePadding="@dimen/layout_item_margin"
@@ -120,11 +124,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-
+                android:text="Create Event"
                 android:layout_marginLeft="32dp"
                 android:gravity="center"
                 android:textSize="12sp"
-                android:drawableTop="@drawable/ic_check_circle_unchecked_24dp"
+                android:drawableTop="@drawable/ic_check_circle_checked_24dp"
                 android:drawablePadding="@dimen/layout_item_margin"
                 />
 

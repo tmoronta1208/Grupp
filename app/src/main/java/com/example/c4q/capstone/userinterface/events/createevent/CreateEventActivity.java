@@ -87,7 +87,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         displayRecyclerView.setVisibility(View.GONE);
         invitedFriendsAdapter = new FriendsAdapter(invitedFriendsList);
         displayRecyclerView.setAdapter(invitedFriendsAdapter);
-        displayRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CreateEventActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        displayRecyclerView.setLayoutManager(linearLayoutManager);
     }
 
     public void setViewCLickListeners(){
