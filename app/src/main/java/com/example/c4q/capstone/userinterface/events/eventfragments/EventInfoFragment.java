@@ -45,7 +45,7 @@ public class EventInfoFragment extends Fragment {
     String eventName, eventDateAndTime, eventOrganizer;
 
     View rootView;
-    TextView eventOrganizerTV, topVenueName, topVenueAddress, voteCountTV;
+    TextView eventOrganizerTV, topVenueName, topVenueAddress, voteCountTV, guestsVotedTV;
     ImageView topVenueImage;
     CircleImageView organizerIcon;
     RatingBar voteCount;
@@ -100,6 +100,7 @@ public class EventInfoFragment extends Fragment {
         voteButton = (Button) rootView.findViewById(R.id.vote_button);
         topVenueImage = (ImageView) rootView.findViewById(R.id.venue_photo_image_view);
         organizerIcon = (CircleImageView) rootView.findViewById(R.id.user_icon);
+        guestsVotedTV = (TextView) rootView.findViewById(R.id.guests_voted_tv);
         itemView = (View) rootView.findViewById(R.id.top_venue_item_view);
     }
 
@@ -183,7 +184,15 @@ public class EventInfoFragment extends Fragment {
                                     }
                                 }
                             }
-
+                            VenueVoteUtility venueVoteUtility = new VenueVoteUtility(currentEvent, getActivity().getApplicationContext());
+                            if (venueVoteUtility.vote_complete){
+                                guestsVotedTV.setText("Vote Complete!");
+                            } else {
+                                int totalGuests = currentEvent.getEvent_guest_map().size();
+                                int guestsVoted  = venueVoteUtility.getGuestsVoted().size();
+                                String guestVoteText = guestsVoted + " of " + totalGuests + " guests have voted for a venue.";
+                                guestsVotedTV.setText(guestVoteText);
+                            }
                         }
 
                     } else {

@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.c4q.capstone.R;
 import com.example.c4q.capstone.database.events.Events;
+import com.example.c4q.capstone.userinterface.alerts.InviteNotifications;
 import com.example.c4q.capstone.userinterface.events.eventfragments.EventInfoFragment;
 import com.example.c4q.capstone.userinterface.events.eventfragments.EventGuestsFragment;
 import com.example.c4q.capstone.userinterface.events.eventfragments.VenueFragment;
@@ -81,6 +82,7 @@ public class EventActivity extends AppCompatActivity {
         //CurrentUserPost.getInstance().deleteEvent(currentEvent);
 
     }
+
     /**
      * method to get event data ( based on event id from bundle ) from the database
      */
@@ -99,8 +101,12 @@ public class EventActivity extends AppCompatActivity {
                     eventVPager = (ViewPager) findViewById(R.id.eventViewPager);
                     TabLayout tabLayout = (TabLayout) findViewById(R.id.view_pager_tab);
                     tabLayout.setupWithViewPager(eventVPager);
-                    adapterViewPager = new EventPagerAdapter(getSupportFragmentManager(),eventID, invitedFriendsList );
+                    adapterViewPager = new EventPagerAdapter(getSupportFragmentManager(), eventID, invitedFriendsList);
                     eventVPager.setAdapter(adapterViewPager);
+                    if (event.isVote_complete()) {
+                        InviteNotifications inviteNotifications = new InviteNotifications(getApplicationContext());
+                        inviteNotifications.showNotificationVoteComplete(event.getEvent_id());
+                    }
 
                 } else {
                     Log.d("Event Fragment", "event is null");
@@ -144,7 +150,7 @@ public class EventActivity extends AppCompatActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position){
+            switch (position) {
                 case 0:
                     return "Info";
                 case 1:

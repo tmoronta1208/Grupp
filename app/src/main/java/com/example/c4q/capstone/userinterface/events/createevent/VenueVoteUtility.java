@@ -36,6 +36,8 @@ public class VenueVoteUtility {
     public List<String> orderedVenueIdList;
     public List<Venue> orderedVenueList;
     public int yayCount;
+    List<EventGuest> guestsVoted;
+    List<EventGuest> guestsNotVoted;
     public static final String TAG = "VOTE UTIL";
 
     // add context for event
@@ -55,12 +57,27 @@ public class VenueVoteUtility {
 
     }
 
+    public List<EventGuest> getGuestsVoted() {
+        return guestsVoted;
+    }
+
+
+    public List<EventGuest> getGuestsNotVoted() {
+        return guestsNotVoted;
+    }
+
+
     private boolean checkVoteComplete() {
         List<EventGuest> guestList = new ArrayList<>();
+         guestsVoted = new ArrayList<>();
+       guestsNotVoted = new ArrayList<>();
         guestList.addAll(event.getEvent_guest_map().values());
         for (EventGuest guest : guestList) {
             if (!guest.isVoted()) {
+                guestsNotVoted.add(guest);
                 return false;
+            }else{
+                guestsVoted.add(guest);
             }
         }
         //need a list of guest to update as well. put notification in current user event list listener

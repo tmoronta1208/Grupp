@@ -43,6 +43,31 @@
             android:layout_gravity="center"
 
             />
+        <TextView
+            android:layout_marginBottom="@dimen/layout_item_margin"
+            android:layout_marginTop="@dimen/layout_item_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+            android:textColor="@color/colorAppGrey"
+            android:textSize="12sp"
+            android:text="Votes"
+            android:drawableTop="@drawable/textviewlinedivider"
+            android:drawablePadding="@dimen/layout_item_margin"
+            />
+        <TextView
+            android:id="@+id/guests_voted_tv"
+            android:layout_marginBottom="@dimen/layout_item_margin"
+            android:layout_marginTop="@dimen/layout_item_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+            android:textColor="@color/colorAppGrey"
+            android:textSize="16sp"
+            android:text="No Votes Yet"
+            />
 
 
 
