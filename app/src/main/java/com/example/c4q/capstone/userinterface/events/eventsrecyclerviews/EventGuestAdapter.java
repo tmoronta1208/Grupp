@@ -20,13 +20,15 @@ public class EventGuestAdapter  extends FirebaseRecyclerAdapter<EventGuest, Even
      * @param ref             The Firebase location to watch for data changes. Can also be a slice of a location,
      *                        using some combination of {@code limit()}, {@code startAt()}, and {@code endAt()}.
      */
-    public EventGuestAdapter(Class<EventGuest> modelClass, int modelLayout, Class<EventGuestsViewHolder> viewHolderClass, Query ref) {
+    String eventID;
+    public EventGuestAdapter(Class<EventGuest> modelClass, int modelLayout, Class<EventGuestsViewHolder> viewHolderClass, Query ref, String eventID) {
         super(modelClass, modelLayout, viewHolderClass, ref);
+        this.eventID = eventID;
     }
 
     @Override
     protected void populateViewHolder(EventGuestsViewHolder viewHolder, EventGuest model, int position) {
-        viewHolder.onBind(model);
+        viewHolder.onBind(model, eventID);
 
     }
 }

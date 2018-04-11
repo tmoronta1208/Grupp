@@ -79,7 +79,7 @@ public class EventGuestsFragment extends Fragment {
     public void setEventGuestAdapter(){
         eventGuestsRef = FirebaseDatabase.getInstance().getReference().child(EVENTS).child(eventId).child("event_guest_map");
         eventGuestAdapter = new EventGuestAdapter(EventGuest.class,R.layout.event_guest_item_view,
-                EventGuestsViewHolder.class, eventGuestsRef);
+                EventGuestsViewHolder.class, eventGuestsRef, eventId);
     }
 
 

@@ -195,4 +195,8 @@ public class CurrentUserPostUtility {
             }
         }
     }
+
+    public void updateGuestStatus(String eventKey, String status, String userId){
+        eventsReference.child(eventKey).child(EVENT_GUEST_MAP).child(userId).child("user_status").setValue(status);
+    }
 }

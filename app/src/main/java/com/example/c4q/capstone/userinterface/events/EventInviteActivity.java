@@ -47,6 +47,8 @@ public class EventInviteActivity extends AppCompatActivity {
         eventInviteRecyclerView = findViewById(R.id.rec_view);
         eventInviteRecyclerView.setHasFixedSize(true);
         linearLayout = new LinearLayoutManager(getApplicationContext());
+        linearLayout.setStackFromEnd(true);
+        linearLayout.setReverseLayout(true);
         eventInviteRecyclerView.setLayoutManager(linearLayout);
         eventInviteRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getApplicationContext()));
 
