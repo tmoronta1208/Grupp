@@ -82,7 +82,7 @@ public class CreateProfileFragment extends Fragment {
 
         rootView = inflater.inflate(com.example.c4q.capstone.R.layout.fragment_create_profile, container, false);
 
-//        saveBtn = rootView.findViewById(R.id.create_profile_save_button);
+      saveBtn = rootView.findViewById(R.id.create_profile_save_button);
 
         ageGroup = rootView.findViewById(R.id.radio_group_age);
         budgetGroup = rootView.findViewById(R.id.radio_group_budget);

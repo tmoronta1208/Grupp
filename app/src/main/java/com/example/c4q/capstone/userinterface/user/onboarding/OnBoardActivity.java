@@ -32,7 +32,7 @@ import github.chenupt.springindicator.viewpager.ScrollerViewPager;
 
 public class OnBoardActivity extends FragmentActivity {
     CreateProfileFragment createProfileFragment;
-    private static final int NUM_PAGES = 2;
+    private static final int NUM_PAGES = 3;
     public static ViewPager viewPager;
     private FragmentStatePagerAdapter pagerAdapter;
 
@@ -92,9 +92,12 @@ public class OnBoardActivity extends FragmentActivity {
 
             switch (position) {
                 case 0:
-                    fragment = new BarPreferencesFragment();
+                    fragment = new CreateProfileFragment();
                     break;
                 case 1:
+                    fragment = new BarPreferencesFragment();
+                    break;
+                case 2:
                     fragment = new AmenityPreferencesFragment();
                     break;
 

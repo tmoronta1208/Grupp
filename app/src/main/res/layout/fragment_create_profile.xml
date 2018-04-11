@@ -12,13 +12,22 @@
         android:layout_centerInParent="true"
         android:isScrollContainer="false"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="@dimen/layout_padding">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:gravity="center">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Create Your Profile"
+                android:layout_marginBottom="@dimen/layout_padding"
+                android:textColor="@color/colorPrimary"/>
 
             <EditText
                 android:id="@+id/edit_profile_firstname"
@@ -41,46 +50,51 @@
 
             <TextView
                 android:id="@+id/edit_profile_age_text"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Age" />
+                android:text="Age"
+                android:layout_marginTop="@dimen/layout_padding"/>
 
             <RadioGroup
                 android:id="@+id/radio_group_age"
                 android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_item_margin">
 
                 <RadioButton
                     android:id="@+id/age_choice_one"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="21 or over" />
+                    android:text="21+" />
 
                 <RadioButton
                     android:id="@+id/age_choice_two"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="18 to 20" />
+                    android:text="18-20" />
 
                 <RadioButton
                     android:id="@+id/age_choice_three"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="17 or younger" />
+                    android:text="17-" />
             </RadioGroup>
 
             <TextView
                 android:id="@+id/edit_profile_budget_text"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Budget" />
+                android:text="Budget"
+                android:layout_marginTop="@dimen/layout_padding"
+                />
 
             <RadioGroup
                 android:id="@+id/radio_group_budget"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_item_margin">
 
                 <RadioButton
                     android:id="@+id/budget_choice_one"
@@ -109,27 +123,31 @@
 
             <TextView
                 android:id="@+id/edit_profile_radius_text"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Radius" />
+                android:text="Radius (miles)"
+                android:layout_marginTop="@dimen/layout_padding"/>
 
             <RadioGroup
                 android:id="@+id/radio_group_radius"
                 android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_item_margin"
+                android:gravity="start">
 
                 <RadioButton
                     android:id="@+id/radius_choice_one"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5 mi" />
+                    android:text="5"
+                    />
 
                 <RadioButton
                     android:id="@+id/radius_choice_two"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10 mi" />
+                    android:text="10" />
 
                 <RadioButton
                     android:id="@+id/radius_choice_three"
@@ -141,20 +159,21 @@
                     android:id="@+id/radius_choice_four"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="20 mi" />
+                    android:text="20" />
 
                 <RadioButton
                     android:id="@+id/radius_choice_five"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="25 mi" />
+                    android:text="25" />
             </RadioGroup>
 
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/create_profile_save_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="end"
+                android:layout_marginTop="@dimen/layout_padding"
                 android:src="@drawable/ic_arrow_forward_black_24dp"
                 app:fab_colorNormal="@color/white"
                 app:fab_stroke_visible="true" />
