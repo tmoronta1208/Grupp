@@ -26,6 +26,8 @@ public class VenueNetworkUtility {
     private static VenueNetworkUtility venueNetworkUtility;
     public static final String TAG = "Venue Netwk Util";
     VenueNetworkListener venueNetworkListener;
+    List<String> finalVenueIds;
+    HashMap<String, Integer> venueOccurenceMap;
 
     public static VenueNetworkUtility getVenueNetworkUtility() {
         return new VenueNetworkUtility();
@@ -85,7 +87,8 @@ public class VenueNetworkUtility {
     }
 
     public void compareUserVenueLists(){
-        //get keys for venue map
+        venueNetworkListener.getFourSVenueIds(compareWithHashMap());
+        /*//get keys for venue map
         List<String> userId = new ArrayList<>();
         userId.addAll(venueMap.keySet());
         //get first list in map
@@ -116,20 +119,54 @@ public class VenueNetworkUtility {
                 }
 
 
-                List<String> finalVenueIdList = new ArrayList<>();
+                *//*List<String> finalVenueIdList = new ArrayList<>();
                 for (String vd: finalVenueIdSet){
                     finalVenueIdList.add(vd);
                     if (finalVenueIdList.size() == 5){
                         break;
                     }
-                }
+                }*//*
                 //finalVenueIdList.addAll(finalVenueIdSet);
 
-                venueNetworkListener.getFourSVenueIds(finalVenueIdList);
+                //venueNetworkListener.getFourSVenueIds(finalVenueIdList);
                 //getDetailedVenues(finalVenueIdList);
             }
-        }
+        }*/
 
+    }
+
+    public List<String> compareWithHashMap(){
+        int numGuests = venueMap.size();
+        venueOccurenceMap = new HashMap<>();
+        for (String s: venueMap.keySet()){
+            List<String> idList = new ArrayList<>();
+            idList.addAll(venueMap.get(s).keySet());
+            for (String id: idList){
+                if (venueOccurenceMap.get(id) == null){
+                    venueOccurenceMap.put(id, 1);
+                } else{
+                    venueOccurenceMap.put(id, venueOccurenceMap.get(id) + 1);
+                }
+            }
+
+        }
+        Log.d(TAG, "final hashmap occurence size: " + venueOccurenceMap.size());
+        finalVenueIds = new ArrayList<>();
+        finalVenueIds.addAll(finalIds(numGuests));
+        finalVenueIds = finalVenueIds.subList(0, 5);
+        return finalVenueIds;
+    }
+
+    public List<String> finalIds(int numGuests){
+        if(numGuests == 0){
+            return finalVenueIds;
+        }
+        for (String s: venueOccurenceMap.keySet()){
+            if (venueOccurenceMap.get(s) == numGuests){
+                finalVenueIds.add(s);
+            }
+        }
+        return finalIds(numGuests-1);
     }
 
     public void getDetailedVenues(List<String> venueIds, final FourSquareDetailListener detailListener){

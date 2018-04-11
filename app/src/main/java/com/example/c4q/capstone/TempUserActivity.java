@@ -89,7 +89,7 @@ public class TempUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //startActivity(new Intent(TempUserActivity.this, OnBoardActivity.class));
-                startActivity(new Intent(TempUserActivity.this, EditProfileActivity.class));
+                startActivity(new Intent(TempUserActivity.this, OnBoardActivity.class));
 
             }
         });
