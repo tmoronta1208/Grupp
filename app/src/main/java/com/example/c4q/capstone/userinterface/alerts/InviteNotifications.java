@@ -63,12 +63,13 @@ public class InviteNotifications {
         notificationManager.notify(NOTIFICATION_ID, notification);
     }
 
-    public void showNotificationVoteComplete(){
+    public void showNotificationVoteComplete(String eventId){
 
         int requestID = (int) System.currentTimeMillis();
         int flags = PendingIntent.FLAG_CANCEL_CURRENT;
-        Intent intent = new Intent(context, UPEventsFragment.class);
-
+        Intent intent = new Intent(context, EventActivity.class);
+        intent.putExtra("eventID", eventId);
+        intent.putExtra("eventType", "notnew");
         pendingIntent = PendingIntent.getActivity(context, requestID, intent, flags);
         notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 

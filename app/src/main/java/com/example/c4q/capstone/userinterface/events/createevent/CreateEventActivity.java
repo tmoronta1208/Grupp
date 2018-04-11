@@ -154,4 +154,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         NewEventBuilder.getInstance().destroyInstance();
         finish();
     }
+
+    public void categoryClick(View view) {
+        view.setBackground(getResources().getDrawable(R.drawable.buttonpeach));
+    }
 }

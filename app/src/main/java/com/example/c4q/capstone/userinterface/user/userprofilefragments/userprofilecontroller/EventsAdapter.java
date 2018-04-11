@@ -36,24 +36,30 @@ public class EventsAdapter extends FirebaseRecyclerAdapter<UserEvent, EventsView
 
     @Override
     protected void populateViewHolder(final EventsViewHolder viewHolder, final UserEvent model, final int position) {
-
-        viewHolder.setEvent_date(model.getEvent_date());
-        viewHolder.setEvent_name(model.getEvent_name());
-        rootRef = FirebaseDatabase.getInstance().getReference();
+        if (model != null){
+            viewHolder.setEvent_date(model.getEvent_date());
+            viewHolder.setEvent_name(model.getEvent_name());
+            rootRef = FirebaseDatabase.getInstance().getReference();
 //        iconRef = rootRef.child(USER_ICON).child(model.getEvent_organizer());
-        //Log.d("Events Adapter", "url " + model.getTop_venue_photo());
-        viewHolder.setImage(model.getEvent_photo());
-        viewHolder.setUserIcon(model.getEvent_organizer_icon().getIcon_url());
-        viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String eventID = model.getEvent_id();
-                Intent intent = new Intent(viewHolder.getEventContext(), EventActivity.class);
-                intent.putExtra("eventID", eventID);
-                intent.putExtra("eventType", "notNew");
-                viewHolder.getEventContext().startActivity(intent);
+            //Log.d("Events Adapter", "url " + model.getTop_venue_photo());
+            if (model.getEvent_photo() != null){
+                viewHolder.setImage(model.getEvent_photo());
             }
-        });
+
+            if (model.getEvent_organizer_icon() != null){
+                viewHolder.setUserIcon(model.getEvent_organizer_icon().getIcon_url());
+            }
+
+            viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String eventID = model.getEvent_id();
+                    Intent intent = new Intent(viewHolder.getEventContext(), EventActivity.class);
+                    intent.putExtra("eventID", eventID);
+                    intent.putExtra("eventType", "notNew");
+                    viewHolder.getEventContext().startActivity(intent);
+                }
+            });
 
         /*iconRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -73,5 +79,7 @@ public class EventsAdapter extends FirebaseRecyclerAdapter<UserEvent, EventsView
         });
 
         */
+        }
+
     }
 }

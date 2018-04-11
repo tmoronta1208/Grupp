@@ -66,6 +66,7 @@ public class CreateEventController {
         //invitedGuests.add(currentUserID);
         for (String guest: invitedGuests){
             CurrentUserPost.getInstance().postEventToUserInvitations(key, guest,userEvent);
+            //CurrentUserPost.getInstance().postEventToUserEventList(key, guest, userEvent);
         }
     }
 

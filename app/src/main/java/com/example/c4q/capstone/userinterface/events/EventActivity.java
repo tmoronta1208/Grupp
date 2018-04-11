@@ -96,7 +96,6 @@ public class EventActivity extends AppCompatActivity {
                     eventName.setText(currentEvent.getEvent_name());
                     eventDate.setText(currentEvent.getEvent_date() + " @ " + currentEvent.getEvent_time());
                     invitedFriendsList = new ArrayList<>();
-                    invitedFriendsList.addAll(event.getInvited_guests());
                     eventVPager = (ViewPager) findViewById(R.id.eventViewPager);
                     TabLayout tabLayout = (TabLayout) findViewById(R.id.view_pager_tab);
                     tabLayout.setupWithViewPager(eventVPager);

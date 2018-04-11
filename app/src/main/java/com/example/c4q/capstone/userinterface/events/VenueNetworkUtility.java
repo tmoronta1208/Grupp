@@ -70,7 +70,7 @@ public class VenueNetworkUtility {
                             compareUserVenueLists();
                         }
                         Log.d(TAG, "not ready call count" + callCount);
-                        Log.d(TAG, "not ready call count" + venueMap.size());
+                        Log.d(TAG, "not ready venue map size" + venueMap.size());
 
                     }
 

@@ -18,15 +18,15 @@
 
         <ImageButton
             android:id="@+id/rejectBtn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:background="@drawable/ic_cancel_black_24dp"
              />
 
         <ImageButton
             android:id="@+id/acceptBtn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="30dp"
             android:background="@drawable/ic_check_circle_black_24dp"
             />

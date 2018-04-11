@@ -151,7 +151,7 @@ public class EventInfoFragment extends Fragment {
                         EventGuest eventGuest = currentEvent.getEvent_guest_map().get(currentEvent.getEvent_organizer());
                         eventOrganizer = eventGuest.getUser_firstname() + " " + eventGuest.getUser_lastname();
                         eventOrganizerTV.setText(eventOrganizer);
-                        if (eventGuest.getUser_icon().getIcon_url() != null) {
+                        if (eventGuest.getUser_icon() != null) {
                             if (getContext() != null) {
                                 Glide.with(getContext()).load(eventGuest.getUser_icon().getIcon_url()).into(organizerIcon);
                             }
