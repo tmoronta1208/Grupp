@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.c4q.capstone.R;
@@ -147,16 +149,29 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
 
 
         @com.mindorks.placeholderview.annotations.View(R.id.profileImageView)
-        private ImageView profileImageView;
+        private ImageView venueImageView;
 
         @com.mindorks.placeholderview.annotations.View(R.id.nameAgeTxt)
-        private TextView nameAgeTxt;
+        private TextView venueNameTV;
 
         @com.mindorks.placeholderview.annotations.View(R.id.locationNameTxt)
-        private TextView locationNameTxt;
+        private TextView venueLocationTV;
 
         @com.mindorks.placeholderview.annotations.View(R.id.websiteTxt)
         private TextView website;
+
+        @com.mindorks.placeholderview.annotations.View(R.id.descriptionTxt)
+        private TextView description;
+
+        @com.mindorks.placeholderview.annotations.View(R.id.more_info_tv)
+        private TextView moreInfo;
+
+        @com.mindorks.placeholderview.annotations.View(R.id.full_info_layout)
+        private LinearLayout fullInfo;
+
+        @com.mindorks.placeholderview.annotations.View(R.id.swipe_card_rating_bar)
+        private RatingBar venueRatingBar;
+
 
         //private Results results;
         private Venue venue;
@@ -175,6 +190,7 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
             this.swipeView = swipeView;
             this.eventId = eventId;
             venueId = venue.getVenue_id();
+
         }
 
         @Resolve
@@ -182,9 +198,43 @@ public class VenueVoteSwipeActivity extends AppCompatActivity {
 
             Picasso.with(context)
                     .load(venue.getVenue_photo_url())
-                    .into(profileImageView);
-            nameAgeTxt.setText(venue.getVenue_name());
-            locationNameTxt.setText(venue.getVenue_address());
+                    .into(venueImageView);
+            venueNameTV.setText(venue.getVenue_name());
+            String fullAddress = venue.getVenue_address() + " "
+                    + venue.getVenue_city() + ", " + venue.getVenue_State();
+            venueLocationTV.setText(fullAddress);
+            description.setText(venue.getVenue_description());
+            if (venue.getRating_avg() != 0){
+                venueRatingBar.setNumStars(5);
+                double rate = venue.getRating_avg();
+                double div = 2.0;
+                double starRating = rate/div;
+                Log.d("venue rating", "double" + starRating);
+                float floatRating = (float) starRating;
+                Log.d("venue rating", "float" + starRating);
+                venueRatingBar.setRating(floatRating);
+            } else {
+                venueRatingBar.setVisibility(View.GONE);
+            }
+
+            moreInfo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (v.getTag().toString().equals("more")){
+                        v.setTag("less");
+                        String lessInfo = "less info";
+                        moreInfo.setText(lessInfo);
+                        venueImageView.setVisibility(View.GONE);
+                        fullInfo.setVisibility(View.VISIBLE);
+                    } else if(v.getTag().toString().equals("less")){
+                        v.setTag("more");
+                        String info = "more info";
+                        moreInfo.setText(info);
+                        venueImageView.setVisibility(View.VISIBLE);
+                        fullInfo.setVisibility(View.GONE);
+                    }
+                }
+            });
             website.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

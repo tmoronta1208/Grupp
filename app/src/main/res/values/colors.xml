@@ -17,6 +17,7 @@
     <color name="colorAppBlue">#4ea3ed</color>
 
     <color name="colorAppGrey">#959798</color>
+    <color name="colorAppGreyT">#6d959798</color>
     <color name="colorAppGreyLight">#dcdcdd</color>
     <color name="colorAppGreyDark">#5c6061</color>
 

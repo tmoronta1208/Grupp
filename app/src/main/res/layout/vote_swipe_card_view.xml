@@ -35,6 +35,7 @@
             android:orientation="vertical"
             android:layout_gravity="bottom"
             android:gravity="center"
+            android:padding="@dimen/layout_item_margin"
             android:background="#ffffff">
             <TextView
                 android:id="@+id/nameAgeTxt"
@@ -44,9 +45,9 @@
                 android:gravity="center"
                 android:layout_height="wrap_content"
                 tools:text="@tools:sample/last_names"
-                android:paddingLeft="@dimen/layout_padding"
-                android:paddingRight="@dimen/layout_padding"
+                android:paddingTop="@dimen/layout_item_margin"
                 android:fontFamily="@font/roboto_bold"/>
+
             <TextView
                 android:id="@+id/locationNameTxt"
                 android:layout_width="wrap_content"
@@ -57,28 +58,90 @@
                 tools:text="@tools:sample/cities"
                 android:fontFamily="@font/roboto"
                 android:layout_marginTop="@dimen/layout_item_margin"
-                android:layout_marginBottom="@dimen/layout_item_margin"
                 android:paddingLeft="@dimen/layout_padding"
                 android:paddingRight="@dimen/layout_padding"/>
-            <TextView
-                android:id="@+id/websiteTxt"
+            <RatingBar
+                android:id="@+id/swipe_card_rating_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorAppGrey"
-                android:fontFamily="@font/roboto"
-                android:textSize="14dp"
-                android:textStyle="normal"
-                android:text="Website"
-                android:paddingLeft="@dimen/layout_padding"
-                android:paddingRight="@dimen/layout_padding"
+                android:numStars="5"
+                android:clickable="false"
+                android:isIndicator="true"
+                android:focusable="false"
                 />
-            <Button
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center|bottom"
-                android:layout_marginTop="@dimen/layout_padding"
-                android:background="@drawable/ic_more_horiz_black_24dp"/>
+            <TextView
+                android:id="@+id/more_info_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:layout_marginTop="@dimen/layout_item_margin"
+                android:text="more info"
+                android:textColor="@color/colorAppGrey"
+                android:gravity="center"
+                android:drawableEnd="@drawable/ic_more_vert_black_24dp"
+                android:tag="more"
+                />
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/full_info_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/layout_padding"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/websiteTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorAppGrey"
+                        android:fontFamily="@font/roboto"
+                        android:layout_gravity="center"
+                        android:textSize="14dp"
+                        android:textStyle="normal"
+                        android:text="View Website"
+                        android:paddingLeft="@dimen/layout_padding"
+                        android:paddingRight="@dimen/layout_padding"
+                        android:background="@drawable/eventbutton"
+                        android:layout_marginBottom="@dimen/layout_item_margin"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorAppGreyLight"
+                        android:fontFamily="@font/roboto"
+                        android:textSize="12dp"
+                        android:textStyle="normal"
+                        android:text="Description"
+                        android:paddingLeft="@dimen/layout_padding"
+                        android:paddingRight="@dimen/layout_padding"
+                        android:drawableBottom="@drawable/textviewlinedivider"
+                        android:drawablePadding="@dimen/layout_item_margin"
+                        />
+
+                    <TextView
+                        android:id="@+id/descriptionTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorAppGrey"
+                        android:fontFamily="@font/roboto"
+                        android:textSize="14dp"
+                        android:textStyle="normal"
+                        tools:text="@tools:sample/lorem/random"
+                        android:paddingTop="@dimen/layout_item_margin"
+                        android:paddingLeft="@dimen/layout_padding"
+                        android:paddingRight="@dimen/layout_padding"
+                        />
+                </LinearLayout>
+
+            </android.support.v4.widget.NestedScrollView>
+
+
         </LinearLayout>
+
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </FrameLayout>

@@ -63,7 +63,8 @@ public class VenueVoteUtility {
                 return false;
             }
         }
-
+        //need a list of guest to update as well. put notification in current user event list listener
+        CurrentUserPost.getInstance().postVenueVoteComplete(event.getEvent_id(),true);
        /*InviteNotifications inviteNotifications = new InviteNotifications(context);
         inviteNotifications.showNotificationVoteComplete(event.getEvent_id());*/
 

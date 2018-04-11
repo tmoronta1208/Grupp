@@ -8,7 +8,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingLeft="@dimen/layout_padding"
-        android:paddingRight="@dimen/layout_padding">
+        android:paddingRight="@dimen/layout_padding"
+        android:layout_gravity="center"
+        >
         <TextView
             android:text="Info"
             android:layout_width="wrap_content"
@@ -61,9 +63,13 @@
             android:id="@+id/vote_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
             android:text="Vote on Venues"
+            android:padding="@dimen/layout_item_margin"
+            android:textColor="@color/colorAppGreyLight"
             android:layout_gravity="center"
-            android:visibility="gone"/>
+            android:background="@drawable/buttonpeach"
+            />
 
         <include
             android:id="@+id/top_venue_item_view"

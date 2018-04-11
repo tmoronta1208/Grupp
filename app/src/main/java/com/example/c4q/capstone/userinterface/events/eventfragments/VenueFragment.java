@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.c4q.capstone.R;
@@ -55,8 +57,6 @@ public class VenueFragment extends Fragment {
     LinearLayoutManager linearLayoutManager;
     VenueVoteUtility venueVoteUtility;
     Context context;
-    TextView venueName, venueAddress, venueVoteCount;
-    ImageView venuePhoto;
     private DatabaseReference rootRef, eventsRef, venue_map;
     private String currentUserID = CurrentUser.userID;
 
@@ -113,12 +113,6 @@ public class VenueFragment extends Fragment {
         venueRecyclerView.setAdapter(firebaseRecyclerAdapter);
         venueRecyclerView.setLayoutManager(linearLayoutManager);
 
-
-        venueName = (TextView) rootView.findViewById(R.id.venue_name_textview);
-        venueAddress = (TextView) rootView.findViewById(R.id.venue_address_textview);
-        venueVoteCount = (TextView) rootView.findViewById(R.id.venue_vote_textview);
-        venuePhoto = (ImageView) rootView.findViewById(R.id.venue_photo_image_view);
-
         getEventData();
 
         return rootView;
@@ -129,6 +123,10 @@ public class VenueFragment extends Fragment {
         super.onAttach(context);
         this.context = context;
         //getEventData();
+    }
+
+    public void setViews(){
+
     }
 
     public void loadFireBaseAdapter(final String eventID){
@@ -188,14 +186,6 @@ public class VenueFragment extends Fragment {
             });
         }
 
-    }
-
-
-    public void setTopVenueView(Venue venue){
-        venueName.setText(venue.getVenue_name());
-        if (getActivity() != null) {
-            venueName.setTextColor(getActivity().getResources().getColor(R.color.colorAccent));
-        }
     }
 
     public void setVenueVoteCount(){

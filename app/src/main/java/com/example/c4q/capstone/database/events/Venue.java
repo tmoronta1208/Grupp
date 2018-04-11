@@ -10,6 +10,7 @@ public class Venue {
     private String venue_photo_url;
     private String venue_address;
     private String venue_city;
+    private String venue_State;
     private String venue_postal_code;
     private String venue_name;
     private String venue_description;
@@ -41,6 +42,14 @@ public class Venue {
         this.rating_avg = rating_avg;
         this.rating_count = rating_count;
         this.reservations = reservations;
+    }
+
+    public String getVenue_State() {
+        return venue_State;
+    }
+
+    public void setVenue_State(String venue_State) {
+        this.venue_State = venue_State;
     }
 
     public double getVenue_lat() {

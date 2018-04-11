@@ -46,6 +46,7 @@ public class ApiToVenueConverter {
         venue.setVenue_name(venueDetail.getName());
         venue.setVenue_id(venueDetail.getId());
         venue.setVenue_address(venueDetail.getLocation().getAddress());
+        venue.setVenue_State(venueDetail.getLocation().getState());
         venue.setVenue_city(venueDetail.getLocation().getCity());
         venue.setVenue_postal_code(venueDetail.getLocation().getPostalCode());
         venue.setVenue_lat(venueDetail.getLocation().getLat());

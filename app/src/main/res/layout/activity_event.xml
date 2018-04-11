@@ -29,7 +29,7 @@
             android:padding="@dimen/layout_padding"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
             android:textColor="@color/colorAppGrey"
-            android:textSize="32sp"
+            android:textSize="28sp"
             tools:text="@string/app_name" />
         <TextView
             android:id="@+id/event_date_text_view"

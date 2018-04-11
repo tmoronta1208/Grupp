@@ -18,6 +18,7 @@ public class UserEvent {
     private String event_time;
     private String final_venue;
     private String event_photo;
+    private boolean vote_complete;
 
     public UserIcon getEvent_organizer_icon() {
         return event_organizer_icon;
@@ -25,6 +26,14 @@ public class UserEvent {
 
     public void setEvent_organizer_icon(UserIcon event_organizer_icon) {
         this.event_organizer_icon = event_organizer_icon;
+    }
+
+    public boolean isVote_complete() {
+        return vote_complete;
+    }
+
+    public void setVote_complete(boolean vote_complete) {
+        this.vote_complete = vote_complete;
     }
 
     public String getEvent_photo() {
