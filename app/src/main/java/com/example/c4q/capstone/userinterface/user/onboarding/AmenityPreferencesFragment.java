@@ -78,6 +78,8 @@ public class AmenityPreferencesFragment extends Fragment {
 
         saveButton = rootView.findViewById(R.id.amenity_pref_save_button);
 
+        saveToDatabase();
+
 
         prefs.put(brunch, "brunch");
         prefs.put(outdoorSeating, "outdoor+seating");
@@ -108,7 +110,7 @@ public class AmenityPreferencesFragment extends Fragment {
                 });
 
         }
-        saveToDatabase();
+
         return rootView;
     }
 

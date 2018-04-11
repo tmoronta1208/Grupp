@@ -64,6 +64,9 @@ public class VenueVoteUtility {
             }
         }
 
+       InviteNotifications inviteNotifications = new InviteNotifications(context);
+        inviteNotifications.showNotificationVoteComplete(event.getEvent_id());
+
         return true;
     }
 
@@ -127,7 +130,7 @@ public class VenueVoteUtility {
         //
         // orderedVenueList.set(i, venueIdMap.get(topVenueId));
         topVenue = orderedVenueList.get(0);
-        CurrentUserPost.getInstance().postTopVenue(event.getEvent_id(), topVenue.getVenue_id(), topVenue.getVenue_photo_url());
+        CurrentUserPost.getInstance().postTopVenue(event.getEvent_id(), topVenue.getVenue_id(), topVenue.getVenue_photo_url(), event);
         return orderedVenueIdList;
     }
 

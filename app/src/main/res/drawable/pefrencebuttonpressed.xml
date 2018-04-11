@@ -12,7 +12,7 @@
 
         />
     <solid
-        android:color="@color/salmon"
+        android:color="@color/buttoncolorpressed"
         />
     <padding
         android:left="0dp"
@@ -23,9 +23,5 @@
     <size
         android:width="100dp"
         android:height="100dp"
-        />
-    <stroke
-        android:width="3dp"
-        android:color="@color/salmon"
         />
 </shape>

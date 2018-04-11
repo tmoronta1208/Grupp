@@ -33,6 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Event Name"
+            android:fontFamily="@font/roboto"
             android:textColor="@color/colorAppGrey"
             android:textSize="10sp"/>
 
@@ -42,13 +43,13 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:gravity="left"
-            android:hint="My Event"
+            android:hint="Your Event Name"
             android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLines="1"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-            android:textStyle="bold"
             android:textSize="24sp"
+            android:fontFamily="@font/roboto"
             android:layout_marginBottom="@dimen/layout_item_margin"
             android:textColor="@color/colorAppGrey"/>
 
@@ -57,7 +58,8 @@
             android:layout_height="wrap_content"
             android:text="Event Date"
             android:textColor="@color/colorAppGrey"
-            android:textSize="10sp"/>
+            android:textSize="10sp"
+            android:fontFamily="@font/roboto"/>
 
 
         <TextView
@@ -73,13 +75,15 @@
             android:drawablePadding="@dimen/layout_padding"
             android:textColor="@color/colorAppGrey"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:fontFamily="@font/roboto"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Event Time"
             android:textColor="@color/colorAppGrey"
-            android:textSize="10sp"/>
+            android:textSize="10sp"
+            android:fontFamily="@font/roboto"/>
 
         <TextView
             android:id="@+id/add_time_text_view"
@@ -94,13 +98,43 @@
             android:gravity="left"
             android:textColor="@color/colorAppGrey"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:fontFamily="@font/roboto"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginRight="@dimen/layout_item_margin"
+                android:text="@string/bar"
+                android:background="@drawable/buttongrey"
+                android:fontFamily="@font/roboto"
+                android:onClick="categoryClick"
+                android:textSize="12sp"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="@dimen/layout_item_margin"
+                android:text="@string/restaurant"
+                android:paddingLeft="@dimen/layout_padding"
+                android:paddingRight="@dimen/layout_padding"
+                android:background="@drawable/buttongrey"
+                android:fontFamily="@font/roboto"
+                android:textSize="12sp"
+                android:onClick="categoryClick"/>
+
+
+        </LinearLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Guests"
             android:textColor="@color/colorAppGrey"
-            android:textSize="10sp"/>
+            android:textSize="10sp"
+            android:fontFamily="@font/roboto"/>
 
         <TextView
             android:id="@+id/invite_friends_text_view"
@@ -118,7 +152,8 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/invited_friends_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"/>
 
     </LinearLayout>
 
@@ -144,6 +179,7 @@
         android:background="#ffffff"
         app:behavior_hideable="true"
         app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
+
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -157,9 +193,10 @@
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
                 android:textStyle="bold"
                 android:text="Invite Friends"
-                android:textColor="@color/colorPrimaryLight"
+                android:textColor="@color/white"
                 android:padding="@dimen/layout_padding"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:fontFamily="@font/roboto"/>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/invite_recycler_view"
                 android:layout_width="match_parent"

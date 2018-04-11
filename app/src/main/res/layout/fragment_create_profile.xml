@@ -156,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_arrow_forward_black_24dp"
-                app:fab_colorNormal="@color/salmon"
+                app:fab_colorNormal="@color/white"
                 app:fab_stroke_visible="true" />
 
             <!--<Button-->

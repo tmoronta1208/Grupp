@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#4ea3ed</color>
-    <color name="colorPrimaryLight">#77c6ff</color>
-    <color name="colorPrimaryDark">#4ea3ed</color>
+    <color name="colorPrimary">#ec7b56</color>
+    <color name="colorPrimaryLight">#fabc8d</color>
+    <color name="colorPrimaryDark">#f87160</color>
     <color name="colorPrimaryVeryDark">#f3fbfd</color>
 
 
     <color name="colorAccent">#72c990</color>
     <color name="colorAccentLight">#f3b792</color>
     <color name="colorAccentDark">#b56639</color>
+    <color name="buttoncolorpressed">#92cadd</color>
 
     <color name="colorAppGreen">#63c1b3</color>
     <color name="colorAppGreenLight">#a1dad1</color>
-    <color name="colorAppGreenDark">#32615a</color>
+    <color name="colorAppBlue">#4ea3ed</color>
 
     <color name="colorAppGrey">#959798</color>
     <color name="colorAppGreyLight">#dcdcdd</color>

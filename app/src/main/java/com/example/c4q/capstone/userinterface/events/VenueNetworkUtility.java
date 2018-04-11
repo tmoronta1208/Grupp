@@ -42,7 +42,7 @@ public class VenueNetworkUtility {
         if(eventGuests != null){
             Log.d(TAG, "venue util eventGuests" + eventGuests.size());
             eventGuests.add(CurrentUser.getInstance().getCurrentPublicUser());
-            String preferences = "beer karaoke";
+            String preferences = "lounge";
             final int callCount = eventGuests.size();
             for (PublicUser guest: eventGuests){
 
@@ -70,7 +70,7 @@ public class VenueNetworkUtility {
                             compareUserVenueLists();
                         }
                         Log.d(TAG, "not ready call count" + callCount);
-                        Log.d(TAG, "not ready call count" + venueMap.size());
+                        Log.d(TAG, "not ready venue map size" + venueMap.size());
 
                     }
 
@@ -117,7 +117,14 @@ public class VenueNetworkUtility {
 
 
                 List<String> finalVenueIdList = new ArrayList<>();
-                finalVenueIdList.addAll(finalVenueIdSet);
+                for (String vd: finalVenueIdSet){
+                    finalVenueIdList.add(vd);
+                    if (finalVenueIdList.size() == 5){
+                        break;
+                    }
+                }
+                //finalVenueIdList.addAll(finalVenueIdSet);
+
                 venueNetworkListener.getFourSVenueIds(finalVenueIdList);
                 //getDetailedVenues(finalVenueIdList);
             }

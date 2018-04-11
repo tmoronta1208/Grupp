@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/newprefcircles"
     android:layout_height="match_parent"
 
     tools:context="com.example.c4q.capstone.userinterface.user.onboarding.AmenityPreferencesFragment"
@@ -10,98 +11,102 @@
 
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="290dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
-        android:layout_marginEnd="78dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="54dp"
         android:padding="16dp"
         android:text="What kind of amenities \ndo you prefer?"
         android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/video_games_pref"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textStyle="bold" />
+        " />
 
 
     <Button
         android:id="@+id/brunch_pref"
         android:layout_width="110dp"
         android:layout_height="110dp"
-        android:layout_marginBottom="76dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="61dp"
+        android:layout_marginEnd="30dp"
         android:background="@drawable/preferencesbutton"
         android:text="Brunch"
+        android:textColor="@color/gray"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/dance_floor_pref" />
+        app:layout_constraintEnd_toStartOf="@+id/amenity_pref_save_button" />
 
     <Button
         android:id="@+id/outdoor_pref"
         android:layout_width="85dp"
         android:layout_height="85dp"
-        android:layout_marginBottom="59dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginTop="72dp"
         android:background="@drawable/preferencesbutton"
         android:text="Outdoor\n Seating"
-        app:layout_constraintBottom_toTopOf="@+id/dance_floor_pref"
-        app:layout_constraintEnd_toEndOf="parent" />
+
+        android:textColor="@color/gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <Button
         android:id="@+id/rooftop_pref"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="48dp"
-        android:layout_marginEnd="32dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginBottom="22dp"
+        android:layout_marginEnd="52dp"
+
+        android:textColor="@color/gray"
         android:background="@drawable/preferencesbutton"
         android:text="Rooftop"
-        app:layout_constraintBottom_toTopOf="@+id/pool_table_pref"
-        app:layout_constraintEnd_toStartOf="@+id/full_menu_pref" />
+        app:layout_constraintBottom_toTopOf="@+id/brunch_pref"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/dance_floor_pref"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginBottom="27dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="11dp"
+        android:layout_marginStart="16dp"
         android:background="@drawable/preferencesbutton"
-        android:text="Dance Floor"
-        app:layout_constraintBottom_toTopOf="@+id/amenity_pref_save_button"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:text="Dance \nFloor"
+        android:textColor="@color/gray"
+        app:layout_constraintBottom_toTopOf="@+id/video_games_pref"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/darts_pref" />
 
     <Button
         android:id="@+id/video_games_pref"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_marginBottom="44dp"
-        android:layout_marginEnd="68dp"
+        android:layout_marginBottom="46dp"
+        android:layout_marginStart="54dp"
+        android:textColor="@color/gray"
         android:background="@drawable/preferencesbutton"
         android:text="Video \nGames"
-        app:layout_constraintBottom_toTopOf="@+id/rooftop_pref"
-        app:layout_constraintEnd_toStartOf="@+id/full_menu_pref" />
+        app:layout_constraintBottom_toTopOf="@+id/pool_table_pref"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/full_menu_pref"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="87dp"
+        android:layout_marginEnd="2dp"
         android:background="@drawable/preferencesbutton"
         android:text="Full \nMenu"
+        android:textColor="@color/gray"
         app:layout_constraintBottom_toTopOf="@+id/brunch_pref"
-        app:layout_constraintEnd_toStartOf="@+id/dance_floor_pref" />
+        app:layout_constraintEnd_toStartOf="@+id/rooftop_pref" />
 
     <Button
         android:id="@+id/darts_pref"
         android:layout_width="65dp"
         android:layout_height="65dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginStart="79dp"
+        android:layout_marginTop="60dp"
+        android:textColor="@color/gray"
         android:background="@drawable/preferencesbutton"
         android:text="Darts"
-        app:layout_constraintBottom_toTopOf="@+id/full_menu_pref"
-        app:layout_constraintEnd_toStartOf="@+id/outdoor_pref" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <Button
         android:id="@+id/pool_table_pref"
@@ -109,6 +114,7 @@
         android:layout_height="85dp"
         android:layout_marginBottom="29dp"
         android:layout_marginStart="44dp"
+        android:textColor="@color/gray"
         android:background="@drawable/preferencesbutton"
         android:text="Pool \nTables"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -122,7 +128,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="5dp"
         android:layout_marginEnd="16dp"
-        app:fab_colorNormal="@color/salmon"
+        app:fab_colorNormal="@color/white"
         android:src="@drawable/ic_arrow_forward_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

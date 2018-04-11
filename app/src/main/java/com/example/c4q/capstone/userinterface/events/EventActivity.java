@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import com.example.c4q.capstone.database.events.Events;
 import com.example.c4q.capstone.userinterface.events.eventfragments.EventInfoFragment;
 import com.example.c4q.capstone.userinterface.events.eventfragments.EventGuestsFragment;
 import com.example.c4q.capstone.userinterface.events.eventfragments.VenueFragment;
+import com.example.c4q.capstone.userinterface.user.UserProfileActivity;
 
 import java.util.ArrayList;
 
@@ -62,9 +64,20 @@ public class EventActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.event_toolbar);
         titleLayout = (LinearLayout) findViewById(R.id.title_layout);
 
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed(); // Implemented by activity
+                Intent intent = new Intent(EventActivity.this, UserProfileActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         //CurrentUserPost.getInstance().deleteEvent(currentEvent);
 
     }
@@ -83,7 +96,6 @@ public class EventActivity extends AppCompatActivity {
                     eventName.setText(currentEvent.getEvent_name());
                     eventDate.setText(currentEvent.getEvent_date() + " @ " + currentEvent.getEvent_time());
                     invitedFriendsList = new ArrayList<>();
-                    invitedFriendsList.addAll(event.getInvited_guests());
                     eventVPager = (ViewPager) findViewById(R.id.eventViewPager);
                     TabLayout tabLayout = (TabLayout) findViewById(R.id.view_pager_tab);
                     tabLayout.setupWithViewPager(eventVPager);
