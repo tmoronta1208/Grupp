@@ -64,8 +64,8 @@ public class VenueVoteUtility {
             }
         }
 
-       InviteNotifications inviteNotifications = new InviteNotifications(context);
-        inviteNotifications.showNotificationVoteComplete(event.getEvent_id());
+       /*InviteNotifications inviteNotifications = new InviteNotifications(context);
+        inviteNotifications.showNotificationVoteComplete(event.getEvent_id());*/
 
         return true;
     }

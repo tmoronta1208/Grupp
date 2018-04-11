@@ -130,6 +130,7 @@ public class BarPreferencesFragment extends Fragment {
             public void onClick(View view) {
                 preferencesDB.child(currentUserID).child(PREFERENCES).child(BAR_PREFS).setValue(selectedPrefs);
                 preferencesDB.child(currentUserID).child(PREFERENCES).child(BAR_PREFS).setValue(selectedPrefs);
+                CurrentUserPost.getInstance().postNewBarPreferences(selectedPrefs);
                 OnBoardActivity.viewPager.setCurrentItem(2);
 
             }

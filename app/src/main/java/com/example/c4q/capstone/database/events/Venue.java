@@ -9,7 +9,10 @@ public class Venue {
     private String venue_url;
     private String venue_photo_url;
     private String venue_address;
+    private String venue_city;
+    private String venue_postal_code;
     private String venue_name;
+    private String venue_description;
     private String venue_phone;
     private String venue_type;
     private String hours;
@@ -17,6 +20,8 @@ public class Venue {
     private String price_range;
     private boolean cover_charge;
     private float rating_avg;
+    private double venue_lat;
+    private double venue_lng;
     private int  rating_count;
     private boolean reservations;
     private HashMap<String, Boolean> venue_vote;
@@ -38,7 +43,45 @@ public class Venue {
         this.reservations = reservations;
     }
 
+    public double getVenue_lat() {
+        return venue_lat;
+    }
 
+    public void setVenue_lat(double venue_lat) {
+        this.venue_lat = venue_lat;
+    }
+
+    public double getVenue_lng() {
+        return venue_lng;
+    }
+
+    public void setVenue_lng(double venue_lng) {
+        this.venue_lng = venue_lng;
+    }
+
+    public String getVenue_city() {
+        return venue_city;
+    }
+
+    public void setVenue_city(String venue_city) {
+        this.venue_city = venue_city;
+    }
+
+    public String getVenue_postal_code() {
+        return venue_postal_code;
+    }
+
+    public void setVenue_postal_code(String venue_postal_code) {
+        this.venue_postal_code = venue_postal_code;
+    }
+
+    public String getVenue_description() {
+        return venue_description;
+    }
+
+    public void setVenue_description(String venue_description) {
+        this.venue_description = venue_description;
+    }
 
     public HashMap<String, Boolean> getVenue_vote() {
         return venue_vote;
