@@ -48,12 +48,6 @@
             android:textSize="12sp"
             android:layout_gravity="end"
             android:visibility="gone"/>
-        <EditText
-            android:id="@+id/status_edittxt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Update your Status"
-            android:visibility="gone"/>
         <Button
             android:id="@+id/update_done"
             android:layout_width="40dp"
@@ -61,7 +55,13 @@
             android:layout_gravity="end"
             android:background="@drawable/ic_check_circle_checked_24dp"
             android:visibility="gone"/>
-
+        <EditText
+            android:id="@+id/status_edittxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Update your Status"
+            android:visibility="gone"
+            android:imeOptions="actionDone"/>
 
     </LinearLayout>
 

@@ -153,7 +153,9 @@ public class VenueNetworkUtility {
         Log.d(TAG, "final hashmap occurence size: " + venueOccurenceMap.size());
         finalVenueIds = new ArrayList<>();
         finalVenueIds.addAll(finalIds(numGuests));
-        finalVenueIds = finalVenueIds.subList(0, 5);
+        if (finalVenueIds.size() > 5){
+            finalVenueIds = finalVenueIds.subList(0, 5);
+        }
         return finalVenueIds;
     }
 

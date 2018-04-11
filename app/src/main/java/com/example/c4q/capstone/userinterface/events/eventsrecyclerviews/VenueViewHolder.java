@@ -55,7 +55,9 @@ public class VenueViewHolder extends RecyclerView.ViewHolder {
                     .load(venue.getVenue_photo_url())
                     .into(venuePhoto);
         }
-        description.setText(venue.getVenue_description());
+        if(venue.getVenue_description() != null){
+            description.setText(venue.getVenue_description());
+        }
         if (venue.getRating_avg() != 0){
             venueRatingBar.setNumStars(5);
             double rate = venue.getRating_avg();
@@ -87,13 +89,20 @@ public class VenueViewHolder extends RecyclerView.ViewHolder {
                 }
             }
         });
-        website.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(venue.getVenue_url()));
-                context.startActivity(webIntent);
-            }
-        });
+       if (venue.getVenue_url() != null){
+           website.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+
+                       Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(venue.getVenue_url()));
+                       context.startActivity(webIntent);
+
+               }
+           });
+       } else {
+           website.setVisibility(View.GONE);
+       }
+
 
     }
 }

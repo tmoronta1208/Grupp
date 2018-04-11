@@ -189,7 +189,11 @@ public class EventInfoFragment extends Fragment {
                                 guestsVotedTV.setText("Vote Complete!");
                             } else {
                                 int totalGuests = currentEvent.getEvent_guest_map().size();
-                                int guestsVoted  = venueVoteUtility.getGuestsVoted().size();
+                                int guestsVoted = 0;
+                                if (venueVoteUtility.getGuestsVoted() != null){
+                                    guestsVoted  = venueVoteUtility.getGuestsVoted().size();
+                                }
+
                                 String guestVoteText = guestsVoted + " of " + totalGuests + " guests have voted for a venue.";
                                 guestsVotedTV.setText(guestVoteText);
                             }
