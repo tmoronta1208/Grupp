@@ -9,7 +9,6 @@
         android:orientation="vertical"
         android:paddingLeft="@dimen/layout_padding"
         android:paddingRight="@dimen/layout_padding"
-        android:layout_gravity="center"
         >
         <TextView
             android:text="Info"

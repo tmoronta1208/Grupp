@@ -2,6 +2,7 @@ package com.example.c4q.capstone.userinterface.events.eventfragments;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,7 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -45,12 +48,15 @@ public class EventInfoFragment extends Fragment {
     String eventName, eventDateAndTime, eventOrganizer;
 
     View rootView;
-    TextView eventOrganizerTV, topVenueName, topVenueAddress, voteCountTV, guestsVotedTV;
+    TextView eventOrganizerTV, topVenueName, topVenueAddress, topVenueWeb, moreInfo, topVenueVoteCount, topVenueDesc, voteCountTV, guestsVotedTV;
     ImageView topVenueImage;
     CircleImageView organizerIcon;
-    RatingBar voteCount;
+
     Button voteButton;
     View itemView;
+    private LinearLayout fullInfo;
+    private RatingBar venueRatingBar;
+    RelativeLayout venueImgLayout;
 
 
     public EventInfoFragment() {
@@ -99,10 +105,83 @@ public class EventInfoFragment extends Fragment {
         voteCountTV = (TextView) rootView.findViewById(R.id.venue_vote_textview);
         voteButton = (Button) rootView.findViewById(R.id.vote_button);
         topVenueImage = (ImageView) rootView.findViewById(R.id.venue_photo_image_view);
+        topVenueDesc = (TextView) rootView.findViewById(R.id.descriptionTxt);
+        topVenueWeb = (TextView) rootView.findViewById(R.id.websiteTxt);
+        moreInfo = (TextView) rootView.findViewById(R.id.more_info_tv);
         organizerIcon = (CircleImageView) rootView.findViewById(R.id.user_icon);
         guestsVotedTV = (TextView) rootView.findViewById(R.id.guests_voted_tv);
+        fullInfo = (LinearLayout) rootView.findViewById(R.id.full_info_layout);
+        venueRatingBar =(RatingBar) rootView.findViewById(R.id.swipe_card_rating_bar);
+        venueImgLayout = (RelativeLayout) rootView.findViewById(R.id.venue_image_layout);
         itemView = (View) rootView.findViewById(R.id.top_venue_item_view);
     }
+
+    public void setTopVenue(final Venue venue) {
+        topVenueName.setText(venue.getVenue_name());
+        String fullAddress = venue.getVenue_address() + " "
+                + venue.getVenue_city() + ", " + venue.getVenue_State();
+        topVenueAddress.setText(fullAddress);
+        if (venue.getVenue_vote() != null) {
+            voteCountTV.setText(String.valueOf(venue.getVote_count()) + " votes");
+        } else {
+            voteCountTV.setText("no votes yet");
+        }
+        if (venue.getVenue_photo_url() != null) {
+            Picasso.with(getContext())
+                    .load(venue.getVenue_photo_url())
+                    .into(topVenueImage);
+        }
+        if (venue.getVenue_description() != null) {
+            topVenueDesc.setText(venue.getVenue_description());
+        }
+        if (venue.getRating_avg() != 0) {
+            venueRatingBar.setNumStars(5);
+            double rate = venue.getRating_avg();
+            double div = 2.0;
+            double starRating = rate / div;
+            Log.d("venue rating", "double" + starRating);
+            float floatRating = (float) starRating;
+            Log.d("venue rating", "float" + starRating);
+            venueRatingBar.setRating(floatRating);
+        } else {
+            venueRatingBar.setVisibility(View.GONE);
+        }
+
+        moreInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v.getTag().toString().equals("more")) {
+                    v.setTag("less");
+                    String lessInfo = "less info";
+                    moreInfo.setText(lessInfo);
+                    venueImgLayout.setVisibility(View.GONE);
+                    fullInfo.setVisibility(View.VISIBLE);
+                } else if (v.getTag().toString().equals("less")) {
+                    v.setTag("more");
+                    String info = "more info";
+                    moreInfo.setText(info);
+                    venueImgLayout.setVisibility(View.VISIBLE);
+                    fullInfo.setVisibility(View.GONE);
+                }
+            }
+        });
+        if (venue.getVenue_url() != null) {
+            topVenueWeb.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(venue.getVenue_url()));
+                    getContext().startActivity(webIntent);
+
+                }
+            });
+        } else {
+            topVenueWeb.setVisibility(View.GONE);
+        }
+
+    }
+
+
 
     public void setVoteClick() {
         voteButton.setOnClickListener(new View.OnClickListener() {
@@ -165,6 +244,7 @@ public class EventInfoFragment extends Fragment {
 
                                     if (topVenue.getVenue_vote() != null) {
                                         itemView.setVisibility(View.VISIBLE);
+                                        /*itemView.setVisibility(View.VISIBLE);
                                         topVenueName.setText(topVenue.getVenue_name());
                                         topVenueAddress.setText(topVenue.getVenue_address());
                                         if (topVenue.getVenue_photo_url() != null) {
@@ -178,25 +258,30 @@ public class EventInfoFragment extends Fragment {
                                         }
                                         String numVotes = String.valueOf(topVenue.getVote_count()) + " " + votes;
 
-                                        voteCountTV.setText(numVotes);
+                                        voteCountTV.setText(numVotes);*/
+                                        setTopVenue(topVenue);
                                     } else {
                                         voteCountTV.setText("no votes yet");
                                     }
                                 }
                             }
-                            VenueVoteUtility venueVoteUtility = new VenueVoteUtility(currentEvent, getActivity().getApplicationContext());
-                            if (venueVoteUtility.vote_complete){
+
+                            VenueVoteUtility venueVoteUtility = new VenueVoteUtility(currentEvent);
+                            if (venueVoteUtility.vote_complete) {
                                 guestsVotedTV.setText("Vote Complete!");
                             } else {
                                 int totalGuests = currentEvent.getEvent_guest_map().size();
                                 int guestsVoted = 0;
-                                if (venueVoteUtility.getGuestsVoted() != null){
-                                    guestsVoted  = venueVoteUtility.getGuestsVoted().size();
+                                for (String s: currentEvent.getEvent_guest_map().keySet()){
+                                    if(currentEvent.getEvent_guest_map().get(s).isVoted()){
+                                        guestsVoted ++;
+                                    }
                                 }
-
                                 String guestVoteText = guestsVoted + " of " + totalGuests + " guests have voted for a venue.";
                                 guestsVotedTV.setText(guestVoteText);
                             }
+
+
                         }
 
                     } else {
@@ -206,7 +291,7 @@ public class EventInfoFragment extends Fragment {
 
             });
         }
-
     }
+
 
 }

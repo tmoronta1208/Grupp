@@ -46,9 +46,8 @@ public class VenueVoteUtility {
 
     }
 
-    public VenueVoteUtility(Events event, Context context) {
+    public VenueVoteUtility(Events event) {
         this.event = event;
-        this.context = context;
         vote_complete = checkVoteComplete();
         venueVoteCountMap = mapVenueVotes();
         venueIdMap = mapVenueIds();
